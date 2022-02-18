@@ -11,9 +11,8 @@ public class Wire : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        if(color == 0)
-        {
-        }
+        
+        //set color
         switch (color)
         {
             case (0)://rouge
@@ -39,6 +38,7 @@ public class Wire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //set point of wire
         lr.positionCount = Positions.Length;
         for (int i = 0; i < Positions.Length; i++)
         {

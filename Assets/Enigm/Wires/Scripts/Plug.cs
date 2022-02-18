@@ -19,6 +19,8 @@ public class Plug : MonoBehaviour
 
     }
 
+
+    //unplug a wire
     void OnMouseDown()
     {
         if (nb != -1)
