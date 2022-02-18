@@ -16,20 +16,20 @@ public class Wire : MonoBehaviour
         switch (color)
         {
             case (0)://rouge
-                lr.startColor = new Color((float)(0.43), (float)(0.03), (float)(0.1));
-                lr.endColor = new Color((float)(0.43), (float)(0.03), (float)(0.1));
+                lr.startColor = new Color(0.43f, 0.03f, 0.1f);
+                lr.endColor = new Color(0.43f, 0.03f, 0.1f);
                 break;
             case 1://bleu
-                lr.startColor = new Color((float)(0.02), (float)(0.23), (float)(0.6));
-                lr.endColor = new Color((float)(0.02), (float)(0.23), (float)(0.6));
+                lr.startColor = new Color(0.02f, 0.23f, 0.6f);
+                lr.endColor = new Color(0.02f, 0.23f, 0.6f);
                 break;
             case 2://jaune
-                lr.startColor = new Color((float)(0.78), (float)(0.81), (float)(0));
-                lr.endColor = new Color((float)(0.78), (float)(0.81), (float)(0));
+                lr.startColor = new Color(0.78f, 0.81f, 0f);
+                lr.endColor = new Color(0.78f, 0.81f, 0f);
                 break;
             case 3://rose
-                lr.startColor = new Color((float)(0.58), (float)(0.44), (float)(0.86));
-                lr.endColor = new Color((float)(0.58), (float)(0.44), (float)(0.86));
+                lr.startColor = new Color(0.58f, 0.44f, 0.86f);
+                lr.endColor = new Color(0.58f, 0.44f, 0.86f);
                 break;
         }
         //jaune, bleu, vert, rose

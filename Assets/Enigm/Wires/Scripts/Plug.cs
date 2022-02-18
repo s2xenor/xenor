@@ -23,9 +23,9 @@ public class Plug : MonoBehaviour
     //unplug a wire
     void OnMouseDown()
     {
-        if (nb != -1)
+        if (nb != -1)//nb = -1 by default, 0 if it a left plug and 1 if it is the right plug
         {
-            if(nb == 1)
+            if(nb == 1)//is right plug
             {
                 Debug.Log("you are a success");
             }
@@ -33,7 +33,7 @@ public class Plug : MonoBehaviour
             {
                 Debug.Log("you smell bad");
             }
-            Destroy(wire);
+            Destroy(wire);//remove wire unpluged
         }
     }
 }
