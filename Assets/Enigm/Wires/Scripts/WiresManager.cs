@@ -29,14 +29,8 @@ public class WiresManager : MonoBehaviour
             plugsN[i] = plugNumber;
             plugsL[i] = plugLetter;
 
-            //GameObject wire = Instantiate(wirePrefab);
-            //wire.GetComponent<Wire>().Positions = new Transform[2] { plugNumber.transform, plugLetter.transform };
-
             plugNumber.GetComponent<Plug>().nb = 0;
-            //plugNumber.GetComponent<Plug>().wire = wire;
-
-            //plugLetter.GetComponent<Plug>().nb = i;
-            //plugLetter.GetComponent<Plug>().wire = wire;
+            
         }
 
         //creating all wires and fixing them to random saved plug
@@ -82,7 +76,7 @@ public class WiresManager : MonoBehaviour
                     plugsN[unplug].GetComponent<Plug>().nb = 1;
                     finished = true;
                 }
-                Debug.Log($"Si il y a {nbFils} fil(s) {randomColor(color)} ou plus, débranchez le {nbToWord(unplug+1)}");
+                Debug.Log($"Si il y a {nbFils} fil(s) {randomColor(color)} ou plus, dï¿½branchez le {nbToWord(unplug+1)}");
             }
             else if (rn == 1)
             {
@@ -92,7 +86,7 @@ public class WiresManager : MonoBehaviour
                     plugsN[unplug].GetComponent<Plug>().nb = 1;
                     finished = true;
                 }
-                Debug.Log($"Si le {nbToWord(fil+1)} est {randomColor(color)}, débranchez le {nbToWord(unplug+1)}");
+                Debug.Log($"Si le {nbToWord(fil+1)} est {randomColor(color)}, dï¿½branchez le {nbToWord(unplug+1)}");
             }
             else
             {
@@ -102,7 +96,7 @@ public class WiresManager : MonoBehaviour
                     plugsN[unplug].GetComponent<Plug>().nb = 1;
                     finished = true;
                 }
-                Debug.Log($"Si il y a moins de {nbFils} fil(s) {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}");
+                Debug.Log($"Si il y a moins de {nbFils} fil(s) {randomColor(color)}, dï¿½branchez le {nbToWord(unplug + 1)}");
             }
             //else
             //{
@@ -112,12 +106,12 @@ public class WiresManager : MonoBehaviour
             //        plugsN[unplug].GetComponent<Plug>().nb = 1;
             //        finished = true;
             //    }
-            //    Debug.Log($"Si le {nbToWord(fil + 1)} n'est pas {randomColor(color)}, débranchez le {nbToWord(unplug+1)}");
+            //    Debug.Log($"Si le {nbToWord(fil + 1)} n'est pas {randomColor(color)}, dï¿½branchez le {nbToWord(unplug+1)}");
             //}
         }
 
         unplug = Random.Range(0, nbWires);
-        Debug.Log($"Sinon débranchez le {nbToWord(unplug+1)}");
+        Debug.Log($"Sinon dï¿½branchez le {nbToWord(unplug+1)}");
         if (!finished) { 
             plugsN[unplug].GetComponent<Plug>().nb = 1;
         }
@@ -150,7 +144,7 @@ public class WiresManager : MonoBehaviour
     {
         if (nb == 1) return "premier fil";
         if (nb == nbWires - 1) return "dernier fil";
-        return "fil n°"+nb.ToString();
+        return "fil nï¿½"+nb.ToString();
     }
 
     string randomColor(int color)
