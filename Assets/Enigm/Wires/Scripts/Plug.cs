@@ -23,6 +23,14 @@ public class Plug : MonoBehaviour
     {
         if (nb != -1)
         {
+            if(nb == 1)
+            {
+                Debug.Log("you are a success");
+            }
+            else
+            {
+                Debug.Log("you smell bad");
+            }
             Destroy(wire);
         }
     }
