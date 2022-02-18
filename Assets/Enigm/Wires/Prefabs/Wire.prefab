@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2731628742676538464}
   - component: {fileID: 4993134918509365403}
   - component: {fileID: 7700832420301008136}
+  - component: {fileID: -1318582337159180358}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -145,3 +146,17 @@ MonoBehaviour:
   Positions:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!64 &-1318582337159180358
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6169405227712720757}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
