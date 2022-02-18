@@ -19,7 +19,7 @@ public class WiresManager : MonoBehaviour
     void Start()
     {
 
-
+        //creating all plugs and saving same in array
         for (int i = 0; i < nbWires; i++)
         {
             int y = 29 - i * 7;
@@ -28,7 +28,6 @@ public class WiresManager : MonoBehaviour
 
             plugsN[i] = plugNumber;
             plugsL[i] = plugLetter;
-
 
             //GameObject wire = Instantiate(wirePrefab);
             //wire.GetComponent<Wire>().Positions = new Transform[2] { plugNumber.transform, plugLetter.transform };
@@ -40,6 +39,7 @@ public class WiresManager : MonoBehaviour
             //plugLetter.GetComponent<Plug>().wire = wire;
         }
 
+        //creating all wires and fixing them to random saved plug
         for(int i = 0; i < nbWires; i++)
         {
             int r = Random.Range(0, nbWires-i);
@@ -52,13 +52,14 @@ public class WiresManager : MonoBehaviour
                 plugsL[j] = plugsL[j + 1];
             }
 
+            //generate a random color for wire
             int randomColor = Random.Range(0, 4);
 
-            GameObject wire = Instantiate(wirePrefab);
-            plugsN[i].GetComponent<Plug>().wire = wire;
-            wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };
-            wire.GetComponent<Wire>().color = randomColor;
-            wiresColors[i] = randomColor;
+            GameObject wire = Instantiate(wirePrefab);                                                          //create a new wire
+            plugsN[i].GetComponent<Plug>().wire = wire;                                                         //adding the wire to the plug script
+            wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
+            wire.GetComponent<Wire>().color = randomColor;                                                      //setting the wire color
+            wiresColors[i] = randomColor;                                                                       //saving the wire color 
         }
 
 
@@ -67,12 +68,12 @@ public class WiresManager : MonoBehaviour
         */
         //show sinon
         int nbFils, color, unplug, rn, fil;
-        bool finished = false;
-        for (int i = 0; i < 5; i++)
+        bool finished = false;                  //a rule above is already valid
+        for (int i = 0; i < nbRules; i++)
         {
-            rn = Random.Range(0, 3);
-            color = Random.Range(0, nbColors);
-            unplug = Random.Range(0, nbWires);
+            rn = Random.Range(0, 3);            //choose a random type of rule
+            color = Random.Range(0, nbColors);  //determine the color of the rule
+            unplug = Random.Range(0, nbWires);  //the wire to unplug if rule validated
             if (rn == 0)
             {
                 nbFils = Random.Range(2, nbWires / 2);
@@ -131,6 +132,7 @@ public class WiresManager : MonoBehaviour
     }
 
 
+    //calculate the number of wire of a giwen color
     int findNbColors(int color)
     {
         int nb = 0;
@@ -140,6 +142,10 @@ public class WiresManager : MonoBehaviour
         }
         return nb;
     }
+
+    /*
+     * FOR READABILITY
+     */
     string nbToWord(int nb)
     {
         if (nb == 1) return "premier fil";
