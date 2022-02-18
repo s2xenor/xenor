@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Wire : MonoBehaviour
 {
-    LineRenderer lr;
-    public Transform[] Positions;
+    LineRenderer lr; //the line renderer/wire
+    public Transform[] Positions; //positions for the wire to be plug 
     public int color = 0;
     // Start is called before the first frame update
     void Start()
