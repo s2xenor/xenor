@@ -1,0 +1,1152 @@
+fileFormatVersion: 2
+guid: 92f8756a14dfafc4fa1db5830cb4c59e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3196512174109734187
+    second: Capture_decran_2022-02-20_a_16.53.06_0
+  - first:
+      213: 2500891676639196427
+    second: Capture_decran_2022-02-20_a_16.53.06_1
+  - first:
+      213: 8683983353592331746
+    second: Capture_decran_2022-02-20_a_16.53.06_2
+  - first:
+      213: 679155640951626697
+    second: Capture_decran_2022-02-20_a_16.53.06_3
+  - first:
+      213: -5129994550188544056
+    second: Capture_decran_2022-02-20_a_16.53.06_4
+  - first:
+      213: 1227605592890713475
+    second: Capture_decran_2022-02-20_a_16.53.06_5
+  - first:
+      213: -6825919411525252354
+    second: Capture_decran_2022-02-20_a_16.53.06_6
+  - first:
+      213: 1864044062033248913
+    second: Capture_decran_2022-02-20_a_16.53.06_7
+  - first:
+      213: 982565433763841492
+    second: Capture_decran_2022-02-20_a_16.53.06_8
+  - first:
+      213: 6594317025289446443
+    second: Capture_decran_2022-02-20_a_16.53.06_9
+  - first:
+      213: -2314322182067729980
+    second: Capture_decran_2022-02-20_a_16.53.06_10
+  - first:
+      213: -6963199070036610106
+    second: Capture_decran_2022-02-20_a_16.53.06_11
+  - first:
+      213: 182853375080355584
+    second: Capture_decran_2022-02-20_a_16.53.06_12
+  - first:
+      213: 7199575822530927273
+    second: Capture_decran_2022-02-20_a_16.53.06_13
+  - first:
+      213: -6377018872103233540
+    second: Capture_decran_2022-02-20_a_16.53.06_14
+  - first:
+      213: -6055477865818734131
+    second: Capture_decran_2022-02-20_a_16.53.06_15
+  - first:
+      213: -805053406303222189
+    second: Capture_decran_2022-02-20_a_16.53.06_16
+  - first:
+      213: 5274964946680673170
+    second: Capture_decran_2022-02-20_a_16.53.06_17
+  - first:
+      213: -5237617059085779420
+    second: Capture_decran_2022-02-20_a_16.53.06_18
+  - first:
+      213: 1875324346849753581
+    second: Capture_decran_2022-02-20_a_16.53.06_19
+  - first:
+      213: -425498587627585134
+    second: Capture_decran_2022-02-20_a_16.53.06_20
+  - first:
+      213: -909364370225875916
+    second: Capture_decran_2022-02-20_a_16.53.06_21
+  - first:
+      213: -8107084292657987104
+    second: Capture_decran_2022-02-20_a_16.53.06_22
+  - first:
+      213: 4666231816639629871
+    second: Capture_decran_2022-02-20_a_16.53.06_23
+  - first:
+      213: -7250977358448317310
+    second: Capture_decran_2022-02-20_a_16.53.06_24
+  - first:
+      213: -3029402577952108509
+    second: Capture_decran_2022-02-20_a_16.53.06_25
+  - first:
+      213: -1078985229132399035
+    second: Capture_decran_2022-02-20_a_16.53.06_26
+  - first:
+      213: -6273639601264819001
+    second: Capture_decran_2022-02-20_a_16.53.06_27
+  - first:
+      213: 6158564725115692352
+    second: Capture_decran_2022-02-20_a_16.53.06_28
+  - first:
+      213: 4192204415187168231
+    second: Capture_decran_2022-02-20_a_16.53.06_29
+  - first:
+      213: -7888793618651661281
+    second: Capture_decran_2022-02-20_a_16.53.06_30
+  - first:
+      213: -1105167060618968467
+    second: Capture_decran_2022-02-20_a_16.53.06_31
+  - first:
+      213: 1496300382708381818
+    second: Capture_decran_2022-02-20_a_16.53.06_32
+  - first:
+      213: 5672137520470107729
+    second: Capture_decran_2022-02-20_a_16.53.06_33
+  - first:
+      213: 8920618803916492458
+    second: Capture_decran_2022-02-20_a_16.53.06_34
+  - first:
+      213: 2354537677086501993
+    second: Capture_decran_2022-02-20_a_16.53.06_35
+  - first:
+      213: -6762244289558997005
+    second: Capture_decran_2022-02-20_a_16.53.06_36
+  - first:
+      213: -5976899542096768852
+    second: Capture_decran_2022-02-20_a_16.53.06_37
+  - first:
+      213: 7724956448430000085
+    second: Capture_decran_2022-02-20_a_16.53.06_38
+  - first:
+      213: 5220762940916548495
+    second: Capture_decran_2022-02-20_a_16.53.06_39
+  - first:
+      213: 2003171147551575395
+    second: Capture_decran_2022-02-20_a_16.53.06_40
+  - first:
+      213: -3133238050016639712
+    second: Capture_decran_2022-02-20_a_16.53.06_41
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 931.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25b502f2ea4c5c20800000000000000
+      internalID: 3196512174109734187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_1
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 911
+        width: 169
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b057fc7cab3f4b220800000000000000
+      internalID: 2500891676639196427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_2
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 915
+        width: 152
+        height: 203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2edb642b9d4b38870800000000000000
+      internalID: 8683983353592331746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_3
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 921
+        width: 162
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cbdf160578dc6900800000000000000
+      internalID: 679155640951626697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_4
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 921
+        width: 161
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cf6250f2299ec8b0800000000000000
+      internalID: -5129994550188544056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_5
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 916
+        width: 157
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 385a88858c4590110800000000000000
+      internalID: 1227605592890713475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_6
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 916
+        width: 162
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efa0892e5767541a0800000000000000
+      internalID: -6825919411525252354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 745.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1920b23c23a6ed910800000000000000
+      internalID: 1864044062033248913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_8
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 790
+        width: 146
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d542106e06c2ad00800000000000000
+      internalID: 982565433763841492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_9
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 832
+        width: 167
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2420b47568b38b50800000000000000
+      internalID: 6594317025289446443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_10
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 738
+        width: 167
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9cb0abc30e1efd0800000000000000
+      internalID: -2314322182067729980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_11
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 824
+        width: 149
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c33322a65fbd5f90800000000000000
+      internalID: -6963199070036610106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_12
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 842
+        width: 144
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00755a30d20a98200800000000000000
+      internalID: 182853375080355584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_13
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 745.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aa527bc0180ae360800000000000000
+      internalID: 7199575822530927273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 506
+        width: 167
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7135a6f174087a0800000000000000
+      internalID: -6377018872103233540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_15
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 560
+        width: 172
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc142aed6fe96fba0800000000000000
+      internalID: -6055477865818734131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_16
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 560
+        width: 157
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 356041c3130e3d4f0800000000000000
+      internalID: -805053406303222189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_17
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 559.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293f989cba0743940800000000000000
+      internalID: 5274964946680673170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_18
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 560
+        width: 159
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42e7aabe80f3057b0800000000000000
+      internalID: -5237617059085779420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_19
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 560
+        width: 152
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de9fe9cbe8d760a10800000000000000
+      internalID: 1875324346849753581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_20
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 520
+        width: 154
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2910708f943581af0800000000000000
+      internalID: -425498587627585134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4343a4d5ce94163f0800000000000000
+      internalID: -909364370225875916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_22
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e1c8fbf9c9dd7f80800000000000000
+      internalID: -8107084292657987104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_23
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2a4e6e4d19c1c040800000000000000
+      internalID: 4666231816639629871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_24
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ca943828a5f5b90800000000000000
+      internalID: -7250977358448317310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_25
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3201383e76665f5d0800000000000000
+      internalID: -3029402577952108509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_26
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54e7bab96aca601f0800000000000000
+      internalID: -1078985229132399035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_27
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 373.6667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c489c5950e8fe8a0800000000000000
+      internalID: -6273639601264819001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 123
+        width: 159
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 045a5ceecfd977550800000000000000
+      internalID: 6158564725115692352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_29
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 339
+        width: 169
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb2e0154b3bd2a30800000000000000
+      internalID: 4192204415187168231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_30
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 287
+        width: 139
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c36ed1000658290800000000000000
+      internalID: -7888793618651661281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_31
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 187.66667
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d62085ee968a9a0f0800000000000000
+      internalID: -1105167060618968467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_32
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 379
+        width: 136
+        height: 3
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a783d94354de3c410800000000000000
+      internalID: 1496300382708381818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_33
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 415
+        width: 118
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15629c8c50b77be40800000000000000
+      internalID: 5672137520470107729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_34
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 147
+        width: 171
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaecc18e9876ccb70800000000000000
+      internalID: 8920618803916492458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.6666718
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ca30dda8ffca020800000000000000
+      internalID: 2354537677086501993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_36
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 2
+        width: 173
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f71c6485aea722a0800000000000000
+      internalID: -6762244289558997005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_37
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 2
+        width: 168
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca0902f8889cd0da0800000000000000
+      internalID: -5976899542096768852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_38
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 2
+        width: 159
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d7880616fe843b60800000000000000
+      internalID: 7724956448430000085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_39
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 2
+        width: 163
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f83cad5eb30e37840800000000000000
+      internalID: 5220762940916548495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_40
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 2
+        width: 159
+        height: 346
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36d8f12ab81bccb10800000000000000
+      internalID: 2003171147551575395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capture_decran_2022-02-20_a_16.53.06_41
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 1.6666718
+        width: 159.42857
+        height: 186.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 025450818908484d0800000000000000
+      internalID: -3133238050016639712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
