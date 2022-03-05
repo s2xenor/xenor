@@ -14,8 +14,12 @@
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
+
+# Recordings can get excessive in size
+/[Rr]ecordings/
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
+
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -59,6 +63,8 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+*.app
+
 
 # Crashlytics generated file
 crashlytics-build.properties
