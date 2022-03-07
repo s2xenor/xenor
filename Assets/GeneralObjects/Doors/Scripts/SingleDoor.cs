@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 //Permet de changer de scene avec une plaque de pression lorsque qu'il n'y a qu'une seul est unique porte (les deux joueurs empruntent la même porte)
 //ATTENTION : Respecter les conventions établie dans PressurePlate
-//NE PAS OUBLIER : Entrer le nom de la scene suivante
 public class SingleDoor : PressurePlate
 {
     /*
@@ -20,7 +19,18 @@ public class SingleDoor : PressurePlate
      * Fonctions
      */
 
-    //Fonction OnPressure() appellée si un player marche sur la plaque de pression, elle téléporte les joueurs (elle charge la nouvelle scène)
+    //Appelée a chaque frame
+    private void Update()
+    {
+        //check si on appuie sur E ssi la plaque est préssée
+        if (pressed && Input.GetKeyDown(KeyCode.E))
+        {
+            //teléporte les joueurs
+            Teleport();
+        }
+    }
+
+    //Fonction OnPressure() appellée si un player marche sur la plaque de pression, elle affiche le message pour demander une intéraction
     /**
     * <summary>Détermine ce s'il faut faire qqc (et quoi) avec le player qui est sur la plaque</summary>
     * 
@@ -29,6 +39,18 @@ public class SingleDoor : PressurePlate
     * <returns>Return nothing</returns>
     */
     protected override void OnPressure(Collider2D other)
+    {
+        //On affiche le message qui indique au joueur comment intéragir avec la porte.
+        MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
+    }
+
+    //Fonction Teleport() teleporte les joueurs vers la salle suivante
+    /**
+    * <summary>Charge la nouvelle salle</summary>
+    * 
+    * <returns>Return nothing</returns>
+    */
+    private void Teleport()
     {
         //TODO : Enregistrer l'avancement
         //GameManager.instance.SaveState();
