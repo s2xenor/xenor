@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2117278840013453024}
   - component: {fileID: 8891304351953633289}
   - component: {fileID: 121748737324529527}
+  - component: {fileID: 7529342994585117226}
   m_Layer: 0
   m_Name: 'playergirl '
   m_TagString: Untagged
@@ -167,3 +168,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7529342994585117226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117278840013453053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554644fa206beb43bcb142e72d40657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

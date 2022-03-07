@@ -52,6 +52,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1086221672243782866, guid: b8780cad866045a49966f4065bfa65dc, type: 3}
+      propertyPath: verti
+      value: Vertical
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086221672243782866, guid: b8780cad866045a49966f4065bfa65dc, type: 3}
+      propertyPath: horizon
+      value: Horizontal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086221672243782866, guid: b8780cad866045a49966f4065bfa65dc, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 7758347107905695949}
@@ -118,3 +126,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.3333333}
   m_EdgeRadius: 0
+--- !u!114 &802886174525309161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758347107905695948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554644fa206beb43bcb142e72d40657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
