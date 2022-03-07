@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WiresManager : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class WiresManager : MonoBehaviour
     public GameObject wirePrefab;
     public GameObject plugPrefab;
     public GameObject camPrefab;
+    public GameObject rulesPrefab;
+
 
     private GameObject[] plugsL = new GameObject[nbWires];
     private GameObject[] plugsN = new GameObject[nbWires];
     private int[] wiresColors = new int[nbWires];
+
 
     //positions of wires
     private int startY = -100;
@@ -65,8 +69,7 @@ public class WiresManager : MonoBehaviour
         }
 
 
-
-        //GameObject _cam = Instantiate(camPrefab, new Vector3(startX + 15, (float)(startY - nbWires / 2 * 7 + 3.5), 0), Quaternion.identity, parentObj.transform);                                                          //create a new wire
+        //instantiate cam on wire
         GameObject _cam = Instantiate(camPrefab, new Vector3(startX + 15, (float)(startY - nbWires / 2 * 7 + 3.5), 0), Quaternion.identity, parentObj.transform);                                                          //create a new wire
         
         _cam.GetComponent<Camera>().nearClipPlane = 0;
@@ -80,10 +83,17 @@ public class WiresManager : MonoBehaviour
         * SHOW RULES
         */
         //show sinon
+        GameObject canvasRules = Instantiate(rulesPrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);
+        canvasRules.GetComponent<Canvas>().worldCamera = MainCam.GetComponent<Camera>();
+        //canvasRules.SetActive(false);
+        GameObject prefabText = GameObject.Find("RulesTextTemplate");
+        GameObject txt;
         int nbFils, color, unplug, rn, fil;
         bool finished = false;                  //a rule above is already valid
         for (int i = 0; i < nbRules; i++)
         {
+            txt = Instantiate(prefabText, new Vector3(850, 0, 0), Quaternion.identity, canvasRules.transform);
+            txt.GetComponent<Transform>().position = new Vector3(850, 0, 0);
             rn = Random.Range(0, 3);            //choose a random type of rule
             color = Random.Range(0, nbColors);  //determine the color of the rule
             unplug = Random.Range(0, nbWires);  //the wire to unplug if rule validated
@@ -96,6 +106,7 @@ public class WiresManager : MonoBehaviour
                     finished = true;
                 }
                 Debug.Log($"Si il y a {nbFils} fil(s) {randomColor(color)} ou plus, débranchez le {nbToWord(unplug + 1)}");
+                txt.GetComponent<Text>().text = $"Si il y a {nbFils} fil(s) {randomColor(color)} ou plus, débranchez le {nbToWord(unplug + 1)}";
             }
             else if (rn == 1)
             {
@@ -106,6 +117,7 @@ public class WiresManager : MonoBehaviour
                     finished = true;
                 }
                 Debug.Log($"Si le {nbToWord(fil + 1)} est {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}");
+                txt.GetComponent<Text>().text = $"Si le {nbToWord(fil + 1)} est {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}";
             }
             else
             {
@@ -116,6 +128,7 @@ public class WiresManager : MonoBehaviour
                     finished = true;
                 }
                 Debug.Log($"Si il y a moins de {nbFils} fil(s) {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}");
+                txt.GetComponent<Text>().text = $"Si il y a moins de {nbFils} fil(s) {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}";
             }
             //else
             //{
@@ -131,6 +144,9 @@ public class WiresManager : MonoBehaviour
 
         unplug = Random.Range(0, nbWires);
         Debug.Log($"Sinon débranchez le {nbToWord(unplug + 1)}");
+        txt = Instantiate(prefabText, new Vector3(850, 0, 0), Quaternion.identity, canvasRules.transform);
+        txt.GetComponent<Text>().text = $"Sinon débranchez le {nbToWord(unplug + 1)}";
+
         if (!finished)
         {
             plugsN[unplug].GetComponent<Plug>().nb = 1;
