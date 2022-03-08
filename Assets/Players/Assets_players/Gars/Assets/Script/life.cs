@@ -20,7 +20,7 @@ public class life : MonoBehaviour
         if (coolingDown == true)
         {
             //Reduce fill amount over 30 seconds
-            cooldown.fillAmount -= 1.0f / waitTime * Time.deltaTime;
+            cooldown.fillAmount -= 5.0f / waitTime * Time.deltaTime;
         }
     }
 }

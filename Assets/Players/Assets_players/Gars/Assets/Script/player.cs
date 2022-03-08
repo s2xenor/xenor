@@ -5,11 +5,11 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     private inventaire inventory;
-    [SerializeField] private design_inventory design;
+    [SerializeField] private case_design Case_Design;
 
     private void Awake()
     {
         inventory = new inventaire();
-        design.SetInventory(inventory);
+        Case_Design.SetInventory(inventory);
     }
 }
