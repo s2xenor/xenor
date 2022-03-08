@@ -11,6 +11,15 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     /*
+     * Variables Publiques
+     */
+
+    //Canvas contenant :Objet text sur lequel le message pop-up va s'afficher lorsque l'on entre en contact avec plaque
+    //NE PAS OUBLIER : de relier manuellemant lors de la création de scene le script de la plaque et le Canvas !
+    public GameObject MessageOnScreenCanvas;
+
+
+    /*
      * Variables Protégées
      * Accessible par les classes filles
      */
@@ -19,8 +28,7 @@ public class PressurePlate : MonoBehaviour
     protected bool pressed = false;
 
     //Stocke le Player en contact avec la plaque
-    protected List<Collider2D> player;
-
+    protected List<Collider2D> player = new List<Collider2D>();
 
     /*
      * Fonctions
@@ -65,6 +73,8 @@ public class PressurePlate : MonoBehaviour
             pressed = false;
             //On supprime le player stocker (il n'y a plus de player sur la plaque)
             player.Remove(other);
+            //On supprime le texte potentiellement afficher à l'écran
+            MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().SupprPressToInteractText();
         }
     }
 
