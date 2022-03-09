@@ -13,6 +13,7 @@ public class WiresManager : MonoBehaviour
     public GameObject plugPrefab;
     public GameObject camPrefab;
     public GameObject rulesPrefab;
+    public GameObject rulesTextPrefab;
 
 
     private GameObject[] plugsL = new GameObject[nbWires];
@@ -48,10 +49,10 @@ public class WiresManager : MonoBehaviour
         for (int i = 0; i < nbWires; i++)
         {
             int r = Random.Range(0, nbWires - i);
-            GameObject plug2 = plugsL[r];
+            GameObject plug2 = plugsL[r];                    //take random plug on right side
 
 
-            //decal all element to the left
+            //move all element to the left
             for (int j = r; j < nbWires - 1; j++)
             {
                 plugsL[j] = plugsL[j + 1];
@@ -61,7 +62,7 @@ public class WiresManager : MonoBehaviour
             int randomColor = Random.Range(0, 4);
             
 
-            GameObject wire = Instantiate(wirePrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);                                                          //create a new wire
+            GameObject wire = Instantiate(wirePrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);  //create a new wire
             plugsN[i].GetComponent<Plug>().wire = wire;                                                         //adding the wire to the plug script
             wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
             wire.GetComponent<Wire>().color = randomColor;                                                      //setting the wire color
@@ -74,6 +75,7 @@ public class WiresManager : MonoBehaviour
         
         _cam.GetComponent<Camera>().nearClipPlane = 0;
         _cam.GetComponent<Camera>().orthographicSize = (float)(7.2 * nbWires / 2);
+        _cam.name = "WiresCam";
         _cam.SetActive(false);
 
         GameObject MainCam = GameObject.FindWithTag("MainCamera");
@@ -86,14 +88,14 @@ public class WiresManager : MonoBehaviour
         GameObject canvasRules = Instantiate(rulesPrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);
         canvasRules.GetComponent<Canvas>().worldCamera = MainCam.GetComponent<Camera>();
         //canvasRules.SetActive(false);
-        GameObject prefabText = GameObject.Find("RulesTextTemplate");
         GameObject txt;
+        float coef = 0.2f;
         int nbFils, color, unplug, rn, fil;
         bool finished = false;                  //a rule above is already valid
         for (int i = 0; i < nbRules; i++)
         {
-            txt = Instantiate(prefabText, new Vector3(850, 0, 0), Quaternion.identity, canvasRules.transform);
-            txt.GetComponent<Transform>().position = new Vector3(850, 0, 0);
+            txt = Instantiate(rulesTextPrefab, new Vector3(-1,(0.55f - i * coef), 0), Quaternion.identity, canvasRules.transform);
+            //txt.GetComponent<Transform>().position = new Vector3(850, 0, 0);
             rn = Random.Range(0, 3);            //choose a random type of rule
             color = Random.Range(0, nbColors);  //determine the color of the rule
             unplug = Random.Range(0, nbWires);  //the wire to unplug if rule validated
@@ -144,7 +146,7 @@ public class WiresManager : MonoBehaviour
 
         unplug = Random.Range(0, nbWires);
         Debug.Log($"Sinon débranchez le {nbToWord(unplug + 1)}");
-        txt = Instantiate(prefabText, new Vector3(850, 0, 0), Quaternion.identity, canvasRules.transform);
+        txt = Instantiate(rulesTextPrefab, new Vector3(-1, (0.55f - (nbRules) * coef), 0), Quaternion.identity, canvasRules.transform);
         txt.GetComponent<Text>().text = $"Sinon débranchez le {nbToWord(unplug + 1)}";
 
         if (!finished)
@@ -180,7 +182,7 @@ public class WiresManager : MonoBehaviour
     {
         if (nb == 1) return "premier fil";
         if (nb == nbWires - 1) return "dernier fil";
-        return "fil n�" + nb.ToString();
+        return "fil n°" + nb.ToString();
     }
 
     string randomColor(int color)

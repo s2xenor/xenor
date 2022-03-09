@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1857689317297889908}
   - component: {fileID: 1857689317297889909}
   m_Layer: 0
-  m_Name: WireCam
-  m_TagString: MainCamera
+  m_Name: WiresCam
+  m_TagString: WiresCam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

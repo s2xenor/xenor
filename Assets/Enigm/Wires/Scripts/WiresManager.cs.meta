@@ -8,6 +8,7 @@ MonoImporter:
   - plugPrefab: {fileID: 4892456974001935827, guid: 931ed1a7f3b4e864fbcd1183bf90584a, type: 3}
   - camPrefab: {fileID: 1857689317297889906, guid: b429fc4d389fff8488c81761ddaedefd, type: 3}
   - rulesPrefab: {fileID: 1852686283091822944, guid: 18e51af9c0794f14085680775ed9ed19, type: 3}
+  - rulesTextPrefab: {fileID: 8028300747141971104, guid: 1d0c49c100068b94da869017b7ef6a35, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
