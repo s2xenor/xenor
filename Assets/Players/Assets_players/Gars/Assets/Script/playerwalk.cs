@@ -13,7 +13,7 @@ public class playerwalk : MonoBehaviour
 
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 mouvement = new Vector3(Input.GetAxis(horizon), Input.GetAxis(verti), 0.0f);//creation du mouvement avec horizon=direction
         animator.SetFloat("Horizontal", mouvement.x);//mise en place de l'animation 
