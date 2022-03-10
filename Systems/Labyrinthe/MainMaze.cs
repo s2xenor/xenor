@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MazeGenerator;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpress.com/maze-generation-in-csharp/
 {
@@ -25,7 +27,9 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         Maze maze1 = new Maze((ushort)line, (ushort)column); // Créé maze
         maze1.dumpMaze();
         List<UInt16[]> gt_output = maze1.GenerateTWMaze_GrowingTree();
@@ -35,6 +39,7 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
         ModMaze();
         Print();
         CreateMap();
+
     }
 
     // Update is called once per frame
@@ -71,6 +76,7 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
         int lenMinus1 = maze.GetLength(1) - 1, rand = UnityEngine.Random.Range(1, maze.GetLength(0) - 1);
         maze[0, rand] = 0; // Clear entree
         maze[1, rand] = 0; // Clear entree
+
         rand = UnityEngine.Random.Range(1, maze.GetLength(0) - 1);
         maze[lenMinus1, rand] = 0; // Clear sortie
         maze[lenMinus1 - 1, rand] = 0; // Clear sortie
@@ -84,7 +90,7 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
 
     void CreateMap() // Create map for labyrinthe
     {
-        float size = 0.36f;
+        float size = 0.36f * 2;
 
         for (UInt16 i = 0; i < maze.GetLength(0); i++)
         {
@@ -92,18 +98,11 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
             {
                 if (maze[i,j] == 1)
                 {
-                    GameObject truc = Instantiate(wall, new Vector2(i * size, j * size), Quaternion.identity, mapParent);
+                    GameObject truc = PhotonNetwork.Instantiate(wall.name, new Vector2(i * size + offsetMap[0], j * size + offsetMap[1]), Quaternion.identity);
+                    truc.AddComponent<BoxCollider2D>(); // Journee immersion
                 }
             }
         }
-    }
-
-    float Abs(float x) // Absolute value
-    {
-        if (x < 0)
-            return -x;
-
-        return x;
     }
 
     void Print() // Print maze

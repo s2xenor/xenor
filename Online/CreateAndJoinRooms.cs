@@ -10,18 +10,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public InputField createInput;
     public InputField joinInput;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text);
@@ -31,8 +19,8 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinRoom(joinInput.text);
     }
-    public void OnJoinedRoom()
+    public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("scene"); // Multiplayer scene to load
+        PhotonNetwork.LoadLevel("Tim"); // Scene to load
     }
 }
