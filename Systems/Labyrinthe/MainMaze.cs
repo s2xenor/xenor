@@ -6,14 +6,14 @@ using MazeGenerator;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpress.com/maze-generation-in-csharp/
+public class MainMaze : MonoBehaviour
 {
     Byte[,] maze; // Maze
 
     public int line; // 2 * line + 1
     public int column; // 2 * column + 1
 
-    public Transform[] players = new Transform[2]; // Posiion des 2 joueurs
+    public Transform[] players = new Transform[2]; // Position des 2 joueurs
     public float[] startPos = new float[2]; // Debut du labyrinthe (format x,y)
     public int tileSize; // Taille des tiles du labyrinthe
 
@@ -28,34 +28,29 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
     // Start is called before the first frame update
     void Start()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        //if (!PhotonNetwork.IsMasterClient) return;
 
-        Maze maze1 = new Maze((ushort)line, (ushort)column); // Créé maze
-        maze1.dumpMaze();
+        Maze maze1 = new Maze((ushort)line, (ushort)column); // Create maze
+
         List<UInt16[]> gt_output = maze1.GenerateTWMaze_GrowingTree();
-        maze1.dumpMaze();
-        maze = maze1.LineToBlock(); // Converti en array
+        maze = maze1.LineToBlock(); // Convert into array
 
         ModMaze();
         Print();
         CreateMap();
-
     }
 
     // Update is called once per frame
     void Update()
-    {/*
-        player1Tile[0] = (int) (players[0].position.x - startPos[0]) / tileSize; // Calcule tile des joueurs selon leur position
+    {
+        player1Tile[0] = (int) (players[0].position.x - startPos[0]) / tileSize; // Calculate position of player in maze
         player1Tile[1] = (int) (players[0].position.y - startPos[1]) / tileSize;
         player2Tile[0] = (int) (players[1].position.x - startPos[0]) / tileSize;
         player2Tile[1] = (int) (players[1].position.y - startPos[1]) / tileSize;
 
         if (player1Tile[0] >= 0 && player1Tile[0] < maze.GetLength(1) && player1Tile[1] >= 0 && player1Tile[1] < maze.GetLength(0))
-        {
-            maze[player1Tile[1], player1Tile[0]] = 2; // Debug
-            Print();
-
-            if (maze[player1Tile[1],player1Tile[0]] == 1)
+        { // Check if player is in the labyrinth
+            if (maze[player1Tile[1],player1Tile[0]] == 1) // If player is on wall
             {
                 Debug.Log("Hit");
                 // Damage Player1
@@ -68,10 +63,10 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
             {
                 // Damage Player2
             }
-        }*/
+        }
     }
 
-    void ModMaze() // Modifie maze
+    void ModMaze() // Modify maze
     {
         int lenMinus1 = maze.GetLength(1) - 1, rand = UnityEngine.Random.Range(1, maze.GetLength(0) - 1);
         maze[0, rand] = 0; // Clear entree
@@ -80,12 +75,6 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
         rand = UnityEngine.Random.Range(1, maze.GetLength(0) - 1);
         maze[lenMinus1, rand] = 0; // Clear sortie
         maze[lenMinus1 - 1, rand] = 0; // Clear sortie
-        /*
-        for (UInt16 i = 1; i < lenMinus1; i++) // Clear les murs de la 1ere et derniere ligne
-        {
-            maze[1, i] = 0;
-            maze[lenMinus1 - 1, i] = 0;
-        }*/
     }
 
     void CreateMap() // Create map for labyrinthe
@@ -99,7 +88,7 @@ public class MainMaze : MonoBehaviour //https://infiniteproductionsblog.wordpres
                 if (maze[i,j] == 1)
                 {
                     GameObject truc = PhotonNetwork.Instantiate(wall.name, new Vector2(i * size + offsetMap[0], j * size + offsetMap[1]), Quaternion.identity);
-                    truc.AddComponent<BoxCollider2D>(); // Journee immersion
+                    // Instantiate wall on network
                 }
             }
         }

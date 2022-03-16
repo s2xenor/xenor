@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
 
 namespace MazeGenerator
 {
-    public enum PickMethod : byte { Newest, Oldest, Random, Cyclic };
+    /* This code was adapted from
+     * https://infiniteproductionsblog.wordpress.com/maze-generation-in-csharp/
+     */
 
     [Flags]
     public enum Direction : byte { North = 0x1, West = 0x2, South = 0x4, East = 0x8 };
@@ -13,70 +16,27 @@ namespace MazeGenerator
     class Maze
     {
         public Byte[,] maze { get; private set; }
-        public UInt16[] spawnpoint { get; private set; }
-        public UInt16[] exitpoint { get; private set; }
         public UInt16 width { get; private set; }
         public UInt16 height { get; private set; }
 
-        public Random random = new Random((int)DateTime.Now.Ticks & (0x0000FFFF));
-
-        private UInt16 CyclePick = 0;
+        public System.Random random = new System.Random((int)DateTime.Now.Ticks & (0x0000FFFF)); // Pseudo-random in CS
 
         public Maze(UInt16 width, UInt16 length, UInt16 startx = 0, UInt16 starty = 0)
         {
-            Debug.Print(string.Format("W={0} L={1}", width, length));
-
             this.width = width;
             this.height = height;
 
             maze = BuildBaseMaze(width, length);
         }
 
-
-        public void cell(UInt16 x, UInt16 y, byte value = 0)
-        {
-            if (x <= this.width && y <= this.height)
-            {
-                maze[x, y] = value;
-            }
-        }
-
-
-        public Byte[,] BuildBaseMaze(UInt16 width, UInt16 length)
+        public Byte[,] BuildBaseMaze(UInt16 width, UInt16 length) // Creates array of maze
         {
             Byte[,] maze = new Byte[width, length];
-
-            // with this you're able to shape the maze "body", ie not using a regular rectangle/square
-
-            //maze[2, 0] = maze[3, 0] = maze[4, 0] = maze[5, 0] = 255;
-            //maze[2, 1] = maze[3, 1] = maze[4, 1] = maze[5, 1] = 255;
-            //maze[3, 2] = 255;
-            //maze[9, 3] = maze[9, 4] = maze[8, 4] = 255;
 
             return maze;
         }
 
-
-        public void dumpMaze()
-        {
-            if (maze != null)
-            {
-                for (UInt16 y = 0; y < maze.GetLength(1); y++)
-                {
-                    string xline = string.Empty;
-
-                    for (UInt16 x = 0; x < maze.GetLength(0); x++)
-                    {
-                        xline += ' ' + maze[x, y].ToString();
-                    }
-
-                    Debug.Print(string.Format("M[{0}]={1}", y, xline));
-                }
-            }
-        }
-
-
-        public List<UInt16[]> GenerateTWMaze_GrowingTree()
+        public List<UInt16[]> GenerateTWMaze_GrowingTree() // Creates maze
         {
             List<UInt16[]> CarvedMaze = new List<UInt16[]>();
             List<UInt16[]> cells = new List<UInt16[]>();
@@ -94,7 +54,7 @@ namespace MazeGenerator
 
             while (cells.Count > 0)
             {
-                Int16 index = (Int16)chooseIndex((UInt16)cells.Count, PickMethod.Newest);
+                Int16 index = (Int16)chooseIndex((UInt16)cells.Count);
                 UInt16[] cell_picked = cells[index];
 
                 x = cell_picked[0];
@@ -103,8 +63,7 @@ namespace MazeGenerator
 
                 Direction[] tmpdir = RandomizeDirection();
 
-                foreach (Direction way in tmpdir)  //shuffled dir
-                //foreach (Direction way in DirectionArray) //    Enum.GetValues(typeof(Direction)))    //sequential dir, for test
+                foreach (Direction way in tmpdir)  // Shuffled dir
                 {
                     SByte[] move = DoAStep(way);
 
@@ -115,94 +74,42 @@ namespace MazeGenerator
                     {
                         CarvedMaze.Add(new UInt16[3] { (UInt16)nx, (UInt16)ny, 2 });
 
-                        //Debug.Print(string.Format("xy=[{0},{1}] Unvisited cell [nx,ny]={2},{3}", x, y, nx, ny));
-
-                        //Debug.Print(string.Format("B maze[x,y]={0} maze[nx,ny]={1}", maze[x, y], maze[nx, ny]));
                         maze[x, y] |= (byte)way;
                         maze[nx, ny] |= (byte)OppositeDirection(way);
-                        //Debug.Print(string.Format("A maze[x,y]={0} maze[nx,ny]={1}", maze[x, y], maze[nx, ny]));
-
-                        //Debug.Print(string.Format("add cell [{0}][{1}]", nx, ny));
+                        
                         cells.Add(new UInt16[2] { (UInt16)nx, (UInt16)ny });
-                        //Debug.Print(string.Format("Cells #={0}", cells.Count));
 
                         index = -1;
-                         CarvedMaze.Add(new UInt16[3] { (UInt16)nx, (UInt16)ny, 3 });
+                        CarvedMaze.Add(new UInt16[3] { (UInt16)nx, (UInt16)ny, 3 });
                         break;
-                    }
-                    else
-                    {
-                        //Debug.Print("out of maze cells or already processed");
                     }
                 }
                 //**end dir loop
-                //Debug.Print("==END DIR LOOP==");
 
-                //delete this cell from list if none found
+                // Deletes this cell from list if none found
                 if (index != -1)
                 {
                     UInt16[] cell_removed = cells[index];
 
                     cells.RemoveAt(index);
-                    //Debug.Print(string.Format("Cells {0} [{1},{2}] removed, #={3}", index, cell_removed[0], cell_removed[1], cells.Count));
                     CarvedMaze.Add(new UInt16[3] { (UInt16)x, (UInt16)y, 4 });
                 }
-
-                //Debug.Print("=== CELL LOOP END ===");
             }
 
             return CarvedMaze;
         }
 
 
-        public UInt16 chooseIndex(UInt16 max, PickMethod pickmet)
+        public UInt16 chooseIndex(UInt16 max) // Chooses index
         {
             UInt16 index = 0;
 
-            switch (pickmet)
+            if (max >= 1)
             {
-                case PickMethod.Cyclic:
-                    CyclePick = (UInt16)((CyclePick + 1) % max);
-                    index = CyclePick;
-                    break;
-
-                case PickMethod.Random:
-                    Random random = new Random((int)DateTime.Now.Ticks & (0x0000FFFF));
-                    index = (UInt16)(random.Next(max - 1));
-                    break;
-
-                case PickMethod.Oldest:
-                    index = 0;
-                    break;
-
-                case PickMethod.Newest:
-                default:
-                    if (max >= 1)
-                    {
-                        index = (UInt16)(max - 1);
-                    }
-                    else
-                    {
-                        index = 0;
-                    }
-
-                    break;
+                index = (UInt16)(max - 1);
             }
+
             return index;
-        }
-
-
-        public Direction chooseARandomDirection()
-        {
-            Direction randir;
-
-            var EnumToArray = Enum.GetValues(typeof(Direction));
-            Byte tmp1 = (Byte)(random.Next(EnumToArray.Length - 1));
-            randir = (Direction)EnumToArray.GetValue(tmp1);
-
-            Debug.Print(string.Format("Dir=[{0}]", randir));
-
-            return randir;
         }
 
 
@@ -223,8 +130,6 @@ namespace MazeGenerator
         // comes from http://www.dotnetperls.com/fisher-yates-shuffle
         private void Shuffle<T>(T[] array)
         {
-            //Random _random = new Random();
-
             int n = array.Length;
 
             for (int i = 0; i < n; i++)
@@ -237,7 +142,7 @@ namespace MazeGenerator
         }
 
 
-        public Direction OppositeDirection(Direction forward)
+        public Direction OppositeDirection(Direction forward) // Direction current index can take
         {
             Direction opposite = Direction.North;
 
@@ -260,8 +165,7 @@ namespace MazeGenerator
             return opposite;
         }
 
-
-        public SByte[] DoAStep(Direction facingDirection)
+        public SByte[] DoAStep(Direction facingDirection) // Go to next cell in current direction
         {
             SByte[] step = { 0, 0 };
 
@@ -288,52 +192,42 @@ namespace MazeGenerator
             return step;
         }
 
-
-        public Byte[,] LineToBlock()
+        public Byte[,] LineToBlock() // Inserts wall cells in new array / Converts into array with walls
         {
             Byte[,] blockmaze;
 
-            if (maze == null || maze.GetLength(0) <= 1 && maze.GetLength(1) <= 1)
+            if (maze == null || maze.GetLength(0) <= 1 && maze.GetLength(1) <= 1) // Maze too small
             {
                 return null;
             }
 
-            blockmaze = new Byte[2 * maze.GetLength(0) + 1, 2 * maze.GetLength(1) + 1];
+            blockmaze = new Byte[2 * maze.GetLength(0) + 1, 2 * maze.GetLength(1) + 1]; // Build new maze
 
-            for (UInt16 wall = 0; wall < 2 * maze.GetLength(1) + 1; wall++)
+            for (UInt16 wall = 0; wall < 2 * maze.GetLength(1) + 1; wall++) // Add walls on each side of the maze
             {
                 blockmaze[0, wall] = 1;
             }
 
-            for (UInt16 wall = 0; wall < 2 * maze.GetLength(0) + 1; wall++)
+            for (UInt16 wall = 0; wall < 2 * maze.GetLength(0) + 1; wall++) // Add walls on each side of the maze
             {
                 blockmaze[wall, 0] = 1;
             }
 
             for (UInt16 y = 0; y < maze.GetLength(1); y++)
             {
-                for (UInt16 x = 0; x < maze.GetLength(0); x++)
+                for (UInt16 x = 0; x < maze.GetLength(0); x++) // Browse maze
                 {
                     blockmaze[2 * x + 1, 2 * y + 1] = 0;
 
-                    //Debug.Print(string.Format("M[{0},{1}]={2} & dir={3}", x, y, maze[x, y], maze[x, y] & (Byte)Direction.East));
                     if ((maze[x, y] & (Byte)Direction.East) != 0)
-                    {
-                        blockmaze[2 * x + 2, 2 * y + 1] = 0; // B
-                    }
+                        blockmaze[2 * x + 2, 2 * y + 1] = 0;
                     else
-                    {
-                        blockmaze[2 * x + 2, 2 * y + 1] = 1;
-                    }
+                        blockmaze[2 * x + 2, 2 * y + 1] = 1; // Add wall
 
                     if ((maze[x, y] & (Byte)Direction.South) != 0)
-                    {
-                        blockmaze[2 * x + 1, 2 * y + 2] = 0; // C
-                    }
+                        blockmaze[2 * x + 1, 2 * y + 2] = 0;
                     else
-                    {
-                        blockmaze[2 * x + 1, 2 * y + 2] = 1;
-                    }
+                        blockmaze[2 * x + 1, 2 * y + 2] = 1; // Add wall
 
 
                     blockmaze[2 * x + 2, 2 * y + 2] = 1;
@@ -341,6 +235,20 @@ namespace MazeGenerator
             }
 
             return blockmaze;
+        }
+
+        public void Print() // Print maze
+        {
+            string str = string.Empty;
+            for (UInt16 i = 0; i < maze.GetLength(0); i++)
+            {
+                for (UInt16 j = 0; j < maze.GetLength(1); j++)
+                {
+                    str += maze[i, j].ToString();
+                }
+                str += "\n";
+            }
+            UnityEngine.Debug.Log(str);
         }
     }
 }

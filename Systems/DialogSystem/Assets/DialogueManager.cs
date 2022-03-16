@@ -13,19 +13,20 @@ public class DialogueManager : MonoBehaviour {
 	private Queue<string> sentences;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		sentences = new Queue<string>();
 	}
 
-	public void StartDialogue (Dialogue dialogue)
+	public void StartDialogue(Dialogue dialogue)
 	{
 		animator.SetBool("IsOpen", true);
 
-		nameText.text = dialogue.name;
+		nameText.text = dialogue.name; // Display name
 
-		sentences.Clear();
+		sentences.Clear(); // Clear previous sentences
 
-		foreach (string sentence in dialogue.sentences)
+		foreach (string sentence in dialogue.sentences) // Enqueue sentences to be said
 		{
 			sentences.Enqueue(sentence);
 		}
@@ -33,9 +34,9 @@ public class DialogueManager : MonoBehaviour {
 		DisplayNextSentence();
 	}
 
-	public void DisplayNextSentence ()
+	public void DisplayNextSentence()
 	{
-		if (sentences.Count == 0)
+		if (sentences.Count == 0) // If no more sentences to say
 		{
 			EndDialogue();
 			return;
@@ -46,7 +47,7 @@ public class DialogueManager : MonoBehaviour {
 		StartCoroutine(TypeSentence(sentence));
 	}
 
-	IEnumerator TypeSentence (string sentence)
+	IEnumerator TypeSentence(string sentence) // Make cool animation
 	{
 		dialogueText.text = "";
 		foreach (char letter in sentence.ToCharArray())

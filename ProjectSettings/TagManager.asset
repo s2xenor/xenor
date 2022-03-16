@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Box
+  - local
+  - WiresCam
   layers:
   - Default
   - TransparentFX
@@ -38,6 +41,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Floor
+    uniqueID: 2177559475
+    locked: 0
+  - name: Design
+    uniqueID: 656816631
+    locked: 0
   - name: GroundObects
     uniqueID: 2795827669
     locked: 0

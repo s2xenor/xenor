@@ -23,6 +23,7 @@ public class Plug : MonoBehaviour
     //unplug a wire
     void OnMouseDown()
     {
+        Debug.Log("ffrf");
         if (nb != -1)//nb = -1 by default, 0 if it a left plug and 1 if it is the right plug
         {
             if(nb == 1)//is right plug
