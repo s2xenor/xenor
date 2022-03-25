@@ -16,6 +16,7 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             // POur lier les obj sur chaque boite y aura un script qui permettra de lier la boite au FixedJoint2D ou de les délier (avec touche E)
             // Attention : faudra penser à verifier que y a pas déjà une boite accrochée...
             player.AddComponent<FixedJoint2D>();
+            player.GetComponent<FixedJoint2D>().enabled = false;
             player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
         }
     }

@@ -10,6 +10,18 @@ using UnityEngine.UI;
 // NE PAS OUBLIER : de désactivé le canva (et seulement le canva) dans unity ! 
 public class FixedTextPopUP : MonoBehaviour
 {
+    /*
+     * Varaibles Publiques
+     */
+
+    //Variable qui permet de vérouiller (ne pas supprimer et événtuellement ne pas ajouter) un autre message sur l'écran du joueur
+    public bool textLock = false;
+
+
+    /*
+     * Fonctions
+     */
+
     //Fonction PressToInteractText() permet d'afficher un message utilitaire sur l'écrand du joueur
     /**
     * <summary>Permet d'afficher un message sur l'écran du joueur</summary>
@@ -20,9 +32,12 @@ public class FixedTextPopUP : MonoBehaviour
     */
     public void PressToInteractText(string message)
     {
-        //Cherche l'élément texte du texte dans le Canvas
-        gameObject.GetComponentInChildren<Text>().text = message;
-        gameObject.SetActive(true);
+        if (!textLock)
+        {
+            //Cherche l'élément texte du texte dans le Canvas
+            gameObject.GetComponentInChildren<Text>().text = message;
+            gameObject.SetActive(true);
+        }
     }
 
     //Fonction PressToInteractText() permet de supprimer un éventuel message présent sur l'écran du joueur
@@ -33,7 +48,10 @@ public class FixedTextPopUP : MonoBehaviour
     */
     public void SupprPressToInteractText()
     {
-        gameObject.SetActive(false);
+        if (!textLock)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 }
