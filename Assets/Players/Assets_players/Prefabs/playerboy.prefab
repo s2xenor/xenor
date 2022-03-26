@@ -53,11 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1086221672243782866, guid: b8780cad866045a49966f4065bfa65dc, type: 3}
       propertyPath: verti
-      value: Verticalbis
+      value: Vertical
       objectReference: {fileID: 0}
     - target: {fileID: 1086221672243782866, guid: b8780cad866045a49966f4065bfa65dc, type: 3}
       propertyPath: horizon
-      value: Horizontalbis
+      value: Horizontal
       objectReference: {fileID: 0}
     - target: {fileID: 1086221672243782866, guid: b8780cad866045a49966f4065bfa65dc, type: 3}
       propertyPath: animator
