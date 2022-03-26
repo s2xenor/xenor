@@ -5,26 +5,36 @@ using UnityEngine;
 public class ArrowsManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public List<GameObject> prefabs;
+    public List<GameObject> prefabsL; //prefabs laby
+    public List<GameObject> prefabsR; //prefabs room
+
 
     private const int startX = 0;
     private const int startY = 0;
 
-    private const int x = 15;
-    private const int y = 15;
+    private const int x = 12;
+    private const int y = 12;
 
     private int[,] laby = new int[x, y];
 
+    public Transform[] players = new Transform[2]; // Position des 2 joueurs
+    public float tileSize = 0.32f; // Taille des tiles du labyrinthe
+
+    int[] player1Tile = new[] { 0, 0 };
+    int[] player2Tile = new[] { 0, 0 };
+
+    int[] player1TmpTile = new[] { 0, 0 };
+    int[] player2TmpTile = new[] { 0, 0 };
+
     void Start()
     {
-        //for (int x = 0; x < laby.GetLength(0); x++)
-        //{
-        //    for (int y = 0; y < laby.GetLength(1); y++)
-        //    {
-        //        if (laby[x, y] == null) laby[x, y] = 0;
+        //get player
+        GameObject[] playersTmp = GameObject.FindGameObjectsWithTag("Player");
+        for(int i = 0; i < playersTmp.Length; i++)
+        {
+            players[i] = playersTmp[i].GetComponent<Transform>();
+        } 
 
-        //    }
-        //}
         (int Xt, int Yt) = (0, Random.Range(0, y - 1));
         laby[Xt, Yt] = 2010;//down but not up
         Xt += 1;
@@ -34,15 +44,17 @@ public class ArrowsManager : MonoBehaviour
             int r = Random.Range(0, 3);
             if (r == 0) // go down
             {
-                laby[Xt, Yt] = direction("down")+addPrevious(previous);
+                laby[Xt, Yt] = (int)Direction.down+addPrevious(previous);
                 Xt += 1;
                 previous = (int)Direction.down;
-            } else if (r == 1 && Yt + 1 < y && previous != direction("left")) //go right
+            } 
+            else if (r == 1 && Yt + 1 < y && previous != (int)Direction.left) //go right
             {
                 laby[Xt, Yt] = (int)Direction.right+addPrevious(previous);
                 Yt += 1;
                 previous = (int) Direction.right;
-            } else if (r == 2 && Yt - 1 >= 0 && previous != direction("right"))//go left
+            } 
+            else if (r == 2 && Yt - 1 >= 0 && previous != (int)Direction.right)//go left
             {
                 laby[Xt, Yt] = (int)Direction.left + addPrevious(previous);
                 Yt -= 1;
@@ -52,36 +64,110 @@ public class ArrowsManager : MonoBehaviour
 
 
 
+        //print laby
+        //for (int x = 0; x < laby.GetLength(0); x++)
+        //{
+        //    string tmp = "";
+        //    for (int y = 0; y < laby.GetLength(1); y++)
+        //    {
+        //        tmp += " " + laby[x, y];
+        //    }
+        //    Debug.Log(tmp);
+        //}
 
-        for (int x = 0; x < laby.GetLength(0); x++)
-        {
-            string tmp = "";
-            for (int y = 0; y < laby.GetLength(1); y++)
-            {
-                tmp += " " + laby[x, y];
-            }
-            Debug.Log(tmp);
-        }
-        createLaby();
+
+        //print binary
+        //for (int i = 0; i < 16; i++)
+        //{
+        //    int[] t = toByteArray(i);
+        //    string f = "";
+        //    for (int j = 0; j < t.Length; j++)
+        //    {
+        //        f += t[j].ToString();
+        //    }
+        //    Debug.Log(f);
+
+        //}
+
+        //for (int i = 0; i < 16; i++)
+        //{
+
+        //    Debug.Log(toBin(i));
+
+        //}
+
+        //Debug.Log(toByteArray(1));
         //prefabRules(2010);
+        createLaby();
 
+        //printBitArray(DeciToArray(50, 4));
 
     }
 
+    //convert to byteArray on 4 bits 
     private int[] toByteArray(int val)
     {
-        List<int> t = new List<int>();
-        if (val < 8) t.Add(0);
-        if (val < 4) t.Add(0);
-        if (val < 2) t.Add(0);
-        while(val > 0)
+        if (val > 15) return new int[] { 1, 1, 1, 1 };
+        int[] byteArr = new[] { 0, 0, 0, 0 };
+        
+        for(int i = 0; i < 4; i++)
         {
-            t.Add(val % 2);
+            byteArr[i] = (val % 2);
             val /= 2;
         }
-        return t.ToArray();
+
+        //reverse array
+        (byteArr[0], byteArr[3]) = (byteArr[3], byteArr[0]);
+        (byteArr[1], byteArr[2]) = (byteArr[2], byteArr[1]);
+
+        return byteArr;
     }
 
+    private void printBitArray(int[] bitArr)
+    {
+        string f = "";
+        for (int j = 0; j < bitArr.Length; j++)
+        {
+            f += bitArr[j].ToString();
+        }
+        Debug.Log(f);
+    }
+
+    //deci to binary but in decimal representation
+    private int toBin(int val)
+    {
+        int[] binArr = toByteArray(val);
+        int bin = 0;
+        int power = 1;
+        for(int i = binArr.Length-1; i >= 0; i--)
+        {
+            bin += power * binArr[i];
+            power *= 10;
+        }
+        return bin;
+    }
+
+ 
+    //21 => [2,1]
+    private int[] DeciToArray(int num, int b = 0)
+    {
+        List<int> result = new List<int>();
+        int len = num.ToString().Length;
+        
+        while (num != 0)
+        {
+            result.Insert(0, num % 10);
+            num = num / 10;
+        }
+        for (int i = len; i < b; i++)
+        {
+            result.Insert(0, 0);
+        }
+
+        return result.ToArray();
+    }
+
+    //add previous direction to not be opposite
     private int addPrevious(int previous)
     {
         if(previous == -1) return 0;
@@ -110,50 +196,7 @@ public class ArrowsManager : MonoBehaviour
         up_right_down_left = 1111
     }
 
-    private int direction(string dir)
-    {
-
-        switch (dir)
-        {
-            case "none":
-                return 0000;
-            case "left":
-                return 0001;
-            case "down":
-                return 0010;
-            case "down-left":
-                return 0011;
-            case "right":
-                return 0100;
-            case "right-left":
-                return 0101;
-            case "right-down":
-                return 0110;
-            case "right-down-left":
-                return 0111;
-            case "up":
-                return 1000;
-            case "up-left":
-                return 1001;
-            case "up-down":
-                return 1010;
-            case "up-down-left":
-                return 1011;
-            case "up-right":
-                return 1100;
-            case "up-right-left":
-                return 1101;
-            case "up-right-down":
-                return 1110;
-            case "up-right-down-left":
-                return 1111;
-            default:
-                return 0;
-        }
-
-    }
-
-    private GameObject prefabRules(int rule)
+    private int prefabRules(int rule)
     {
         List<int> t = new List<int>();
         int tempRule;
@@ -162,7 +205,7 @@ public class ArrowsManager : MonoBehaviour
         if (rule == 0)
         {
             //return new GameObject();
-            return prefabs[Random.Range(1, 15)];
+            return Random.Range(1, 15);
         }
         else
         {
@@ -186,33 +229,131 @@ public class ArrowsManager : MonoBehaviour
                 }
                 if (goodNumber) t.Add(i);
             }
-            for (int i = 0; i < t.Count; i++)
-            {
-                //Debug.Log(t[i]);
-            }
-            if(t.Count > 0) return prefabs[t[Random.Range(0, t.Count)]];
-            return prefabs[Random.Range(1, 15)];
 
-            return new GameObject();
+
+            //for (int i = 0; i < t.Count; i++)
+            //{
+            //    //Debug.Log(t[i]);
+            //}
+
+            //for(int i = 0; i < t.Count; i++)
+            //{
+            //    Instantiate(prefabRules(t[i]), new Vector3(i * 0.32f, 0), Quaternion.identity);
+            //}
+
+            return t[Random.Range(0, t.Count)];
+            //if (t.Count > 0) 
+            //return prefabsL[Random.Range(1, 15)];
+
+            //return new GameObject();
         }
     }
 
     private void createLaby()
     {
         var parentObj = new GameObject("ArrowsParent");
+        GameObject tmp;
+        //floor top and bottom
+        for(int j = 0; j < 3; j++)
+        {
+            for(int i = 0; i < x; i++)
+            {
+                Instantiate(prefabsR[0], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
+                Instantiate(prefabsR[0], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
+            }
+        }
+        //wall left and right
+        for(int i = 0; i < x+6; i++)
+        {
+            tmp = Instantiate(prefabsR[7], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
+            tmp.AddComponent<BoxCollider2D>();
+            tmp = Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
+            tmp.AddComponent<BoxCollider2D>();
 
+        }
+
+
+        int prefabNb;
         for (int x = 0; x < laby.GetLength(0); x++)
         {
             for (int y = 0; y < laby.GetLength(1); y++)
             {
-                Instantiate(prefabRules(laby[x,y]), new Vector3(y*0.32f, -x*0.32f), Quaternion.identity, parentObj.transform);   
+                prefabNb = prefabRules(laby[x, y]);
+                laby[x, y] = toBin(prefabNb);
+                Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f+0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
             }
         }
+    }
+
+    private bool RespectRules(int tile, Direction dir)
+    {
+        int[] tileBitArray = DeciToArray(tile,4);
+        int[] dirBitArray = DeciToArray((int) dir, 4);
+        for (int i = 0; i < tileBitArray.Length; i++)
+        {
+            if (tileBitArray[i] < dirBitArray[i]) return false;
+        }
+        return true;
+    }
+
+    private bool CheckPlayerMovement()
+    {
+        if (player1Tile[1] < 0 || player1Tile[0] < 0 || player1Tile[1] >= y || player1Tile[0] >= x) return true;
+        if (player1TmpTile[1] < 0 || player1TmpTile[0] < 0 || player1TmpTile[1] >= y || player1TmpTile[0] >= x) return true;
+
+
+        int tile = laby[player1Tile[1], player1Tile[0]];
+        int newTile = laby[player1TmpTile[1], player1TmpTile[0]];
+
+        if (player1Tile[0] != player1TmpTile[0]) //change x
+        {
+            if (player1Tile[0] > player1TmpTile[0]) //go left
+            {
+                if (!RespectRules(tile, Direction.left)) return false; //previous tile has not left arrow
+                if (RespectRules(newTile, Direction.right)) return false; //current tile has a right arrow
+            }
+            else //go right
+            {
+                if (!RespectRules(tile, Direction.right)) return false;
+                if (RespectRules(newTile, Direction.left)) return false;
+            }
+        }
+        else if(player1Tile[1] != player1TmpTile[1]) //change y
+        {
+            if (player1Tile[1] > player1TmpTile[1]) //go up
+            {
+                if (!RespectRules(tile, Direction.up)) return false;
+                if (RespectRules(newTile, Direction.down)) return false;
+            }
+            else //go down
+            {
+                if (!RespectRules(tile, Direction.down)) return false;
+                if (RespectRules(newTile, Direction.up)) return false;
+            }
+        }
+        return true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        player1TmpTile[0] = (int)((players[0].position.x - startX) / tileSize);
+        player1TmpTile[1] = (int)((players[0].position.y - startY) / tileSize) * -1;
+        if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1])
+        {
+
+            if (!CheckPlayerMovement())//player break rules, apply consequences
+            {
+                Debug.Log("consequences");
+            }
+            player1Tile[0] = (int)((players[0].position.x - startX) / tileSize); // Calculate position of player in maze
+            player1Tile[1] = (int)((players[0].position.y - startY) / tileSize)*-1;
+            //player2Tile[0] = (int)((players[1].position.x - startX) / tileSize);
+            //player2Tile[1] = (int)((players[1].position.y - startY) / tileSize);
+
+            Debug.Log($"{player1Tile[0]}, {player1Tile[1]}");
+        }
+
     }
 }
