@@ -296,6 +296,8 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             {
                 Instantiate(prefabsR[0], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
                 Instantiate(prefabsR[0], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
+                PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX + i * 0.32f + 0.1f, startY + (3 - j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
+                PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
             }
         }
         //wall left and right
@@ -304,6 +306,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             tmp = Instantiate(prefabsR[7], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
             tmp.AddComponent<BoxCollider2D>();
             tmp = Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
+            tmp.AddComponent<BoxCollider2D>();
+
+            tmp = PhotonNetwork.Instantiate(prefabsR[7], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
+            tmp.AddComponent<BoxCollider2D>();
+            tmp = PhotonNetwork.Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
             tmp.AddComponent<BoxCollider2D>();
 
         }
