@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ArrowsManager : MonoBehaviour
 {
@@ -272,15 +273,52 @@ public class ArrowsManager : MonoBehaviour
 
         }
 
+        int[,] spawnLaby = new int[x, y];
+        int r = Random.Range(0, 3);
 
-        int prefabNb;
+        for (int x = 0; x < laby.GetLength(0); x++)
+        {
+            for (int y = 0; y < laby.GetLength(1); y++)
+            {
+                r = Random.Range(0, 8);
+                if(r == 1 || r == 0) //setup both
+                {
+                    spawnLaby[x, y] = 2;
+                }
+                else if(r%2 == 0) //setup local
+                {
+                    spawnLaby[x, y] = 0;
+                }
+                else //setup distant
+                {
+                    spawnLaby[x, y] = 1;
+                }
+            }
+        }
+
+
+       int prefabNb;
         for (int x = 0; x < laby.GetLength(0); x++)
         {
             for (int y = 0; y < laby.GetLength(1); y++)
             {
                 prefabNb = prefabRules(laby[x, y]);
                 laby[x, y] = toBin(prefabNb);
-                Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f+0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+                if(spawnLaby[x, y] == 0) //setup local
+                {
+                    Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f+0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+                    PhotonNetwork.Instantiate(prefabsL[0].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                }
+                else if(spawnLaby[x, y] == 1) //setup distant
+                {
+                    Instantiate(prefabsL[0], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+                    PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                }
+                else //both (== 2)
+                {
+                    Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+                    PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                }
             }
         }
     }
