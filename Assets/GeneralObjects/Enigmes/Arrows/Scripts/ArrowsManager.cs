@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class ArrowsManager : MonoBehaviour
+public class ArrowsManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     public List<GameObject> prefabsL; //prefabs laby
     public List<GameObject> prefabsR; //prefabs room
-
+    public GameObject playerPrefab;
 
     private const int startX = 0;
     private const int startY = 0;
@@ -29,80 +29,115 @@ public class ArrowsManager : MonoBehaviour
 
     void Start()
     {
-        //get player
-        GameObject[] playersTmp = GameObject.FindGameObjectsWithTag("Player");
-        for(int i = 0; i < playersTmp.Length; i++)
-        {
-            players[i] = playersTmp[i].GetComponent<Transform>();
-        } 
+        GameObject t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-1, -1), Quaternion.identity); // Spawn player on network
+        GameObject cam = t.transform.GetChild(0).gameObject;
+        cam.GetComponent<Camera>().fieldOfView = 120;
 
-        (int Xt, int Yt) = (0, Random.Range(0, y - 1));
-        laby[Xt, Yt] = 2010;//down but not up
-        Xt += 1;
-        int previous = (int)Direction.down;
-        while(Xt < x)
+        if (PhotonNetwork.IsMasterClient)
         {
-            int r = Random.Range(0, 3);
-            if (r == 0) // go down
+
+            //get player
+            players[0] = t.GetComponent<Transform>();
+
+            (int Xt, int Yt) = (0, Random.Range(0, y - 1));
+            laby[Xt, Yt] = 2010;//down but not up
+            Xt += 1;
+            int previous = (int)Direction.down;
+            while(Xt < x)
             {
-                laby[Xt, Yt] = (int)Direction.down+addPrevious(previous);
-                Xt += 1;
-                previous = (int)Direction.down;
-            } 
-            else if (r == 1 && Yt + 1 < y && previous != (int)Direction.left) //go right
-            {
-                laby[Xt, Yt] = (int)Direction.right+addPrevious(previous);
-                Yt += 1;
-                previous = (int) Direction.right;
-            } 
-            else if (r == 2 && Yt - 1 >= 0 && previous != (int)Direction.right)//go left
-            {
-                laby[Xt, Yt] = (int)Direction.left + addPrevious(previous);
-                Yt -= 1;
-                previous = (int) Direction.left;
+                int r = Random.Range(0, 3);
+                if (r == 0) // go down
+                {
+                    laby[Xt, Yt] = (int)Direction.down+addPrevious(previous);
+                    Xt += 1;
+                    previous = (int)Direction.down;
+                } 
+                else if (r == 1 && Yt + 1 < y && previous != (int)Direction.left) //go right
+                {
+                    laby[Xt, Yt] = (int)Direction.right+addPrevious(previous);
+                    Yt += 1;
+                    previous = (int) Direction.right;
+                } 
+                else if (r == 2 && Yt - 1 >= 0 && previous != (int)Direction.right)//go left
+                {
+                    laby[Xt, Yt] = (int)Direction.left + addPrevious(previous);
+                    Yt -= 1;
+                    previous = (int) Direction.left;
+                }
             }
+
+
+
+            //print laby
+            //for (int x = 0; x < laby.GetLength(0); x++)
+            //{
+            //    string tmp = "";
+            //    for (int y = 0; y < laby.GetLength(1); y++)
+            //    {
+            //        tmp += " " + laby[x, y];
+            //    }
+            //    Debug.Log(tmp);
+            //}
+
+
+            //print binary
+            //for (int i = 0; i < 16; i++)
+            //{
+            //    int[] t = toByteArray(i);
+            //    string f = "";
+            //    for (int j = 0; j < t.Length; j++)
+            //    {
+            //        f += t[j].ToString();
+            //    }
+            //    Debug.Log(f);
+
+            //}
+
+            //for (int i = 0; i < 16; i++)
+            //{
+
+            //    Debug.Log(toBin(i));
+
+            //}
+
+            //Debug.Log(toByteArray(1));
+            //prefabRules(2010);
+            createLaby();
+
+            //printBitArray(DeciToArray(50, 4));
         }
 
+    }
+
+    public void Update()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (players[1] == null && PhotonNetwork.PlayerList.Length > 1)
+            {
+                players[1] = GameObject.FindGameObjectsWithTag("player")[1].GetComponent<Transform>();
+            }
 
 
-        //print laby
-        //for (int x = 0; x < laby.GetLength(0); x++)
-        //{
-        //    string tmp = "";
-        //    for (int y = 0; y < laby.GetLength(1); y++)
-        //    {
-        //        tmp += " " + laby[x, y];
-        //    }
-        //    Debug.Log(tmp);
-        //}
+            player1TmpTile[0] = (int)((players[0].position.x - startX) / tileSize);
+            player1TmpTile[1] = (int)((players[0].position.y - startY) / tileSize) * -1;
+            if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1])
+            {
 
+                if (!CheckPlayerMovement())//player break rules, apply consequences
+                {
+                    Debug.Log("consequences");
+                }
+                player1Tile[0] = (int)((players[0].position.x - startX) / tileSize); // Calculate position of player in maze
+                player1Tile[1] = (int)((players[0].position.y - startY) / tileSize) * -1;
+                //player2Tile[0] = (int)((players[1].position.x - startX) / tileSize);
+                //player2Tile[1] = (int)((players[1].position.y - startY) / tileSize);
 
-        //print binary
-        //for (int i = 0; i < 16; i++)
-        //{
-        //    int[] t = toByteArray(i);
-        //    string f = "";
-        //    for (int j = 0; j < t.Length; j++)
-        //    {
-        //        f += t[j].ToString();
-        //    }
-        //    Debug.Log(f);
+                Debug.Log($"{player1Tile[0]}, {player1Tile[1]}");
+            }
 
-        //}
-
-        //for (int i = 0; i < 16; i++)
-        //{
-
-        //    Debug.Log(toBin(i));
-
-        //}
-
-        //Debug.Log(toByteArray(1));
-        //prefabRules(2010);
-        createLaby();
-
-        //printBitArray(DeciToArray(50, 4));
-
+        }
+        
     }
 
     //convert to byteArray on 4 bits 
@@ -297,7 +332,8 @@ public class ArrowsManager : MonoBehaviour
         }
 
 
-       int prefabNb;
+        int prefabNb;
+        GameObject t;
         for (int x = 0; x < laby.GetLength(0); x++)
         {
             for (int y = 0; y < laby.GetLength(1); y++)
@@ -307,17 +343,20 @@ public class ArrowsManager : MonoBehaviour
                 if(spawnLaby[x, y] == 0) //setup local
                 {
                     Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f+0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-                    PhotonNetwork.Instantiate(prefabsL[0].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                    t = PhotonNetwork.Instantiate(prefabsL[0].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                    t.SetActive(false);
                 }
                 else if(spawnLaby[x, y] == 1) //setup distant
                 {
                     Instantiate(prefabsL[0], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-                    PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                    t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                    t.SetActive(false);
                 }
                 else //both (== 2)
                 {
                     Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-                    PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                    t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
+                    t.SetActive(false);
                 }
             }
         }
@@ -372,26 +411,4 @@ public class ArrowsManager : MonoBehaviour
         return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        player1TmpTile[0] = (int)((players[0].position.x - startX) / tileSize);
-        player1TmpTile[1] = (int)((players[0].position.y - startY) / tileSize) * -1;
-        if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1])
-        {
-
-            if (!CheckPlayerMovement())//player break rules, apply consequences
-            {
-                Debug.Log("consequences");
-            }
-            player1Tile[0] = (int)((players[0].position.x - startX) / tileSize); // Calculate position of player in maze
-            player1Tile[1] = (int)((players[0].position.y - startY) / tileSize)*-1;
-            //player2Tile[0] = (int)((players[1].position.x - startX) / tileSize);
-            //player2Tile[1] = (int)((players[1].position.y - startY) / tileSize);
-
-            Debug.Log($"{player1Tile[0]}, {player1Tile[1]}");
-        }
-
-    }
 }
