@@ -6,6 +6,21 @@ using UnityEngine;
 // NE PAS OUBLIER : les player doivent avoir le tag "Player" !!!
 public class CrateLabyrinthGenerator : MonoBehaviour
 {
+    /*
+     * Variables Publique
+     */
+    //Variables contenants les prefabs qui seront déposées par le script
+    public GameObject movableCratePrefab;
+    public GameObject unmovableCratePrefab;
+    public GameObject stoolPrefab;
+    public GameObject dumpsterPrefab;
+
+    //Affichage
+    public GameObject messageOnScreenCanvas;
+
+    /*
+     * Fonctions
+     */
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +34,19 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             player.GetComponent<FixedJoint2D>().enabled = false;
             player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
         }
+
+        //Récupérer dans une variable le canvas d'ineraction
+        GameObject canvaTextPopUP = GameObject.Find("TextPopUpCanvas");
+
+        //Ajouter toutes les Boites
+        //GameObject.Instantiate
+        Instantiate(movableCratePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        //Lier aux boites le canvas d'intéraction
+        foreach (GameObject movableCrate in GameObject.FindGameObjectsWithTag("Box"))
+        {
+            movableCrate.GetComponent<MovableCrate>().MessageOnScreenCanvas = messageOnScreenCanvas;
+        }
     }
 }
+ 
