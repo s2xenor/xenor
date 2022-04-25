@@ -12,8 +12,8 @@ public class WiresManager : MonoBehaviour
     public GameObject wirePrefab;
     public GameObject plugPrefab;
     public GameObject camPrefab;
-    public GameObject rulesPrefab;
-    public GameObject rulesTextPrefab;
+    public GameObject rulesPrefab;          //canvas with notepad background
+    public GameObject rulesTextPrefab;      //text ui
 
 
     private GameObject[] plugsL = new GameObject[nbWires];
