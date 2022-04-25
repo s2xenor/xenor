@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1086221672243782864}
   - component: {fileID: 1086221672243782867}
   - component: {fileID: 1086221672243782877}
-  - component: {fileID: 1086221672243782866}
   - component: {fileID: 3574380470942095607}
   - component: {fileID: -2951274672598125088}
   - component: {fileID: -3909933131768175938}
   - component: {fileID: -8300140014738245718}
   - component: {fileID: -8155306207819970310}
+  - component: {fileID: 3255591337943944078}
   m_Layer: 0
   m_Name: playerboyOnline
   m_TagString: Player
@@ -109,21 +109,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1086221672243782866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086221672243782876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cddd552cba2d6148bdf04fe70e9c752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizon: Horizontal
-  verti: Vertical
-  animator: {fileID: 1086221672243782877}
 --- !u!114 &3574380470942095607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +223,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3255591337943944078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086221672243782876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae1c6d969517bc4b98d122c586d1cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizon: Horizontal
+  verti: Vertical
+  animator: {fileID: 1086221672243782877}
 --- !u!1 &1986420517995878089
 GameObject:
   m_ObjectHideFlags: 0
