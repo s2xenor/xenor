@@ -115,6 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cddd552cba2d6148bdf04fe70e9c752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizon: Horizontalbis
-  verti: Verticalbis
-  animator: {fileID: 0}
+  horizon: Horizontal
+  verti: Vertical
+  animator: {fileID: 1086221672243782877}

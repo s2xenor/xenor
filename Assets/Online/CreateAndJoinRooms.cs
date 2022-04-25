@@ -10,6 +10,10 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public InputField createInput;
     public InputField joinInput;
 
+    public int sceneInt;
+    public string sceneString;
+    // Only one is needed
+
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text);
@@ -21,6 +25,9 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel(2); // Scene to load
+        if (sceneString != null && sceneString != "")
+            PhotonNetwork.LoadLevel(sceneString); // Scene to load
+        else
+            PhotonNetwork.LoadLevel(sceneInt); // Scene to load
     }
 }

@@ -6,7 +6,7 @@ using Photon.Pun;
 public class SpawnPlayers : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public GameObject maze;
+
 
     private void Start()
     {
