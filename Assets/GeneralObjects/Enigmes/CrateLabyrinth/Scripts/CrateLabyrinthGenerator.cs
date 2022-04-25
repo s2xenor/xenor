@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using Newtonsoft.Json;
 
 // Ce script permet d'initialiser la piece pour les labyrinthe de boite, doit etre appeler à chaque nouvelle piece Crate labyrinth enigm
 // NE PAS OUBLIER : les player doivent avoir le tag "Player" !!!
@@ -38,15 +40,51 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         //Récupérer dans une variable le canvas d'ineraction
         GameObject canvaTextPopUP = GameObject.Find("TextPopUpCanvas");
 
-        //Ajouter toutes les Boites
-        //GameObject.Instantiate
-        Instantiate(movableCratePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //Chargement des coordonnées des boites de la pièce
+        List<Vector3[]> roomData = getData("room_tuto1.json");
 
-        //Lier aux boites le canvas d'intéraction
+        //Instanciation des Boites qui bouge
+        foreach (Vector3 coord in roomData[0])
+        {
+            Instantiate(movableCratePrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+        }
+
+        //Instanciation des Boites qui bouge pas
+        foreach (Vector3 coord in roomData[1])
+        {
+            Instantiate(unmovableCratePrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+        }
+
+        //Instanciation des tabourets
+        foreach (Vector3 coord in roomData[2])
+        {
+            Instantiate(stoolPrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+        }
+
+        //Instanciation des poubelles
+        foreach (Vector3 coord in roomData[3])
+        {
+            Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+        }
+
+        //Lier aux boites qui bougent le canvas d'intéraction
         foreach (GameObject movableCrate in GameObject.FindGameObjectsWithTag("Box"))
         {
             movableCrate.GetComponent<MovableCrate>().MessageOnScreenCanvas = messageOnScreenCanvas;
         }
+    }
+
+    //Fonction qi va cherche les données du fichier Json et qui les formates
+    List<Vector3[]> getData(string filename)
+    {
+        //Lecture du fichier JSON
+        StreamReader sr = new StreamReader(Application.dataPath + "/GeneralObjects/Enigmes/CrateLabyrinth/Scripts/Data/" + filename);
+        string fileContent = sr.ReadToEnd();
+        sr.Close();
+        //Analyse du fichier
+        // Cree une liste de liste de vector3
+        List<Vector3[]> roomData = JsonConvert.DeserializeObject<List<Vector3[]>>(fileContent);
+        return roomData;
     }
 }
  
