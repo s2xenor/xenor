@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private int LabyBoxNextInt = 0;
 
+    private bool loadNow = true;
+
 
     /*
      * Fonctions
@@ -53,19 +55,32 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les données
+        SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
     }
 
-    public void Start()
+    public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
     {
         if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
         {
-            if (LabyBoxNextInt == 12)
+            if (loadNow)
             {
-                //charger le loby  
+                if (LabyBoxNextInt >= 12)
+                {
+                    //charger le loby  
+                }
+                GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
+                LabyBoxNextInt++;
+                if (LabyBoxNextInt>3)
+                {
+                    LabyBoxNextInt += Random.Range(0, 3);
+                }
+                loadNow = false;
             }
-            GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
-            LabyBoxNextInt++;
+            else
+            {
+                loadNow = true;
+            }
         }
     }
 
@@ -74,7 +89,7 @@ public class GameManager : MonoBehaviour
     * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre</summary>
     * 
     * <returns>Return nothing</returns>
-    */
+*/
     public void SaveState()
     {
         // On utilise le module JsonUtility pour parse tout l'objet
