@@ -1,3 +1,3 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=pi_home', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=xenor', 'root', 'a7t2r3rr95');
 ?>
