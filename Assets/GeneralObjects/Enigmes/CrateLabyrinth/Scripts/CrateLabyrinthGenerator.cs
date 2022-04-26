@@ -41,7 +41,7 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         GameObject canvaTextPopUP = GameObject.Find("TextPopUpCanvas");
 
         //Chargement des coordonnées des boites de la pièce
-        List<Vector3[]> roomData = getData("room_tuto1.json");
+        List<Vector3[]> roomData = getData("room_4_1.json");
 
         //Instanciation des Boites qui bouge
         foreach (Vector3 coord in roomData[0])
