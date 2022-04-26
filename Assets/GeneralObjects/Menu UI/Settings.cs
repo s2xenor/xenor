@@ -49,7 +49,6 @@ public class Settings : MonoBehaviour
     // Make sound when pressed
     public void SFX()
     {
-        Debug.Log("ok");
         audioData.PlayOneShot(clip);
     }
 }

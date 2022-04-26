@@ -13,15 +13,25 @@ public class MainMaze : MonoBehaviour
     public int line; // 2 * line + 1
     public int column; // 2 * column + 1
 
-    public GameObject map;
     public GameObject mazeContainer;
+    public GameObject map;
 
-    public GameObject wall;
+    public GameObject wallMaze;
+    public GameObject wallMap;
+    PhotonView view;
+
+    bool hasSpawned = false;
+    bool master = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        //if (!PhotonNetwork.IsMasterClient) return;
+        view = GetComponent<PhotonView>();
+        master = PhotonNetwork.IsMasterClient;
+
+        if (!master) return;
+
+        hasSpawned = true;
 
         Maze maze1 = new Maze((ushort)line, (ushort)column); // Create maze
 
@@ -30,13 +40,15 @@ public class MainMaze : MonoBehaviour
 
         // Set up labyrinthe
         ModMaze();
-        CreateMap();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (hasSpawned && GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
+        {  
+            CreateMap();
+            hasSpawned = false;
+        }
     }
 
     void ModMaze() // Modify maze
@@ -52,7 +64,7 @@ public class MainMaze : MonoBehaviour
 
     void CreateMap() // Create map for labyrinthe
     {
-        float size = 0.36f * 2;
+        float size = 0.32f / 2;
 
         for (UInt16 i = 0; i < maze.GetLength(0); i++)
         {
@@ -60,22 +72,20 @@ public class MainMaze : MonoBehaviour
             {
                 if (maze[i,j] == 1)
                 {
-                    // Create wall and put it in map childrens
-                    GameObject mur = Instantiate(wall, new Vector2(i * size, j * size), Quaternion.identity);
-                    mur.GetComponent<BoxCollider2D>().enabled = false;
-                    mur.transform.parent = map.transform;
-                    
-                    mur = Instantiate(wall, new Vector2(i * size, j * size), Quaternion.identity);
-                    mur.GetComponent<SpriteRenderer>().enabled = false;
-                    mur.transform.parent = mazeContainer.transform;
+                    // Create wall
+                    PhotonNetwork.Instantiate(wallMap.name, new Vector3(i * size, j * size, 0), Quaternion.identity);
+
+                    PhotonNetwork.Instantiate(wallMaze.name, new Vector3(3.2f + i * size, .32f * 6 + j * size, 0), Quaternion.identity);
                 }
             }
         }
 
-        map.transform.localScale = new Vector2(1, 1);
-        mazeContainer.transform.localScale = new Vector2(2, 2);
+        // Adjust size
+        mazeContainer.transform.localScale = new Vector2(4, 4);
+        map.transform.localScale = new Vector2(50, 50);
 
-        map.SetActive(false);
+        // Disable map
+        //map.SetActive(false);
     }
 
     void Print() // Print maze

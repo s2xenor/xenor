@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3461065241833005402}
   - component: {fileID: 3461065241833005403}
-  - component: {fileID: 3461065241833005732}
   - component: {fileID: 3461065241833005401}
+  - component: {fileID: 7631591219872855127}
   m_Layer: 0
   m_Name: DoubleDoor
   m_TagString: Untagged
@@ -84,21 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3461065241833005732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3461065241833005733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 174c4d088e421204f81dd4d9415d671f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MessageOnScreenCanvas: {fileID: 0}
-  nextSceneName: 
-  autrePressurePlate: {fileID: 0}
 --- !u!61 &3461065241833005401
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -125,3 +110,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28366935, y: 0.18148968}
   m_EdgeRadius: 0
+--- !u!114 &7631591219872855127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3461065241833005733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584ea2d0a24ba1c4b8f574525d756719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MessageOnScreenCanvas: {fileID: 0}
+  nextSceneName: 
+  autrePressurePlate: {fileID: 0}
