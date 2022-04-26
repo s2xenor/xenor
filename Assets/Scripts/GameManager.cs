@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
 
+    private string[] LabyBoxNext = new string[] { "room_tuto1.json", "room_tuto2.json", "room_tuto3.json", "room_tuto4.json", "room_tuto5.json", "room_2_1.json"
+    , "room_2_2.json", "room_2_3.json", "room_2_4.json", "room_2_5.json", "room_3_1.json", "room_4_1.json", "loby"};
+
+    private int LabyBoxNextInt = 0;
+
 
     /*
      * Fonctions
@@ -49,6 +54,19 @@ public class GameManager : MonoBehaviour
         instance = this;
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les données
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
+    }
+
+    public void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
+        {
+            if (LabyBoxNextInt == 12)
+            {
+                //charger le loby  
+            }
+            GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
+            LabyBoxNextInt++;
+        }
     }
 
     //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre

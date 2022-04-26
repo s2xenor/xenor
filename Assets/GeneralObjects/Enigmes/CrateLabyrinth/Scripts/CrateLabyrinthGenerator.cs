@@ -36,12 +36,28 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             player.GetComponent<FixedJoint2D>().enabled = false;
             player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
         }
+    }
 
+    //Fonction qi va cherche les données du fichier Json et qui les formates
+    private List<Vector3[]> getData(string filename)
+    {
+        //Lecture du fichier JSON
+        StreamReader sr = new StreamReader(Application.dataPath + "/GeneralObjects/Enigmes/CrateLabyrinth/Scripts/Data/" + filename);
+        string fileContent = sr.ReadToEnd();
+        sr.Close();
+        //Analyse du fichier
+        // Cree une liste de liste de vector3
+        List<Vector3[]> roomData = JsonConvert.DeserializeObject<List<Vector3[]>>(fileContent);
+        return roomData;
+    }
+
+    public void loadScene(string roomToLoad)
+    {
         //Récupérer dans une variable le canvas d'ineraction
         GameObject canvaTextPopUP = GameObject.Find("TextPopUpCanvas");
 
         //Chargement des coordonnées des boites de la pièce
-        List<Vector3[]> roomData = getData("room_4_1.json");
+        List<Vector3[]> roomData = getData(roomToLoad);
 
         //Instanciation des Boites qui bouge
         foreach (Vector3 coord in roomData[0])
@@ -73,18 +89,5 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             movableCrate.GetComponent<MovableCrate>().MessageOnScreenCanvas = messageOnScreenCanvas;
         }
     }
-
-    //Fonction qi va cherche les données du fichier Json et qui les formates
-    List<Vector3[]> getData(string filename)
-    {
-        //Lecture du fichier JSON
-        StreamReader sr = new StreamReader(Application.dataPath + "/GeneralObjects/Enigmes/CrateLabyrinth/Scripts/Data/" + filename);
-        string fileContent = sr.ReadToEnd();
-        sr.Close();
-        //Analyse du fichier
-        // Cree une liste de liste de vector3
-        List<Vector3[]> roomData = JsonConvert.DeserializeObject<List<Vector3[]>>(fileContent);
-        return roomData;
-    }
 }
- 
+

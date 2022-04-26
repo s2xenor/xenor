@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 369101424}
   m_Layer: 0
   m_Name: Generator
-  m_TagString: Untagged
+  m_TagString: BoxLabyGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,7 +169,51 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &489658544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489658546}
+  - component: {fileID: 489658545}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &489658545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489658544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8154dd4659a5ab4aaa2747b48d34ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSettings: {fileID: 0}
+--- !u!4 &489658546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489658544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.137787, y: -1.1511023, z: -1.5875053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &884758437
 PrefabInstance:
@@ -180,7 +224,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3461065241833005402, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3461065241833005402, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -227,6 +271,10 @@ PrefabInstance:
       value: DoubleDoor (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
+      propertyPath: nextSceneName
+      value: CrateLabyrinthGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: autrePressurePlate
       value: 
       objectReference: {fileID: 1965841254}
@@ -245,7 +293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3461065241833005402, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3461065241833005402, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -290,6 +338,10 @@ PrefabInstance:
     - target: {fileID: 3461065241833005733, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: m_Name
       value: DoubleDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
+      propertyPath: nextSceneName
+      value: CrateLabyrinthGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: autrePressurePlate
@@ -383,7 +435,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1095440054
 GameObject:
@@ -1206,7 +1258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8312868088940820034, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8312868088940820034, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1352,7 +1404,7 @@ Transform:
   - {fileID: 1095440055}
   - {fileID: 7537524362966709156}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2053413052
 GameObject:
