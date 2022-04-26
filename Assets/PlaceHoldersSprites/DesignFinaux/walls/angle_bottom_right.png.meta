@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/PlaceHoldersSprites/DesignFinaux/walls/angle_bottom_right.png.meta
 guid: 1481a664ef9f3a1459a29d1b2d5f7101
+=======
+guid: 44f4b3a49ac3d314781da326369d08b1
+>>>>>>> f9288958aa63898f5111e1446601c4efb078bc64:Assets/PlaceHoldersSprites/doors/1dff.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
