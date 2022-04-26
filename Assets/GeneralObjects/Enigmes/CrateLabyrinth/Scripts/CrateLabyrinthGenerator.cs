@@ -41,30 +41,30 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         GameObject canvaTextPopUP = GameObject.Find("TextPopUpCanvas");
 
         //Chargement des coordonnées des boites de la pièce
-        List<Vector3[]> roomData = getData("room_4_1.json");
+        List<Vector3[]> roomData = getData("room_tuto1.json");
 
         //Instanciation des Boites qui bouge
         foreach (Vector3 coord in roomData[0])
         {
-            Instantiate(movableCratePrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+            Instantiate(movableCratePrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Instanciation des Boites qui bouge pas
         foreach (Vector3 coord in roomData[1])
         {
-            Instantiate(unmovableCratePrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+            Instantiate(unmovableCratePrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Instanciation des tabourets
         foreach (Vector3 coord in roomData[2])
         {
-            Instantiate(stoolPrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+            Instantiate(stoolPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Instanciation des poubelles
         foreach (Vector3 coord in roomData[3])
         {
-            Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x, (float)0.32 * coord.y, 0), Quaternion.identity);
+            Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Lier aux boites qui bougent le canvas d'intéraction
