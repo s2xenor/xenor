@@ -1,0 +1,54 @@
+
+Pages :
+- Présentation du Jeu
+    Un seule et même page mais y a des ancres
+    * Histoire
+    * etc
+- Présentation de l'équipe
+- Présentation des membres de l'équipe
+- Page de Download
+- Page des meilleurs résultats
+
+Layout :
+£ Nav bar £ :
+    * JOUER
+    * Accueil
+    * L'équipe
+    * Le Jeu
+        * L'Histoire
+        * Gameplay
+    * Classement
+
+$ Accueil :
+    * Titre du Jeu
+    * Synopsis très résumé
+        $Buton$ : En savoir plus sur l'Histoire
+    * Présentation de l'équipe
+        Xenor, nous sommes [blabla]
+        $Buton$ : En savoir plus sur nous (link : Page Présentation Membres)
+    * Présentation des Mécaniques Principales 
+        (j'aime bcp comm ça a été fait là : https://beyondstyx.fr/)
+        Genre :
+            Combats
+            Enigmes
+            Coopération
+        $Buton$ : En savoir plus sur les Mécaniques
+
+$ Présentation Membres :
+    * Rappel Présentation Générale du groupe
+    * Présentation Individuelle
+        Comme sur le site (mais le tout combiné sur une page web) : https://smar.cf/html/Personnes/Ronan.html
+        En mode menu déroulant genre avec des sorte de chevron 
+
+$ Page du Jeu
+    Calqué sur le cahpitre 2 du pdf
+
+$ Page de Download :
+    Le Jeu :
+    * Gros Bouton Download
+    Rapports et cahier des charges :
+    * liste avec lien Download
+    Asset ????
+
+$ Page Classement :
+    * Voir avec Hugo ou même laisser hugo gérer
