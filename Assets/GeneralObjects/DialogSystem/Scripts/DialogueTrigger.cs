@@ -8,7 +8,19 @@ public class DialogueTrigger : MonoBehaviour {
 	//NE PAS OUBLIER : de bien défnir le bon de premier ficheir là oiù on mets le dialogue trigger
 	public string filePath;
 
-	public void TriggerDialogue()
+	public bool triggerOnload = false;
+
+	public List<GameObject> objectsToActivate;
+
+    private void Start()
+    {
+        if (triggerOnload)
+        {
+			TriggerDialogue();
+        }
+    }
+
+    public void TriggerDialogue()
 	{
 		if (filePath != "") {
 			//Lecture du fichier json
@@ -23,5 +35,12 @@ public class DialogueTrigger : MonoBehaviour {
 			//Début du dialogue
 			FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
 		}
+        else if (objectsToActivate != null && objectsToActivate.Count != 0)
+        {
+            foreach (GameObject obj in objectsToActivate)
+            {
+				obj.SetActive(true);
+            }
+        }
 	}
 }
