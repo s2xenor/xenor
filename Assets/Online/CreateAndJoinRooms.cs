@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
-
-    public InputField createInput;
-    public InputField joinInput;
+    public TMP_InputField roomString;
 
     public int sceneInt;
     public string sceneString;
@@ -16,13 +15,14 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(createInput.text);
+        PhotonNetwork.CreateRoom(roomString.text);
     }
 
     public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(joinInput.text);
+        PhotonNetwork.JoinRoom(roomString.text);
     }
+
     public override void OnJoinedRoom()
     {
         if (sceneString != null && sceneString != "")

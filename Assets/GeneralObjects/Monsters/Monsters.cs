@@ -9,6 +9,8 @@ public class Monsters : MonoBehaviour
     // Attach NavMeshAgent component to monster
     // Read the wiki of the github
 
+    // Give tag 'Monster'
+
     Transform target;       // Target of Pathfinding
     NavMeshAgent agent;     // Pathfinding
     float[] distanceFactor;   // Facteur de distance entre les joueurs < 1 (ex : 1/2 -> change de target si l'autre joueur et a la moitié de la distance de l'autre))

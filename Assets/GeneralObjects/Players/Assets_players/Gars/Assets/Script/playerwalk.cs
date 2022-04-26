@@ -12,7 +12,11 @@ public class playerwalk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 756454f287492ea84c6c430f3a4988132070c5c4
     }
 
     // Update is called once per frame

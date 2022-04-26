@@ -15,10 +15,14 @@ public class Settings : MonoBehaviour
     // Video tab been set
     bool set = false;
 
+    AudioSource audioData;
+    public AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
         names = QualitySettings.names;
+        audioData = GetComponent<AudioSource>();
     }
 
     // Set to fullscreen
@@ -40,5 +44,12 @@ public class Settings : MonoBehaviour
 
         // Change quality
         QualitySettings.SetQualityLevel(Array.IndexOf(names, s));
+    }
+
+    // Make sound when pressed
+    public void SFX()
+    {
+        Debug.Log("ok");
+        audioData.PlayOneShot(clip);
     }
 }

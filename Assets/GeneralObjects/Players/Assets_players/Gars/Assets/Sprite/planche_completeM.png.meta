@@ -1,0 +1,696 @@
+fileFormatVersion: 2
+guid: 2771bebf215588249a664401b8bbf362
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9135823470775967764
+    second: planche_completeM_0
+  - first:
+      213: -6557555228990941395
+    second: planche_completeM_1
+  - first:
+      213: -6631943457841737714
+    second: planche_completeM_2
+  - first:
+      213: 1200279859839323936
+    second: planche_completeM_3
+  - first:
+      213: -3588210049256291184
+    second: planche_completeM_4
+  - first:
+      213: 2462736774333310257
+    second: planche_completeM_5
+  - first:
+      213: -6325227609971545653
+    second: planche_completeM_6
+  - first:
+      213: -1076738166929842003
+    second: planche_completeM_7
+  - first:
+      213: 5423437792909893872
+    second: planche_completeM_8
+  - first:
+      213: 1825333397326836794
+    second: planche_completeM_9
+  - first:
+      213: -2507286181639108730
+    second: planche_completeM_10
+  - first:
+      213: 2427761806256380755
+    second: planche_completeM_11
+  - first:
+      213: -2188355850304585614
+    second: planche_completeM_12
+  - first:
+      213: 5983562771215201241
+    second: planche_completeM_13
+  - first:
+      213: 5981744498930332844
+    second: planche_completeM_14
+  - first:
+      213: 4760453750703058369
+    second: planche_completeM_15
+  - first:
+      213: -4841652422492827803
+    second: planche_completeM_16
+  - first:
+      213: -4643190222744037115
+    second: planche_completeM_17
+  - first:
+      213: -833176937653395013
+    second: planche_completeM_18
+  - first:
+      213: -6522061221045234354
+    second: planche_completeM_19
+  - first:
+      213: 2163738605640740134
+    second: planche_completeM_20
+  - first:
+      213: 6523023533653825328
+    second: planche_completeM_21
+  - first:
+      213: 1758804612000665764
+    second: planche_completeM_22
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: planche_completeM_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 166
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41027420b07f8ce70800000000000000
+      internalID: 9135823470775967764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 166
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d275dfc3342eef4a0800000000000000
+      internalID: -6557555228990941395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_2
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 166
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e001ed8009a96f3a0800000000000000
+      internalID: -6631943457841737714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 166
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02f47c45c2048a010800000000000000
+      internalID: 1200279859839323936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_4
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 167
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 094879aa8fd143ec0800000000000000
+      internalID: -3588210049256291184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_5
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 167
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135ad615c066d2220800000000000000
+      internalID: 2462736774333310257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_6
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 166
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc9272050074838a0800000000000000
+      internalID: -6325227609971545653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_7
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 107
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da0aa0c8758ae01f0800000000000000
+      internalID: -1076738166929842003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_8
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 114
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f0a2d320fbe34b40800000000000000
+      internalID: 5423437792909893872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_9
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 133
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a34b258cd03e45910800000000000000
+      internalID: 1825333397326836794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_10
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 114
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687c7218084543dd0800000000000000
+      internalID: -2507286181639108730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_11
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 107
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35b1c2dff7421b120800000000000000
+      internalID: 2427761806256380755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_12
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 96
+        width: 22
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2708274d2f561a1e0800000000000000
+      internalID: -2188355850304585614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_13
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 100
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d3b88d53a2e90350800000000000000
+      internalID: 5983562771215201241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_14
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 97
+        width: 22
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca4b3ebddec630350800000000000000
+      internalID: 5981744498930332844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_15
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 67
+        width: 25
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cde45cd677801240800000000000000
+      internalID: 4760453750703058369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_16
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 30
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56fc76f16cefeccb0800000000000000
+      internalID: -4841652422492827803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_17
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 22
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50956c4d713109fb0800000000000000
+      internalID: -4643190222744037115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_18
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 14
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb12f145df5ff64f0800000000000000
+      internalID: -833176937653395013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_19
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 36
+        width: 24
+        height: 30
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e459f34ffdbfc75a0800000000000000
+      internalID: -6522061221045234354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_20
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 14
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62de3004cc4270e10800000000000000
+      internalID: 2163738605640740134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_21
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 22
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03713f8e75f668a50800000000000000
+      internalID: 6523023533653825328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planche_completeM_22
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 30
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a05e9fd977886810800000000000000
+      internalID: 1758804612000665764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
