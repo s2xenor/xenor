@@ -1,0 +1,26 @@
+
+
+.overlay_play {
+    position: fixed;
+    background-color: aquamarine;
+    border-radius: 20px 0 0 0;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+    width: 350px;
+    height: 250px;
+    right: 0px;
+    bottom: 0px;
+    text-align: center;
+    transition: 1s;
+}
+
+.overlay_play:hover{
+    transform: translate(-30px, -30px);
+    transition: 1s;
+}
+
+.download_pop_up_title {
+    font-size: 28px;
+    padding: 10px;
+    margin: 20px 0;
+    font-family: 'Share Tech Mono', monospace;
+}
