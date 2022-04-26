@@ -4,13 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
-
+	
+	//Variable qui lient les elment d'affichage
 	public Text nameText;
 	public Text dialogueText;
 
+	//Animateur pour les aimations mdr
 	public Animator animator;
 
+	//File qui stocke les phrase
 	private Queue<string> sentences;
+
+	private DialogueTrigger dialogueTrigger; //pour lancer la suite du dialogue
 
 	// Use this for initialization
 	void Start () 
@@ -18,10 +23,15 @@ public class DialogueManager : MonoBehaviour {
 		sentences = new Queue<string>();
 	}
 
-	public void StartDialogue(Dialogue dialogue)
+	//Cette fonction est appelée pour démarer le dialogue
+	public void StartDialogue(Dialogue dialogue, DialogueTrigger dialogueTrigger)
 	{
+		this.dialogueTrigger = dialogueTrigger;
+
+		//Affichage de la boîte de dialogue
 		animator.SetBool("IsOpen", true);
 
+		//affiche du nom de celui qui parle dans la boite de dialogue
 		nameText.text = dialogue.name; // Display name
 
 		sentences.Clear(); // Clear previous sentences
@@ -34,6 +44,7 @@ public class DialogueManager : MonoBehaviour {
 		DisplayNextSentence();
 	}
 
+	//Afficahge de la phrase suivante pour ce perso
 	public void DisplayNextSentence()
 	{
 		if (sentences.Count == 0) // If no more sentences to say
@@ -60,6 +71,9 @@ public class DialogueManager : MonoBehaviour {
 	void EndDialogue()
 	{
 		animator.SetBool("IsOpen", false);
+
+		//appel du prochain dialogue (perso qui parle)
+		dialogueTrigger.TriggerDialogue();
 	}
 
 }

@@ -847,12 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ddd33eae28b5148a72170d47ccd942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: Dwayne Johnson
-    sentences:
-    - Hey there! My name is Dwayne...
-    - I'm here to guide you through your dangerous adventures...
-    - And wake you up in the morning of course!
+  filePath: Test/test.json
 --- !u!1 &1845476595
 GameObject:
   m_ObjectHideFlags: 0

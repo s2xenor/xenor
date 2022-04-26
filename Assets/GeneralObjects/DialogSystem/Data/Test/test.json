@@ -1,0 +1,18 @@
+{
+    "name" : "Tchoupi",
+    "sentences" : [
+        "Coucou C'est moi Tchoupi !",
+        "Je marche vers l'école",
+        "J'ai de nouveaux amis",
+        "Tous ensemble on rigole",
+        "On n'est plus des petits",
+        "On attend la sonnerie",
+        "C'est fini la recré",
+        "Tous en rang s'il vous plaît",
+        "On vas lire et compter",
+        "Dessiner et chanter",
+        "On va bien s'amuser",
+        "Viens à l'école avec Tchoupi"  
+    ],
+    "nextDialogPath" : "Test/test2.json"
+}
