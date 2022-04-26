@@ -241,10 +241,10 @@ TextureImporter:
       name: planche_completeF_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 166.66667
-        width: 28.571428
-        height: 33.333332
+        x: 3
+        y: 164
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -262,10 +262,10 @@ TextureImporter:
       name: planche_completeF_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 163
-        width: 26
-        height: 37
+        x: 31
+        y: 164
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -283,10 +283,10 @@ TextureImporter:
       name: planche_completeF_2
       rect:
         serializedVersion: 2
-        x: 56
-        y: 162
-        width: 28
-        height: 38
+        x: 59
+        y: 164
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -304,10 +304,10 @@ TextureImporter:
       name: planche_completeF_3
       rect:
         serializedVersion: 2
-        x: 84
-        y: 166.66667
-        width: 28.571428
-        height: 33.333332
+        x: 87
+        y: 166
+        width: 25
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -325,10 +325,10 @@ TextureImporter:
       name: planche_completeF_4
       rect:
         serializedVersion: 2
-        x: 114
-        y: 168
-        width: 26
-        height: 32
+        x: 115
+        y: 166
+        width: 25
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -346,10 +346,10 @@ TextureImporter:
       name: planche_completeF_5
       rect:
         serializedVersion: 2
-        x: 140
-        y: 166.66667
-        width: 28.571428
-        height: 33.333332
+        x: 141
+        y: 165
+        width: 26
+        height: 35
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -367,10 +367,10 @@ TextureImporter:
       name: planche_completeF_6
       rect:
         serializedVersion: 2
-        x: 171
-        y: 166
-        width: 29
-        height: 33
+        x: 170
+        y: 165
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -388,13 +388,13 @@ TextureImporter:
       name: planche_completeF_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 147
-        width: 20
-        height: 14
+        x: 30
+        y: 102
+        width: 26
+        height: 37
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -409,12 +409,12 @@ TextureImporter:
       name: planche_completeF_8
       rect:
         serializedVersion: 2
-        x: 8
-        y: 150
-        width: 9
-        height: 9
-      alignment: 9
-      pivot: {x: 0.4677479, y: 0.5967526}
+        x: 59
+        y: 110
+        width: 25
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -430,12 +430,12 @@ TextureImporter:
       name: planche_completeF_9
       rect:
         serializedVersion: 2
-        x: 8
-        y: 147
-        width: 10
-        height: 13
-      alignment: 9
-      pivot: {x: 0.4709738, y: 0.5}
+        x: 87
+        y: 133
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -451,10 +451,10 @@ TextureImporter:
       name: planche_completeF_10
       rect:
         serializedVersion: 2
-        x: 87
-        y: 135
+        x: 114
+        y: 111
         width: 26
-        height: 30
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -472,10 +472,10 @@ TextureImporter:
       name: planche_completeF_11
       rect:
         serializedVersion: 2
-        x: 189
-        y: 146
-        width: 5
-        height: 12
+        x: 142
+        y: 103
+        width: 26
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -493,10 +493,10 @@ TextureImporter:
       name: planche_completeF_12
       rect:
         serializedVersion: 2
-        x: 184
-        y: 144
-        width: 14
-        height: 18
+        x: 2
+        y: 93
+        width: 27
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -514,10 +514,10 @@ TextureImporter:
       name: planche_completeF_13
       rect:
         serializedVersion: 2
-        x: 0
-        y: 97
-        width: 28
-        height: 37
+        x: 87
+        y: 100
+        width: 25
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -535,10 +535,10 @@ TextureImporter:
       name: planche_completeF_14
       rect:
         serializedVersion: 2
-        x: 29
-        y: 102
-        width: 27
-        height: 40
+        x: 171
+        y: 91
+        width: 25
+        height: 41
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -556,10 +556,10 @@ TextureImporter:
       name: planche_completeF_15
       rect:
         serializedVersion: 2
-        x: 58
-        y: 112
+        x: 87
+        y: 66
         width: 26
-        height: 34
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -577,10 +577,10 @@ TextureImporter:
       name: planche_completeF_16
       rect:
         serializedVersion: 2
-        x: 87
-        y: 102
-        width: 26
-        height: 32
+        x: 2
+        y: 27
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -598,10 +598,10 @@ TextureImporter:
       name: planche_completeF_17
       rect:
         serializedVersion: 2
-        x: 115
-        y: 117
-        width: 24
-        height: 33
+        x: 31
+        y: 18
+        width: 25
+        height: 37
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -619,10 +619,10 @@ TextureImporter:
       name: planche_completeF_18
       rect:
         serializedVersion: 2
-        x: 140
-        y: 107
-        width: 29
-        height: 33
+        x: 59
+        y: 11
+        width: 26
+        height: 35
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -640,10 +640,10 @@ TextureImporter:
       name: planche_completeF_19
       rect:
         serializedVersion: 2
-        x: 171
-        y: 96
-        width: 26
-        height: 34
+        x: 86
+        y: 34
+        width: 27
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -661,10 +661,10 @@ TextureImporter:
       name: planche_completeF_20
       rect:
         serializedVersion: 2
-        x: 3
-        y: 147
-        width: 13
-        height: 15
+        x: 115
+        y: 9
+        width: 26
+        height: 37
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -682,10 +682,10 @@ TextureImporter:
       name: planche_completeF_21
       rect:
         serializedVersion: 2
-        x: 87
-        y: 69
-        width: 26
-        height: 32
+        x: 143
+        y: 19
+        width: 27
+        height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -703,10 +703,10 @@ TextureImporter:
       name: planche_completeF_22
       rect:
         serializedVersion: 2
-        x: 3
-        y: 147
-        width: 11
-        height: 10
+        x: 171
+        y: 26
+        width: 25
+        height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -724,12 +724,12 @@ TextureImporter:
       name: planche_completeF_23
       rect:
         serializedVersion: 2
-        x: 0
-        y: 30
-        width: 29
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 86
+        y: 0
+        width: 26
+        height: 34
+      alignment: 9
+      pivot: {x: 0.7902565, y: 0.44722402}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -737,279 +737,6 @@ TextureImporter:
       bones: []
       spriteID: 41f4659e9f4dbc390800000000000000
       internalID: -7796904160035188972
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_24
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 22
-        width: 25
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11d18bb259e274a70800000000000000
-      internalID: 8811062414192155921
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_25
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 14
-        width: 26
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 61ed58e479e717270800000000000000
-      internalID: 8246511581014646294
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_26
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 35
-        width: 25
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1ec2c330095c5a1c0800000000000000
-      internalID: -4492967830911963935
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_27
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 137
-        width: 13
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 32923718f52f084c0800000000000000
-      internalID: -4287160353249089245
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_28
-      rect:
-        serializedVersion: 2
-        x: 141
-        y: 22
-        width: 29
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 32f5c5099f94297a0800000000000000
-      internalID: -6371949186558173405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_29
-      rect:
-        serializedVersion: 2
-        x: 170
-        y: 31
-        width: 29
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81de00667735bad90800000000000000
-      internalID: -7085477816459793128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_30
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 146
-        width: 14
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7fa17cc6b42bd6950800000000000000
-      internalID: 6444002678854327031
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_31
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 146
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5b2dcf474b19ab060800000000000000
-      internalID: 6970043577552130741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_32
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 147
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf2099fe4e696b5e0800000000000000
-      internalID: -1894160683246222596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_33
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 1
-        width: 26
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 570235c611bc5d740800000000000000
-      internalID: 5176266622424522869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_34
-      rect:
-        serializedVersion: 2
-        x: 115
-        y: 12
-        width: 25
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 820e9ce4ad3f13350800000000000000
-      internalID: 5994840697957113896
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_35
-      rect:
-        serializedVersion: 2
-        x: 179
-        y: 140
-        width: 17
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a9303eb4e7c8b6660800000000000000
-      internalID: 7380146888443626394
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: planche_completeF_36
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 144
-        width: 14
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb7ed8022eba7dac0800000000000000
-      internalID: -3830403970358188101
       vertices: []
       indices: 
       edges: []
