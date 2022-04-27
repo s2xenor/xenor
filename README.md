@@ -3,7 +3,11 @@
 ## Notes importantes
 
 **Nous utilisons github comme plateforme d'échange principal. Les codes sont syncronisé sur le cri par l'intermédiaire d'un bot.**
+
 [Lien du github](https://github.com/s2xenor/xenor/)
+
+[Lien du site web](https://s2xenor.github.io/xenor/site/front)
+
 
 ## Sommaire
 - [Présentation du projet](#project_presentation)
@@ -20,24 +24,24 @@ Mais si Clothilde n’était qu’en réalité qu’une autre scientifique qui �
 
 ## Organisation des répertoires<a id="file_organization"></a>
 
-* ``/`` : le jeux en lui même
-    * ``/Assets/GeneralObjects`` : toutes le contenu du jeu
-    *     ``/Assets/GeneralObjects/Canvas`` : le système d'affichage sur écran du joueur
-        * ``/Assets/GeneralObjects/DialogSystem`` : le système de dialogue
-        * ``/Assets/GeneralObjects/Doors`` : le système de portes
-        * ``/Assets/GeneralObjects/Enigm`` : les différentes enigmes
-        * ``/Assets/GeneralObjects/Monster`` : le système de monstre
-        * ``/Assets/GeneralObjects/Potion`` : le système de potion
-        * ``/Assets/GeneralObjects/Player`` : les joueurs
-    * ``/Assets/PlaceHoldersSprites`` : les sprites pour les salles
-    * ``/Assets/Resources`` : ressources du jeu qui sont intégrées au build
+* ``/Assets``
+    * ``/GeneralObjects`` : toutes le contenu du jeu
+        * ``/Canvas`` : le système d'affichage sur écran du joueur
+        * ``/DialogSystem`` : le système de dialogue
+        * ``/Doors`` : le système de portes
+        * ``/Enigm`` : les différentes enigmes
+        * ``/Monster`` : le système de monstre
+        * ``/Potion`` : le système de potion
+        * ``/Player`` : les joueurs
+    * ``/PlaceHoldersSprites`` : les sprites pour les salles
+    * ``/Resources`` : ressources du jeu qui sont intégrées au build
 
 * ``/Narration`` : tout le scénario du jeu
 
 * ``/launcher/AlteraVita`` : le launcher
 
 * ``/site`` : le site web
-    * ``/site/front`` : le front du site
-    * ``/site/back`` : le backend du site
+    * ``/front`` : le front du site
+    * ``/back`` : le backend du site
 
 
