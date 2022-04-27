@@ -31,6 +31,13 @@ public class GameManager : MonoBehaviour
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
 
+    private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
+    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1."};
+
+    private int LabyBoxNextInt = 0;
+
+    private bool loadNow = true;
+
 
     /*
      * Fonctions
@@ -48,7 +55,49 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les données
+        SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
+    }
+
+    //Fct appellé a chaqque chargement de nouvelle scène (on rappelle que le gamemanager est un objet jamais détruit
+    public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
+    {
+        //Si on est dans les salle d'énigme labybox
+        //Alors on appelle le générateur de laby box avec la salle que l'on souhaite charger
+        if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
+        {
+            //Ola fct est appelé 2 fois au chargement de la scène donc on fais l'action qu'une seule fois sur 2
+            if (loadNow)
+            {
+                //si on a dépaaséé le nb de salle
+                if (LabyBoxNextInt >= 12)
+                {
+                    //charger le loby  
+                    SceneManager.LoadScene("MainRoom");
+                }
+                else
+                {
+                    Debug.Log(LabyBoxNext[LabyBoxNextInt]);
+                    Debug.Log(LabyBoxNextInt);
+                    //SInon on charge le salle suivante
+                    GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
+                    //On change la salle suivante
+                    LabyBoxNextInt++;
+                    //si on a finit le tutoriel, alors on saute (ou non) des salles
+                    if (LabyBoxNextInt >= 5)
+                    {
+                        LabyBoxNextInt += Random.Range(0, 3);
+                    }
+                    //on a chargé la salle donc on désarme
+                    loadNow = false;
+                }
+            }
+            else
+            {
+                //on réarme pou charger la salle au prochain appel
+                loadNow = true;
+            }
+        }
     }
 
     //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre
@@ -56,7 +105,7 @@ public class GameManager : MonoBehaviour
     * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre</summary>
     * 
     * <returns>Return nothing</returns>
-    */
+*/
     public void SaveState()
     {
         // On utilise le module JsonUtility pour parse tout l'objet
