@@ -144,6 +144,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
                     if (players[1] != null)
                     {
+                        //call a function on client side to set up his player position to default
                         PhotonView photonView = PhotonView.Get(this);
                         photonView.RPC("MoveCoo", RpcTarget.All, cox, coy);
                     }

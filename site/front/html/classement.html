@@ -54,10 +54,8 @@
         }
     
         var count = -1;
-        
         document.getElementById("addict").addEventListener('click', function(){
             count++;
-            console.log("éokk")
             getData(count).then(res => {
                 applyData(res);
             })

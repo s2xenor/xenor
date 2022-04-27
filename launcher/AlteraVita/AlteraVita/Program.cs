@@ -14,7 +14,7 @@ namespace AlteraVita
         static void Main(string[] args)
         {
             // Install("D:\\pc\\Bureau");
-            Update();
+            // Update();
             while (true)
             {
 
