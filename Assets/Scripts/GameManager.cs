@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
 
-    private string[] LabyBoxNext = new string[] { "room_tuto1.json", "room_tuto2.json", "room_tuto3.json", "room_tuto4.json", "room_tuto5.json", "room_2_1.json"
-    , "room_2_2.json", "room_2_3.json", "room_2_4.json", "room_2_5.json", "room_3_1.json", "room_4_1.json", "loby"};
+    private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
+    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1."};
 
     private int LabyBoxNextInt = 0;
 
@@ -59,26 +59,42 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
     }
 
+    //Fct appellé a chaqque chargement de nouvelle scène (on rappelle que le gamemanager est un objet jamais détruit
     public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
     {
+        //Si on est dans les salle d'énigme labybox
+        //Alors on appelle le générateur de laby box avec la salle que l'on souhaite charger
         if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
         {
+            //Ola fct est appelé 2 fois au chargement de la scène donc on fais l'action qu'une seule fois sur 2
             if (loadNow)
             {
+                //si on a dépaaséé le nb de salle
                 if (LabyBoxNextInt >= 12)
                 {
                     //charger le loby  
+                    SceneManager.LoadScene("MainRoom");
                 }
-                GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
-                LabyBoxNextInt++;
-                if (LabyBoxNextInt>3)
+                else
                 {
-                    LabyBoxNextInt += Random.Range(0, 3);
+                    Debug.Log(LabyBoxNext[LabyBoxNextInt]);
+                    Debug.Log(LabyBoxNextInt);
+                    //SInon on charge le salle suivante
+                    GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
+                    //On change la salle suivante
+                    LabyBoxNextInt++;
+                    //si on a finit le tutoriel, alors on saute (ou non) des salles
+                    if (LabyBoxNextInt >= 5)
+                    {
+                        LabyBoxNextInt += Random.Range(0, 3);
+                    }
+                    //on a chargé la salle donc on désarme
+                    loadNow = false;
                 }
-                loadNow = false;
             }
             else
             {
+                //on réarme pou charger la salle au prochain appel
                 loadNow = true;
             }
         }

@@ -12,22 +12,26 @@ public class DialogueTrigger : MonoBehaviour {
 
 	public List<GameObject> objectsToActivate;
 
-    private void Start()
+    private void Update()
     {
         if (triggerOnload)
         {
 			TriggerDialogue();
-        }
+			triggerOnload = false;
+		}
     }
 
     public void TriggerDialogue()
 	{
 		if (filePath != "") {
 			//Lecture du fichier json
-			string dialoguesData = System.IO.File.ReadAllText(Application.dataPath + "/GeneralObjects/DialogSystem/Data/" + filePath);
+			//string dialoguesData = System.IO.File.ReadAllText(Application.dataPath + "/GeneralObjects/DialogSystem/Data/" + filePath);
+
+
+			var dialoguesData = Resources.Load<TextAsset>(filePath);
 
 			//création de l'objet qui stocke les phrases du dialogue en fonction du json
-			Dialogue dialogue = JsonUtility.FromJson<Dialogue>(dialoguesData);
+			Dialogue dialogue = JsonUtility.FromJson<Dialogue>(dialoguesData.text);
 
 			//changement du chemin du nom du prochain fichier
 			filePath = dialogue.nextDialogPath;
