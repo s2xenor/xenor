@@ -112,8 +112,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             if(players[1] != null)
             {
                 player2TmpTile[0] = (int)((players[1].position.x - startX) / tileSize);
-                player2TmpTile[1] = (int)((players[1].position.y - startY - 0.32) / tileSize) * -1 - 1;
+                player2TmpTile[1] = (int)((players[1].position.y - startY - 0.32) / tileSize) * -1-1;
+                Debug.Log($"{player2Tile[0]},{player2Tile[1]} to {player2TmpTile[0]},{player2TmpTile[1]}");
             }
+            //Debug.Log($"{player1Tile[0]},{player1Tile[1]} to {player1TmpTile[0]},{player1TmpTile[1]}");
+
 
             if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1] || player2Tile[0] != player2TmpTile[0] || player2Tile[1] != player2TmpTile[1])
             {
@@ -143,7 +146,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 if(players[1] != null)
                 {
                     player2Tile[0] = (int)((players[1].position.x - startX) / tileSize);
-                    player2Tile[1] = (int)((players[1].position.y - startY) / tileSize)*-1-1;
+                    player2Tile[1] = (int)((players[1].position.y - startY-0.32) / tileSize)*-1-1;
                 }
 
             }
@@ -341,8 +344,8 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         {
             for(int i = 0; i < x; i++)
             {
-                Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
-                Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
+                //Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
+                //Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
                 PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + (3 - j) * 0.32f - 0.32f), Quaternion.identity);//floor top
                 PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity);//floor bottom
             }
@@ -350,8 +353,8 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         //wall left and right
         for(int i = 0; i < x+6; i++)
         {
-            Instantiate(prefabsR[RandomLeftWall()], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
-            Instantiate(prefabsR[RandomRightWall()], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
+            //Instantiate(prefabsR[RandomLeftWall()], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
+            //Instantiate(prefabsR[RandomRightWall()], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
 
             PhotonNetwork.Instantiate(prefabsR[RandomLeftWall()].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//left wall
             PhotonNetwork.Instantiate(prefabsR[RandomRightWall()].name, new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//right wall
@@ -359,19 +362,19 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
         //angles
         //top left
-        Instantiate(prefabsR[2], new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        //Instantiate(prefabsR[2], new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[2].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);
 
         //top right
-        Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        //Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[3].name, new Vector3(startX + x * 0.32f + 0.1f, startY  + 4 * 0.32f - 0.32f), Quaternion.identity);
 
         //bottom right
-        Instantiate(prefabsR[1], new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        //Instantiate(prefabsR[1], new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[1].name, new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
 
         //bottom left
-        Instantiate(prefabsR[0], new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x+6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        //Instantiate(prefabsR[0], new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x+6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
 
         //wall top
@@ -379,25 +382,25 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         {
             if(i == 1 || i == 5)
             {
-                tmp = Instantiate(prefabsR[22], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door top
-                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //tmp = Instantiate(prefabsR[22], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door top
+                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[22].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//door top
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
             else if(i == x-2 || i == x - 6)
             {
-                tmp = Instantiate(prefabsR[21], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
-                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //tmp = Instantiate(prefabsR[21], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
+                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[21].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//door bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                tmp = Instantiate(prefabsR[23], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//tapis bottom
-                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //tmp = Instantiate(prefabsR[23], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//tapis bottom
+                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[23].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity);//tapis bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
-            Instantiate(prefabsR[RandomTopWall()], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall top
+            //Instantiate(prefabsR[RandomTopWall()], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall top
             PhotonNetwork.Instantiate(prefabsR[RandomTopWall()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//wall top
-            Instantiate(prefabsR[RandomBottomWall()], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall bottom
+            //Instantiate(prefabsR[RandomBottomWall()], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall bottom
             PhotonNetwork.Instantiate(prefabsR[RandomBottomWall()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//wall bottom
         }
 
@@ -448,9 +451,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 }
                 else //both (== 2)
                 {
-                    Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+                    //Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
                     t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
-                    t.SetActive(false);
+                    //t.SetActive(false);
                 }
             }
         }
@@ -471,7 +474,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     {
         bool goToOut = false;
         bool fromOut = false;
-        Debug.Log($"From {playerTile[0]},{playerTile[1]} to {playerTmpTile[0]},{playerTmpTile[1]}");
+        //Debug.Log($"From {playerTile[0]},{playerTile[1]} to {playerTmpTile[0]},{playerTmpTile[1]}");
 
         if (playerTile[1] < 0 || playerTile[0] < 0 || playerTile[1] >= y || playerTile[0] >= x) fromOut = true;
         if (playerTmpTile[1] < 0 || playerTmpTile[0] < 0 || playerTmpTile[1] >= y || playerTmpTile[0] >= x) goToOut = true;
@@ -482,11 +485,13 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         if (!fromOut)
         {
             tile = laby[playerTile[1], playerTile[0]];
-        }else Debug.Log("from out");
+        }
+        //else Debug.Log("from out");
         if (!goToOut)
         {
             newTile = laby[playerTmpTile[1], playerTmpTile[0]];
-        }else Debug.Log("to out");
+        }
+        //else Debug.Log("to out");
 
         if (playerTile[0] != playerTmpTile[0]) //change x
         {
