@@ -29,6 +29,8 @@ public class MainMaze : MonoBehaviour
         view = GetComponent<PhotonView>();
         master = PhotonNetwork.IsMasterClient;
 
+        map.SetActive(false);
+
         if (!master) return;
 
         hasSpawned = true;
@@ -45,7 +47,7 @@ public class MainMaze : MonoBehaviour
     private void Update()
     {
         if (hasSpawned && GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
-        {  
+        {
             CreateMap();
             hasSpawned = false;
         }
@@ -64,7 +66,7 @@ public class MainMaze : MonoBehaviour
 
     void CreateMap() // Create map for labyrinthe
     {
-        float size = 0.32f / 2;
+        float size = 0.32f / 2, size2 = .32f;
 
         for (UInt16 i = 0; i < maze.GetLength(0); i++)
         {
@@ -73,9 +75,9 @@ public class MainMaze : MonoBehaviour
                 if (maze[i,j] == 1)
                 {
                     // Create wall
-                    PhotonNetwork.Instantiate(wallMap.name, new Vector3(i * size, j * size, 0), Quaternion.identity);
+                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size, j * size), Quaternion.identity);
 
-                    PhotonNetwork.Instantiate(wallMaze.name, new Vector3(3.2f + i * size, .32f * 6 + j * size, 0), Quaternion.identity);
+                    PhotonNetwork.Instantiate(wallMaze.name, new Vector2(3.2f - 4 * .32f + .16f + i * size2, .16f + .32f * -8 + j * size2), Quaternion.identity);
                 }
             }
         }
@@ -83,9 +85,6 @@ public class MainMaze : MonoBehaviour
         // Adjust size
         mazeContainer.transform.localScale = new Vector2(4, 4);
         map.transform.localScale = new Vector2(50, 50);
-
-        // Disable map
-        //map.SetActive(false);
     }
 
     void Print() // Print maze

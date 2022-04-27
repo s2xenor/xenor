@@ -51,4 +51,15 @@ public class Settings : MonoBehaviour
     {
         audioData.PlayOneShot(clip);
     }
+
+    public void Exit()
+    {
+        // Editor
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+
+        // Build
+        Application.Quit();
+    }
 }

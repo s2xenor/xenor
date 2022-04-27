@@ -9,7 +9,8 @@ public class ChangeParentMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        map = GameObject.FindGameObjectWithTag("Map");
+        // Put it un maze GameObject (easier to work with)
+        map = GameObject.FindGameObjectWithTag("MainMaze").GetComponent<MainMaze>().map;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.transform.parent = map.transform;
     }
