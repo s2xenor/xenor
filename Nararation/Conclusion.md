@@ -27,15 +27,15 @@ Les manières/façons dont sont dites les choses seront exprimées en **(gras en
 
 ### Histoire :
 
-```Narrateur``` : Vous parvenez enfin à vous échapper, mais lorsque vous poussez la porte de la sortie vous ne trouvez pas la lumière puissante et la douce chaleur du soleil qu’il vous a semblé apercevoir par les fenêtres du labo mais bien la lumière blafarde d’une salle éclairée aux néons. Vous êtes dans une nouvelle salle de laboratoire carrelé de carreaux blancs sans vie qui vous oppresse, seulement, vous n’est pas seul... Clothilde est là ! Vous vous sentez tout de suite rassurés. Une sorte de vague de chaleur et de bien-être
+```Narrateur``` : Vous parvenez enfin à vous échapper, mais lorsque vous poussez la porte de la sortie vous ne trouvez pas la lumière puissante et la douce chaleur du soleil qu’il vous a semblé apercevoir par les fenêtres du labo mais bien la lumière blafarde d’une salle éclairée aux néons. Vous êtes dans une nouvelle salle de laboratoire carrelé de carreaux blancs sans vie qui vous oppresses, seulement, vous n’êtes pas seul... Clothilde est là ! Vous vous sentez tout de suite rassurés. Une sorte de vague de chaleur et de bien-être
 vous envahit.
 
-```Chlothide``` : Ah... Les voilà... Enfin !... C'était pas des flêches ceux là... Rammenez-les à leur cellules.
+```Clothide``` : Ah... Les voilà... Enfin !... C'était pas des flêches ceux là... Rammenez-les à leur cellules.
 
-```Narrateur``` : Quatre gardes que vous n’aviez pas vu jusqu’à présent s’avance et vous saisissent vous et votre compagnon par les bras. Vous vous laissez faire, trop choqué pour réagir... Clothilde qui vous a pourtant aidé à vous échapper ordonne maintenant votre retour à l’incarcération. On vous retourne face à la grande porte que vous venez de prendre, vous apercevez deux écran numérique affichant respectivement « Crésus : Clone n°397 » et « Crésus : Clone n°398 » ainsi que deux notes très détaillées. Au-dessus de la porte se trouve le logo de Xenor, en dessous un slogan : « Avec Xenor, négationnez la mort ». Vous comprenez alors que Clothilde ne vous aidez pas à vous échapper mais évaluait simplement vos capacités.
+```Narrateur``` : Quatre gardes que vous n’aviez pas vu jusqu’à présent s’avance et vous saisissent vous et votre compagnon par les bras. Vous vous laissez faire, trop choqué pour réagir... Clothilde qui vous a pourtant aidé à vous échapper ordonne maintenant votre retour à l’incarcération. On vous retourne face à la grande porte que vous venez de prendre, vous apercevez deux écran numérique affichant respectivement « Crésus : Clone n°397 » et « Crésus : Clone n°398 » ainsi que deux notes très détaillées. Au-dessus de la porte se trouve le logo de Xenor, en dessous un slogan : « Avec Xenor, négationnez la mort ». Vous comprenez alors que Clothilde ne vous aidait pas à vous échapper mais évaluait simplement vos capacités.
 
-```Narrateur``` : En réalité, il y a quelques années de cela, le laboratoire Xenor avait réussi à comprendre où se situer la conscience de l’Homme et à la déplacer d’un corps vers un autre, proposant ainsi aux hommes fortunés de pourvoir s’offrir une seconde jeunesse. La note que vous avez vu sur l’écran ne sert en fait qu’à définir quel clone a les meilleures capacités pour définir lequel accueillera la conscience du client.
+```Narrateur``` : En réalité, il y a quelques années de cela, le laboratoire Xenor avait réussi à comprendre où se situe la conscience de l’Homme et à la déplacer d’un corps vers un autre, proposant ainsi aux hommes fortunés de pourvoir s’offrir une seconde jeunesse. La note que vous avez vu sur l’écran ne sert en fait qu’à définir quel clone a les meilleures capacités pour définir lequel accueillera la conscience du client.
 
 ```Narrateur``` : On vous injecte un produit... Vous emmetez une dernière pensée avant de sombrer dans le noir infini...
 
-```.self``` : Jusq'où l'Homme est-il prêt à aller dans sa quête de la vie eternelle ?
+```.self``` : Jusq'où l'Homme est-il prêt à aller dans sa quête de la vie éternelle ?
