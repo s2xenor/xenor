@@ -9,9 +9,12 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     public List<GameObject> prefabsL; //prefabs laby
     public List<GameObject> prefabsR; //prefabs room
     public GameObject playerPrefab;
+
+    //coo to start create laby
     private const int startX = 0;
     private const int startY = 0;
 
+    //size of labry
     private const int x = 12;
     private const int y = 12;
 
@@ -20,15 +23,17 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     public Transform[] players = new Transform[2]; // Position des 2 joueurs
     public float tileSize = 0.32f; // Taille des tiles du labyrinthe
 
+    //last player position in relative tile
     int[] player1Tile = new[] { -1, -1 };
     int[] player2Tile = new[] { -1, -1 };
 
+    //current player position in relative tile
     int[] player1TmpTile = new[] { -1, -1 };
     int[] player2TmpTile = new[] { -1, -1 };
 
     //coord to spawn
     float cox = startX + 2 * 0.32f;
-    float coMx = startX + 6 * 0.32f;
+    float coMx = startX + 6 * 0.32f; //co x of master
     float coy = startY + 3 * 0.32f;
     void Start()
     {
@@ -36,13 +41,14 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         GameObject t;
         if (PhotonNetwork.IsMasterClient)
         {
-            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn player on network
+            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn master player on network
         }
         else
         {
             t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(cox, coy), Quaternion.identity); // Spawn player on network
         }
 
+        //resize cam to see more laby
         GameObject cam = t.transform.GetChild(0).gameObject;
         cam.GetComponent<Camera>().fieldOfView = 120;
 
@@ -52,10 +58,13 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
 
+            //setup entrance of laby
             (int Xt, int Yt) = (0, Random.Range(0, y - 1));
             laby[Xt, Yt] = 2010;//down but not up
             Xt += 1;
             int previous = (int)Direction.down;
+
+            //create logic laby
             while(Xt < x)
             {
                 int r = Random.Range(0, 3);
@@ -79,12 +88,12 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 }
             }
 
-
-            createLaby();
+            drawLaby();
         }
 
     }
 
+    //move client's player
     [PunRPC]
     void MoveCoo(float x, float y)
     {
@@ -100,12 +109,15 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+
+            //if secondary player is here add it to players to get position
             if (players[1] == null && PhotonNetwork.PlayerList.Length > 1 && GameObject.FindGameObjectsWithTag("Player").Length > 1)
             {
                 players[1] = GameObject.FindGameObjectsWithTag("Player")[1].GetComponent<Transform>();
             }
 
 
+            //get current positions of players
             player1TmpTile[0] = (int)((players[0].position.x - startX) / tileSize);
             player1TmpTile[1] = (int)((players[0].position.y - startY-0.32) / tileSize)*-1-1;
 
@@ -113,17 +125,15 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             {
                 player2TmpTile[0] = (int)((players[1].position.x - startX) / tileSize);
                 player2TmpTile[1] = (int)((players[1].position.y - startY - 0.32) / tileSize) * -1-1;
-                Debug.Log($"{player2Tile[0]},{player2Tile[1]} to {player2TmpTile[0]},{player2TmpTile[1]}");
             }
-            //Debug.Log($"{player1Tile[0]},{player1Tile[1]} to {player1TmpTile[0]},{player1TmpTile[1]}");
 
 
             if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1] || player2Tile[0] != player2TmpTile[0] || player2Tile[1] != player2TmpTile[1])
             {
 
-                if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//player break rules, apply consequences
+                if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//players break rules, apply consequences
                 {
-                    Debug.Log("consequences");
+                    //Debug.Log("consequences");
                     player1Tile[0] = -1;
                     player1Tile[1] = -1;
 
@@ -136,10 +146,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                     {
                         PhotonView photonView = PhotonView.Get(this);
                         photonView.RPC("MoveCoo", RpcTarget.All, cox, coy);
-                        //players[1].position = new Vector2(cox, coy);
                     }
 
                 }
+
+                //update last position of player
                 player1Tile[0] = (int)((players[0].position.x - startX) / tileSize); // Calculate position of player in maze
                 player1Tile[1] = (int)((players[0].position.y - startY-0.32) / tileSize)*-1-1;
 
@@ -185,6 +196,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     }
 
     //deci to binary but in decimal representation
+    //2 => 10
     private int toBin(int val)
     {
         int[] binArr = toByteArray(val);
@@ -247,6 +259,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         up_right_down_left = 1111
     }
 
+    //return a int of a tile corresponding to the rule (if need to be right can give (right, left; right top left;...)
     private int prefabRules(int rule)
     {
         List<int> t = new List<int>();
@@ -255,7 +268,6 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         bool goodNumber;
         if (rule == 0)
         {
-            //return new GameObject();
             return Random.Range(1, 15);
         }
         else
@@ -286,6 +298,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         }
     }
 
+    /*
+     * Return a random int correspond of a prefab based on the demand
+     */
     private int RandomTopWall() { 
         if(Random.Range(0, 10) < 8)
         {
@@ -335,7 +350,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void createLaby()
+
+    //dynamically draw the whole room
+    private void drawLaby()
     {
         var parentObj = new GameObject("ArrowsParent");
         GameObject tmp;
@@ -344,8 +361,6 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         {
             for(int i = 0; i < x; i++)
             {
-                //Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
-                //Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
                 PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + (3 - j) * 0.32f - 0.32f), Quaternion.identity);//floor top
                 PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity);//floor bottom
             }
@@ -353,28 +368,21 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         //wall left and right
         for(int i = 0; i < x+6; i++)
         {
-            //Instantiate(prefabsR[RandomLeftWall()], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
-            //Instantiate(prefabsR[RandomRightWall()], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
-
             PhotonNetwork.Instantiate(prefabsR[RandomLeftWall()].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//left wall
             PhotonNetwork.Instantiate(prefabsR[RandomRightWall()].name, new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//right wall
         }
 
         //angles
         //top left
-        //Instantiate(prefabsR[2], new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[2].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);
 
         //top right
-        //Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[3].name, new Vector3(startX + x * 0.32f + 0.1f, startY  + 4 * 0.32f - 0.32f), Quaternion.identity);
 
         //bottom right
-        //Instantiate(prefabsR[1], new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[1].name, new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
 
         //bottom left
-        //Instantiate(prefabsR[0], new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x+6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
         PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
 
         //wall top
@@ -382,29 +390,23 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         {
             if(i == 1 || i == 5)
             {
-                //tmp = Instantiate(prefabsR[22], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door top
-                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[22].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//door top
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
             else if(i == x-2 || i == x - 6)
             {
-                //tmp = Instantiate(prefabsR[21], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
-                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[21].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//door bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                //tmp = Instantiate(prefabsR[23], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//tapis bottom
-                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[23].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity);//tapis bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
-            //Instantiate(prefabsR[RandomTopWall()], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall top
             PhotonNetwork.Instantiate(prefabsR[RandomTopWall()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//wall top
-            //Instantiate(prefabsR[RandomBottomWall()], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall bottom
             PhotonNetwork.Instantiate(prefabsR[RandomBottomWall()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//wall bottom
         }
 
 
+
+        //decide which tile will be draw on which players
         int[,] spawnLaby = new int[x, y];
         int r = Random.Range(0, 3);
 
@@ -428,7 +430,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             }
         }
 
-
+        //draw laby
         int prefabNb;
         GameObject t;
         for (int x = 0; x < laby.GetLength(0); x++)
@@ -451,14 +453,13 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 }
                 else //both (== 2)
                 {
-                    //Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
                     t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
-                    //t.SetActive(false);
                 }
             }
         }
     }
 
+    //if tile has direction
     private bool RespectRules(int tile, Direction dir)
     {
         int[] tileBitArray = DeciToArray(tile,4);
@@ -470,28 +471,23 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         return true;
     }
 
+    //check if player movement is correct based on tile
     private bool CheckPlayerMovement(int[] playerTmpTile, int[] playerTile)
     {
         bool goToOut = false;
         bool fromOut = false;
-        //Debug.Log($"From {playerTile[0]},{playerTile[1]} to {playerTmpTile[0]},{playerTmpTile[1]}");
 
+        //check if exit or enter in laby
         if (playerTile[1] < 0 || playerTile[0] < 0 || playerTile[1] >= y || playerTile[0] >= x) fromOut = true;
         if (playerTmpTile[1] < 0 || playerTmpTile[0] < 0 || playerTmpTile[1] >= y || playerTmpTile[0] >= x) goToOut = true;
 
         int tile = 0;
         int newTile = 0;
         if (goToOut && fromOut) return true;
-        if (!fromOut)
-        {
-            tile = laby[playerTile[1], playerTile[0]];
-        }
-        //else Debug.Log("from out");
-        if (!goToOut)
-        {
-            newTile = laby[playerTmpTile[1], playerTmpTile[0]];
-        }
-        //else Debug.Log("to out");
+        
+        if (!fromOut) tile = laby[playerTile[1], playerTile[0]];
+
+        if (!goToOut) newTile = laby[playerTmpTile[1], playerTmpTile[0]];
 
         if (playerTile[0] != playerTmpTile[0]) //change x
         {
