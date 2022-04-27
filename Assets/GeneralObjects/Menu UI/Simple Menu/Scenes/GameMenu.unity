@@ -2134,6 +2134,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1499515185544594715}
     m_Modifications:
+    - target: {fileID: 66618449618080074, guid: e7b71fa0a1fab47fea0fb5171c89637e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -13
+      objectReference: {fileID: 0}
+    - target: {fileID: 66618449618080074, guid: e7b71fa0a1fab47fea0fb5171c89637e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 18.5
+      objectReference: {fileID: 0}
     - target: {fileID: 66618449618080085, guid: e7b71fa0a1fab47fea0fb5171c89637e, type: 3}
       propertyPath: m_text
       value: 'Fullscreen

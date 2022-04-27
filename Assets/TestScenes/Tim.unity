@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99fbd07440ece344e97593180666638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1086221672243782876, guid: 2c57f33fd31523f43b61cb14fd393207, type: 3}
+  playerPrefab: {fileID: 8666501797103497954, guid: 9610bff595f97d04489c836d0d1eef0f, type: 3}
 --- !u!4 &1125849076
 Transform:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125849074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.27169198, y: 14.31412, z: 0}
+  m_LocalPosition: {x: 0.21, y: 14.31412, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10080,6 +10080,7 @@ GameObject:
   - component: {fileID: 2331394022820336913}
   - component: {fileID: 2331394022820336912}
   - component: {fileID: 2331394022820337006}
+  - component: {fileID: 2331394022820336916}
   m_Layer: 0
   m_Name: Tilemap_Walls
   m_TagString: Untagged
@@ -10101,6 +10102,27 @@ Transform:
   m_Father: {fileID: 2331394023017164418}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2331394022820336916
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331394022820336914}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!19719996 &2331394022820337006
 TilemapCollider2D:
   m_ObjectHideFlags: 0

@@ -17,16 +17,19 @@ public class Monsters : MonoBehaviour
     // Attach NavMeshAgent component to monster
     // Read the wiki of the github
 
-    /*
+    
     Transform target;       // Target of Pathfinding
     NavMeshAgent agent;     // Pathfinding
     float[] distanceFactor;   // Facteur de distance entre les joueurs < 1 (ex : 1/2 -> change de target si l'autre joueur et a la moitié de la distance de l'autre))
     GameObject[] playersObject;
     Transform[] playersTransform;
+    public Animator animator;
+    int round;
 
     // Stats of monster
-    float attack;
+    public float attack;
     float pv;
+    float start_pv;
 
     public Monsters(float speed, float attack, float pv, float stoppingDistance, float distanceFactor)
     {
@@ -40,6 +43,8 @@ public class Monsters : MonoBehaviour
         this.distanceFactor = new float[2] { distanceFactor, 1 / distanceFactor };
         this.attack = attack;
         this.pv = pv;
+        start_pv = pv;
+        round = 1;
 
         for (int i = 0; i < playersObject.Length; i++)
             playersTransform[i] = playersObject[i].GetComponent<Transform>();
@@ -53,7 +58,7 @@ public class Monsters : MonoBehaviour
         if (!agent.isStopped)
         {
             agent.SetDestination(target.position);  // Move GameObject
-
+            animator.SetFloat("Moving", (0.5f));
             // Moving animation
         }
         else
@@ -114,16 +119,31 @@ public class Monsters : MonoBehaviour
         else
         {
             // Run damaged animation
+            animator.SetFloat("Damage", (0.5f));
         }
     }
 
     void Die()
     {
         // Run death animation
+        animator.SetFloat("Die",1);
     }
 
     void Attack()
     {
         // Run Attack animation
-    }*/
+        if (round % 2 == 0)
+        { 
+            animator.SetFloat("Attack", (0.5f)); //Animation attack number 1
+        }
+        else
+        {
+            animator.SetFloat("Attack", (0.1f));//Animation attack number 2
+        }
+    }
+
+    public void Heal()
+    {
+        pv = start_pv;
+    }
 }

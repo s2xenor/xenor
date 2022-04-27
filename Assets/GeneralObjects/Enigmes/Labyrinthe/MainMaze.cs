@@ -18,7 +18,6 @@ public class MainMaze : MonoBehaviour
 
     public GameObject wallMaze;
     public GameObject wallMap;
-    PhotonView view;
 
     bool hasSpawned = false;
     bool master = false;
@@ -26,7 +25,6 @@ public class MainMaze : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        view = GetComponent<PhotonView>();
         master = PhotonNetwork.IsMasterClient;
 
         map.SetActive(false);
