@@ -285,6 +285,26 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private int RandomTopWall() { return Random.Range(8, 12); }
+   
+
+    private int RandomRightWall() { return Random.Range(14, 16); }
+    
+    private int RandomBottomWall()
+    {
+        return Random.Range(4, 8);
+    }
+
+    private int RandomLeftWall()
+    {
+        return Random.Range(12, 14);
+    }
+
+    private int RandomFloor()
+    {
+        return Random.Range(16, 21);
+    }
+
     private void createLaby()
     {
         var parentObj = new GameObject("ArrowsParent");
@@ -294,26 +314,82 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         {
             for(int i = 0; i < x; i++)
             {
-                Instantiate(prefabsR[0], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
-                Instantiate(prefabsR[0], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
-                PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX + i * 0.32f + 0.1f, startY + (3 - j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
-                PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
+                Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
+                Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
+                PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + (3 - j) * 0.32f - 0.32f), Quaternion.identity);//floor top
+                PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity);//floor bottom
             }
         }
         //wall left and right
         for(int i = 0; i < x+6; i++)
         {
-            tmp = Instantiate(prefabsR[7], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
+            tmp = Instantiate(prefabsR[RandomLeftWall()], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
             tmp.AddComponent<BoxCollider2D>();
-            tmp = Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
-            tmp.AddComponent<BoxCollider2D>();
-
-            tmp = PhotonNetwork.Instantiate(prefabsR[7], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
-            tmp.AddComponent<BoxCollider2D>();
-            tmp = PhotonNetwork.Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
+            tmp = Instantiate(prefabsR[RandomRightWall()], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
             tmp.AddComponent<BoxCollider2D>();
 
+            tmp = PhotonNetwork.Instantiate(prefabsR[RandomLeftWall()].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//left wall
+            tmp.AddComponent<BoxCollider2D>();
+            tmp = PhotonNetwork.Instantiate(prefabsR[RandomRightWall()].name, new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//right wall
+            tmp.AddComponent<BoxCollider2D>();
         }
+
+        //angles
+        //top left
+        tmp = Instantiate(prefabsR[2], new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        tmp.AddComponent<BoxCollider2D>();
+
+        tmp = PhotonNetwork.Instantiate(prefabsR[2].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);
+        tmp.AddComponent<BoxCollider2D>();
+
+        //top right
+        tmp = Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        tmp.AddComponent<BoxCollider2D>();
+
+        tmp = PhotonNetwork.Instantiate(prefabsR[3].name, new Vector3(startX + x * 0.32f + 0.1f, startY  + 4 * 0.32f - 0.32f), Quaternion.identity);
+        tmp.AddComponent<BoxCollider2D>();
+
+        //bottom right
+        tmp = Instantiate(prefabsR[1], new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        tmp.AddComponent<BoxCollider2D>();
+
+        tmp = PhotonNetwork.Instantiate(prefabsR[1].name, new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
+        tmp.AddComponent<BoxCollider2D>();
+
+        //bottom left
+        tmp = Instantiate(prefabsR[0], new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x+6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        tmp.AddComponent<BoxCollider2D>();
+
+        tmp = PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
+        tmp.AddComponent<BoxCollider2D>();
+
+        //wall top
+        for (int i = 0; i < x; i++)
+        {
+            if(i == 1 || i == 4)
+            {
+                tmp = Instantiate(prefabsR[22], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door top
+                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                tmp = PhotonNetwork.Instantiate(prefabsR[22].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//door top
+                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
+            else if(i == x-1 || i == x - 5)
+            {
+                tmp = Instantiate(prefabsR[21], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
+                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                tmp = PhotonNetwork.Instantiate(prefabsR[21].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//door bottom
+                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                tmp = Instantiate(prefabsR[23], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
+                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                tmp = PhotonNetwork.Instantiate(prefabsR[23].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity);//door bottom
+                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
+            Instantiate(prefabsR[11], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall top
+            PhotonNetwork.Instantiate(prefabsR[11].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//wall top
+            Instantiate(prefabsR[7], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall bottom
+            PhotonNetwork.Instantiate(prefabsR[7].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//wall bottom
+        }
+
 
         int[,] spawnLaby = new int[x, y];
         int r = Random.Range(0, 3);

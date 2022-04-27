@@ -1,0 +1,252 @@
+.group-presentation {
+    padding: 30px;
+    font-size: calc(15px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Roboto Mono', monospace;
+}
+
+/*------------------------------------------
+Description Membres
+------------------------------------------*/
+
+.member {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.member-description-notactive {
+    display: none;
+    width: 0;
+}
+
+.member-description-active {
+    color: #eee;
+    text-align: justify;
+    display: block;
+    animation: member-description 1.5s forwards;
+    transform: scale(0);
+}
+
+@keyframes member-description {
+    0% {
+        width: 0;
+        height: 0;
+        transform: scale(0);
+    }
+    49% {
+        height: 0;
+    }
+    80% {
+        width: calc(90vw - 400px);
+        height: auto;
+        transform: scale(0,1);
+    }
+    100% {
+        width: calc(90vw - 400px);
+        transform: scale(1,1);
+    }
+}
+
+@keyframes member-description-scale {
+    
+}
+
+@media (max-width: 900px) {
+    .member-description-active {
+        width: 90vw;
+    }
+}
+
+/*------------------------------------------
+Cartes
+------------------------------------------*/
+
+.all_members_cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 35px;
+    background: #131313;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cards {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90vw;
+    transform-style: preserve-3d;
+}
+
+.cards .member_card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 40px;
+    background: #232323;
+    border-radius: 20px;
+    transform-style: preserve-3d;
+}
+
+@media (max-width: 620px) {
+    .cards .member_card {
+        margin: 20px 5px;
+    }
+}
+
+/*------------------------------------------
+Texte de fonds des cartes
+------------------------------------------*/
+
+.cards .member_card::before {
+    content: 'TEAM';
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    font-size: 5em;
+    font-weight: 900;
+    color: #fff;
+    font-style: italic;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.cards .member_card::after {
+    content: 'XENOR';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 4em;
+    font-weight: 900;
+    color: #fff;
+    font-style: italic;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.cards .member_card:hover::before,
+.cards .member_card:hover::after {
+    opacity: 0.04;
+}
+
+.cards .member_card .name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    transform-style: preserve-3d;
+    transform: translate3d(0,0,75px);
+    transition: 0.5s;
+    opacity: 0;
+    z-index: 10;
+}
+
+.cards .member_card:hover .name {
+    top: 40px;
+    opacity: 1;
+}
+
+/*------------------------------------------
+Bouton sur cartes
+------------------------------------------*/
+
+.cards .member_card .more {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%,-50%,75px);
+    color: #fff;
+    background: #333;
+    padding: 10px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.5s;
+    opacity: 0;
+    z-index: 10;
+}
+
+.cards .member_card:hover .more {
+    bottom: 30px;
+    opacity: 1;
+}
+
+/*------------------------------------------
+Cercle derrière image des cartes
+------------------------------------------*/
+
+.cards .member_card .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transition: 0.5s;
+    transform-style: preserve-3d;
+    z-index: 10;
+    opacity: 1;
+    transform: translate3d(-50%,-50%,50px);
+}
+
+.cards .member_card:hover .circle {
+    width: 500px;
+    height: 500px;
+    transition: 0.5s;
+}
+
+/*------------------------------------------
+Image des cartes
+------------------------------------------*/
+
+.cards .member_card .img_langage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 300px;
+    z-index: 11;
+    transition: 0.5s;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%,-50%,50px) rotate(-15deg) scale(0.575);
+}
+
+.cards .member_card:hover .img_langage {
+    transform: translate3d(-50%,-50%,100px) scale(0.65);
+}
+
+/*------------------------------------------
+Couleur des Boutons et Cercle derrière image des cartes
+------------------------------------------*/
+
+.cards .member:nth-child(1) .more {
+    background: #f16529;
+}
+
+.cards .member:nth-child(1) .circle {
+    filter: hue-rotate(81deg);
+}
+
+.cards .member:nth-child(2) .more {
+    background: #21d9fa;
+}
+.cards .member:nth-child(2) .circle {
+    filter: hue-rotate(245deg);
+}
+
+.cards .member:nth-child(3) .more {
+    background: #fc30cf;
+}
+.cards .member:nth-child(3) .circle {
+    filter: hue-rotate(30deg);
+}
+
+.cards .member:nth-child(4) .more {
+    background: #13e896;
+}
+.cards .member:nth-child(4) .circle {
+    filter: hue-rotate(230deg);
+}
