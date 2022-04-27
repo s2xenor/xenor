@@ -9,7 +9,6 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     public List<GameObject> prefabsL; //prefabs laby
     public List<GameObject> prefabsR; //prefabs room
     public GameObject playerPrefab;
-
     private const int startX = 0;
     private const int startY = 0;
 
@@ -21,23 +20,37 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     public Transform[] players = new Transform[2]; // Position des 2 joueurs
     public float tileSize = 0.32f; // Taille des tiles du labyrinthe
 
-    int[] player1Tile = new[] { 0, 0 };
-    int[] player2Tile = new[] { 0, 0 };
+    int[] player1Tile = new[] { -1, -1 };
+    int[] player2Tile = new[] { -1, -1 };
 
-    int[] player1TmpTile = new[] { 0, 0 };
-    int[] player2TmpTile = new[] { 0, 0 };
+    int[] player1TmpTile = new[] { -1, -1 };
+    int[] player2TmpTile = new[] { -1, -1 };
 
+    //coord to spawn
+    float cox = startX + 2 * 0.32f;
+    float coMx = startX + 6 * 0.32f;
+    float coy = startY + 3 * 0.32f;
     void Start()
     {
-        GameObject t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-1, -1), Quaternion.identity); // Spawn player on network
+
+        GameObject t;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn player on network
+        }
+        else
+        {
+            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(cox, coy), Quaternion.identity); // Spawn player on network
+        }
+
         GameObject cam = t.transform.GetChild(0).gameObject;
         cam.GetComponent<Camera>().fieldOfView = 120;
 
+        //get player
+        players[0] = t.GetComponent<Transform>();
+
         if (PhotonNetwork.IsMasterClient)
         {
-
-            //get player
-            players[0] = t.GetComponent<Transform>();
 
             (int Xt, int Yt) = (0, Random.Range(0, y - 1));
             laby[Xt, Yt] = 2010;//down but not up
@@ -67,73 +80,75 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             }
 
 
-
-            //print laby
-            //for (int x = 0; x < laby.GetLength(0); x++)
-            //{
-            //    string tmp = "";
-            //    for (int y = 0; y < laby.GetLength(1); y++)
-            //    {
-            //        tmp += " " + laby[x, y];
-            //    }
-            //    Debug.Log(tmp);
-            //}
-
-
-            //print binary
-            //for (int i = 0; i < 16; i++)
-            //{
-            //    int[] t = toByteArray(i);
-            //    string f = "";
-            //    for (int j = 0; j < t.Length; j++)
-            //    {
-            //        f += t[j].ToString();
-            //    }
-            //    Debug.Log(f);
-
-            //}
-
-            //for (int i = 0; i < 16; i++)
-            //{
-
-            //    Debug.Log(toBin(i));
-
-            //}
-
-            //Debug.Log(toByteArray(1));
-            //prefabRules(2010);
             createLaby();
-
-            //printBitArray(DeciToArray(50, 4));
         }
 
     }
+
+    [PunRPC]
+    void MoveCoo(float x, float y)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+
+            players[0].position = new Vector2(x, y);
+        }
+    }
+
 
     public void Update()
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (players[1] == null && PhotonNetwork.PlayerList.Length > 1)
+            if (players[1] == null && PhotonNetwork.PlayerList.Length > 1 && GameObject.FindGameObjectsWithTag("Player").Length > 1)
             {
-                players[1] = GameObject.FindGameObjectsWithTag("player")[1].GetComponent<Transform>();
+                players[1] = GameObject.FindGameObjectsWithTag("Player")[1].GetComponent<Transform>();
             }
 
 
             player1TmpTile[0] = (int)((players[0].position.x - startX) / tileSize);
-            player1TmpTile[1] = (int)((players[0].position.y - startY) / tileSize) * -1;
-            if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1])
+            player1TmpTile[1] = (int)((players[0].position.y - startY-0.32) / tileSize)*-1-1;
+
+            if(players[1] != null)
+            {
+                player2TmpTile[0] = (int)((players[1].position.x - startX) / tileSize);
+                player2TmpTile[1] = (int)((players[1].position.y - startY - 0.32) / tileSize) * -1-1;
+                Debug.Log($"{player2Tile[0]},{player2Tile[1]} to {player2TmpTile[0]},{player2TmpTile[1]}");
+            }
+            //Debug.Log($"{player1Tile[0]},{player1Tile[1]} to {player1TmpTile[0]},{player1TmpTile[1]}");
+
+
+            if (player1Tile[0] != player1TmpTile[0] || player1Tile[1] != player1TmpTile[1] || player2Tile[0] != player2TmpTile[0] || player2Tile[1] != player2TmpTile[1])
             {
 
-                if (!CheckPlayerMovement())//player break rules, apply consequences
+                if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//player break rules, apply consequences
                 {
                     Debug.Log("consequences");
+                    player1Tile[0] = -1;
+                    player1Tile[1] = -1;
+
+                    player2Tile[0] = -1;
+                    player2Tile[1] = -1;
+
+                    players[0].position = new Vector2(coMx, coy);
+
+                    if (players[1] != null)
+                    {
+                        PhotonView photonView = PhotonView.Get(this);
+                        photonView.RPC("MoveCoo", RpcTarget.All, cox, coy);
+                        //players[1].position = new Vector2(cox, coy);
+                    }
+
                 }
                 player1Tile[0] = (int)((players[0].position.x - startX) / tileSize); // Calculate position of player in maze
-                player1Tile[1] = (int)((players[0].position.y - startY) / tileSize) * -1;
-                //player2Tile[0] = (int)((players[1].position.x - startX) / tileSize);
-                //player2Tile[1] = (int)((players[1].position.y - startY) / tileSize);
+                player1Tile[1] = (int)((players[0].position.y - startY-0.32) / tileSize)*-1-1;
 
-                Debug.Log($"{player1Tile[0]}, {player1Tile[1]}");
+                if(players[1] != null)
+                {
+                    player2Tile[0] = (int)((players[1].position.x - startX) / tileSize);
+                    player2Tile[1] = (int)((players[1].position.y - startY-0.32) / tileSize)*-1-1;
+                }
+
             }
 
         }
@@ -267,42 +282,57 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             }
 
 
-            //for (int i = 0; i < t.Count; i++)
-            //{
-            //    //Debug.Log(t[i]);
-            //}
-
-            //for(int i = 0; i < t.Count; i++)
-            //{
-            //    Instantiate(prefabRules(t[i]), new Vector3(i * 0.32f, 0), Quaternion.identity);
-            //}
-
             return t[Random.Range(0, t.Count)];
-            //if (t.Count > 0) 
-            //return prefabsL[Random.Range(1, 15)];
-
-            //return new GameObject();
         }
     }
 
-    private int RandomTopWall() { return Random.Range(8, 12); }
+    private int RandomTopWall() { 
+        if(Random.Range(0, 10) < 8)
+        {
+            return 11;
+        }
+        else
+        {
+            return Random.Range(8, 11);
+        }
+    }
    
-
-    private int RandomRightWall() { return Random.Range(14, 16); }
+    private int RandomRightWall() {
+        if (Random.Range(0, 10) < 9)
+        {
+            return 15;
+        }
+        return 14;
+    }
     
     private int RandomBottomWall()
     {
-        return Random.Range(4, 8);
+        if (Random.Range(0, 10) < 8)
+        {
+            return 7;
+        }
+        return Random.Range(4, 7);
     }
 
     private int RandomLeftWall()
     {
-        return Random.Range(12, 14);
+        if(Random.Range(0,10) < 9)
+        {
+            return 13;
+        }
+        return 12;
     }
 
     private int RandomFloor()
     {
-        return Random.Range(16, 21);
+        if(Random.Range(0, 7) < 6)
+        {
+            return 16;
+        }
+        else
+        {
+            return Random.Range(17, 21);
+        }
     }
 
     private void createLaby()
@@ -314,8 +344,8 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         {
             for(int i = 0; i < x; i++)
             {
-                Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
-                Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
+                //Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY + (3-j) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor top
+                //Instantiate(prefabsR[RandomFloor()], new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//floor bottom
                 PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + (3 - j) * 0.32f - 0.32f), Quaternion.identity);//floor top
                 PhotonNetwork.Instantiate(prefabsR[RandomFloor()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - (2 - j + y) * 0.32f - 0.32f), Quaternion.identity);//floor bottom
             }
@@ -323,71 +353,55 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         //wall left and right
         for(int i = 0; i < x+6; i++)
         {
-            tmp = Instantiate(prefabsR[RandomLeftWall()], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
-            tmp.AddComponent<BoxCollider2D>();
-            tmp = Instantiate(prefabsR[RandomRightWall()], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
-            tmp.AddComponent<BoxCollider2D>();
+            //Instantiate(prefabsR[RandomLeftWall()], new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//left wall
+            //Instantiate(prefabsR[RandomRightWall()], new Vector3(startX + x * 0.32f + 0.1f, startY - (i-3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//right wall
 
-            tmp = PhotonNetwork.Instantiate(prefabsR[RandomLeftWall()].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//left wall
-            tmp.AddComponent<BoxCollider2D>();
-            tmp = PhotonNetwork.Instantiate(prefabsR[RandomRightWall()].name, new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//right wall
-            tmp.AddComponent<BoxCollider2D>();
+            PhotonNetwork.Instantiate(prefabsR[RandomLeftWall()].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//left wall
+            PhotonNetwork.Instantiate(prefabsR[RandomRightWall()].name, new Vector3(startX + x * 0.32f + 0.1f, startY - (i - 3) * 0.32f - 0.32f), Quaternion.identity);//right wall
         }
 
         //angles
         //top left
-        tmp = Instantiate(prefabsR[2], new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-        tmp.AddComponent<BoxCollider2D>();
-
-        tmp = PhotonNetwork.Instantiate(prefabsR[2].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);
-        tmp.AddComponent<BoxCollider2D>();
+        //Instantiate(prefabsR[2], new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        PhotonNetwork.Instantiate(prefabsR[2].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);
 
         //top right
-        tmp = Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-        tmp.AddComponent<BoxCollider2D>();
-
-        tmp = PhotonNetwork.Instantiate(prefabsR[3].name, new Vector3(startX + x * 0.32f + 0.1f, startY  + 4 * 0.32f - 0.32f), Quaternion.identity);
-        tmp.AddComponent<BoxCollider2D>();
+        //Instantiate(prefabsR[3], new Vector3(startX + x * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        PhotonNetwork.Instantiate(prefabsR[3].name, new Vector3(startX + x * 0.32f + 0.1f, startY  + 4 * 0.32f - 0.32f), Quaternion.identity);
 
         //bottom right
-        tmp = Instantiate(prefabsR[1], new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-        tmp.AddComponent<BoxCollider2D>();
-
-        tmp = PhotonNetwork.Instantiate(prefabsR[1].name, new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
-        tmp.AddComponent<BoxCollider2D>();
+        //Instantiate(prefabsR[1], new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        PhotonNetwork.Instantiate(prefabsR[1].name, new Vector3(startX + x * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
 
         //bottom left
-        tmp = Instantiate(prefabsR[0], new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x+6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
-        tmp.AddComponent<BoxCollider2D>();
-
-        tmp = PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
-        tmp.AddComponent<BoxCollider2D>();
+        //Instantiate(prefabsR[0], new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x+6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+        PhotonNetwork.Instantiate(prefabsR[0].name, new Vector3(startX - 1 * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);
 
         //wall top
         for (int i = 0; i < x; i++)
         {
-            if(i == 1 || i == 4)
+            if(i == 1 || i == 5)
             {
-                tmp = Instantiate(prefabsR[22], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door top
-                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //tmp = Instantiate(prefabsR[22], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door top
+                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[22].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//door top
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
-            else if(i == x-1 || i == x - 5)
+            else if(i == x-2 || i == x - 6)
             {
-                tmp = Instantiate(prefabsR[21], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
-                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //tmp = Instantiate(prefabsR[21], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
+                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tmp = PhotonNetwork.Instantiate(prefabsR[21].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//door bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                tmp = Instantiate(prefabsR[23], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//door bottom
-                tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                tmp = PhotonNetwork.Instantiate(prefabsR[23].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity);//door bottom
+                //tmp = Instantiate(prefabsR[23], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//tapis bottom
+                //tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                tmp = PhotonNetwork.Instantiate(prefabsR[23].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 4) * 0.32f - 0.32f), Quaternion.identity);//tapis bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
-            Instantiate(prefabsR[11], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall top
-            PhotonNetwork.Instantiate(prefabsR[11].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//wall top
-            Instantiate(prefabsR[7], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall bottom
-            PhotonNetwork.Instantiate(prefabsR[7].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//wall bottom
+            //Instantiate(prefabsR[RandomTopWall()], new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall top
+            PhotonNetwork.Instantiate(prefabsR[RandomTopWall()].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//wall top
+            //Instantiate(prefabsR[RandomBottomWall()], new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);//wall bottom
+            PhotonNetwork.Instantiate(prefabsR[RandomBottomWall()].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//wall bottom
         }
 
 
@@ -437,9 +451,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 }
                 else //both (== 2)
                 {
-                    Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
+                    //Instantiate(prefabsL[prefabNb], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
                     t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
-                    t.SetActive(false);
+                    //t.SetActive(false);
                 }
             }
         }
@@ -456,39 +470,53 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         return true;
     }
 
-    private bool CheckPlayerMovement()
+    private bool CheckPlayerMovement(int[] playerTmpTile, int[] playerTile)
     {
-        if (player1Tile[1] < 0 || player1Tile[0] < 0 || player1Tile[1] >= y || player1Tile[0] >= x) return true;
-        if (player1TmpTile[1] < 0 || player1TmpTile[0] < 0 || player1TmpTile[1] >= y || player1TmpTile[0] >= x) return true;
+        bool goToOut = false;
+        bool fromOut = false;
+        //Debug.Log($"From {playerTile[0]},{playerTile[1]} to {playerTmpTile[0]},{playerTmpTile[1]}");
 
+        if (playerTile[1] < 0 || playerTile[0] < 0 || playerTile[1] >= y || playerTile[0] >= x) fromOut = true;
+        if (playerTmpTile[1] < 0 || playerTmpTile[0] < 0 || playerTmpTile[1] >= y || playerTmpTile[0] >= x) goToOut = true;
 
-        int tile = laby[player1Tile[1], player1Tile[0]];
-        int newTile = laby[player1TmpTile[1], player1TmpTile[0]];
-
-        if (player1Tile[0] != player1TmpTile[0]) //change x
+        int tile = 0;
+        int newTile = 0;
+        if (goToOut && fromOut) return true;
+        if (!fromOut)
         {
-            if (player1Tile[0] > player1TmpTile[0]) //go left
+            tile = laby[playerTile[1], playerTile[0]];
+        }
+        //else Debug.Log("from out");
+        if (!goToOut)
+        {
+            newTile = laby[playerTmpTile[1], playerTmpTile[0]];
+        }
+        //else Debug.Log("to out");
+
+        if (playerTile[0] != playerTmpTile[0]) //change x
+        {
+            if (playerTile[0] > playerTmpTile[0]) //go left
             {
-                if (!RespectRules(tile, Direction.left)) return false; //previous tile has not left arrow
-                if (RespectRules(newTile, Direction.right)) return false; //current tile has a right arrow
+                if (!fromOut && !RespectRules(tile, Direction.left)) return false; //previous tile has not left arrow
+                if (!goToOut && RespectRules(newTile, Direction.right)) return false; //current tile has a right arrow
             }
             else //go right
             {
-                if (!RespectRules(tile, Direction.right)) return false;
-                if (RespectRules(newTile, Direction.left)) return false;
+                if (!fromOut && !RespectRules(tile, Direction.right)) return false;
+                if (!goToOut && RespectRules(newTile, Direction.left)) return false;
             }
         }
-        else if(player1Tile[1] != player1TmpTile[1]) //change y
+        else if(playerTile[1] != playerTmpTile[1]) //change y
         {
-            if (player1Tile[1] > player1TmpTile[1]) //go up
+            if (playerTile[1] > playerTmpTile[1]) //go up
             {
-                if (!RespectRules(tile, Direction.up)) return false;
-                if (RespectRules(newTile, Direction.down)) return false;
+                if (!fromOut && !RespectRules(tile, Direction.up)) return false;
+                if (!goToOut && RespectRules(newTile, Direction.down)) return false;
             }
             else //go down
             {
-                if (!RespectRules(tile, Direction.down)) return false;
-                if (RespectRules(newTile, Direction.up)) return false;
+                if (!fromOut && !RespectRules(tile, Direction.down)) return false;
+                if (!goToOut && RespectRules(newTile, Direction.up)) return false;
             }
         }
         return true;
