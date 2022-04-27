@@ -9,12 +9,9 @@ public class inventaire
     {
         ItemList = new List<Items>();
         AddItem(new Items { itemType = Items.ItemType.Health, amount=1 });
-        AddItem(new Items { itemType = Items.ItemType.PotionSpeed, amount = 1 });
         AddItem(new Items { itemType = Items.ItemType.PotionStreng, amount = 1 });
-        AddItem(new Items { itemType = Items.ItemType.PotionEndurance, amount = 1 });
         AddItem(new Items { itemType = Items.ItemType.PotionDamage, amount = 1 });
-        AddItem(new Items { itemType = Items.ItemType.HealthKO, amount = 1 });
-        AddItem(new Items { itemType = Items.ItemType.PotionAttack, amount = 1 });
+        
           
     }
     public void AddItem(Items item)
