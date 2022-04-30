@@ -16,24 +16,14 @@ public class PCMap : MonoBehaviour
         mapSize = Random.Range(10, 50);
         maze = new PCTile[mapSize][];
 
-        Debug.Log("TestStart");
+        //Debug.Log("TestStart");
         //Initialisation du labyrinthe
         InitMaze();
-
-            //Debug.Log("TestInter");
-            //for (int i = 0; i < maze.Length; i++)
-            //{
-            //    Debug.Log(i);
-            //    for (int j = 0; j < maze[i].Length; j++)
-            //    {
-            //        Debug.Log(maze[i][j]);
-            //    }
-            //}
 
         //Création du labyrinthe de produit chimique
         GenerateMaze();
 
-        Debug.Log("TestFin");
+        //Debug.Log("TestFin");
         //Instantie de toutes les tiles avec la bonne image
 
         // Instantie porte
@@ -46,25 +36,9 @@ public class PCMap : MonoBehaviour
     private void InitMaze()
     {
         //Initialisation du labyrinthe
-        //Partie Haute du laby
-        for (int i = 0; i < mapSize/2; i++)
-        {
-            maze[i] = new PCTile[mapSize];
-            for (int j = 0; j < mapSize; j++)
-            {
-                maze[i][j] = new PCTile();
-            }
-        }
-
-        maze[mapSize / 2] = new PCTile[mapSize];
-        //Séparation du milieu
-        for (int j = 0; j < mapSize; j++)
-        {
-            maze[mapSize / 2][j] = new PCTile(PCTile.PCTileType.Strait, PCTile.PCFluidDirection.Down);
-        }
-
-        //Partie Basse du laby
-        for (int i = mapSize / 2 +1; i < mapSize; i++)
+        //Partie Haute du laby et basse du laby (milieur sera rajouter après)
+        //milieu et un mur de vers inffranchissable et en dessous la tuile est à la bonne position
+        for (int i = 0; i < mapSize; i++)
         {
             maze[i] = new PCTile[mapSize];
             for (int j = 0; j < mapSize; j++)
@@ -90,20 +64,36 @@ public class PCMap : MonoBehaviour
         PCTile tileActu = maze[i][j];
         if (tileActu.TileType == PCTile.PCTileType.Cross)
         {
-            //dans ce cas on a pas le choix, on peut pas tourner
-            return new List<PCTile.PCFluidDirection>() { oldDir };
+            //on arrive sur un tuile déjà à son maximum de capacité donc c mort aucune sol
+            return result;
         }
 
-        if (j-1 >= 0 && oldDir != PCTile.PCFluidDirection.Right)
+        if (tileActu.TileType == PCTile.PCTileType.Corner)
+        {
+            //aucune possibilité, c déjà le max pour ce type de tuile c mort aussi
+            return result;
+        }
+
+        if (tileActu.TileType == PCTile.PCTileType.Strait)
+        {
+            //On peut faire une croix
+            if ((int)oldDir % 2 != (int)tileActu.FluidDirection % 2)
+            {
+                result.Add(oldDir);
+            }
+            // on ne pourra pas tourner donc seule solution
+            return result;
+        }
+
+        if (j - 1 >= 0 && oldDir != PCTile.PCFluidDirection.Right)
         {
             //y a un tuile a gauche donc on paut check
-            PCTile tileGauche = maze[i][j-1];
+            PCTile tileGauche = maze[i][j - 1];
             if (tileGauche.TileType == PCTile.PCTileType.None)
             {
                 result.Add(PCTile.PCFluidDirection.Left);
             }
-            else if ((tileGauche.TileType == PCTile.PCTileType.Strait && (int)oldDir % 2 != (int)tileGauche.FluidDirection % 2) && (
-                tileGauche.FluidDirection != PCTile.PCFluidDirection.Left && tileGauche.FluidDirection != PCTile.PCFluidDirection.Right))
+            else if (tileGauche.TileType == PCTile.PCTileType.Strait && (int)PCTile.PCFluidDirection.Left % 2 != (int)tileGauche.FluidDirection % 2)
             {
                 if (j - 2 >= 0)
                 {
@@ -112,35 +102,34 @@ public class PCMap : MonoBehaviour
             }
         }
 
-        if (j+1 < mapSize && oldDir != PCTile.PCFluidDirection.Left)
+        if (j + 1 < mapSize && oldDir != PCTile.PCFluidDirection.Left)
         {
             PCTile tileDroite = maze[i][j + 1];
             if (tileDroite.TileType == PCTile.PCTileType.None)
             {
                 result.Add(PCTile.PCFluidDirection.Right);
             }
-            else if (tileDroite.TileType == PCTile.PCTileType.Strait && (int)oldDir % 2 != (int)tileDroite.FluidDirection % 2 && (
-                tileDroite.FluidDirection != PCTile.PCFluidDirection.Left && tileDroite.FluidDirection != PCTile.PCFluidDirection.Right))
+            else if (tileDroite.TileType == PCTile.PCTileType.Strait && (int)PCTile.PCFluidDirection.Right % 2 != (int)tileDroite.FluidDirection % 2)
             {
-                if (j+2 < mapSize)
+                if (j + 2 < mapSize)
                 {
                     result.Add(PCTile.PCFluidDirection.Right);
                 }
             }
         }
-        
+
 
         //regardez la new dir aussi
-        if (i+1 < mapSize)
+        if (i + 1 < mapSize)
         {
-            PCTile tileBas = maze[i+1][j];
+            PCTile tileBas = maze[i + 1][j];
             if (tileBas.TileType == PCTile.PCTileType.None)
             {
                 result.Add(PCTile.PCFluidDirection.Down);
             }
             else if (tileBas.TileType == PCTile.PCTileType.Strait && (int)oldDir % 2 != (int)tileBas.FluidDirection % 2 && tileBas.FluidDirection != PCTile.PCFluidDirection.Down)
             {
-                if (i+2 <=mapSize)
+                if (i + 2 <= mapSize)
                 {
                     result.Add(PCTile.PCFluidDirection.Down);
                 }
@@ -176,8 +165,6 @@ public class PCMap : MonoBehaviour
 
         int nbAlea = Random.Range(0, possibles.Count);
 
-        Debug.Log(possibles.Count);
-        Debug.Log(nbAlea);
         PCTile.PCFluidDirection choosenOne = possibles[nbAlea];
         possibles.RemoveAt(nbAlea);
 
@@ -189,7 +176,6 @@ public class PCMap : MonoBehaviour
         }
         else
         {
-            Debug.Log(maze[i][j].TileType);
             maze[i][j].AddDirection(oldDir, choosenOne);
         }
 
@@ -224,6 +210,18 @@ public class PCMap : MonoBehaviour
             possibles.RemoveAt(nbAlea);
             newI = i;
             newJ = j;
+            if (choosenOne == PCTile.PCFluidDirection.Down)
+            {
+                newI++;
+            }
+            else if (choosenOne == PCTile.PCFluidDirection.Left)
+            {
+                newJ--;
+            }
+            else
+            {
+                newJ++;
+            }
             result = GeneratePath(choosenOne, newI, newJ);
         }
 
