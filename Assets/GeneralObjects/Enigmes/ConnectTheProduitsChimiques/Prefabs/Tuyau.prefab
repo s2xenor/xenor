@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &1160446974152781331
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageOnScreenCanvas: {fileID: 0}
-  Source_Empty: {fileID: 21300000, guid: a4e74d8df82ed634694a78f1eef31b45, type: 3}
-  Strait_Empty: {fileID: 21300000, guid: 3e7886e1afe245349a9c80678539270e, type: 3}
-  Corner_Empty: {fileID: 21300000, guid: d8643d6c0ce89a84689090eafc2b589d, type: 3}
-  Cross_Empty: {fileID: 21300000, guid: 120dbb5dec6e1bd4796d218d53a86147, type: 3}
+  Source_Empty: {fileID: 21300000, guid: 3b5dbbe5944e38f4eb9bdd107f91608b, type: 3}
+  Strait_Empty: {fileID: 21300000, guid: 95f063b4264006a418c5417bc7d065ea, type: 3}
+  Corner_Empty: {fileID: 21300000, guid: aa2a967fd00452340b285063f57ff5a2, type: 3}
+  Cross_Empty: {fileID: 21300000, guid: 5b6f323cf7d2ff141bdb1609391e0072, type: 3}

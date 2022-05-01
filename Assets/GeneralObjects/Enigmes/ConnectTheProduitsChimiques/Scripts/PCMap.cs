@@ -31,12 +31,9 @@ public class PCMap : MonoBehaviour
             for (int coordX = 0; coordX < mazeGenerator.MapSize; coordX++)
             {
                 PCTile tile = mazeGenerator.Maze[coordY][coordX];
-                if (tile.TileType == PCTile.PCTileType.None)
+                Instantiate(vitre, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
+                if (tile.TileType != PCTile.PCTileType.None)
                 {
-                    Instantiate(vitre, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
-                }
-                else
-                {   
                     //tuyau.GetComponent<Tuyau>().TileData = tile;
                     Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
                     pipe.TileData = tile;

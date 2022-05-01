@@ -182,6 +182,14 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8844050819154415852, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844050819154415852, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
 --- !u!1 &1066603145 stripped
