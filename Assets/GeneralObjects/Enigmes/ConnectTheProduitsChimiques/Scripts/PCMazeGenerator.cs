@@ -161,12 +161,12 @@ public class PCMazeGenerator
         int nbAlea = Random.Range(0, possibles.Count);
 
         PCTile.PCFluidDirection choosenOne = possibles[nbAlea];
-        possibles.RemoveAt(nbAlea);
 
         //Changement de la Tuile
         if (choosenOne == PCTile.PCFluidDirection.End)
         {
             //c la fin des haricots
+            maze[i][j].AddDirection(oldDir, PCTile.PCFluidDirection.Down);
             return j;
         }
         else
@@ -195,14 +195,20 @@ public class PCMazeGenerator
         int? result = GeneratePath(choosenOne, newI, newJ);
         while (result == null)
         {
+            //On rétabli la case comme elle était avant
+            maze[i][j] = oldTile;
+            possibles = GetPossibleDirections(oldDir, i, j);
             if (possibles.Count == 0)
             {
-                maze[i][j] = oldTile;
+                //ttes les directions possibles ont été testée et elle mène toute à un échec
                 return null;
             }
+            //on choisit une nouvelle direction aléatoir parmis clle pas encore testée
             nbAlea = Random.Range(0, possibles.Count);
             choosenOne = possibles[nbAlea];
-            possibles.RemoveAt(nbAlea);
+            //on applique la dir sur la case
+            //BUG: old-tile est modifié
+            maze[i][j].AddDirection(oldDir, choosenOne);
             newI = i;
             newJ = j;
             if (choosenOne == PCTile.PCFluidDirection.Down)
