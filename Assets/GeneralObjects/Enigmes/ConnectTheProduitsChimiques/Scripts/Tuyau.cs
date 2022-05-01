@@ -6,6 +6,12 @@ public class Tuyau : PressurePlate
 {
     public PCTile TileData = new PCTile();
 
+    //SPrites
+    public Sprite Source_Empty;
+    public Sprite Strait_Empty;
+    public Sprite Corner_Empty;
+    public Sprite Cross_Empty;
+
     /*
      * Fonctions
      */
@@ -44,5 +50,28 @@ public class Tuyau : PressurePlate
         }
         this.GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
         //update l'image (si connectée a fluid)
+    }
+
+    public void AffichageUpdate()
+    {
+        switch (TileData.TileType)
+        {
+            case PCTile.PCTileType.None:
+                throw new System.Exception("y a un pb");
+                break;
+            case PCTile.PCTileType.Strait:
+                this.GetComponent<SpriteRenderer>().sprite = Strait_Empty;
+                break;
+            case PCTile.PCTileType.Corner:
+                this.GetComponent<SpriteRenderer>().sprite = Corner_Empty;
+                break;
+            case PCTile.PCTileType.Cross:
+                this.GetComponent<SpriteRenderer>().sprite = Cross_Empty;
+                break;
+            default:
+                throw new System.Exception("y a un pb");
+                break;
+        }
+        
     }
 }

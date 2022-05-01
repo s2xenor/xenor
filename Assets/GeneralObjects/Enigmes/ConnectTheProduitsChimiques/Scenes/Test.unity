@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa839eae9364e24b9d7c9bd0e1c8e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tuyau: {fileID: 1160446974152781341, guid: 284d102030a438641ba8ff986e29db86, type: 3}
+  vitre: {fileID: 5080226811585381154, guid: bf06bdd4dee10694fa3176b076d16352, type: 3}
 --- !u!4 &2005591509
 Transform:
   m_ObjectHideFlags: 0
