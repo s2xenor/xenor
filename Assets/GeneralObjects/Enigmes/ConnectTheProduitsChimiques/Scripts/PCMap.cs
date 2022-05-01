@@ -228,6 +228,9 @@ public class PCMap : MonoBehaviour
         return result;
     }
 
+    /**
+     * <summary>Génère un labyrinthe réaliseable</summary>
+     */
     private void GenerateMaze()
     {
         //On tire 3 nombre aléatoire différents pour les 3 débuts

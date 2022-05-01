@@ -42,6 +42,8 @@ public class PCTile
     private PCFluidDirection fluidDirection2;
     private PCFluidDirection fluidCommingDirection2 = PCFluidDirection.None;
 
+    public int Rotation = 0;
+
     public PCTile(PCTileType tileType = PCTileType.None, PCFluidDirection fluidDirection = PCFluidDirection.None)
     {
         this.tileType = tileType;
