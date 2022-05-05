@@ -193,7 +193,7 @@ public class Tuyau : PressurePlate
                             break;
                     }
                     //Colored = true;
-                    PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
+                    PCTile.PCFluidDirection pCFluidDirection = fluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
@@ -215,7 +215,7 @@ public class Tuyau : PressurePlate
                             break;
                     }
                     //Colored = true;
-                    PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
+                    PCTile.PCFluidDirection pCFluidDirection = fluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
@@ -242,7 +242,7 @@ public class Tuyau : PressurePlate
                             break;
                     }
                     //Colored = true;
-                    PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
+                    PCTile.PCFluidDirection pCFluidDirection = fluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
@@ -274,7 +274,7 @@ public class Tuyau : PressurePlate
                 }
                 break;
             case PCTile.PCFluidDirection.Right:
-                if (CoordX + 1 < Map.TuyauxMaze[0].Length && Map.TuyauxMaze[CoordX + 1][CoordY] != null)
+                if (CoordX + 1 < Map.TuyauxMaze.Length && Map.TuyauxMaze[CoordX + 1][CoordY] != null)
                 {
                     Map.TuyauxMaze[CoordX + 1][CoordY].ColorUpdate(pCFluidDirection, color);
                 }
