@@ -130,9 +130,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 410372036435885243, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 410372036435885243, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 410372036435885243, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.21960786
+      objectReference: {fileID: 0}
     - target: {fileID: 1545198399852611734, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1545198399852611734, guid: b55bdf126fe4e364ab4048180c72117e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -214,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8312868088940820034, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8312868088940820034, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
       propertyPath: m_AnchorMax.x
@@ -325,6 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tuyau: {fileID: 1160446974152781341, guid: 284d102030a438641ba8ff986e29db86, type: 3}
   vitre: {fileID: 5080226811585381154, guid: bf06bdd4dee10694fa3176b076d16352, type: 3}
+  canvaTextPopUP: {fileID: 1066603145}
 --- !u!4 &2005591509
 Transform:
   m_ObjectHideFlags: 0
@@ -337,7 +350,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1160446973972445066
 PrefabInstance:
@@ -409,7 +422,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5080226811585381152, guid: bf06bdd4dee10694fa3176b076d16352, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5080226811585381152, guid: bf06bdd4dee10694fa3176b076d16352, type: 3}
       propertyPath: m_LocalPosition.x

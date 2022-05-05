@@ -6,11 +6,39 @@ public class Tuyau : PressurePlate
 {
     public PCTile TileData = new PCTile();
 
-    //SPrites
+    /**
+     * Sprites pour tuyaux
+     */
+    //Sources
     public Sprite Source_Empty;
+    public Sprite Source_Rose;
+    public Sprite Source_Blue;
+    public Sprite Source_Green;
+
+    //Strait
     public Sprite Strait_Empty;
+    public Sprite Strait_Rose;
+    public Sprite Strait_Blue;
+    public Sprite Strait_Green;
+
+
+    //Corner
     public Sprite Corner_Empty;
+    public Sprite Corner_Rose;
+    public Sprite Corner_Blue;
+    public Sprite Corner_Green;
+
+    //Cross
     public Sprite Cross_Empty;
+    public Sprite Cross_RN;
+    public Sprite Cross_BN;
+    public Sprite Cross_GN;
+    public Sprite Cross_NR;
+    public Sprite Cross_NB;
+    public Sprite Cross_NG;
+    public Sprite Cross_BR;
+    public Sprite Cross_RG;
+    public Sprite Cross_GB;
 
     /*
      * Fonctions
@@ -37,6 +65,13 @@ public class Tuyau : PressurePlate
     */
     protected override void OnPressure(Collider2D other)
     {
+        //On affiche le message qui indique au joueur comment intéragir avec la porte.
+        MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press R to rotate the pipe");
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //SI on fait pas ça le message part dès qu'il quitte une autre boite donc obligé
         //On affiche le message qui indique au joueur comment intéragir avec la porte.
         MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press R to rotate the pipe");
     }
@@ -68,10 +103,12 @@ public class Tuyau : PressurePlate
             case PCTile.PCTileType.Cross:
                 this.GetComponent<SpriteRenderer>().sprite = Cross_Empty;
                 break;
+            case PCTile.PCTileType.Source:
+                this.GetComponent<SpriteRenderer>().sprite = Source_Empty;
+                break;
             default:
                 throw new System.Exception("y a un pb");
                 break;
         }
-        
     }
 }

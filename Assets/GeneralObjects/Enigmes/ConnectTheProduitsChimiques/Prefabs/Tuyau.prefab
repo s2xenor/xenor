@@ -124,6 +124,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MessageOnScreenCanvas: {fileID: 0}
   Source_Empty: {fileID: 21300000, guid: 3b5dbbe5944e38f4eb9bdd107f91608b, type: 3}
+  Source_Rose: {fileID: 21300000, guid: 6949ac2cf4e2f944e80e391fe6d09804, type: 3}
+  Source_Blue: {fileID: 21300000, guid: d01e9ae7d56132848b4e6777666d87f7, type: 3}
+  Source_Green: {fileID: 21300000, guid: 36a67bf71982bfa468061ee5e2869dd4, type: 3}
   Strait_Empty: {fileID: 21300000, guid: 95f063b4264006a418c5417bc7d065ea, type: 3}
+  Strait_Rose: {fileID: 21300000, guid: d5ad5dc95f92aee42b4475e4e54c704e, type: 3}
+  Strait_Blue: {fileID: 21300000, guid: d29731f78470b454c8c7c6311b1b2d6f, type: 3}
+  Strait_Green: {fileID: 21300000, guid: c91cf067f2c21d3498471c9480d7f10c, type: 3}
   Corner_Empty: {fileID: 21300000, guid: aa2a967fd00452340b285063f57ff5a2, type: 3}
+  Corner_Rose: {fileID: 21300000, guid: 03c37bfe4f894b345a67217abf4bead3, type: 3}
+  Corner_Blue: {fileID: 21300000, guid: 0534cf5078f0da8489332eda85f49d97, type: 3}
+  Corner_Green: {fileID: 21300000, guid: cc49936f80daf4447a8f44a2ed9236f1, type: 3}
   Cross_Empty: {fileID: 21300000, guid: 5b6f323cf7d2ff141bdb1609391e0072, type: 3}
+  Cross_RN: {fileID: 21300000, guid: 8772d965bd4515741b413a9269ca609f, type: 3}
+  Cross_BN: {fileID: 21300000, guid: 9cf9cc89578a36c48a4a4017cee01302, type: 3}
+  Cross_GN: {fileID: 21300000, guid: aecf1dd7399992d42bf509a91163ee60, type: 3}
+  Cross_NR: {fileID: 21300000, guid: 559ff471816e4444994b91d2fa96f6aa, type: 3}
+  Cross_NB: {fileID: 21300000, guid: afeeacc6d3b2a2b48a8983dc7c248928, type: 3}
+  Cross_NG: {fileID: 21300000, guid: 7f75ad93dceacd6488a912d23fe93f97, type: 3}
+  Cross_BR: {fileID: 21300000, guid: e53ec7495617a824cbffe19564b492cb, type: 3}
+  Cross_RG: {fileID: 21300000, guid: 1f3fa42ce38f6954dbc4870244cba909, type: 3}
+  Cross_GB: {fileID: 21300000, guid: 27f086ef005220d469c56672619dc884, type: 3}

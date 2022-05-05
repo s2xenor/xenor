@@ -11,6 +11,7 @@ public class PCTile
         Strait = 1,
         Corner = 2,
         Cross = 3,
+        Source = 4
     }
 
     public enum PCFluidDirection
