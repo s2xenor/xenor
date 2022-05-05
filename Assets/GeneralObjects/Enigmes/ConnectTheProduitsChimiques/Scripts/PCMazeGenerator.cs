@@ -144,11 +144,16 @@ public class PCMazeGenerator
      * <param name="oldDir">Direction sortant de la tuile précendente</param>
      * <param name="i">ligne de l'actuel tuile à créer/modifier</param>
      * <param name="j">colone de l'actuelle tuile à créer/modifier</param>
+     * <param name="color">couleur en cour de génération</param>
      * 
      * <returns>Integers de la colone du de la fin du tuyaux ou un NULL si chemin impossible</returns>
      */
-    private int? GeneratePath(PCTile.PCFluidDirection oldDir, int i, int j)
+    private int? GeneratePath(PCTile.PCFluidDirection oldDir, int i, int j, PCTile.PCFluidColor color)
     {
+        if (i < 0 || j < 0 || i >= maze.Length || j >= maze.Length)
+        {
+            return null;
+        }
         PCTile oldTile = maze[i][j];
 
         List<PCTile.PCFluidDirection> possibles = GetPossibleDirections(oldDir, i, j);
@@ -166,12 +171,12 @@ public class PCMazeGenerator
         if (choosenOne == PCTile.PCFluidDirection.End)
         {
             //c la fin des haricots
-            maze[i][j].AddDirection(oldDir, PCTile.PCFluidDirection.Down);
+            maze[i][j].AddDirection(oldDir, PCTile.PCFluidDirection.Down, color);
             return j;
         }
         else
         {
-            maze[i][j].AddDirection(oldDir, choosenOne);
+            maze[i][j].AddDirection(oldDir, choosenOne, color);
         }
 
         //Calcul des nouvelles valeurs
@@ -192,7 +197,7 @@ public class PCMazeGenerator
 
 
         //Récursions
-        int? result = GeneratePath(choosenOne, newI, newJ);
+        int? result = GeneratePath(choosenOne, newI, newJ, color);
         while (result == null)
         {
             //On rétabli la case comme elle était avant
@@ -208,7 +213,7 @@ public class PCMazeGenerator
             choosenOne = possibles[nbAlea];
             //on applique la dir sur la case
             //BUG: old-tile est modifié
-            maze[i][j].AddDirection(oldDir, choosenOne);
+            maze[i][j].AddDirection(oldDir, choosenOne, color);
             newI = i;
             newJ = j;
             if (choosenOne == PCTile.PCFluidDirection.Down)
@@ -223,7 +228,7 @@ public class PCMazeGenerator
             {
                 newJ++;
             }
-            result = GeneratePath(choosenOne, newI, newJ);
+            result = GeneratePath(choosenOne, newI, newJ, color);
         }
 
         return result;
@@ -251,7 +256,8 @@ public class PCMazeGenerator
         List<int> ends = new List<int>();
         for (int i = 0; i < 3; i++)
         {
-            int? toAdd = GeneratePath(PCTile.PCFluidDirection.Down, 0, starts[i]);
+            Debug.Log((PCTile.PCFluidColor)i);
+            int? toAdd = GeneratePath(PCTile.PCFluidDirection.Down, 0, starts[i], (PCTile.PCFluidColor)i);
             if (toAdd == null)
             {
                 //Impossible de faire ce PC

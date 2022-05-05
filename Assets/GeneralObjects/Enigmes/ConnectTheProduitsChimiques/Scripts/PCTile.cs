@@ -26,9 +26,9 @@ public class PCTile
 
     public enum PCFluidColor
     {
-        blue,
-        pink,
-        green
+        blue = 0,
+        pink = 1,
+        green = 2
     }
 
     private PCTileType tileType;
@@ -37,11 +37,16 @@ public class PCTile
     
 
     private PCFluidDirection fluidDirection; 
-    private PCFluidDirection fluidCommingDirection = PCFluidDirection.None;
     public PCFluidDirection FluidDirection => fluidDirection;
+    private PCFluidDirection fluidCommingDirection = PCFluidDirection.None;
+    public PCFluidDirection FluidCommingDirection => fluidCommingDirection;
+    public PCFluidColor Color;
 
     private PCFluidDirection fluidDirection2;
+    public PCFluidDirection FluidDirection2 => fluidDirection2;
     private PCFluidDirection fluidCommingDirection2 = PCFluidDirection.None;
+    public PCFluidDirection FluidCommingDirection2 => fluidCommingDirection2;
+    public PCFluidColor Color2;
 
     public int Rotation = 0;
 
@@ -51,7 +56,7 @@ public class PCTile
         this.fluidDirection = fluidDirection;
     }
 
-    public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
+    public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir, PCFluidColor color)
     {
         if (((int)enterDir + (int)exitDir) % 2 == 1)
         {
@@ -62,6 +67,7 @@ public class PCTile
             tileType = PCTileType.Corner;
             fluidCommingDirection = enterDir;
             fluidDirection = exitDir;
+            Color = color;
         }
         else
         {
@@ -70,12 +76,15 @@ public class PCTile
                 tileType = PCTileType.Strait;
                 fluidCommingDirection = enterDir;
                 fluidDirection = exitDir;
+                Color = color;
             }
             else
             {
+                //2eme tuayux qui passse sur cette case
                 tileType = PCTileType.Cross;
                 fluidDirection2 = exitDir;
                 fluidCommingDirection2 = enterDir;
+                Color2 = color;
             }
         }
     }

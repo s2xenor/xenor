@@ -17,11 +17,25 @@ public class PCMap : MonoBehaviour
      * Variables Privées
      */
     private PCMazeGenerator mazeGenerator;
+    public PCMazeGenerator MazeGenerator => mazeGenerator;
+
+    private List<Tuyau> tuyaux = new List<Tuyau>();
+    
+    private Tuyau[][] tuyauxMaze;
+    public Tuyau[][] TuyauxMaze => tuyauxMaze;
 
     // Start is called before the first frame update
     void Start()
     {
         mazeGenerator = new PCMazeGenerator();
+
+        //Initialisation du tableau de tuyaux
+        tuyauxMaze = new Tuyau[mazeGenerator.MapSize][];
+        int tabTaille = mazeGenerator.MapSize + 2;
+        for (int i = 0; i < mazeGenerator.MapSize; i++)
+        {
+            tuyauxMaze[i] = new Tuyau[tabTaille];
+        }
 
         //Instantie de toutes les tiles avec la bonne image
         for (int coordY = 0; coordY < mazeGenerator.MapSize; coordY++)
@@ -41,6 +55,9 @@ public class PCMap : MonoBehaviour
                     pipe.TileData = tile;
                     pipe.MessageOnScreenCanvas = canvaTextPopUP;
                     pipe.AffichageUpdate();
+                    pipe.Map = this;
+                    tuyaux.Add(pipe);
+                    tuyauxMaze[coordX][coordY + 1] = pipe;
                 }
             }
         }
@@ -52,21 +69,33 @@ public class PCMap : MonoBehaviour
         }
 
 
-        Debug.Log(mazeGenerator.StartsAndEnds.Count);
         //placement des sources et des arrivées
         foreach ((int,int) coords in mazeGenerator.StartsAndEnds)
         {
+            //(y,x)
+            //Debug.Log("Coords:");
+            //Debug.Log(coords.Item1);
+            //Debug.Log(coords.Item2);
             Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coords.Item2 - (float)0.16, (float)0.32 * coords.Item1 + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
+            pipe.Map = this;
             //si en bas (en haut du tableau)
-            if (coords.Item2 == -1)
+            if (coords.Item1 == -1)
             {
                 pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Down);
+                tuyauxMaze[coords.Item2][0] = pipe;
+                pipe.AffichageUpdate();
+                pipe.ColorUpdate(PCTile.PCFluidDirection.None);
             }
             else
             {
                 pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Up);
+                //Debug.Log("Tab:");
+                //Debug.Log(mazeGenerator.MapSize);
+                //Debug.Log(tuyauxMaze[0].Length);
+                //Debug.Log(tuyauxMaze.Length);
+                tuyauxMaze[coords.Item2][mazeGenerator.MapSize] = pipe;
+                pipe.AffichageUpdate();
             }
-            pipe.AffichageUpdate();
         }        
 
         // Instantie porte
