@@ -17,9 +17,9 @@ public class PCTile
     public enum PCFluidDirection
     {
         Down = 0,
-        Left = 1,
+        Right = 1,
         Up = 2,
-        Right = 3,
+        Left = 3,
         None = 4,
         End = 5
     }
@@ -45,8 +45,6 @@ public class PCTile
     public PCFluidDirection FluidDirection2 => fluidDirection2;
     private PCFluidDirection fluidCommingDirection2 = PCFluidDirection.None;
     public PCFluidDirection FluidCommingDirection2 => fluidCommingDirection2;
-
-    public int Rotation = 0;
 
     public PCTile(PCTileType tileType = PCTileType.None, PCFluidDirection fluidDirection = PCFluidDirection.None)
     {

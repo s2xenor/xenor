@@ -13,8 +13,14 @@ public class Tuyau : PressurePlate
     //public Tuyau Suivant;
     //public Tuyau Precedent; peut être pas besoin (si on appelle le suivant juste si faut mettre la couleur ? avec les direction d'où elle arrive
 
-    public bool Colored = false;
-    public bool Colored2 = false;
+    //public bool Colored = false;
+    //public bool Colored2 = false;
+
+    public int Rotation = 0;
+    private PCTile.PCFluidDirection fluidDirection;
+    private PCTile.PCFluidDirection fluidDirection2;
+    private PCTile.PCFluidDirection fluidCommingDirection;
+    private PCTile.PCFluidDirection fluidCommingDirection2;
 
     /**
      * Sprites pour tuyaux
@@ -88,11 +94,8 @@ public class Tuyau : PressurePlate
 
     private void Rotate()
     {
-        TileData.Rotation++;
-        if (TileData.Rotation == 4)
-        {
-            TileData.Rotation = 0;
-        }
+        Rotation++;
+        Rotation %= 4;
         this.GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
         //update l'image (si connectée a fluid)
         int numeroSource = 0;
@@ -107,13 +110,47 @@ public class Tuyau : PressurePlate
         }
     }
 
+    public void InitaliseRotation(int coordX, int coordY)
+    {
+        CoordX = coordX;
+        CoordY = coordY;
+        switch (TileData.TileType)
+        {
+            case PCTile.PCTileType.Strait:
+                fluidCommingDirection = PCTile.PCFluidDirection.Left;
+                fluidDirection = PCTile.PCFluidDirection.Right;
+                break;
+            case PCTile.PCTileType.Corner:
+                fluidCommingDirection = PCTile.PCFluidDirection.Up;
+                fluidDirection = PCTile.PCFluidDirection.Right;
+                break;
+            case PCTile.PCTileType.Cross:
+                fluidCommingDirection = PCTile.PCFluidDirection.Left;
+                fluidDirection = PCTile.PCFluidDirection.Right;
+                fluidCommingDirection2 = PCTile.PCFluidDirection.Up;
+                fluidDirection2 = PCTile.PCFluidDirection.Down;
+                break;
+            case PCTile.PCTileType.Source:
+                if (CoordY == 0)
+                {
+                    fluidCommingDirection = PCTile.PCFluidDirection.None;
+                    fluidDirection = PCTile.PCFluidDirection.Right;
+                }
+                else
+                {
+                    fluidCommingDirection = PCTile.PCFluidDirection.Left;
+                    fluidDirection = PCTile.PCFluidDirection.End;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     public void AffichageUpdate()
     {
         switch (TileData.TileType)
         {
-            case PCTile.PCTileType.None:
-                throw new System.Exception("y a un pb");
-                break;
             case PCTile.PCTileType.Strait:
                 this.GetComponent<SpriteRenderer>().sprite = Strait_Empty;
                 break;
@@ -136,8 +173,6 @@ public class Tuyau : PressurePlate
         //S'il faut mettre de la couleur
         switch (TileData.TileType)
         {
-            case PCTile.PCTileType.None:
-                throw new System.Exception("y a un pb");
             case PCTile.PCTileType.Strait:
                 //Si on est sur un tiuyaux droit
                 //Si le fluid viens de la bonne direction
@@ -157,7 +192,7 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    Colored = true;
+                    //Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
@@ -179,7 +214,7 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    Colored = true;
+                    //Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
@@ -206,7 +241,7 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    Colored = true;
+                    //Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
