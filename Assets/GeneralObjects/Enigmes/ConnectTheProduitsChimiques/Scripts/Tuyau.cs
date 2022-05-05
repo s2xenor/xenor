@@ -13,8 +13,12 @@ public class Tuyau : PressurePlate
     //public Tuyau Suivant;
     //public Tuyau Precedent; peut être pas besoin (si on appelle le suivant juste si faut mettre la couleur ? avec les direction d'où elle arrive
 
-    //public bool Colored = false;
-    //public bool Colored2 = false;
+    //SI croix, savoir si autre direction est colorié et si oui avec quoi
+    private bool Colored = false;
+    private bool Colored2 = false;
+    private PCTile.PCFluidColor dir1Color;
+    private PCTile.PCFluidColor dir1Color2;
+
 
     public int Rotation = 0;
     private PCTile.PCFluidDirection fluidDirection;
@@ -102,6 +106,8 @@ public class Tuyau : PressurePlate
         //Debug.Log("Before");
         //Debug.Log(fluidCommingDirection);
         //Debug.Log(fluidDirection);
+        
+        //On change les direction d'entrée et de sortie
         if (fluidCommingDirection != PCTile.PCFluidDirection.None)
         {
             if (fluidCommingDirection == PCTile.PCFluidDirection.Down)
@@ -124,6 +130,28 @@ public class Tuyau : PressurePlate
                 fluidDirection--;
             }
         }
+
+        //SI c'est une croix, alors on fait la même chose dans l'autre direction
+        if (TileData.TileType == PCTile.PCTileType.Cross)
+        {
+            if (fluidCommingDirection2 == PCTile.PCFluidDirection.Down)
+            {
+                fluidCommingDirection2 = PCTile.PCFluidDirection.Left;
+            }
+            else
+            {
+                fluidCommingDirection2--;
+            }
+            if (fluidDirection2 == PCTile.PCFluidDirection.Down)
+            {
+                fluidDirection2 = PCTile.PCFluidDirection.Left;
+            }
+            else
+            {
+                fluidDirection2--;
+            }
+        }
+
         //Debug.Log("After");
         //Debug.Log(fluidCommingDirection);
         //Debug.Log(fluidDirection);
@@ -194,6 +222,8 @@ public class Tuyau : PressurePlate
                 break;
             case PCTile.PCTileType.Cross:
                 this.GetComponent<SpriteRenderer>().sprite = Cross_Empty;
+                Colored = false;
+                Colored2 = false;
                 break;
             case PCTile.PCTileType.Source:
                 this.GetComponent<SpriteRenderer>().sprite = Source_Empty;
@@ -205,6 +235,7 @@ public class Tuyau : PressurePlate
 
     public void ColorUpdate(PCTile.PCFluidDirection commingFrom, PCTile.PCFluidColor color)
     {
+        PCTile.PCFluidDirection pCFluidDirection;
         //S'il faut mettre de la couleur
         switch (TileData.TileType)
         {
@@ -228,7 +259,6 @@ public class Tuyau : PressurePlate
                             break;
                     }
                     //Colored = true;
-                    PCTile.PCFluidDirection pCFluidDirection;
                     //Suivant le sens de circulation du fluide, le liquide sort d'un coté ou de l'autre
                     if (commingFrom == fluidCommingDirection)
                     {
@@ -259,7 +289,6 @@ public class Tuyau : PressurePlate
                             break;
                     }
                     //Colored = true;
-                    PCTile.PCFluidDirection pCFluidDirection;
                     if (commingFrom == fluidCommingDirection)
                     {
                         pCFluidDirection = fluidDirection;
@@ -272,7 +301,225 @@ public class Tuyau : PressurePlate
                 }
                 break;
             case PCTile.PCTileType.Cross:
-                this.GetComponent<SpriteRenderer>().sprite = Cross_Empty;
+                //Dans tt les cas le liquide va passer => question est plus en dessous ou au dessus
+                //Si c'est au vers bas ou invers => au dessus
+                //On recupere d'abord les infos utile pour choisir si on met la couleur en dessous
+                bool isTopTube = commingFrom == fluidDirection || commingFrom == fluidCommingDirection;
+                if (commingFrom == PCTile.PCFluidDirection.Down || commingFrom == PCTile.PCFluidDirection.Up)
+                {
+                    //on traite la couleur du dessus
+                    PCTile.PCFluidColor? autreCouleur = null;
+                    switch (color)
+                    {
+                        case PCTile.PCFluidColor.blue:
+                            this.GetComponent<SpriteRenderer>().sprite = Cross_BN;
+                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            if (isTopTube && Colored2)
+                            {
+                                autreCouleur = dir1Color2;
+                            }
+                            else if (Colored)
+                            {
+                                autreCouleur = dir1Color;
+                            }
+                            if (autreCouleur != null)
+                            {
+                                switch (autreCouleur)
+                                {
+                                    case PCTile.PCFluidColor.pink:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_BR;
+                                        break;
+                                    case PCTile.PCFluidColor.green:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_BG;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case PCTile.PCFluidColor.pink:
+                            this.GetComponent<SpriteRenderer>().sprite = Cross_RN;
+                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            if (isTopTube && Colored2)
+                            {
+                                autreCouleur = dir1Color2;
+                            }
+                            else if (Colored)
+                            {
+                                autreCouleur = dir1Color;
+                            }
+                            if (autreCouleur != null)
+                            {
+                                switch (dir1Color2)
+                                {
+                                    case PCTile.PCFluidColor.blue:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_RB;
+                                        break;
+                                    case PCTile.PCFluidColor.green:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_RG;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case PCTile.PCFluidColor.green:
+                            this.GetComponent<SpriteRenderer>().sprite = Cross_GN;
+                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            if (isTopTube && Colored2)
+                            {
+                                autreCouleur = dir1Color2;
+                            }
+                            else if (Colored)
+                            {
+                                autreCouleur = dir1Color;
+                            }
+                            if (autreCouleur != null)
+                            {
+                                switch (dir1Color2)
+                                {
+                                    case PCTile.PCFluidColor.blue:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_GB;
+                                        break;
+                                    case PCTile.PCFluidColor.pink:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_GR;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (isTopTube)
+                    {
+
+                        Colored = true;
+                        dir1Color = color;
+                    }
+                    else
+                    {
+                        Colored2 = true;
+                        dir1Color2 = color;
+                    }
+                    if (commingFrom == PCTile.PCFluidDirection.Down)
+                    {
+                        pCFluidDirection = PCTile.PCFluidDirection.Up;
+                    }
+                    else
+                    {
+                        pCFluidDirection = PCTile.PCFluidDirection.Down;
+                    }
+                }
+                else
+                {
+                    //Dans ce cas on est dans le tuyaux du dessous qui va de gauche a droite. on traite la couleur du dessous
+                    PCTile.PCFluidColor? autreCouleur = null;
+                    switch (color)
+                    {
+                        case PCTile.PCFluidColor.blue:
+                            this.GetComponent<SpriteRenderer>().sprite = Cross_NB;
+                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            if (!isTopTube && Colored2)
+                            {
+                                autreCouleur = dir1Color2;
+                            }
+                            else if (Colored)
+                            {
+                                autreCouleur = dir1Color;
+                            }
+                            if (autreCouleur != null)
+                            {
+                                switch (autreCouleur)
+                                {
+                                    case PCTile.PCFluidColor.pink:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_RB;
+                                        break;
+                                    case PCTile.PCFluidColor.green:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_GB;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case PCTile.PCFluidColor.pink:
+                            this.GetComponent<SpriteRenderer>().sprite = Cross_NR;
+                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            if (!isTopTube && Colored2)
+                            {
+                                autreCouleur = dir1Color2;
+                            }
+                            else if (Colored)
+                            {
+                                autreCouleur = dir1Color;
+                            }
+                            if (autreCouleur != null)
+                            {
+                                switch (dir1Color2)
+                                {
+                                    case PCTile.PCFluidColor.blue:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_BR;
+                                        break;
+                                    case PCTile.PCFluidColor.green:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_GR;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case PCTile.PCFluidColor.green:
+                            this.GetComponent<SpriteRenderer>().sprite = Cross_NG;
+                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            if (!isTopTube && Colored2)
+                            {
+                                autreCouleur = dir1Color2;
+                            }
+                            else if (true)
+                            {
+                                autreCouleur = dir1Color;
+                            }
+                            if (autreCouleur != null)
+                            {
+                                switch (dir1Color2)
+                                {
+                                    case PCTile.PCFluidColor.blue:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_BG;
+                                        break;
+                                    case PCTile.PCFluidColor.pink:
+                                        this.GetComponent<SpriteRenderer>().sprite = Cross_RG;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (!isTopTube)
+                    {
+
+                        Colored = true;
+                        dir1Color = color;
+                    }
+                    else
+                    {
+                        Colored2 = true;
+                        dir1Color2 = color;
+                    }
+                    if (commingFrom == PCTile.PCFluidDirection.Left)
+                    {
+                        pCFluidDirection = PCTile.PCFluidDirection.Right;
+                    }
+                    else
+                    {
+                        pCFluidDirection = PCTile.PCFluidDirection.Left;
+                    }
+                }
+                NextTuyauxColor(pCFluidDirection, color);
                 break;
             case PCTile.PCTileType.Source:
                 if (commingFrom == fluidCommingDirection)
@@ -292,7 +539,7 @@ public class Tuyau : PressurePlate
                             break;
                     }
                     //Colored = true;
-                    PCTile.PCFluidDirection pCFluidDirection = fluidDirection;
+                    pCFluidDirection = fluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
