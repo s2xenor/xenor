@@ -19,7 +19,7 @@ public class PCMap : MonoBehaviour
     private PCMazeGenerator mazeGenerator;
     public List<(int,int)> StartsAndEnds => mazeGenerator.StartsAndEnds;
 
-    private List<Tuyau> tuyaux = new List<Tuyau>();
+    public List<Tuyau> Tuyaux = new List<Tuyau>();
     
     private Tuyau[][] tuyauxMaze;
     public Tuyau[][] TuyauxMaze => tuyauxMaze;
@@ -57,7 +57,7 @@ public class PCMap : MonoBehaviour
                     pipe.AffichageUpdate();
                     pipe.Map = this;
                     pipe.InitaliseRotation(coordX, coordY + 1);
-                    tuyaux.Add(pipe);
+                    Tuyaux.Add(pipe);
                     tuyauxMaze[coordX][coordY + 1] = pipe;
                 }
             }
@@ -85,6 +85,7 @@ public class PCMap : MonoBehaviour
             {
                 pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Down);
                 tuyauxMaze[coords.Item2][0] = pipe;
+                pipe.MessageOnScreenCanvas = canvaTextPopUP;
                 pipe.AffichageUpdate();
                 pipe.InitaliseRotation(coords.Item2, 0);
                 pipe.ColorUpdate(PCTile.PCFluidDirection.None, (PCTile.PCFluidColor)numeroSource);
@@ -99,7 +100,9 @@ public class PCMap : MonoBehaviour
                 //Debug.Log(tuyauxMaze.Length);
                 tuyauxMaze[coords.Item2][mazeGenerator.MapSize] = pipe;
                 pipe.InitaliseRotation(coords.Item2, mazeGenerator.MapSize);
+                pipe.MessageOnScreenCanvas = canvaTextPopUP;
                 pipe.AffichageUpdate();
+                Tuyaux.Add(pipe);
             }
         }        
 
