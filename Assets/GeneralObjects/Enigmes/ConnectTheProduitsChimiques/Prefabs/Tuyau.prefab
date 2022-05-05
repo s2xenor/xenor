@@ -123,6 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageOnScreenCanvas: {fileID: 0}
+  Map: {fileID: 0}
+  CoordX: 0
+  CoordY: 0
+  Rotation: 0
   Source_Empty: {fileID: 21300000, guid: 3b5dbbe5944e38f4eb9bdd107f91608b, type: 3}
   Source_Rose: {fileID: 21300000, guid: 6949ac2cf4e2f944e80e391fe6d09804, type: 3}
   Source_Blue: {fileID: 21300000, guid: d01e9ae7d56132848b4e6777666d87f7, type: 3}
@@ -143,5 +147,8 @@ MonoBehaviour:
   Cross_NB: {fileID: 21300000, guid: afeeacc6d3b2a2b48a8983dc7c248928, type: 3}
   Cross_NG: {fileID: 21300000, guid: 7f75ad93dceacd6488a912d23fe93f97, type: 3}
   Cross_BR: {fileID: 21300000, guid: e53ec7495617a824cbffe19564b492cb, type: 3}
+  Cross_BG: {fileID: 21300000, guid: b25dc84d56d5a09419e244454f453ad7, type: 3}
   Cross_RG: {fileID: 21300000, guid: 1f3fa42ce38f6954dbc4870244cba909, type: 3}
+  Cross_RB: {fileID: 21300000, guid: 9281df82f0abaa943980e0d4777a13fb, type: 3}
   Cross_GB: {fileID: 21300000, guid: 27f086ef005220d469c56672619dc884, type: 3}
+  Cross_GR: {fileID: 21300000, guid: ee504ed44e3c9bb4a9dfe038a922cd1d, type: 3}

@@ -53,8 +53,11 @@ public class Tuyau : PressurePlate
     public Sprite Cross_NB;
     public Sprite Cross_NG;
     public Sprite Cross_BR;
+    public Sprite Cross_BG;
     public Sprite Cross_RG;
+    public Sprite Cross_RB;
     public Sprite Cross_GB;
+    public Sprite Cross_GR;
 
     /*
      * Fonctions
@@ -207,7 +210,7 @@ public class Tuyau : PressurePlate
         {
             case PCTile.PCTileType.Strait:
                 //Si on est sur un tiuyaux droit
-                //Si le fluid viens de la bonne direction
+                //Si le fluid viens de la bonne direction (peut importe le sens)
                 if (commingFrom == fluidCommingDirection || commingFrom == fluidDirection)
                 {
                     switch (color)
@@ -226,6 +229,7 @@ public class Tuyau : PressurePlate
                     }
                     //Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection;
+                    //Suivant le sens de circulation du fluide, le liquide sort d'un coté ou de l'autre
                     if (commingFrom == fluidCommingDirection)
                     {
                         pCFluidDirection = fluidDirection;
@@ -304,6 +308,7 @@ public class Tuyau : PressurePlate
             case PCTile.PCFluidDirection.Down:
                 if (CoordY + 1 < Map.TuyauxMaze[0].Length && Map.TuyauxMaze[CoordX][CoordY + 1] != null)
                 {
+                    //On renvoie une direction différente parce que l'ont veux savoir d'où arrive le liquide sur la case
                     Map.TuyauxMaze[CoordX][CoordY + 1].ColorUpdate(PCTile.PCFluidDirection.Up, color);
                 }
                 break;
