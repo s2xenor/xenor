@@ -95,12 +95,14 @@ public class Tuyau : PressurePlate
         }
         this.GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
         //update l'image (si connectée a fluid)
-        foreach ((int, int) coords in Map.MazeGenerator.StartsAndEnds)
+        int numeroSource = 0;
+        foreach ((int, int) coords in Map.StartsAndEnds)
         {
             //(y,x)
             if (coords.Item1 == -1)
             {
-                Map.TuyauxMaze[coords.Item2][0].GetComponent<Tuyau>().ColorUpdate(PCTile.PCFluidDirection.None);
+                Map.TuyauxMaze[coords.Item2][0].GetComponent<Tuyau>().ColorUpdate(PCTile.PCFluidDirection.None, (PCTile.PCFluidColor)numeroSource);
+                numeroSource++;
             }
         }
     }
@@ -129,7 +131,7 @@ public class Tuyau : PressurePlate
         }
     }
 
-    public void ColorUpdate(PCTile.PCFluidDirection commingFrom)
+    public void ColorUpdate(PCTile.PCFluidDirection commingFrom, PCTile.PCFluidColor color)
     {
         //S'il faut mettre de la couleur
         switch (TileData.TileType)
@@ -141,7 +143,7 @@ public class Tuyau : PressurePlate
                 //Si le fluid viens de la bonne direction
                 if (commingFrom == TileData.FluidCommingDirection)
                 {
-                    switch (TileData.Color)
+                    switch (color)
                     {
                         case PCTile.PCFluidColor.blue:
                             this.GetComponent<SpriteRenderer>().sprite = Strait_Blue;
@@ -157,13 +159,13 @@ public class Tuyau : PressurePlate
                     }
                     Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
-                    NextTuyauxColor(pCFluidDirection);
+                    NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCTileType.Corner:
                 if (commingFrom == TileData.FluidCommingDirection)
                 {
-                    switch (TileData.Color)
+                    switch (color)
                     {
                         case PCTile.PCFluidColor.blue:
                             this.GetComponent<SpriteRenderer>().sprite = Corner_Blue;
@@ -179,7 +181,7 @@ public class Tuyau : PressurePlate
                     }
                     Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
-                    NextTuyauxColor(pCFluidDirection);
+                    NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCTileType.Cross:
@@ -190,11 +192,9 @@ public class Tuyau : PressurePlate
                 Debug.Log(commingFrom);
                 if (commingFrom == TileData.FluidCommingDirection)
                 {
-                    Debug.Log(TileData.Color);
-                    switch (TileData.Color)
+                    switch (color)
                     {
                         case PCTile.PCFluidColor.blue:
-                            Debug.Log("ok");
                             this.GetComponent<SpriteRenderer>().sprite = Source_Blue;
                             break;
                         case PCTile.PCFluidColor.pink:
@@ -208,7 +208,7 @@ public class Tuyau : PressurePlate
                     }
                     Colored = true;
                     PCTile.PCFluidDirection pCFluidDirection = TileData.FluidDirection;
-                    NextTuyauxColor(pCFluidDirection);
+                    NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
             default:
@@ -216,32 +216,32 @@ public class Tuyau : PressurePlate
         }
     }
 
-    private void NextTuyauxColor(PCTile.PCFluidDirection pCFluidDirection)
+    private void NextTuyauxColor(PCTile.PCFluidDirection pCFluidDirection, PCTile.PCFluidColor color)
     {
         switch (pCFluidDirection)
         {
             case PCTile.PCFluidDirection.Down:
                 if (CoordY + 1 < Map.TuyauxMaze[0].Length && Map.TuyauxMaze[CoordX][CoordY + 1] != null)
                 {
-                    Map.TuyauxMaze[CoordX][CoordY + 1].ColorUpdate(pCFluidDirection);
+                    Map.TuyauxMaze[CoordX][CoordY + 1].ColorUpdate(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCFluidDirection.Left:
                 if (CoordX - 1 >= 0 && Map.TuyauxMaze[CoordX - 1][CoordY] != null)
                 {
-                    Map.TuyauxMaze[CoordX - 1][CoordY].ColorUpdate(pCFluidDirection);
+                    Map.TuyauxMaze[CoordX - 1][CoordY].ColorUpdate(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCFluidDirection.Up:
                 if (CoordY - 1 >= 0 && Map.TuyauxMaze[CoordX][CoordY - 1] != null)
                 {
-                    Map.TuyauxMaze[CoordX][CoordY - 1].ColorUpdate(pCFluidDirection);
+                    Map.TuyauxMaze[CoordX][CoordY - 1].ColorUpdate(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCFluidDirection.Right:
                 if (CoordX + 1 < Map.TuyauxMaze[0].Length && Map.TuyauxMaze[CoordX + 1][CoordY] != null)
                 {
-                    Map.TuyauxMaze[CoordX + 1][CoordY].ColorUpdate(pCFluidDirection);
+                    Map.TuyauxMaze[CoordX + 1][CoordY].ColorUpdate(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCFluidDirection.End:

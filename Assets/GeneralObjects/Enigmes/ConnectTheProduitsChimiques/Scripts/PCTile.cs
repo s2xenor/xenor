@@ -40,13 +40,11 @@ public class PCTile
     public PCFluidDirection FluidDirection => fluidDirection;
     private PCFluidDirection fluidCommingDirection = PCFluidDirection.None;
     public PCFluidDirection FluidCommingDirection => fluidCommingDirection;
-    public PCFluidColor Color;
 
     private PCFluidDirection fluidDirection2;
     public PCFluidDirection FluidDirection2 => fluidDirection2;
     private PCFluidDirection fluidCommingDirection2 = PCFluidDirection.None;
     public PCFluidDirection FluidCommingDirection2 => fluidCommingDirection2;
-    public PCFluidColor Color2;
 
     public int Rotation = 0;
 
@@ -56,7 +54,7 @@ public class PCTile
         this.fluidDirection = fluidDirection;
     }
 
-    public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir, PCFluidColor color)
+    public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
     {
         if (((int)enterDir + (int)exitDir) % 2 == 1)
         {
@@ -67,7 +65,6 @@ public class PCTile
             tileType = PCTileType.Corner;
             fluidCommingDirection = enterDir;
             fluidDirection = exitDir;
-            Color = color;
         }
         else
         {
@@ -76,7 +73,6 @@ public class PCTile
                 tileType = PCTileType.Strait;
                 fluidCommingDirection = enterDir;
                 fluidDirection = exitDir;
-                Color = color;
             }
             else
             {
@@ -84,7 +80,6 @@ public class PCTile
                 tileType = PCTileType.Cross;
                 fluidDirection2 = exitDir;
                 fluidCommingDirection2 = enterDir;
-                Color2 = color;
             }
         }
     }

@@ -17,7 +17,7 @@ public class PCMap : MonoBehaviour
      * Variables Privées
      */
     private PCMazeGenerator mazeGenerator;
-    public PCMazeGenerator MazeGenerator => mazeGenerator;
+    public List<(int,int)> StartsAndEnds => mazeGenerator.StartsAndEnds;
 
     private List<Tuyau> tuyaux = new List<Tuyau>();
     
@@ -69,6 +69,7 @@ public class PCMap : MonoBehaviour
         }
 
 
+        int numeroSource = 0;
         //placement des sources et des arrivées
         foreach ((int,int) coords in mazeGenerator.StartsAndEnds)
         {
@@ -84,7 +85,8 @@ public class PCMap : MonoBehaviour
                 pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Down);
                 tuyauxMaze[coords.Item2][0] = pipe;
                 pipe.AffichageUpdate();
-                pipe.ColorUpdate(PCTile.PCFluidDirection.None);
+                pipe.ColorUpdate(PCTile.PCFluidDirection.None, (PCTile.PCFluidColor)numeroSource);
+                numeroSource++;
             }
             else
             {
