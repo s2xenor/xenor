@@ -15,7 +15,7 @@ public class PCMazeGenerator
 
     public PCMazeGenerator()
     {
-        mapSize = Random.Range(10, 50);
+        mapSize = 10;//Random.Range(10, 50);
         maze = new PCTile[mapSize][];
 
         //Initialisation du labyrinthe

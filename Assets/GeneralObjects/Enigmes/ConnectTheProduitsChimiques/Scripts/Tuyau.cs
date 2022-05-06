@@ -304,25 +304,26 @@ public class Tuyau : PressurePlate
                 //Dans tt les cas le liquide va passer => question est plus en dessous ou au dessus
                 //Si c'est au vers bas ou invers => au dessus
                 //On recupere d'abord les infos utile pour choisir si on met la couleur en dessous
-                bool isTopTube = commingFrom == fluidDirection || commingFrom == fluidCommingDirection;
-                if (commingFrom == PCTile.PCFluidDirection.Down || commingFrom == PCTile.PCFluidDirection.Up)
+                PCTile.PCFluidColor? autreCouleur = null;
+                bool isTopTube = PCTile.PCFluidDirection.Down == fluidDirection || PCTile.PCFluidDirection.Up == fluidCommingDirection;
+                if (((commingFrom == PCTile.PCFluidDirection.Down || commingFrom == PCTile.PCFluidDirection.Up) && !isTopTube) 
+                    || ((commingFrom == PCTile.PCFluidDirection.Left || commingFrom == PCTile.PCFluidDirection.Right) && isTopTube))
                 {
                     //on traite la couleur du dessus
-                    PCTile.PCFluidColor? autreCouleur = null;
                     switch (color)
                     {
                         case PCTile.PCFluidColor.blue:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_BN;
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
-                            if (isTopTube && Colored2)
+                            if (isTopTube && Colored2) // si on est en train de traiter le premier tube mais que le deuxieme doit afficher la couleur
                             {
                                 autreCouleur = dir1Color2;
                             }
-                            else if (Colored)
+                            else if (Colored) // on traite le deuxième et le premier doit avoir couleur
                             {
                                 autreCouleur = dir1Color;
                             }
-                            if (autreCouleur != null)
+                            if (autreCouleur != null) //l'autre tuyaux doit avoir la couleur
                             {
                                 switch (autreCouleur)
                                 {
@@ -392,36 +393,27 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    if (isTopTube)
+                    if (isTopTube) //si on traitais le premier tube
                     {
-
-                        Colored = true;
-                        dir1Color = color;
+                        Colored = true;  // sa couleur est affichée
+                        dir1Color = color; // et sa couleur est color
                     }
-                    else
+                    else //sinon on traitais le deuxième
                     {
-                        Colored2 = true;
-                        dir1Color2 = color;
-                    }
-                    if (commingFrom == PCTile.PCFluidDirection.Down)
-                    {
-                        pCFluidDirection = PCTile.PCFluidDirection.Up;
-                    }
-                    else
-                    {
-                        pCFluidDirection = PCTile.PCFluidDirection.Down;
+                        Colored2 = true; // sa couleur est affichée
+                        dir1Color2 = color; // et sa couleur est color
                     }
                 }
                 else
                 {
                     //Dans ce cas on est dans le tuyaux du dessous qui va de gauche a droite. on traite la couleur du dessous
-                    PCTile.PCFluidColor? autreCouleur = null;
                     switch (color)
                     {
                         case PCTile.PCFluidColor.blue:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_NB;
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
-                            if (!isTopTube && Colored2)
+                            //si toptube est false dans ce cas le premier tube est celui qui passe de gauche à droite
+                            if (!isTopTube && Colored2) //si le tube qui passe de haut en bas a de la couleur
                             {
                                 autreCouleur = dir1Color2;
                             }
@@ -510,14 +502,23 @@ public class Tuyau : PressurePlate
                         Colored2 = true;
                         dir1Color2 = color;
                     }
-                    if (commingFrom == PCTile.PCFluidDirection.Left)
-                    {
-                        pCFluidDirection = PCTile.PCFluidDirection.Right;
-                    }
-                    else
-                    {
-                        pCFluidDirection = PCTile.PCFluidDirection.Left;
-                    }
+                    
+                }
+                if (commingFrom == PCTile.PCFluidDirection.Down) //direction de sortie du fluide
+                {
+                    pCFluidDirection = PCTile.PCFluidDirection.Up;
+                }
+                else if (commingFrom == PCTile.PCFluidDirection.Up)
+                {
+                    pCFluidDirection = PCTile.PCFluidDirection.Down;
+                }
+                else if (commingFrom == PCTile.PCFluidDirection.Left)
+                {
+                    pCFluidDirection = PCTile.PCFluidDirection.Right;
+                }
+                else
+                {
+                    pCFluidDirection = PCTile.PCFluidDirection.Left;
                 }
                 NextTuyauxColor(pCFluidDirection, color);
                 break;
