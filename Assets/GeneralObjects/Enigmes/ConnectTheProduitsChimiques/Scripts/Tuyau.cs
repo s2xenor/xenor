@@ -108,13 +108,15 @@ public class Tuyau : PressurePlate
         }
     }
 
+    /**
+     * <summary>Permet de rotation l'asset et de changer les variables qui se basent sur sa rotation pour faire passer ou non le liquide</summary>
+     * 
+     * A chaque appel, remet tous les tuyaux a 0 et recalcule la trajectoire du liquide
+     */
     private void Rotate()
     {
         Rotation++;
         Rotation %= 4;
-        Debug.Log("Before");
-        Debug.Log(fluidCommingDirection);
-        Debug.Log(fluidDirection);
 
         //On change les direction d'entrée et de sortie
         if (fluidCommingDirection != PCTile.PCFluidDirection.None)
@@ -140,15 +142,15 @@ public class Tuyau : PressurePlate
             }
         }
 
-        Debug.Log("After");
-        Debug.Log(fluidCommingDirection);
-        Debug.Log(fluidDirection);
         this.GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
         //update l'image (si connectée a fluid)
+        //remise a 0 des tuayux (tous)
         foreach (Tuyau tuyau in Map.Tuyaux)
         {
             tuyau.AffichageUpdate();
         }
+
+        //actualise du passage du liquide dans les tuyaux
         int numeroSource = 0;
         foreach ((int, int) coords in Map.StartsAndEnds)
         {
@@ -161,6 +163,14 @@ public class Tuyau : PressurePlate
         }
     }
 
+    /**
+     * <summary>Permet d'initialiser les variables de rotation des tuayux (au lancement du jeu uniquement)</summary>
+     * 
+     * <param name="coordX">Coordonée X du tuayau</param>
+     * <param name="coordY">Coord Y du tuyau</param>
+     * 
+     * Par rapport à la position initiale des assets
+     */
     public void InitaliseRotation(int coordX, int coordY)
     {
         CoordX = coordX;
@@ -198,6 +208,9 @@ public class Tuyau : PressurePlate
         }
     }
 
+    /**
+     * <summary>Remet l'affichage à 0 (vide tous les tuayux de leur contenu)</summary>
+     */
     public void AffichageUpdate()
     {
         switch (TileData.TileType)
@@ -221,6 +234,12 @@ public class Tuyau : PressurePlate
         }
     }
 
+    /**
+     * <summary>Ajoute le liquide dans le tuayux actuel (si il viens de la bonne direction) (et si le liquide passe, appel la prochaine case pour une éventuelle actualisation)</summary>
+     * 
+     * <param name="commingFrom">Sens d'où provient le liquide</param>
+     * <param name="color">Couleur en cours de traitement</param>
+     */
     public void ColorUpdate(PCTile.PCFluidDirection commingFrom, PCTile.PCFluidColor color)
     {
         PCTile.PCFluidDirection pCFluidDirection;
@@ -246,7 +265,6 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    //Colored = true;
                     //Suivant le sens de circulation du fluide, le liquide sort d'un coté ou de l'autre
                     if (commingFrom == fluidCommingDirection)
                     {
@@ -256,10 +274,13 @@ public class Tuyau : PressurePlate
                     {
                         pCFluidDirection = fluidCommingDirection;
                     }
+                    //Appel du prochain tuyau
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCTileType.Corner:
+                //Si on est dans un tuyaux coin
+                //Si le fluid viens de la bonne direction (peut importe le sens)
                 if (commingFrom == fluidCommingDirection || commingFrom == fluidDirection)
                 {
                     switch (color)
@@ -276,7 +297,7 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    //Colored = true;
+                    //Suivant le sens de circulation du fluide, le liquide sort d'un coté ou de l'autre
                     if (commingFrom == fluidCommingDirection)
                     {
                         pCFluidDirection = fluidDirection;
@@ -285,22 +306,22 @@ public class Tuyau : PressurePlate
                     {
                         pCFluidDirection = fluidCommingDirection;
                     }
+                    //Appel du prochain tuyau
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
             case PCTile.PCTileType.Cross:
-                //Dans tt les cas le liquide va passer => question est plus en dessous ou au dessus
-                //Si c'est au vers bas ou invers => au dessus
-                //On recupere d'abord les infos utile pour choisir si on met la couleur en dessous
+                //Dans tt les cas le liquide va passer => question est juste de mettre le bon sprite
                 if (commingFrom == PCTile.PCFluidDirection.Down || commingFrom == PCTile.PCFluidDirection.Up)
                 {
                     //on traite la couleur du dessus
+                    //On est donc avec les varaiables 2 d'utilisation
                     switch (color)
                     {
                         case PCTile.PCFluidColor.blue:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_BN;
-                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
-                            if (Colored) // si on est en train de traiter le premier tube mais que le deuxieme doit afficher la couleur
+                            //si y a une deuxième couleur (dans la premiere variable car on est sur la deuxième actuellement)
+                            if (Colored)
                             {
                                 if (dir1Color == PCTile.PCFluidColor.blue)
                                 {
@@ -321,7 +342,7 @@ public class Tuyau : PressurePlate
                             break;
                         case PCTile.PCFluidColor.pink:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_RN;
-                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            //si y a une deuxième couleur (dans la premiere variable car on est sur la deuxième actuellement)
                             if (Colored)
                             {
                                 if (dir1Color == PCTile.PCFluidColor.pink)
@@ -343,7 +364,7 @@ public class Tuyau : PressurePlate
                             break;
                         case PCTile.PCFluidColor.green:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_GN;
-                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            //si y a une deuxième couleur (dans la premiere variable car on est sur la deuxième actuellement)
                             if (Colored)
                             {
                                 if (dir1Color == PCTile.PCFluidColor.green)
@@ -366,6 +387,7 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
+                    //On update les valeur des deuxième variable (on était bien sur les deuxième variable car les croix ne peuvent pas tourner et c défini comme ça plus haut)
                     Colored2 = true; // sa couleur est affichée
                     dir1Color2 = color; // et sa couleur est color
                 }
@@ -376,9 +398,10 @@ public class Tuyau : PressurePlate
                     {
                         case PCTile.PCFluidColor.blue:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_NB;
-                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
-                            //si toptube est false dans ce cas le premier tube est celui qui passe de gauche à droite
-                            if (Colored2) //si le tube qui passe de haut en bas a de la couleur
+                            //on traite la couleur du deossous
+                            //On est donc avec les varaiables 1 d'utilisation
+                            //si y a une deuxième couleur (dans la deuxième variable car on est sur la premiere actuellement)
+                            if (Colored2)
                             {
                                 if (dir1Color2 == PCTile.PCFluidColor.blue)
                                 {
@@ -399,7 +422,7 @@ public class Tuyau : PressurePlate
                             break;
                         case PCTile.PCFluidColor.pink:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_NR;
-                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            //si y a une deuxième couleur (dans la deuxième variable car on est sur la premiere actuellement)
                             if (Colored2)
                             {
                                 if (dir1Color2 == PCTile.PCFluidColor.pink)
@@ -421,7 +444,7 @@ public class Tuyau : PressurePlate
                             break;
                         case PCTile.PCFluidColor.green:
                             this.GetComponent<SpriteRenderer>().sprite = Cross_NG;
-                            //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
+                            //si y a une deuxième couleur (dans la deuxième variable car on est sur la premiere actuellement)
                             if (Colored2)
                             {
                                 if (dir1Color2 == PCTile.PCFluidColor.green)
@@ -444,11 +467,14 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    Colored = true;
-                    dir1Color = color;
+                    //On update les valeur des premier variable (on était bien sur les premier variable car les croix ne peuvent pas tourner et c défini comme ça plus haut)
+                    Colored = true; // sa couleur est affichée
+                    dir1Color = color; // et sa couleur est color
 
                 }
-                if (commingFrom == PCTile.PCFluidDirection.Down) //direction de sortie du fluide
+
+                //direction de sortie du fluide (opposée à celle d'entrée)
+                if (commingFrom == PCTile.PCFluidDirection.Down) 
                 {
                     pCFluidDirection = PCTile.PCFluidDirection.Up;
                 }
@@ -464,9 +490,12 @@ public class Tuyau : PressurePlate
                 {
                     pCFluidDirection = PCTile.PCFluidDirection.Left;
                 }
+
+                //Appel prochain tuyau
                 NextTuyauxColor(pCFluidDirection, color);
                 break;
             case PCTile.PCTileType.Source:
+                //Si on est sur un tuyaux source
                 if (commingFrom == fluidCommingDirection)
                 {
                     switch (color)
@@ -483,18 +512,26 @@ public class Tuyau : PressurePlate
                         default:
                             break;
                     }
-                    //Colored = true;
+
+                    //on appelle avec les direction de sortie (potentiellement END si c une source receveuse)
                     pCFluidDirection = fluidDirection;
                     NextTuyauxColor(pCFluidDirection, color);
                 }
                 break;
             default:
-                throw new System.Exception("y a un pb");
+                break;
         }
     }
 
+    /**
+     * <summary>Fait changer la couleur du tuayux suivant ssi il existe + gére le cas de fin</summary>
+     * 
+     * <param name="pCFluidDirection">Direction de sortie du liquide du tuayux actuel</param>
+     * <param name="color">couleur en cours de traitement</param>
+     */
     private void NextTuyauxColor(PCTile.PCFluidDirection pCFluidDirection, PCTile.PCFluidColor color)
     {
+        //A chaque fois on va inverser la direction du tuayux parce que on a en parametre la direction de sortie de CE tuyaux et qu'on veut la direction d'entre du tuyau PROCHAIN
         switch (pCFluidDirection)
         {
             case PCTile.PCFluidDirection.Down:
