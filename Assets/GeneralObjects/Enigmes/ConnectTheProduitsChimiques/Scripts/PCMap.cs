@@ -98,7 +98,7 @@ public class PCMap : MonoBehaviour
                 //Debug.Log(mazeGenerator.MapSize);
                 //Debug.Log(tuyauxMaze[0].Length);
                 //Debug.Log(tuyauxMaze.Length);
-                tuyauxMaze[coords.Item2][mazeGenerator.MapSize] = pipe;
+                tuyauxMaze[coords.Item2][mazeGenerator.MapSize+1] = pipe;
                 pipe.InitaliseRotation(coords.Item2, mazeGenerator.MapSize);
                 pipe.MessageOnScreenCanvas = canvaTextPopUP;
                 pipe.AffichageUpdate();

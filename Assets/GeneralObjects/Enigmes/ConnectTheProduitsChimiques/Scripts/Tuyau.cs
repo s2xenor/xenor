@@ -112,10 +112,10 @@ public class Tuyau : PressurePlate
     {
         Rotation++;
         Rotation %= 4;
-        //Debug.Log("Before");
-        //Debug.Log(fluidCommingDirection);
-        //Debug.Log(fluidDirection);
-        
+        Debug.Log("Before");
+        Debug.Log(fluidCommingDirection);
+        Debug.Log(fluidDirection);
+
         //On change les direction d'entrée et de sortie
         if (fluidCommingDirection != PCTile.PCFluidDirection.None)
         {
@@ -140,9 +140,9 @@ public class Tuyau : PressurePlate
             }
         }
 
-        //Debug.Log("After");
-        //Debug.Log(fluidCommingDirection);
-        //Debug.Log(fluidDirection);
+        Debug.Log("After");
+        Debug.Log(fluidCommingDirection);
+        Debug.Log(fluidDirection);
         this.GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
         //update l'image (si connectée a fluid)
         foreach (Tuyau tuyau in Map.Tuyaux)
@@ -189,7 +189,7 @@ public class Tuyau : PressurePlate
                 }
                 else
                 {
-                    fluidCommingDirection = PCTile.PCFluidDirection.Left;
+                    fluidCommingDirection = PCTile.PCFluidDirection.Right;
                     fluidDirection = PCTile.PCFluidDirection.End;
                 }
                 break;
