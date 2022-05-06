@@ -56,12 +56,15 @@ public class Tuyau : PressurePlate
     public Sprite Cross_NR;
     public Sprite Cross_NB;
     public Sprite Cross_NG;
+    public Sprite Cross_BB;
     public Sprite Cross_BR;
     public Sprite Cross_BG;
-    public Sprite Cross_RG;
     public Sprite Cross_RB;
+    public Sprite Cross_RR;
+    public Sprite Cross_RG;
     public Sprite Cross_GB;
     public Sprite Cross_GR;
+    public Sprite Cross_GG;
 
     /*
      * Fonctions
@@ -299,6 +302,10 @@ public class Tuyau : PressurePlate
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
                             if (Colored) // si on est en train de traiter le premier tube mais que le deuxieme doit afficher la couleur
                             {
+                                if (dir1Color == PCTile.PCFluidColor.blue)
+                                {
+                                    this.GetComponent<SpriteRenderer>().sprite = Cross_BB;
+                                }
                                 switch (dir1Color)
                                 {
                                     case PCTile.PCFluidColor.pink:
@@ -317,6 +324,10 @@ public class Tuyau : PressurePlate
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
                             if (Colored)
                             {
+                                if (dir1Color == PCTile.PCFluidColor.pink)
+                                {
+                                    this.GetComponent<SpriteRenderer>().sprite = Cross_RR;
+                                }
                                 switch (dir1Color)
                                 {
                                     case PCTile.PCFluidColor.blue:
@@ -335,6 +346,10 @@ public class Tuyau : PressurePlate
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
                             if (Colored)
                             {
+                                if (dir1Color == PCTile.PCFluidColor.green)
+                                {
+                                    this.GetComponent<SpriteRenderer>().sprite = Cross_GG;
+                                }
                                 switch (dir1Color)
                                 {
                                     case PCTile.PCFluidColor.blue:
@@ -365,6 +380,10 @@ public class Tuyau : PressurePlate
                             //si toptube est false dans ce cas le premier tube est celui qui passe de gauche à droite
                             if (Colored2) //si le tube qui passe de haut en bas a de la couleur
                             {
+                                if (dir1Color2 == PCTile.PCFluidColor.blue)
+                                {
+                                    this.GetComponent<SpriteRenderer>().sprite = Cross_BB;
+                                }
                                 switch (dir1Color2)
                                 {
                                     case PCTile.PCFluidColor.pink:
@@ -383,6 +402,10 @@ public class Tuyau : PressurePlate
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
                             if (Colored2)
                             {
+                                if (dir1Color2 == PCTile.PCFluidColor.pink)
+                                {
+                                    this.GetComponent<SpriteRenderer>().sprite = Cross_RR;
+                                }
                                 switch (dir1Color2)
                                 {
                                     case PCTile.PCFluidColor.blue:
@@ -401,6 +424,10 @@ public class Tuyau : PressurePlate
                             //si y a une deuxième couleur mais la varaible a check dépend de isTopTube
                             if (Colored2)
                             {
+                                if (dir1Color2 == PCTile.PCFluidColor.green)
+                                {
+                                    this.GetComponent<SpriteRenderer>().sprite = Cross_GG;
+                                }
                                 switch (dir1Color2)
                                 {
                                     case PCTile.PCFluidColor.blue:

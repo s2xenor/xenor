@@ -146,9 +146,12 @@ MonoBehaviour:
   Cross_NR: {fileID: 21300000, guid: 559ff471816e4444994b91d2fa96f6aa, type: 3}
   Cross_NB: {fileID: 21300000, guid: afeeacc6d3b2a2b48a8983dc7c248928, type: 3}
   Cross_NG: {fileID: 21300000, guid: 7f75ad93dceacd6488a912d23fe93f97, type: 3}
+  Cross_BB: {fileID: 21300000, guid: 859138ef57e51104889bfe78f45328de, type: 3}
   Cross_BR: {fileID: 21300000, guid: e53ec7495617a824cbffe19564b492cb, type: 3}
   Cross_BG: {fileID: 21300000, guid: b25dc84d56d5a09419e244454f453ad7, type: 3}
-  Cross_RG: {fileID: 21300000, guid: 1f3fa42ce38f6954dbc4870244cba909, type: 3}
   Cross_RB: {fileID: 21300000, guid: 9281df82f0abaa943980e0d4777a13fb, type: 3}
+  Cross_RR: {fileID: 21300000, guid: 514e45a595303b441bf53cb6ce0e4538, type: 3}
+  Cross_RG: {fileID: 21300000, guid: 1f3fa42ce38f6954dbc4870244cba909, type: 3}
   Cross_GB: {fileID: 21300000, guid: 27f086ef005220d469c56672619dc884, type: 3}
   Cross_GR: {fileID: 21300000, guid: ee504ed44e3c9bb4a9dfe038a922cd1d, type: 3}
+  Cross_GG: {fileID: 21300000, guid: 1e3f89d5dd07f9a45b54f11dafd797bb, type: 3}
