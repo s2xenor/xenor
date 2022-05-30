@@ -21,10 +21,7 @@ public class playerwalkOnline : MonoBehaviour
         if (!view.IsMine) // Remove unecessary camera of other player locally
         {
             transform.GetChild(0).gameObject.SetActive(false);
-        }
-        else
-        {
-            gameObject.GetComponent<playerOnlineFuncs>().MazeCanvas();
+            transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 

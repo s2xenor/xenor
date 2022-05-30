@@ -15,6 +15,6 @@ public class ChangeParentMap : MonoBehaviour
         gameObject.transform.parent = map.transform;
 
         // Fix size
-        gameObject.transform.localScale = new Vector2(3, 3);
+        gameObject.transform.localScale = new Vector2(.8f, .8f);
     }
 }

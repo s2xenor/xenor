@@ -64,7 +64,7 @@ public class MainMaze : MonoBehaviour
 
     void CreateMap() // Create map for labyrinthe
     {
-        float size = 0.32f;
+        float size = 0.32f, size2 = .16f * .8f;
 
         for (UInt16 i = 0; i < maze.GetLength(0); i++)
         {
@@ -73,7 +73,7 @@ public class MainMaze : MonoBehaviour
                 if (maze[i,j] == 1)
                 {
                     // Create map
-                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size * 10 - 29.3f, j * size * 10 - 33), Quaternion.identity);
+                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size2 + .32f * 3, j * size2 + .32f * -8), Quaternion.identity);
                     // Create lab
                     PhotonNetwork.Instantiate(wallMaze.name, new Vector2(10 * .32f + .16f + i * size, .16f + .32f * -8 + j * size), Quaternion.identity);
                 }
@@ -82,6 +82,7 @@ public class MainMaze : MonoBehaviour
 
         // Adjust size
         mazeContainer.transform.localScale = new Vector2(4, 4);
+        map.transform.localScale = new Vector2(.5f, .5f);
     }
 
     void Print() // Print maze
