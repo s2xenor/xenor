@@ -19,6 +19,6 @@ public class player : MonoBehaviour
     private void Awake()
     {
         inventory = new inventaire();
-        Case_Design.SetInventory(inventory);
+        //Case_Design.SetInventory(inventory);
     }
 }
