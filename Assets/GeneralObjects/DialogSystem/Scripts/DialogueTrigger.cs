@@ -25,9 +25,6 @@ public class DialogueTrigger : MonoBehaviour {
 	{
 		if (filePath != "") {
 			//Lecture du fichier json
-			//string dialoguesData = System.IO.File.ReadAllText(Application.dataPath + "/GeneralObjects/DialogSystem/Data/" + filePath);
-
-
 			var dialoguesData = Resources.Load<TextAsset>(filePath);
 
 			//cr�ation de l'objet qui stocke les phrases du dialogue en fonction du json
