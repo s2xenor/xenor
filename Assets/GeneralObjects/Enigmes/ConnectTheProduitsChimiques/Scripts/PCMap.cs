@@ -14,6 +14,11 @@ public class PCMap : MonoBehaviour
     public GameObject canvaTextPopUP;
     
     public bool DoorLocked = true;
+    public int nbPipeOk = 0;
+
+    public int MapSize = 10;
+
+    public string NextSceneName = "MainRoom";
 
     /**
      * Prefabs
@@ -45,9 +50,9 @@ public class PCMap : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public void StartGeneration()
     {
-        mazeGenerator = new PCMazeGenerator();
+        mazeGenerator = new PCMazeGenerator(MapSize);
 
         //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout à augmenter le difficultée de l'énigme
         for (int i = 0; i < mazeGenerator.Maze.Length; i++)
@@ -212,7 +217,7 @@ public class PCMap : MonoBehaviour
         else
         {
             GameObject.FindGameObjectWithTag("DoorsToActivate").GetComponent<SpriteRenderer>().enabled = true;
-            GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().nextSceneName = "MainRoom";
+            GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().nextSceneName = NextSceneName;
         }
     }
 }
