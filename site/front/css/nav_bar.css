@@ -1,0 +1,142 @@
+input[type=checkbox].css-checkbox {
+    display: none;
+}
+
+.menu_label {
+    z-index: 10;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    clip-path: circle(40px at 50px 50px);
+    background-image: url(../img/logo_alteravita_sans_fon_sans_texte.png);
+    background-repeat: no-repeat;
+    background-position: 18px 17px;
+    background-size: 65px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.menu_label:hover {
+    background-image: url(../img/logo_alteravita_sans_fon_sans_texte_glow.png);
+}
+
+#menu_wrapper {
+    z-index: 9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(135deg, #290329 0%,#9c149c 20%, #b828cb 25%, #fe961f 65%, #fed11f 80%, #c3fe1f 100%);
+    background-size: 300%;
+    clip-path: circle(40px at 50px 50px);
+    transition: all 0.5s ease-in-out;
+}
+
+input[type=checkbox].css-checkbox:checked~#menu_wrapper {
+    clip-path: circle(100%);
+}
+
+.menu_ul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.menu_tab {
+    position: relative;
+    margin: 30px;
+    height: 60px;
+    width: 300px;
+    line-height: 50%;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.menu_title {
+    color: white;
+    font-size: 25pt;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+    position: absolute;
+    list-style: none;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    margin: 22px 0;
+}
+
+.menu_tab:hover {
+    background-color: white;
+}
+
+.menu_tab:hover>.menu_title {
+    color: #031B29;
+}
+
+.menu_tab:active {
+    background-color: lightgrey;
+}
+
+#menu_submenu {
+    width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: 200px;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    padding-bottom: 10px;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu_submenu_tab {
+    display: inline;
+    cursor: pointer;
+    width: 130px;
+    text-align: center;
+    margin: 30px;
+}
+
+.menu_submenu_title {
+    position: relative;
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18pt;
+    margin: 20px 30px;
+    transition: all 0.3s ease-in-out;
+}
+
+.menu_submenu_title::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: -10px;
+    height: 3px;
+    border-radius: 50px;
+    background: #031B29;
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+    transition: all 0.2s ease-in-out;
+}
+
+.menu_submenu_tab:hover>.menu_submenu_title {
+    color: #031B29
+}
+
+.menu_submenu_tab:hover>.menu_submenu_title::after {
+    transform: scaleX(1);
+}

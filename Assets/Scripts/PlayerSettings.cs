@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerSettings : MonoBehaviour
 {
     //Fichier ou on stocke les settings du players
-    int volume = 0;
+    //int volume = 0;
     // etc
 
     // Gestion des touches

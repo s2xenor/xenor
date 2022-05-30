@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initialscore=1.0">
+        <title>AlteraVita - Histoire</title>
+        <link rel="icon" type="image/svg" href="../img/logo_alteravita_sans_fon_sans_texte.png" />
+        <!-- <a href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Freepik - Flaticon</a> -->
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/nav_bar.css">
+        <link rel="stylesheet" href="../css/play_button.css">
+        <link rel="stylesheet" href="../css/history.css">
+        <script src="../js/navbar.js"></script>
+    </head>
+    <body class="pink-back">
+        <nav>
+            <input id="menu_check" type="checkbox" class="css-checkbox">
+            <div class="menu_label_back">
+                <label for="menu_check" class="menu_label"></label>
+            </div>
+            <div id="menu_wrapper">
+                <ul class="menu_ul">
+                    <a href="">
+                        <li class="button_play" onmouseover="background0()">
+                            JOUER
+                        </li>
+                    </a>
+                    <a href="../index.html"> 
+                        <li class="menu_tab" onmouseover="background25()">
+                            <h1 class="menu_title">Accueil</h1>
+                        </li>
+                    </a>
+                    <a href="../html/group_presentation.html"> 
+                        <li class="menu_tab" onmouseover="background50()" >
+                            <h1 class="menu_title">L'Equipe</h1>
+                        </li>
+                    </a>
+                    <a href=""> 
+                    <li class="menu_tab" onmouseover="background75()">
+                        <h1 class="menu_title">Classement</h1>
+                    </li>
+                    </a>
+                    <li class="menu_tab" onmouseover="background100()" onclick="openSubmenu()">
+                        <h1 class="menu_title">Le Jeu</h1>
+                    </li>
+                </ul>
+                <div id="menu_submenu">
+                    <a href="#"> 
+                    <div class="menu_submenu_tab">
+                        <h2 class="menu_submenu_title">L'Histoire</h2>
+                    </div>
+                    </a>
+                    <a href=""> 
+                    <div class="menu_submenu_tab">
+                        <h2 class="menu_submenu_title">Gameplay</h2>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="titre_page">
+            <h1>L'Histoire</h1>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 60 1440 280">
+            <path fill="#131313" fill-opacity="1" d="M0,192L48,186.7C96,181,192,171,288,144C384,117,480,75,576,74.7C672,75,768,117,864,165.3C960,213,1056,267,1152,261.3C1248,256,1344,192,1392,160L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+        </svg>
+        <article class="lot_of_text">
+            <h2 class="category_title">Synopsis</h2>
+            <p>
+                    Dans un monde, où la médecine ne cesse d’évoluer, vous vous réveillez enfermé dans une cellule
+                d’un laboratoire. Par chance, tout le monde n’a pas été complètement annihilé par le désir croissant
+                des populations occidentales de contrôler leur santé et de repousser les limites de leur finitude. Et,
+                alors que les scientifiques et les managers du laboratoire sont convoqués par le directeur du laboratoire
+                Xenor pour discuter des prochains essais humains de transgénèse, c’est le moment que Clothilde, opératrice
+                réseau choisit pour vous aider à vous échapper. Il faut dire que Clothilde n’est pas née de la
+                dernière pluie, elle a été formée à l’<a href="https://www.epita.fr/" target="_blank">EPITA</a>, la plus grande école d’ingénieur en informatique de l’Univers.
+            </p>
+            <p>
+                    Issue de la promo 2026, elle est la dernière épitéenne encore en vie à ce jour... En effet en 2052,
+                les dirigeants des plus hautes sphères de la planète se firent pour mission d’éliminer tous ceux qui
+                pourraient nuire à leur projet et la trop grande place de l’éthique chez les épitéens avait conduit à une 
+                forte diminution du nombre d’Alumni. Clothilde était une autre personne à l’époque, elle ne souciait
+                guère des droits humains. Mais là s’en était trop ! Sans trop de difficultés, elle parvient à passer toute
+                la sécurité du système et à vous libérer de votre cellule.
+            </p>
+            <p>
+                    Malheureusement, le laboratoire est hautement sécurisé et il vous faut encore sortir du bâtiment
+                pour vous échapper. Pas de panique, Clothilde devrait pouvoir vous aider à distance, à moins que ses
+                compétences en cybersécurité ne se soient un peu rouillées à force de nettoyer la salle de serveurs du
+                laboratoire.
+            </p>
+            <p>
+                    Vous et votre camarade recherchez la sortie du laboratoire afin de gagner votre liberté. Croyez-nous,
+                ce ne sera pas une mince affaire, ce laboratoire regorge de portes et chaque porte est verrouillée par
+                une énigme, car cela « stimule la créativité des employés » et les monstres issus d’expériences ratés que
+                Clothilde a malencontreusement libéré en tentant de vous aider ne vont pas vous simplifier la tâche...
+                Saurez-vous vous évadez de ce laboratoire infernal ?... Dépêchez-vous ! Le temps presse, les scientifiques
+                peuvent revenir d’un instant à l’autre !
+            </p>
+        </article>
+        <article class="gray-back">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#b140a2" fill-opacity="1" d="M0,96L24,133.3C48,171,96,245,144,282.7C192,320,240,320,288,288C336,256,384,192,432,181.3C480,171,528,213,576,234.7C624,256,672,256,720,218.7C768,181,816,107,864,85.3C912,64,960,96,1008,112C1056,128,1104,128,1152,144C1200,160,1248,192,1296,192C1344,192,1392,160,1416,144L1440,128L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#802e75;"></path>
+            </svg>
+            <div class="lot_of_text white_text">
+                <h2 class="category_title">Conclusion de l’histoire</h2>
+                <p>
+                        Vous parvenez enfin à vous échapper, mais lorsque vous poussez la porte de la sortie vous ne trouvez
+                    pas la lumière puissante et la douce chaleur du soleil qu’il vous a semblé apercevoir par les fenêtres
+                    du labo mais bien la lumière blafarde d’une salle éclairée aux néons. Vous êtes dans une nouvelle salle
+                    de laboratoire carrelé de carreaux blancs sans vie qui vous oppresse, seulement, vous n’êtes pas seul...
+                    Clothilde est là ! Vous vous sentez tout de suite rassurés. Une sorte de vague de chaleur et de bien-être
+                    vous envahit. « Ramenez-les à leurs cellules. » Quatre gardes que vous n’aviez pas vu jusqu’à présent
+                    s’avancent et vous saisissent vous et votre compagnon par les bras. Vous vous laissez faire, trop choqué
+                    pour réagir...
+                </p>
+                <p>
+                        Clothilde qui vous a pourtant aidé à vous échapper ordonne maintenant votre retour à l’incarcération.
+                    On vous retourne face à la grande porte que vous venez de prendre, vous apercevez deux écran numérique
+                    affichant respectivement « Crésus : Clone n°397 » et « Crésus : Clone n°398 » ainsi que deux
+                    notes très détaillées. Au-dessus de la porte se trouve le logo de Xenor, en dessous un slogan : « Avec
+                    Xenor, négationnez la mort ». Vous comprenez alors que Clothilde ne vous aidait pas à vous échapper
+                    mais évaluait simplement vos capacités.
+                </p>
+                <p>
+                        En réalité, il y a quelques années de cela, le laboratoire Xenor avait réussi à comprendre où se
+                    situait la conscience de l’Homme et à la déplacer d’un corps vers un autre, proposant ainsi aux hommes
+                    fortunés de pourvoir s’offrir une seconde jeunesse. La note que vous avez vu sur l’écran ne sert en fait
+                    qu’à définir quel clone a les meilleures capacités pour définir lequel accueillera la conscience du client.
+                </p>
+            </div>
+        </article>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#131313" fill-opacity="1" d="M0,256L6.2,213.3C12.3,171,25,85,37,80C49.2,75,62,149,74,197.3C86.2,245,98,267,111,240C123.1,213,135,139,148,106.7C160,75,172,85,185,80C196.9,75,209,53,222,48C233.8,43,246,53,258,74.7C270.8,96,283,128,295,128C307.7,128,320,96,332,69.3C344.6,43,357,21,369,32C381.5,43,394,85,406,90.7C418.5,96,431,64,443,74.7C455.4,85,468,139,480,144C492.3,149,505,107,517,106.7C529.2,107,542,149,554,160C566.2,171,578,149,591,170.7C603.1,192,615,256,628,245.3C640,235,652,149,665,144C676.9,139,689,213,702,218.7C713.8,224,726,160,738,154.7C750.8,149,763,203,775,197.3C787.7,192,800,128,812,90.7C824.6,53,837,43,849,53.3C861.5,64,874,96,886,144C898.5,192,911,256,923,250.7C935.4,245,948,171,960,160C972.3,149,985,203,997,192C1009.2,181,1022,107,1034,96C1046.2,85,1058,139,1071,149.3C1083.1,160,1095,128,1108,101.3C1120,75,1132,53,1145,53.3C1156.9,53,1169,75,1182,112C1193.8,149,1206,203,1218,192C1230.8,181,1243,107,1255,101.3C1267.7,96,1280,160,1292,197.3C1304.6,235,1317,245,1329,256C1341.5,267,1354,277,1366,282.7C1378.5,288,1391,288,1403,250.7C1415.4,213,1428,139,1434,101.3L1440,64L1440,0L1433.8,0C1427.7,0,1415,0,1403,0C1390.8,0,1378,0,1366,0C1353.8,0,1342,0,1329,0C1316.9,0,1305,0,1292,0C1280,0,1268,0,1255,0C1243.1,0,1231,0,1218,0C1206.2,0,1194,0,1182,0C1169.2,0,1157,0,1145,0C1132.3,0,1120,0,1108,0C1095.4,0,1083,0,1071,0C1058.5,0,1046,0,1034,0C1021.5,0,1009,0,997,0C984.6,0,972,0,960,0C947.7,0,935,0,923,0C910.8,0,898,0,886,0C873.8,0,862,0,849,0C836.9,0,825,0,812,0C800,0,788,0,775,0C763.1,0,751,0,738,0C726.2,0,714,0,702,0C689.2,0,677,0,665,0C652.3,0,640,0,628,0C615.4,0,603,0,591,0C578.5,0,566,0,554,0C541.5,0,529,0,517,0C504.6,0,492,0,480,0C467.7,0,455,0,443,0C430.8,0,418,0,406,0C393.8,0,382,0,369,0C356.9,0,345,0,332,0C320,0,308,0,295,0C283.1,0,271,0,258,0C246.2,0,234,0,222,0C209.2,0,197,0,185,0C172.3,0,160,0,148,0C135.4,0,123,0,111,0C98.5,0,86,0,74,0C61.5,0,49,0,37,0C24.6,0,12,0,6,0L0,0Z" style="--darkreader-inline-fill:#0d0e0e;" data-darkreader-inline-fill=""></path>
+        </svg>
+        <article>
+            <div class="lot_of_text">
+                <h2 class="category_title">Intentions/Visée de réflexion du scénario</h2>
+                <p>
+                        Notre but ici est de faire réagir, de choquer le joueur pour le faire réfléchir. Que ce soit par la
+                    croyance en une vie après la mort, une réincarnation ou autre, ou bien par la science, l’Homme cherche
+                    depuis toujours à trouver une solution à sa finitude. En effet, c’est bien là la vocation de la médecine :
+                    de repousser cette échéance qui caractérise l’être humain ; tout faire pour éviter notre fin ou en tout
+                    cas de la repousser au maximum.
+                    Et on voit d’ailleurs chaque jours ses succès ! Prenons un exemple qui peut a première vue sembler
+                    anodin : si vous êtes né par césarienne, il y a quelques dizaines d’années, vous et votre mère seraient
+                    inévitablement morts. De nombreuses maladies autrefois mortelles sont désormais sans importance.</br>
+                    On peut même guérir d’un cancer s’il est détecté assez tôt !</br>
+                    Et pour repousser sa fin, l’Homme est prêt à tout, car le temps est sa ressource la plus chère car
+                    fatalement limitée.  
+                </p>
+                <p>
+                        Depuis quelques siècles maintenant, les philosophes tentent de caractériser notre conscience. Les
+                    scientifiques tentent-eux de comprendre ce qu’elle est et où elle est située dans le cerveau. Sommes-nous
+                    ancrés à notre corps ou notre âme est-elle volatile ? Pouvons-nous comme le laisse entendre certains
+                    sortir de notre enveloppe charnelle ?...</br>
+                    Imaginez maintenant que l’on réussisse à définir, situer et transplanter notre conscience dans un autre
+                    corps. Ce serait là, la fin de la finitude. Une grande question morale apparaîtrait alors sur le droit
+                    moral de l’Homme à transplanter sa conscience dans le corps d’un autre.</br>
+                    De la même façon que les premières chirurgies, les premières greffes ont soulevée de nombreuses questions
+                    morales sur leur bien-fondé. La différence réside ici dans le consentement. Mais lorsque l’on parle
+                    de réaliser des greffes de porc sur l’homme, il n’y a pas de notion de consentement. Lors des essais
+                    cliniques, on ne demande pas non plus leur avis aux souris.</br>
+                    Le but n’est pas de remettre en cause toutes ces pratiques, loin de là, mais plutôt de se questionner
+                    sur les limites. Jusqu’où pouvons-nous aller ? Est-ce que la vie éternelle est une raison suffisante pour
+                    « cultiver » des êtres humains pour y implanter sa conscience ?</br>
+                    Mais une chose peut être sûre, si cela s’avère possible, et même si c’est interdit, les plus fortunés
+                    pourront se l’offrir. Il existe bien un trafic d’organes, un trafic d’esclaves, alors pourquoi pas un trafic
+                    d’humain à destination de transplantation de conscience ?</br>
+                    Transplanté sa conscience dans un autre pourrait devenir au fil des ans aussi banal que de prendre un
+                    médicament...</br>
+                    Et si l’on créait un clone de nous-même pour y implanter sa conscience ?... Serait-ce plus moral ?
+                </p>
+                <p>
+                        Nous voulons faire réfléchir sur ce qu’impliquerait la vie éternelle par transplantation de conscience
+                    et sur le bien-fondé de notre volonté de combattre notre nature en repoussant toujours plus les limites
+                    de la mort... Où doit-on s’arrêter ?
+                </p>
+            </div>
+        </article>
+    </body>
+</html>
