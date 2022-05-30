@@ -49,6 +49,33 @@ public class PCMap : MonoBehaviour
     {
         mazeGenerator = new PCMazeGenerator();
 
+        //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout à augmenter le difficultée de l'énigme
+        for (int i = 0; i < mazeGenerator.Maze.Length; i++)
+        {
+            for (int j = 0; j < mazeGenerator.Maze[0].Length; j++)
+            {
+                if (mazeGenerator.Maze[i][j].TileType == PCTile.PCTileType.None)
+                {
+                    int nbalea = Random.Range(0, 6);
+                    switch (nbalea)
+                    {
+                        case 0:
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Right);
+                            break;
+                        case 1:
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Up);
+                            break;
+                        case 2:
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Right);
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Down, PCTile.PCFluidDirection.Up);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
         //Initialisation du tableau de tuyaux
         tuyauxMaze = new Tuyau[mazeGenerator.MapSize][];
         int tabTaille = mazeGenerator.MapSize + 2;
@@ -94,13 +121,8 @@ public class PCMap : MonoBehaviour
         //placement des sources et des arrivées
         foreach ((int,int) coords in mazeGenerator.StartsAndEnds)
         {
-            //(y,x)
-            //Debug.Log("Coords:");
-            //Debug.Log(coords.Item1);
-            //Debug.Log(coords.Item2);
             Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coords.Item2 - (float)0.16, (float)0.32 * coords.Item1 + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
             pipe.Map = this;
-            //si en bas (en haut du tableau)
             if (coords.Item1 == -1)
             {
                 pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Down);
@@ -114,10 +136,6 @@ public class PCMap : MonoBehaviour
             else
             {
                 pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Up);
-                //Debug.Log("Tab:");
-                //Debug.Log(mazeGenerator.MapSize);
-                //Debug.Log(tuyauxMaze[0].Length);
-                //Debug.Log(tuyauxMaze.Length);
                 tuyauxMaze[coords.Item2][mazeGenerator.MapSize+1] = pipe;
                 pipe.InitaliseRotation(coords.Item2, mazeGenerator.MapSize);
                 pipe.MessageOnScreenCanvas = canvaTextPopUP;
