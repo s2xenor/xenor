@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class WiresManager : MonoBehaviour
+
+public class WiresManager : MonoBehaviourPunCallbacks
 {
     private const int nbWires = 8;
     private const int nbRules = 5;
@@ -33,13 +35,13 @@ public class WiresManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        PhotonView photonView = PhotonView.Get(this);
+        //photonView.RPC("MoveCoo", RpcTarget.MasterClient);
         parentObj = new GameObject("WireEnigmParent");
-
-
     }
 
-    public void GenerateAll()
+    [PunRPC]
+    public void GenerateAll(bool isFromMaster = false)
     {
         isOn = true;
 
@@ -48,8 +50,8 @@ public class WiresManager : MonoBehaviour
         {
             //int y = 29 - i * 7;
             float y = startY - i * 0.32f;
-            GameObject plugNumber = Instantiate(plugPrefab, new Vector3(startX, y, -1), Quaternion.identity, parentObj.transform);
-            GameObject plugLetter = Instantiate(plugPrefab, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity, parentObj.transform);
+            GameObject plugNumber = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX, y, -1), Quaternion.identity);
+            GameObject plugLetter = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity);
 
             //plugNumber.SetActive(false);
             //plugLetter.SetActive(false);
@@ -79,7 +81,7 @@ public class WiresManager : MonoBehaviour
             int randomColor = Random.Range(0, 4);
 
 
-            GameObject wire = Instantiate(wirePrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);  //create a new wire
+            GameObject wire = PhotonNetwork.Instantiate(wirePrefab.name, new Vector3(0, 0, 0), Quaternion.identity);  //create a new wire
             //wire.SetActive(false);
             plugsN[i].GetComponent<Plug>().wireManager = this;
             plugsN[i].GetComponent<Plug>().wire = wire;                                                         //adding the wire to the plug script
@@ -94,7 +96,7 @@ public class WiresManager : MonoBehaviour
         * SHOW RULES
         */
         //show sinon
-        GameObject canvasRules = Instantiate(rulesPrefab, new Vector3(startX, startY, 0), Quaternion.identity, parentObj.transform);
+        GameObject canvasRules = PhotonNetwork.Instantiate(rulesPrefab.name, new Vector3(startX, startY, 0), Quaternion.identity);
         //canvasRules.SetActive(false);
         GameObject txt;
         float coefX = 2.47f;

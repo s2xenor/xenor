@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class RulesPressurePlate : MonoBehaviour
+public class RulesPressurePlate : MonoBehaviourPunCallbacks
 {
 
     public WiresManager wireManager;
@@ -24,7 +24,7 @@ public class RulesPressurePlate : MonoBehaviour
     {
         if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
-            wireManager.GenerateAll();
+            
         }
     }
 
@@ -32,7 +32,14 @@ public class RulesPressurePlate : MonoBehaviour
     {
         if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
-            wireManager.DestroyAll();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                wireManager.DestroyAll();
+            }
+            else
+            {
+                //call fonction on master side knowing i'm a fucking client
+            }
         }
     }
 
