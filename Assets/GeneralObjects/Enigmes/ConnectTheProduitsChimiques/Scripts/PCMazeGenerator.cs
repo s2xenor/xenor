@@ -13,6 +13,8 @@ public class PCMazeGenerator
     private List<(int, int)> startsAndEnds = new List<(int, int)>();
     public List<(int, int)> StartsAndEnds => startsAndEnds;
 
+
+
     public PCMazeGenerator()
     {
         mapSize = 10;//Random.Range(10, 50);
@@ -277,4 +279,5 @@ public class PCMazeGenerator
             startsAndEnds.Add((mapSize, end));
         }
     }
+
 }

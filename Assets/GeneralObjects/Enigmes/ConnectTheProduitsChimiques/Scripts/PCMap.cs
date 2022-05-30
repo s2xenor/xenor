@@ -14,6 +14,23 @@ public class PCMap : MonoBehaviour
     public GameObject canvaTextPopUP;
 
     /**
+     * Prefabs
+     */
+    public GameObject wall_top;
+    public GameObject wall_left;
+    public GameObject wall_right;
+    public GameObject wall_down;
+    public GameObject corner_top_left;
+    public GameObject corner_top_right;
+    public GameObject corner_bottom_left;
+    public GameObject corner_bottom_right;
+    public GameObject floor;
+    public GameObject left_door_design;
+    public GameObject top_door_design;
+    public GameObject top_door_activated_design;
+    public GameObject single_door;
+
+    /**
      * Variables Privées
      */
     private PCMazeGenerator mazeGenerator;
@@ -104,12 +121,50 @@ public class PCMap : MonoBehaviour
                 pipe.AffichageUpdate();
                 Tuyaux.Add(pipe);
             }
-        }        
+        }
+
+        //Instancie le sol
+        for (int i = -3; i < mazeGenerator.MapSize + 3; i++)
+        {
+            for (int j = -3; j < mazeGenerator.MapSize + 3; j++)
+            {
+                if (j==-1 && i >= -1 && i <= mazeGenerator.MapSize)
+                {
+                    j = mazeGenerator.MapSize + 1;
+                }
+                Instantiate(floor, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
+            }
+        }
+
+        //Instantie les murs
+        for (int j = -3; j < mazeGenerator.MapSize + 3; j++)
+        {
+            Instantiate(wall_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
+            Instantiate(wall_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
+        }
+        for (int i= -3; i < mazeGenerator.MapSize + 3; i++)
+        {
+            Instantiate(wall_down, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
+            Instantiate(wall_top, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        }
+        Instantiate(corner_bottom_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
+        Instantiate(corner_top_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        Instantiate(corner_bottom_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
+        Instantiate(corner_top_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
 
         // Instantie porte
+        //Design
+        Instantiate(left_door_design, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -2 + (float)0.16, 0), Quaternion.identity);
+        Instantiate(top_door_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        //Plaque de pression
+        Instantiate(single_door, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
+
+        //Quand jeu est fini il faut lier la salle suivante et afficher les portes
+        
         //Prochaine salle dans porte
 
 
-        //Instantie les murs
+
     }
 }
