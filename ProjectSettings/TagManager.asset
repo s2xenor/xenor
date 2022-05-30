@@ -8,6 +8,8 @@ TagManager:
   - local
   - WiresCam
   - BoxLabyGenerator
+  - DoorsToActivate
+  - Door
   layers:
   - Default
   - TransparentFX

@@ -12,6 +12,8 @@ public class PCMap : MonoBehaviour
     public GameObject vitre;
     //Canvas
     public GameObject canvaTextPopUP;
+    
+    public bool DoorLocked = true;
 
     /**
      * Prefabs
@@ -40,6 +42,7 @@ public class PCMap : MonoBehaviour
     
     private Tuyau[][] tuyauxMaze;
     public Tuyau[][] TuyauxMaze => tuyauxMaze;
+
 
     // Start is called before the first frame update
     void Start()
@@ -159,12 +162,39 @@ public class PCMap : MonoBehaviour
         Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
         //Plaque de pression
         Instantiate(single_door, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
+        GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().MessageOnScreenCanvas = canvaTextPopUP;
 
         //Quand jeu est fini il faut lier la salle suivante et afficher les portes
-        
+
         //Prochaine salle dans porte
 
 
+    }
 
+    void Update()
+    {
+        //Cheat code pour dévérouiller la porte
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EndOfGame();
+        }
+    }
+
+    /**
+     * <summary>Cette fonction permet de vérouiller ou de déverouiller la porte de sortie</summary>
+     */
+    public void EndOfGame()
+    {
+        DoorLocked = !DoorLocked;
+        if (DoorLocked)
+        {
+            GameObject.FindGameObjectWithTag("DoorsToActivate").GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().nextSceneName = "";
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("DoorsToActivate").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().nextSceneName = "MainRoom";
+        }
     }
 }
