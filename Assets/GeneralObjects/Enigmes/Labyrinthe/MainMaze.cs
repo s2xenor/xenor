@@ -73,7 +73,7 @@ public class MainMaze : MonoBehaviour
                 if (maze[i,j] == 1)
                 {
                     // Create wall
-                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size, j * size), Quaternion.identity);
+                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size, j * size - .32f * 4), Quaternion.identity);
 
                     PhotonNetwork.Instantiate(wallMaze.name, new Vector2(3.2f - 4 * .32f + .16f + i * size2, .16f + .32f * -8 + j * size2), Quaternion.identity);
                 }
