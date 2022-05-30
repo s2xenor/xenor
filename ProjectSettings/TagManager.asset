@@ -7,6 +7,9 @@ TagManager:
   - Box
   - local
   - WiresCam
+  - BoxLabyGenerator
+  - DoorsToActivate
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -41,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: FloorUnder
+    uniqueID: 3369972685
+    locked: 0
   - name: Floor
     uniqueID: 2177559475
     locked: 0

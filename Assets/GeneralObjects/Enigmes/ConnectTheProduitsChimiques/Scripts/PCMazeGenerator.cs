@@ -13,9 +13,9 @@ public class PCMazeGenerator
     private List<(int, int)> startsAndEnds = new List<(int, int)>();
     public List<(int, int)> StartsAndEnds => startsAndEnds;
 
-    public PCMazeGenerator()
+    public PCMazeGenerator(int mapSize)
     {
-        mapSize = 10;//Random.Range(10, 50);
+        this.mapSize = mapSize;// Random.Range(10, 40);
         maze = new PCTile[mapSize][];
 
         //Initialisation du labyrinthe
@@ -277,4 +277,5 @@ public class PCMazeGenerator
             startsAndEnds.Add((mapSize, end));
         }
     }
+
 }

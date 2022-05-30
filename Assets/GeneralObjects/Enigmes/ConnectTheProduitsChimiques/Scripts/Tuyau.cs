@@ -142,6 +142,15 @@ public class Tuyau : PressurePlate
             }
         }
 
+        //si c'était bon alors on revérouille la porte en attendant de voir si c encore bon
+        if (Map.nbPipeOk == 3)
+        {
+            Map.DoorLocked = false;
+            Map.EndOfGame();
+        }
+        //Remise a zéro du nombre de tuyaux reliés à la fin
+        Map.nbPipeOk = 0;
+
         this.GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
         //update l'image (si connectée a fluid)
         //remise a 0 des tuayux (tous)
@@ -560,7 +569,15 @@ public class Tuyau : PressurePlate
                 }
                 break;
             case PCTile.PCFluidDirection.End:
-                //TODO : dire que c bon pour 1
+                //c bon pour un tuayux (le liquide arrive à la fin
+                Map.nbPipeOk++;
+                //si c bon pour les trois tuayux
+                if (Map.nbPipeOk == 3)
+                {
+                    //le jeux est finit ! 
+                    Map.DoorLocked = true;
+                    Map.EndOfGame();
+                }
                 break;
             default:
                 break;
