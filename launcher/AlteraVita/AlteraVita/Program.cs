@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+
+/*
 using IWshRuntimeLibrary;
 using Octokit;
 using File = System.IO.File;
@@ -14,7 +16,7 @@ namespace AlteraVita
         static void Main(string[] args)
         {
             // Install("D:\\pc\\Bureau");
-            Update();
+            // Update();
             while (true)
             {
 
@@ -154,3 +156,4 @@ namespace AlteraVita
     }
 
 }
+*/

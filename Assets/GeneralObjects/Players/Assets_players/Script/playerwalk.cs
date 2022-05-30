@@ -7,12 +7,14 @@ public class playerwalk : MonoBehaviour
     public string horizon;
     public string verti;
     public Animator animator;
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
