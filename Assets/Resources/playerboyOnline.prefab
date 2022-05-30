@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4645910356762190749}
   - component: {fileID: 6908300779748459184}
   - component: {fileID: 1600335200787436466}
+  - component: {fileID: 7703039753285001557}
   m_Layer: 0
   m_Name: playerboyOnline
   m_TagString: Player
@@ -238,6 +239,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17902699, y: 0.2000466}
   m_EdgeRadius: 0
+--- !u!114 &7703039753285001557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666501797103497954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ced03b600b30a40b4cc15205d60ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8841690142276718642
 GameObject:
   m_ObjectHideFlags: 0
