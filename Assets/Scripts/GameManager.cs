@@ -31,13 +31,20 @@ public class GameManager : MonoBehaviour
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
 
-    private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
-    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1."};
-
-    private int LabyBoxNextInt = 0;
 
     private bool loadNow = true;
 
+    /**
+     * Variable pour labyrinthe de boite
+     */
+    private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
+    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1"};
+    private int LabyBoxNextInt = 0;
+
+    /**
+     * Variable pour connecte les produits hcimiques
+     */
+    private int nbLabyDone = 0;
 
     /*
      * Fonctions
@@ -96,6 +103,30 @@ public class GameManager : MonoBehaviour
             {
                 //on réarme pou charger la salle au prochain appel
                 loadNow = true;
+            }
+        }
+        //Sinon si on est dans la salle connecte les produits chimique
+        else if (SceneManager.GetActiveScene().name == "ConnectTheProduitsChimiquesScene")
+        {
+            if (nbLabyDone >= 3)
+            {
+                //charger le loby  
+                SceneManager.LoadScene("MainRoom");
+            }
+            else
+            {
+                //SInon on charge la salle
+                nbLabyDone++;
+                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 25);
+                if (nbLabyDone>=3)
+                {
+                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "MainRoom";
+                }
+                else
+                {
+                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "ConnectTheProduitsChimiquesScene";
+                }
+                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
             }
         }
     }
