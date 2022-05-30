@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-
-/*
+using System.Runtime.InteropServices;
 using IWshRuntimeLibrary;
 using Octokit;
 using File = System.IO.File;
@@ -17,17 +16,22 @@ namespace AlteraVita
         {
             // Install("D:\\pc\\Bureau");
             // Update();
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return;
+            }
+
             while (true)
             {
-
-
+            
+            
                 Console.WriteLine("What do you want to do ?");
                 Console.WriteLine("1) Install Altera Vita");
                 Console.WriteLine("2) Update Altera Vita");
                 Console.WriteLine("3) Uninstall Altera Vita");
                 Console.WriteLine("4) Cancel");
                 Console.WriteLine("Enter the number corresponding to desired action.");
-
+            
                 string r;
                 bool flag = false;
                 int n;
@@ -41,7 +45,7 @@ namespace AlteraVita
                     }
                     else Console.Error.WriteLine($"{r} is not a valid number, please try again.");
                 } while (!flag);
-
+            
                 ChooseOption(n);
             }
         }
@@ -82,7 +86,7 @@ namespace AlteraVita
         private static async void Install(string destination)
         {
             Console.WriteLine("Fetching the last version of Altera vita from the server...");
-            GitHubClient client = new GitHubClient(new ProductHeaderValue("SomeName"));
+            GitHubClient client = new GitHubClient(new ProductHeaderValue("hugueprime"));
             IReadOnlyList<Release> releases = await client.Repository.Release.GetAll("s2xenor", "xenor");
             var latest = releases[0];
             
@@ -115,45 +119,127 @@ namespace AlteraVita
             shortcut.WindowStyle = 1; 
             shortcut.Description = "my shortcut description";
             shortcut.WorkingDirectory = "c:\\app";
-            shortcut.IconLocation = "specify icon location";
+            shortcut.IconLocation = $"{destination}\\AlteraVita\\";
             shortcut.Save();
             Console.WriteLine("Shortcut added.");
             
-            //path ?
-            //variables
+            
+            Console.WriteLine("Adding keys to registry...");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Microsoft.Win32.RegistryKey key;
+                key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AlteraVita");
+                if (key == null)
+                {
+                    key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AlteraVita");
+                }
+                key.SetValue("version", latest.CreatedAt); 
+                key.SetValue("path", destination);
+                key.Close(); 
+            }
+            
+            Console.WriteLine("Keys added to registry.");
+
             
             Console.Clear();
             Console.WriteLine("Successfully installed !");
-            Console.WriteLine("Press any key to end");
+            Console.WriteLine("Press any key to exit");
             Console.Read();
+
         }
 
         private static async void Update()
         {
+            Console.WriteLine("Fetching current version in registry.");
+        
+            Microsoft.Win32.RegistryKey key;
+            key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AlteraVita");
+            if (key == null)
+            {
+                Console.WriteLine("AltervaVita is currently not installed.");
+                Console.WriteLine("Installing...");
+                ChooseOption(1);
+                return;
+            }
+            
+            DateTimeOffset oldVersion = (DateTimeOffset) key.GetValue("version"); 
+            string oldPath = (string) key.GetValue("path");
+            
             Console.WriteLine("Fetching the last version of Altera vita from the server...");
             GitHubClient client = new GitHubClient(new ProductHeaderValue("SomeName"));
             IReadOnlyList<Release> releases = await client.Repository.Release.GetAll("s2xenor", "xenor");
             var latest = releases[0];
             
-            // if(latest.CreatedAt > )
-            // {
-            //     
-            // }
-            // else
-            // {
-            //     //remove and réinstall but data
-            // }
+            if(latest.CreatedAt <= oldVersion)
+            {
+                Console.WriteLine("There is no newer version than your current one.");
+                return;
+            }
+            
+            
+            Console.WriteLine("Downloading...");
+            
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add("user-agent", "Anything");
+            await webClient.DownloadFileTaskAsync(new Uri(latest.Assets[0].BrowserDownloadUrl), oldPath+"/tmp.zip");
+           
+            Console.WriteLine("Downloading finished.");
+            
+            Console.WriteLine("Extracting game...");
+            ZipFile.ExtractToDirectory(oldPath+"/tmp.zip", oldPath + "/AlteraVita");
+            Console.WriteLine("Extracting finished.");
+            
+            Console.WriteLine("Cleaning...");
+            File.Delete(oldPath+"/tmp.zip");
+            Console.WriteLine("Cleaning done.");
+            
+            
+            
+            Console.WriteLine("Update keys to registry...");
+            key.SetValue("path", latest.CreatedAt);
+            key.Close(); 
+
+            Console.WriteLine("Registry keys updated.");
+            
+            Console.Clear();
+            Console.WriteLine("Successfully updated !");
+            Console.WriteLine("Press any key to exit");
+            Console.Read();
+
         }
 
         private static void Uninstall()
         {
-            // System.Configuration.SettingsProperty property = new System.Configuration.SettingsProperty("Sample1");
-            // Properties.Settings.Default["Sample1"] = SomeStringValue;
-            // Properties.Settings.Default.Save();
-            
-            //remove all
+            Microsoft.Win32.RegistryKey key;
+            key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AlteraVita");
+            if (key == null)
+            {
+                Console.WriteLine("AltervaVita is currently not installed.");
+                Console.WriteLine("Press any key to exit");
+                Console.Read();
+                return;
+            }
+            key.Close();
+
+            String oldPath = (string) key.GetValue("path");
+            Console.WriteLine("Deleting Alteravita...");
+            Directory.Delete(oldPath);
+            Console.WriteLine("Alteravita deleted.");
+
+            Console.WriteLine("Deleting shortcut if there is...");
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\AlteraVita.lnk"))
+            {
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\AlteraVita.lnk");
+            }
+            Console.WriteLine("Done.");
+            Console.WriteLine("Cleaning registry...");
+            Microsoft.Win32.Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\AlteraVita");
+            Console.WriteLine("Done.");
+            Console.Clear();
+            Console.WriteLine("Uninstall complete !");
+            Console.WriteLine("Press any key to ");
+            Console.Read();
         }
     }
 
 }
-*/

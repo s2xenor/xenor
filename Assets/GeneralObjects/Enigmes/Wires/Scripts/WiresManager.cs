@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class WiresManager : MonoBehaviour
+
+public class WiresManager : MonoBehaviourPunCallbacks
 {
     private const int nbWires = 8;
     private const int nbRules = 5;
@@ -15,28 +17,45 @@ public class WiresManager : MonoBehaviour
     public GameObject rulesPrefab;          //canvas with notepad background
     public GameObject rulesTextPrefab;      //text ui
 
+    public bool isOn = false;
 
-    private GameObject[] plugsL = new GameObject[nbWires];
-    private GameObject[] plugsN = new GameObject[nbWires];
-    private int[] wiresColors = new int[nbWires];
+    public GameObject[] plugsL = new GameObject[nbWires];
+    public GameObject[] plugsN = new GameObject[nbWires];
+    public int[] wiresColors = new int[nbWires];
 
+
+    public GameObject[] wires = new GameObject[nbWires];
 
     //positions of wires
-    private int startY = -100;
-    private int startX = -100;
+    private float startY = 0.16f;
+    private float startX = -1.76f;
 
+    GameObject parentObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        var parentObj = new GameObject("WireEnigmParent");
+        PhotonView photonView = PhotonView.Get(this);
+        //photonView.RPC("MoveCoo", RpcTarget.MasterClient);
+        parentObj = new GameObject("WireEnigmParent");
+    }
+
+    [PunRPC]
+    public void GenerateAll(bool isFromMaster = false)
+    {
+        isOn = true;
+
         //creating all plugs and saving same in array
         for (int i = 0; i < nbWires; i++)
         {
             //int y = 29 - i * 7;
-            int y = startY - i * 7;
-            GameObject plugNumber = Instantiate(plugPrefab, new Vector3(startX, y, 5), Quaternion.identity, parentObj.transform);
-            GameObject plugLetter = Instantiate(plugPrefab, new Vector3(startX + 30, y, 0), Quaternion.identity, parentObj.transform);
+            float y = startY - i * 0.32f;
+            GameObject plugNumber = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX, y, -1), Quaternion.identity);
+            GameObject plugLetter = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity);
+
+            //plugNumber.SetActive(false);
+            //plugLetter.SetActive(false);
+
 
             plugsN[i] = plugNumber;
             plugsL[i] = plugLetter;
@@ -60,42 +79,35 @@ public class WiresManager : MonoBehaviour
 
             //generate a random color for wire
             int randomColor = Random.Range(0, 4);
-            
 
-            GameObject wire = Instantiate(wirePrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);  //create a new wire
+
+            GameObject wire = PhotonNetwork.Instantiate(wirePrefab.name, new Vector3(0, 0, 0), Quaternion.identity);  //create a new wire
+            //wire.SetActive(false);
+            plugsN[i].GetComponent<Plug>().wireManager = this;
             plugsN[i].GetComponent<Plug>().wire = wire;                                                         //adding the wire to the plug script
             wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
             wire.GetComponent<Wire>().color = randomColor;                                                      //setting the wire color
             wiresColors[i] = randomColor;                                                                       //saving the wire color 
+            wires[i] = wire;
+
         }
-
-
-        //instantiate cam on wire
-        GameObject _cam = Instantiate(camPrefab, new Vector3(startX + 15, (float)(startY - nbWires / 2 * 7 + 3.5), 0), Quaternion.identity, parentObj.transform);                                                          //create a new wire
-        
-        _cam.GetComponent<Camera>().nearClipPlane = 0;
-        _cam.GetComponent<Camera>().orthographicSize = (float)(7.2 * nbWires / 2);
-        _cam.name = "WiresCam";
-        _cam.SetActive(false);
-
-        GameObject MainCam = GameObject.FindWithTag("MainCamera");
-        MainCam.SetActive(true);
 
         /*
         * SHOW RULES
         */
         //show sinon
-        GameObject canvasRules = Instantiate(rulesPrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);
-        canvasRules.GetComponent<Canvas>().worldCamera = MainCam.GetComponent<Camera>();
+        GameObject canvasRules = PhotonNetwork.Instantiate(rulesPrefab.name, new Vector3(startX, startY, 0), Quaternion.identity);
         //canvasRules.SetActive(false);
         GameObject txt;
-        float coef = 0.2f;
+        float coefX = 2.47f;
+        float coefY = 0.23f - 2 * 0.32f;
+
         int nbFils, color, unplug, rn, fil;
         bool finished = false;                  //a rule above is already valid
         for (int i = 0; i < nbRules; i++)
         {
-            txt = Instantiate(rulesTextPrefab, new Vector3(-1,(0.55f - i * coef), 0), Quaternion.identity, canvasRules.transform);
-            //txt.GetComponent<Transform>().position = new Vector3(850, 0, 0);
+            txt = Instantiate(rulesTextPrefab, new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0), Quaternion.identity, canvasRules.transform);
+            txt.GetComponent<Transform>().position = new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0);
             rn = Random.Range(0, 3);            //choose a random type of rule
             color = Random.Range(0, nbColors);  //determine the color of the rule
             unplug = Random.Range(0, nbWires);  //the wire to unplug if rule validated
@@ -132,28 +144,18 @@ public class WiresManager : MonoBehaviour
                 Debug.Log($"Si il y a moins de {nbFils} fil(s) {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}");
                 txt.GetComponent<Text>().text = $"Si il y a moins de {nbFils} fil(s) {randomColor(color)}, débranchez le {nbToWord(unplug + 1)}";
             }
-            //else
-            //{
-            //    fil = Random.Range(0, nbWires);
-            //    if (wiresColors[fil] != color && !finished)
-            //    {
-            //        plugsN[unplug].GetComponent<Plug>().nb = 1;
-            //        finished = true;
-            //    }
-            //    Debug.Log($"Si le {nbToWord(fil + 1)} n'est pas {randomColor(color)}, d�branchez le {nbToWord(unplug+1)}");
-            //}
+          
         }
 
         unplug = Random.Range(0, nbWires);
         Debug.Log($"Sinon débranchez le {nbToWord(unplug + 1)}");
-        txt = Instantiate(rulesTextPrefab, new Vector3(-1, (0.55f - (nbRules) * coef), 0), Quaternion.identity, canvasRules.transform);
+        txt = Instantiate(rulesTextPrefab, new Vector3(startX + coefX, startY - nbRules * 0.32f + coefY, 0), Quaternion.identity, canvasRules.transform);
         txt.GetComponent<Text>().text = $"Sinon débranchez le {nbToWord(unplug + 1)}";
 
         if (!finished)
         {
             plugsN[unplug].GetComponent<Plug>().nb = 1;
         }
-        //add fils du type
 
     }
 
@@ -161,6 +163,11 @@ public class WiresManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void DestroyAll()
+    {
+        isOn = false;
     }
 
 
