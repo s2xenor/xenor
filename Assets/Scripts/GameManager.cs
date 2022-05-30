@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     // public Inventory inventory = new Inventory();
 
     private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
-    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1."};
+    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1"};
 
     private int LabyBoxNextInt = 0;
 
