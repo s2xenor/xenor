@@ -1,0 +1,61 @@
+.downloadButton{
+    width:250px;
+    height:50px;
+    text-align:left;
+    position:relative;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    box-shadow: 2px 3px 3px #aaa;
+    margin-top:40px;
+    font-size:20px;
+    font-weight:bold;
+    color:#333;
+    padding-left:20px;
+    box-sizing:border-box;
+}
+
+.downloadButton::after {
+    content:"";
+    position:absolute;
+    background-color:#63b1df;;
+    width:30px;
+    margin-right:155px;
+    bottom:0;
+    top:0;
+    right:0;
+    transform:skew(-30deg);
+}
+
+.downloadButton::before {
+    content:"download";
+    color: #00171f;
+    Line-height:50px;
+    text-align:center;
+    border-radius:0 10px 10px 0;
+    position:absolute;
+    background-color:#63b1df;;
+    width:170px;
+    bottom:0;
+    top:0;
+    right:0;
+}
+
+
+/* 
+background-color:#63b1df;
+.downloadButton:nth-child(2)::after, .downloadButton:nth-child(2)::before{
+    background-color:#fd9d65;
+}
+
+.downloadButton:nth-child(3)::after, .downloadButton:nth-child(3)::before{
+    background-color:#f6db6c;
+}
+
+.downloadButton:nth-child(4)::after, .downloadButton:nth-child(4)::before{
+    background-color:#fd6aae;
+}
+
+.downloadButton:nth-child(5)::after, .downloadButton:nth-child(5)::before{
+    background-color:#66ffb3;
+} */
