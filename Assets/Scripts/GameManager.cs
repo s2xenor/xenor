@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
      */
     private int nbLabyDone = 0;
 
+    /**
+     * Menu GameObject
+     */
+    public GameObject menu;
+
     /*
      * Fonctions
      */
@@ -64,6 +69,33 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les donn�es
         SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
+
+
+        Screen.fullScreen = false;
+        AudioListener.volume = 1;
+    }
+
+    private void Update()
+    {
+        // Show pause menu when escape is pressed
+        if (SceneManager.GetActiveScene().name != "AlteraVitaMenu" && Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
+            int n = pauseMenu.Length;
+
+            // If pause menu already exists, destroy id
+            if (n != 0)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    Destroy(pauseMenu[0]);
+                }
+            }
+            else
+            {
+                Instantiate(menu, Vector2.zero, Quaternion.identity);
+            }
+        }
     }
 
     //Fct appell� a chaqque chargement de nouvelle sc�ne (on rappelle que le gamemanager est un objet jamais d�truit
