@@ -16,6 +16,13 @@
     font-weight: bold;
 }
 
+.titre_rapport_download{
+    color: #333;
+    font-size: calc(10px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
 @media (max-width: 1075px) {
     .test{
         height: 38vh;
@@ -27,17 +34,17 @@
 }
 
 .downloadButton:nth-child(1)::before{
-    content:  url("../img/windows.svg") " windows";
+    content:  url("../img/windows.svg") " Windows";
 }
 
 .downloadButton:nth-child(2)::before{
-    content:  url("../img/linux.svg") " linux";
+    content:  url("../img/linux.svg") " Linux";
 }
 
 .downloadButton:nth-child(3)::before{
-    content:  url("../img/apple.svg") " mac";
+    content:  url("../img/apple.svg") " Mac";
 }
 
 .rapports > .downloadButton::before{
-    content: url("../img/pdf.svg") " pdf";
+    content: url("../img/pdf.svg") " PDF";
 }
