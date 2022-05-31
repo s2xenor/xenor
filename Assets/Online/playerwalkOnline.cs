@@ -16,9 +16,12 @@ public class playerwalkOnline : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
 
-        if (!view.IsMine) // Remove unecessary camera of other player localle
+        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(-.12f, -.19f);
+
+        if (!view.IsMine) // Remove unecessary camera of other player locally
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 
@@ -31,7 +34,7 @@ public class playerwalkOnline : MonoBehaviour
             animator.SetFloat("Horizontal", mouvement.x);//mise en place de l'animation 
             animator.SetFloat("Vertical", mouvement.y);
             animator.SetFloat("Magnitude", mouvement.magnitude);
-            transform.position = transform.position + mouvement * Time.deltaTime;//deplacement du joueur (changement de coordonnées du joueur selon un temps proportionelle)
+            transform.position = transform.position + mouvement * Time.deltaTime;//deplacement du joueur (changement de coordonnï¿½es du joueur selon un temps proportionelle)
         }
     }
 }
