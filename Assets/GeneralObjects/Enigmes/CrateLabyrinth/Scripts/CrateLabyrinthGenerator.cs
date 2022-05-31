@@ -4,15 +4,16 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-// Ce script permet d'initialiser la piece pour les labyrinthe de boite, doit etre appeler à chaque nouvelle piece Crate labyrinth enigm
+// Ce script permet d'initialiser la piece pour les labyrinthe de boite, doit etre appeler ï¿½ chaque nouvelle piece Crate labyrinth enigm
 // NE PAS OUBLIER : les player doivent avoir le tag "Player" !!!
 public class CrateLabyrinthGenerator : MonoBehaviour
 {
     /*
      * Variables Publique
      */
-    //Variables contenants les prefabs qui seront déposées par le script
+    //Variables contenants les prefabs qui seront dï¿½posï¿½es par le script
     public GameObject movableCratePrefab;
     public GameObject unmovableCratePrefab;
     public GameObject stoolPrefab;
@@ -21,37 +22,47 @@ public class CrateLabyrinthGenerator : MonoBehaviour
     //Affichage
     public GameObject messageOnScreenCanvas;
 
+    bool master = false;
+    bool load = false;
+    string room;
+
     /*
      * Fonctions
      */
     // Start is called before the first frame update
     void Start()
     {
-        // Initialisation de moyen pour lier les boites et le joueur lorsque l'on veut tirer une boite
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))//pour tout les players
-        {
-            // On ajouter un <FixedJoint2D> et on met autoConfigureConnectedAnchor à false (sinon ça lie pas les objets)
-            // POur lier les obj sur chaque boite y aura un script qui permettra de lier la boite au FixedJoint2D ou de les délier (avec touche E)
-            // Attention : faudra penser à verifier que y a pas déjà une boite accrochée...
-            player.AddComponent<FixedJoint2D>();
-            player.GetComponent<FixedJoint2D>().enabled = false;
-            player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
-        }
+        master = PhotonNetwork.IsMasterClient;
     }
 
     private void Update()
     {
-        //CheatCode pour CrateLabyrinthScene
-        if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
         {
-            //si on appuie sur la touche P, ça nous tp à la fin du niveau
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            players[0].GetComponent<Transform>().position = new Vector3(-4, 1, 0);
-            players[1].GetComponent<Transform>().position = new Vector3(-4, (float)-0.5, 0);
+            //CheatCode pour CrateLabyrinthScene
+            if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
+            {
+                //si on appuie sur la touche P, ï¿½a nous tp ï¿½ la fin du niveau
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                players[0].GetComponent<Transform>().position = new Vector3(-4, 1, 0);
+                players[1].GetComponent<Transform>().position = new Vector3(-4, (float)-0.5, 0);
+            }
+        }
+        
+        if (load && GameObject.FindGameObjectsWithTag("Player").Length == 2) // Wait for the 2 players and then the master spawns it
+        {
+            if (master)
+            {
+                loadScene();
+            }
+
+            SetComponent();
+            SetMsg();
+            load = false;
         }
     }
 
-    //Fonction qi va cherche les données du fichier Json et qui les formates
+    //Fonction qi va cherche les donnï¿½es du fichier Json et qui les formates
     private List<Vector3[]> getData(string filename)
     {
         //Lecture du fichier JSON
@@ -64,40 +75,70 @@ public class CrateLabyrinthGenerator : MonoBehaviour
 
     public void loadScene(string roomToLoad)
     {
-        //Récupérer dans une variable le canvas d'ineraction
+        // Allow the room to spawn
+        load = true;
+        room = roomToLoad;
+    }
+
+    void loadScene()
+    {
+        string roomToLoad = room;
+
+        //Rï¿½cupï¿½rer dans une variable le canvas d'ineraction
         GameObject canvaTextPopUP = GameObject.Find("TextPopUpCanvas");
 
-        //Chargement des coordonnées des boites de la pièce
+        //Chargement des coordonnï¿½es des boites de la piï¿½ce
         List<Vector3[]> roomData = getData(roomToLoad);
 
         //Instanciation des Boites qui bouge
         foreach (Vector3 coord in roomData[0])
         {
-            Instantiate(movableCratePrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            //Instantiate(movableCratePrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(movableCratePrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Instanciation des Boites qui bouge pas
         foreach (Vector3 coord in roomData[1])
         {
-            Instantiate(unmovableCratePrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            //Instantiate(unmovableCratePrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(unmovableCratePrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Instanciation des tabourets
         foreach (Vector3 coord in roomData[2])
         {
-            Instantiate(stoolPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            //Instantiate(stoolPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(stoolPrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
 
         //Instanciation des poubelles
         foreach (Vector3 coord in roomData[3])
         {
-            Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            //Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(dumpsterPrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
+    }
 
-        //Lier aux boites qui bougent le canvas d'intéraction
+    void SetMsg()
+    {
+        //Lier aux boites qui bougent le canvas d'intï¿½raction
         foreach (GameObject movableCrate in GameObject.FindGameObjectsWithTag("Box"))
         {
             movableCrate.GetComponent<MovableCrate>().MessageOnScreenCanvas = messageOnScreenCanvas;
+        }
+    }
+
+    void SetComponent()
+    {
+        // Initialisation de moyen pour lier les boites et le joueur lorsque l'on veut tirer une boite
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))//pour tout les players
+        {
+            // On ajouter un <FixedJoint2D> et on met autoConfigureConnectedAnchor ï¿½ false (sinon ï¿½a lie pas les objets)
+            // POur lier les obj sur chaque boite y aura un script qui permettra de lier la boite au FixedJoint2D ou de les dï¿½lier (avec touche E)
+            // Attention : faudra penser ï¿½ verifier que y a pas dï¿½jï¿½ une boite accrochï¿½e...
+            player.AddComponent<FixedJoint2D>();
+            player.GetComponent<FixedJoint2D>().enabled = false;
+            player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
         }
     }
 }

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MovableCrate : PressurePlate
 {
     /*
-     * Vraiables Privées
+     * Vraiables Privï¿½es
      */
 
     private bool linkedToPlayer = false;
@@ -17,54 +18,70 @@ public class MovableCrate : PressurePlate
      */
 
 
-    //Appelée a chaque frame
+    //Appelï¿½e a chaque frame
     private void Update()
     {
-        //check si on appuie sur E ssi en contact avec la boite est préssée
+        //check si on appuie sur E ssi en contact avec la boite est prï¿½ssï¿½e
         if (Input.GetKeyDown(KeyCode.E))
         {
-            //si qqn entre en contact avec la boite ET que la boite n'est pas déjà liée à qqn
-            if (pressed && !linkedToPlayer)
+            bool mycoll = false; // Check if my player is next to the box
+
+            for (int i = 0; i < player.Count && !mycoll; i++)
+            {
+                mycoll = player[i].GetComponent<PhotonView>().IsMine;
+
+                if (i == 1)
+                    (player[0], player[1]) = (player[1], player[0]); // Change order as crates get linked to the first one
+            }
+
+            //si qqn entre en contact avec la boite ET que la boite n'est pas dï¿½jï¿½ liï¿½e ï¿½ qqn
+            if (mycoll && pressed && !linkedToPlayer)
             {
                 // on la lie au perso
                 Link();
             }
-            //sinon, si la boite est déjà liée à ce qqn, on lui fais lâcher la boite
+            //sinon, si la boite est dï¿½jï¿½ liï¿½e ï¿½ ce qqn, on lui fais lï¿½cher la boite
             else if (linkedToPlayer)
             {
                 UnLink();
             }
+         
+            photonView.RPC("UpdateLink", RpcTarget.All, linkedToPlayer);
+        }
+        else if (linkedToPlayer)
+        {
+            photonView.RPC("MoveCoo", RpcTarget.All, transform.position.x, transform.position.y);
         }
     }
 
     /**
-    * <summary>Affiche le message pour proposer à l'utilisateur d'intéragir</summary>
+    * <summary>Affiche le message pour proposer ï¿½ l'utilisateur d'intï¿½ragir</summary>
     * 
-    * <param name="other">objet avec qui on a collisioné (ici le joueur)</param>
+    * <param name="other">objet avec qui on a collisionï¿½ (ici le joueur)</param>
     * 
     * <returns>Return nothing</returns>
     */
     protected override void OnPressure(Collider2D other)
     {
-        //On affiche le message qui indique au joueur comment intéragir avec la porte.
-        //Grace à fonctionnalité lock le message ne s'affichera que si c pas lock
+        //On affiche le message qui indique au joueur comment intï¿½ragir avec la porte.
+        //Grace ï¿½ fonctionnalitï¿½ lock le message ne s'affichera que si c pas lock
         MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to start pulling the box");
     }
 
     /**
-    * <summary>Lier l'objet avec le premier player rentré en collision avec l'objet</summary>
+    * <summary>Lier l'objet avec le premier player rentrï¿½ en collision avec l'objet</summary>
     * 
     * <returns>Return nothing</returns>
     */
     private void Link()
     {
-        //le premier joueur qui est entré en collision avec la boite stocké dans PressurePlate.cs
+        //le premier joueur qui est entrï¿½ en collision avec la boite stockï¿½ dans PressurePlate.cs
         playerLinked = player[0].gameObject; 
 
-        //on récupere le component qui permet de faire le lien
+        //on rï¿½cupere le component qui permet de faire le lien
         FixedJoint2D lienActuel = playerLinked.GetComponent<FixedJoint2D>();
         //On stocke la position de la boite et du joueur
-        //Cela permet d'éviter que le point d'ancrage fasse bouger la boite est le joueur au moment de l'attache
+        //Cela permet d'ï¿½viter que le point d'ancrage fasse bouger la boite est le joueur au moment de l'attache
         Vector2 posBox = this.transform.position;
         Vector2 posPlayer = playerLinked.transform.position;
         //On active le component
@@ -74,26 +91,48 @@ public class MovableCrate : PressurePlate
         //On lie au component le rigidbody de la boite
         lienActuel.connectedBody = this.GetComponent<Rigidbody2D>();
 
-        //on indique que le lien a été établi avec succés
+        //on indique que le lien a ï¿½tï¿½ ï¿½tabli avec succï¿½s
         linkedToPlayer = true;
     }
 
     /**
-    * <summary>Délier l'objet du player avec lequel il était lié</summary>
+    * <summary>Dï¿½lier l'objet du player avec lequel il ï¿½tait liï¿½</summary>
     * 
     * <returns>Return nothing</returns>
     */
     private void UnLink()
     {
-        //on récupere le component qui permet de faire le lien
+        //on rï¿½cupere le component qui permet de faire le lien
         FixedJoint2D lienActuel = playerLinked.GetComponent<FixedJoint2D>();
         //On le desactive
         lienActuel.enabled = false;
-        //On réinitialise le lien
+        //On rï¿½initialise le lien
         lienActuel.connectedBody = null;
 
-        //On réinitialise les varaibles
+        //On rï¿½initialise les varaibles
         linkedToPlayer = false;
         playerLinked = null;
+    }
+
+    /**
+    * <summary>Move crate where it is supposed to be</summary>
+    * 
+    * <returns>Return nothing</returns>
+    */
+    [PunRPC]
+    void MoveCoo(float x, float y)
+    {
+        this.transform.position = new Vector2(x, y);
+    }
+
+    /**
+    * <summary>Update linekedToPlayer</summary>
+    * 
+    * <returns>Return nothing</returns>
+    */
+    [PunRPC]
+    void UpdateLink(bool b)
+    {
+        linkedToPlayer = b;
     }
 }
