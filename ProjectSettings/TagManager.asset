@@ -10,6 +10,8 @@ TagManager:
   - BoxLabyGenerator
   - DoorsToActivate
   - Door
+  - wireObject
+  - ruleObject
   layers:
   - Default
   - TransparentFX

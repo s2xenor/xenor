@@ -23,10 +23,6 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public GameObject[] plugsN = new GameObject[nbWires];
     public int[] wiresColors = new int[nbWires];
 
-
-    public GameObject[] wiresObject = new GameObject[nbWires*3];
-    public GameObject[] rulesObject = new GameObject[nbRules+1];
-
     //positions of wires
     private float startY = 0.16f;
     private float startX = -1.76f;
@@ -72,11 +68,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
             GameObject plugNumber = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX, y, -1), Quaternion.identity);
             GameObject plugLetter = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity);
 
-            //plugNumber.SetActive(false);
-            //plugLetter.SetActive(false);
-
-            wiresObject[i] = plugNumber;
-            wiresObject[nbWires + i] = plugLetter;
+            plugNumber.SetActive(false);
+            plugLetter.SetActive(false);
 
             plugsN[i] = plugNumber;
             plugsL[i] = plugLetter;
@@ -103,13 +96,13 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
 
             GameObject wire = PhotonNetwork.Instantiate(wirePrefab.name, new Vector3(0, 0, 0), Quaternion.identity);  //create a new wire
-            //wire.SetActive(false);
             plugsN[i].GetComponent<Plug>().wireManager = this;
             plugsN[i].GetComponent<Plug>().wire = wire;                                                         //adding the wire to the plug script
             wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
             wire.GetComponent<Wire>().color = randomColor;                                                      //setting the wire color
-            wiresColors[i] = randomColor;                                                                       //saving the wire color 
-            wiresObject[nbWires * 2 + i] = wire;
+            wiresColors[i] = randomColor;                                                                      //saving the wire color 
+            wire.SetActive(false);
+
         }
 
         /*
@@ -128,7 +121,6 @@ public class WiresManager : MonoBehaviourPunCallbacks
         {
             txt = PhotonNetwork.Instantiate(rulesTextPrefab.name, new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0), Quaternion.identity);
             txt.GetComponent<Transform>().position = new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0);
-            rulesObject[i] = txt;
             canvasRules.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
             txt.transform.SetParent(canvasRules.transform);
             rn = Random.Range(0, 3);            //choose a random type of rule
@@ -177,30 +169,48 @@ public class WiresManager : MonoBehaviourPunCallbacks
         txt.GetComponent<Text>().text = $"Sinon débranchez le {nbToWord(unplug + 1)}";
         txt.transform.SetParent(canvasRules.transform);
 
-        rulesObject[nbRules] = txt;
         if (!finished)
         {
             plugsN[unplug].GetComponent<Plug>().nb = 1;
         }
 
-        if (isFromMaster)// rules local and wires distant
+        //if (isFromMaster)// rules local and wires distant
+        //{
+        //    PhotonView photonView = GetComponent<PhotonView>();
+        //    SetDistantActive(true, "ruleObject", false);//local rules active
+        //    photonView.RPC("SetDistantActive", RpcTarget.All, false, "ruleObject", true);//distant rules inactive
+
+        //    SetDistantActive(false, "wireObject", false);//local wires inactive
+        //    photonView.RPC("SetDistantActive", RpcTarget.All, isOnPressureWire, "wireObject", true);//distant rules isOnPressure
+        //}
+        //else// rules distant and wires local
+        //{
+        //    PhotonView photonView = PhotonView.Get(this);
+        //    photonView.RPC("SetDistantActive", RpcTarget.Others, true, "ruleObject", true);//distant rules active
+        //    SetDistantActive(false, "ruleObject", false);//local rules inactive
+
+        //    SetDistantActive(isOnPressureWire, "wireObject", false);//local wires inactive
+        //    photonView.RPC("SetDistantActive", RpcTarget.Others, false, "wireObject", true);//distant rules isOnPressure
+        //}
+
+        if (isFromMaster)
         {
             PhotonView photonView = GetComponent<PhotonView>();
-            SetDistantActive(true, "ruleObject", false);//local rules active
+            SetDistantActive(true, "ruleObject");//local rules active
             photonView.RPC("SetDistantActive", RpcTarget.All, false, "ruleObject");//distant rules inactive
-
-            SetDistantActive(false, "wireObject", false);//local wires inactive
             photonView.RPC("SetDistantActive", RpcTarget.All, isOnPressureWire, "wireObject");//distant rules isOnPressure
         }
         else// rules distant and wires local
         {
-            PhotonView photonView = PhotonView.Get(this);
-            //photonView.RPC("SetDistantActive", RpcTarget.Others, true, rulesObject);//distant rules active
-            SetDistantActive(false, "ruleObject", false);//local rules inactive
+            PhotonView photonView = GetComponent<PhotonView>();
+            SetDistantActive(isOnPressureWire, "wireObject");//local rules active
+            photonView.RPC("SetDistantActive", RpcTarget.All, false, "wireObject");//distant rules inactive
+            photonView.RPC("SetDistantActive", RpcTarget.All, true, "ruleObject");//distant rules inactive
 
-            SetDistantActive(isOnPressureWire, "wireObject", false);//local wires inactive
-            //photonView.RPC("SetDistantActive", RpcTarget.Others, false, wiresObject);//distant rules isOnPressure
         }
+
+
+
 
 
     }
@@ -208,8 +218,9 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
 
     [PunRPC]
-    public void SetDistantActive(bool toActive, string tag, bool clientOnly=true)
+    public void SetDistantActive(bool toActive, string tag)
     {
+        bool clientOnly = false;
         if (!clientOnly || !PhotonNetwork.IsMasterClient)
         {
             foreach (var elt in GameObject.FindGameObjectsWithTag(tag))
@@ -237,11 +248,11 @@ public class WiresManager : MonoBehaviourPunCallbacks
         }
         isOn = false;
 
-        foreach (var item in wiresObject)
+        foreach (var item in GameObject.FindGameObjectsWithTag("wireObject"))
         {
             PhotonNetwork.Destroy(item);
         }
-        foreach (var item in rulesObject)
+        foreach (var item in GameObject.FindGameObjectsWithTag("ruleObject"))
         {
             PhotonNetwork.Destroy(item);
         }
@@ -252,22 +263,31 @@ public class WiresManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetOnPressureWire(bool on, bool fromMaster = false)
     {
+
+        //if (!PhotonNetwork.IsMasterClient)
+        //{
+        //    PhotonView photonView = PhotonView.Get(this);
+        //    photonView.RPC("SetOnPressureWire", RpcTarget.All, on, false);
+        //    return;
+        //}
+        
+
         Debug.Log("pressure wire " + on);
         isOnPressureWire = on;
         if (!isOnPressureRule)//can be same player activing both plate, punishing him and destroy everything
         {
             DestroyAll();
         }
-        else if (wiresObject.Length != 0)
+        else if (GameObject.FindGameObjectsWithTag("wireObject").Length != 0)
         {
             if (fromMaster)
             {
-                SetDistantActive(true, wiresObject, false);
+                SetDistantActive(true, "wireObject");
             }
             else
             {
                 PhotonView photonView = PhotonView.Get(this);
-                photonView.RPC("SetDistantActive", RpcTarget.Others, true, wiresObject);
+                photonView.RPC("SetDistantActive", RpcTarget.All, true, "wireObject");
             }
         }
     }
@@ -275,8 +295,16 @@ public class WiresManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetOnPressureRules(bool on)
     {
-        Debug.Log("pressure rule " + on);
-        isOnPressureRule = on;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            isOnPressureRule = on;
+            Debug.Log("pressure rule " + on);
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("SetOnPressureRules", RpcTarget.MasterClient, on);
+        }
     }
 
 

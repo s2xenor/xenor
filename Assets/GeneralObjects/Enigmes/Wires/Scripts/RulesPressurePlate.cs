@@ -34,7 +34,6 @@ public class RulesPressurePlate : MonoBehaviourPunCallbacks
                 PhotonView photonView = PhotonView.Get(this);
                 photonView.RPC("SetOnPressureRules", RpcTarget.MasterClient, true);
                 photonView.RPC("GenerateAll", RpcTarget.MasterClient, false);
-
             }
 
         }
@@ -44,16 +43,8 @@ public class RulesPressurePlate : MonoBehaviourPunCallbacks
     {
         if (collision.tag == "Player")
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                wireManager.SetOnPressureRules(false);
-            }
-            else
-            {
-                PhotonView photonView = PhotonView.Get(this);
-                photonView.RPC("SetOnPressureRules", RpcTarget.MasterClient, false);
-
-            }
+            
+            wireManager.SetOnPressureRules(PhotonNetwork.IsMasterClient);
             //wireManager.DestroyAll();
         }
     }

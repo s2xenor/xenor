@@ -31,8 +31,7 @@ public class WiresPressurePlate : MonoBehaviour
             }
             else
             {
-                PhotonView photonView = PhotonView.Get(this);
-                photonView.RPC("SetOnPressureWire", RpcTarget.MasterClient, true);
+                wireManager.SetOnPressureWire(true);
 
             }
         }
@@ -49,8 +48,7 @@ public class WiresPressurePlate : MonoBehaviour
             }
             else
             {
-                PhotonView photonView = PhotonView.Get(this);
-                photonView.RPC("SetOnPressureWire", RpcTarget.MasterClient, false);
+                wireManager.SetOnPressureWire(false, false);
             }
         }
     }

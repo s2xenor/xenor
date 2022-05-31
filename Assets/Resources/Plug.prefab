@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6457346540385066861}
   m_Layer: 0
   m_Name: Plug
-  m_TagString: Untagged
+  m_TagString: wireObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
