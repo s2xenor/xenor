@@ -27,12 +27,16 @@ public class WiresPressurePlate : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                wireManager.SetOnPressureWire(true, true);
-            }
-            else
-            {
-                wireManager.SetOnPressureWire(true);
-
+                wireManager.isOnPressureWire= true;
+                if (collision.GetComponent<PhotonView>().IsMine)
+                {
+                    wireManager.isMasterOnWire = true;
+                }
+                else
+                {
+                    wireManager.isMasterOnWire = false;
+                }
+                wireManager.Changes();
             }
         }
     }
@@ -44,11 +48,8 @@ public class WiresPressurePlate : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                wireManager.SetOnPressureWire(false, true);
-            }
-            else
-            {
-                wireManager.SetOnPressureWire(false, false);
+                wireManager.isOnPressureWire = false;
+                wireManager.Changes();
             }
         }
     }
