@@ -31,32 +31,18 @@ public class WiresManager : MonoBehaviourPunCallbacks
     private float startX = -1.76f;
 
     GameObject parentObj;
-    public GameObject playerPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn master player on network
-        }
-        else
-        {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn player on network
-        }
-       
+        PhotonView photonView = PhotonView.Get(this);
+        //photonView.RPC("MoveCoo", RpcTarget.MasterClient);
+        parentObj = new GameObject("WireEnigmParent");
     }
 
     [PunRPC]
     public void GenerateAll(bool isFromMaster = false)
     {
-
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("GenerateAll", RpcTarget.MasterClient);
-            return;
-        }
         isOn = true;
 
         //creating all plugs and saving same in array
