@@ -418,9 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3f6c81cc52677499241e74a79986d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createInput: {fileID: 1465029236}
-  joinInput: {fileID: 595497551}
-  sceneInt: 3
+  roomString: {fileID: 0}
+  sceneInt: 2
   sceneString: 
 --- !u!4 &498992984
 Transform:

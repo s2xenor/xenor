@@ -64,6 +64,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
         {
             //int y = 29 - i * 7;
             float y = startY - i * 0.32f;
+            
             GameObject plugNumber = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX, y, -1), Quaternion.identity);
             GameObject plugLetter = PhotonNetwork.Instantiate(plugPrefab.name, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity);
 
