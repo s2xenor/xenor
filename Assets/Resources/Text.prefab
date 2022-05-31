@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1151379981630096257}
   - component: {fileID: 4730076429989604292}
   - component: {fileID: 7094537689338648948}
+  - component: {fileID: 7684361186052273687}
   m_Layer: 5
   m_Name: Text
-  m_TagString: ruleObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,3 +81,25 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Si il y a {nbFils} fil(s) {randomColor(color)} ou plus, d\xE9branchez
     le {nbToWord(unplug + 1)}\""
+--- !u!114 &7684361186052273687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6288154417788139229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

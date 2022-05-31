@@ -24,25 +24,43 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public int[] wiresColors = new int[nbWires];
 
 
-    public GameObject[] wires = new GameObject[nbWires];
+    public GameObject[] wiresObject = new GameObject[nbWires*3];
+    public GameObject[] rulesObject = new GameObject[nbRules+1];
 
     //positions of wires
     private float startY = 0.16f;
     private float startX = -1.76f;
 
     GameObject parentObj;
+    public GameObject playerPrefab;
+
+    private bool isOnPressureWire = false;
+    private bool isOnPressureRule = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        PhotonView photonView = PhotonView.Get(this);
+        //PhotonView photonView = PhotonView.Get(this);
         //photonView.RPC("MoveCoo", RpcTarget.MasterClient);
         parentObj = new GameObject("WireEnigmParent");
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-12*0.32f, 5*0.32f), Quaternion.identity); // Spawn master player on network
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-12 * 0.32f, 2 * 0.32f), Quaternion.identity); // Spawn player on network
+        }
     }
+
+
 
     [PunRPC]
     public void GenerateAll(bool isFromMaster = false)
     {
+        if (isOn) return;
         isOn = true;
 
         //creating all plugs and saving same in array
@@ -57,6 +75,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
             //plugNumber.SetActive(false);
             //plugLetter.SetActive(false);
 
+            wiresObject[i] = plugNumber;
+            wiresObject[nbWires + i] = plugLetter;
 
             plugsN[i] = plugNumber;
             plugsL[i] = plugLetter;
@@ -89,8 +109,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
             wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
             wire.GetComponent<Wire>().color = randomColor;                                                      //setting the wire color
             wiresColors[i] = randomColor;                                                                       //saving the wire color 
-            wires[i] = wire;
-
+            wiresObject[nbWires * 2 + i] = wire;
         }
 
         /*
@@ -107,8 +126,11 @@ public class WiresManager : MonoBehaviourPunCallbacks
         bool finished = false;                  //a rule above is already valid
         for (int i = 0; i < nbRules; i++)
         {
-            txt = Instantiate(rulesTextPrefab, new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0), Quaternion.identity, canvasRules.transform);
+            txt = PhotonNetwork.Instantiate(rulesTextPrefab.name, new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0), Quaternion.identity);
             txt.GetComponent<Transform>().position = new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0);
+            rulesObject[i] = txt;
+            canvasRules.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+            txt.transform.SetParent(canvasRules.transform);
             rn = Random.Range(0, 3);            //choose a random type of rule
             color = Random.Range(0, nbColors);  //determine the color of the rule
             unplug = Random.Range(0, nbWires);  //the wire to unplug if rule validated
@@ -150,14 +172,52 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
         unplug = Random.Range(0, nbWires);
         Debug.Log($"Sinon débranchez le {nbToWord(unplug + 1)}");
-        txt = Instantiate(rulesTextPrefab, new Vector3(startX + coefX, startY - nbRules * 0.32f + coefY, 0), Quaternion.identity, canvasRules.transform);
-        txt.GetComponent<Text>().text = $"Sinon débranchez le {nbToWord(unplug + 1)}";
 
+        txt = PhotonNetwork.Instantiate(rulesTextPrefab.name, new Vector3(startX + coefX, startY - nbRules * 0.32f + coefY, 0), Quaternion.identity);
+        txt.GetComponent<Text>().text = $"Sinon débranchez le {nbToWord(unplug + 1)}";
+        txt.transform.SetParent(canvasRules.transform);
+
+        rulesObject[nbRules] = txt;
         if (!finished)
         {
             plugsN[unplug].GetComponent<Plug>().nb = 1;
         }
 
+        if (isFromMaster)// rules local and wires distant
+        {
+            PhotonView photonView = GetComponent<PhotonView>();
+            SetDistantActive(true, "ruleObject", false);//local rules active
+            photonView.RPC("SetDistantActive", RpcTarget.All, false, "ruleObject");//distant rules inactive
+
+            SetDistantActive(false, "wireObject", false);//local wires inactive
+            photonView.RPC("SetDistantActive", RpcTarget.All, isOnPressureWire, "wireObject");//distant rules isOnPressure
+        }
+        else// rules distant and wires local
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            //photonView.RPC("SetDistantActive", RpcTarget.Others, true, rulesObject);//distant rules active
+            SetDistantActive(false, "ruleObject", false);//local rules inactive
+
+            SetDistantActive(isOnPressureWire, "wireObject", false);//local wires inactive
+            //photonView.RPC("SetDistantActive", RpcTarget.Others, false, wiresObject);//distant rules isOnPressure
+        }
+
+
+    }
+
+
+
+    [PunRPC]
+    public void SetDistantActive(bool toActive, string tag, bool clientOnly=true)
+    {
+        if (!clientOnly || !PhotonNetwork.IsMasterClient)
+        {
+            foreach (var elt in GameObject.FindGameObjectsWithTag(tag))
+            {
+                Debug.Log(elt.name + toActive);
+                elt.SetActive(toActive);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -166,9 +226,57 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
     }
 
+    [PunRPC]
     public void DestroyAll()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("DestroyAll", RpcTarget.MasterClient);
+            return;
+        }
         isOn = false;
+
+        foreach (var item in wiresObject)
+        {
+            PhotonNetwork.Destroy(item);
+        }
+        foreach (var item in rulesObject)
+        {
+            PhotonNetwork.Destroy(item);
+        }
+
+    }
+
+
+    [PunRPC]
+    public void SetOnPressureWire(bool on, bool fromMaster = false)
+    {
+        Debug.Log("pressure wire " + on);
+        isOnPressureWire = on;
+        if (!isOnPressureRule)//can be same player activing both plate, punishing him and destroy everything
+        {
+            DestroyAll();
+        }
+        else if (wiresObject.Length != 0)
+        {
+            if (fromMaster)
+            {
+                SetDistantActive(true, wiresObject, false);
+            }
+            else
+            {
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("SetDistantActive", RpcTarget.Others, true, wiresObject);
+            }
+        }
+    }
+
+    [PunRPC]
+    public void SetOnPressureRules(bool on)
+    {
+        Debug.Log("pressure rule " + on);
+        isOnPressureRule = on;
     }
 
 

@@ -23,22 +23,34 @@ public class WiresPressurePlate : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if walk on pressure plate and has wire show them
-        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
+        if (collision.tag == "Player")
         {
-            if(wireManager.isOn)
+            if (PhotonNetwork.IsMasterClient)
             {
-                foreach (GameObject plug in wireManager.plugsL)
-                {
-                    plug.SetActive(true);
-                }
-                foreach (GameObject plug in wireManager.plugsN)
-                {
-                    plug.SetActive(true);
-                }
-                foreach (GameObject wire in wireManager.wires)
-                {
-                    wire.SetActive(true);
-                }
+                wireManager.SetOnPressureWire(true, true);
+            }
+            else
+            {
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("SetOnPressureWire", RpcTarget.MasterClient, true);
+
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //if walk on pressure plate and has wire show them
+        if (collision.tag == "Player")
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                wireManager.SetOnPressureWire(false, true);
+            }
+            else
+            {
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("SetOnPressureWire", RpcTarget.MasterClient, false);
             }
         }
     }

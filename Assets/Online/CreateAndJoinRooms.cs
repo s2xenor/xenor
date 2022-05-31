@@ -7,7 +7,7 @@ using TMPro;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
-    public TMP_InputField roomString;
+    public InputField roomString;
 
     public int sceneInt;
     public string sceneString;
