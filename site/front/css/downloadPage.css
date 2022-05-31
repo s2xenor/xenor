@@ -14,6 +14,7 @@
     font-size: calc(20px + 5 * ((100vw - 280px) / 680));
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
+    margin-left: 2vw;
 }
 
 .titre_rapport_download{
@@ -21,11 +22,12 @@
     font-size: calc(10px + 5 * ((100vw - 280px) / 680));
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
+    margin-left: 4vw;
 }
 
 @media (max-width: 1075px) {
-    .test{
-        height: 38vh;
+    .bandeauVagues{
+        height: 48vh;
     }
 }
 

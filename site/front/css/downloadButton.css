@@ -13,6 +13,7 @@
     color:#333;
     padding-left:20px;
     box-sizing:border-box;
+    margin-left: 6vw;
 }
 
 .downloadButton::after {
