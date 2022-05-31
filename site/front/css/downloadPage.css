@@ -37,14 +37,14 @@
     content:  url("../img/windows.svg") " Windows";
 }
 
-.downloadButton:nth-child(2)::before{
+.linux > .downloadButton::before{
     content:  url("../img/linux.svg") " Linux";
 }
 
-.downloadButton:nth-child(3)::before{
+.macos > .downloadButton::before{
     content:  url("../img/apple.svg") " Mac";
 }
 
-.rapports > .downloadButton::before{
+.rapports > a > .downloadButton::before{
     content: url("../img/pdf.svg") " PDF";
 }

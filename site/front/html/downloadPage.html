@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../css/downloadPage.css">
         <link rel="stylesheet" href="../css/downloadButton.css">
         <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/play_button.css">
         <link rel="stylesheet" href="../css/nav_bar.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <script src="../js/navbar.js"></script>
@@ -70,7 +71,9 @@
                 <h2>L'Installeur</h2>
             </div>
             <div>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span><i class="nf nf-fa-heart"></i></button>
+                <a href="../downloadFiles/AlteraVitaSetup.exe" target="_blank" download>
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
             </div>
         </article>
 
@@ -79,9 +82,15 @@
                 <h2>Le Jeu</h2>
             </div>
             <div>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                <a href="../downloadFiles/windows.zip" target="_blank" download>
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
+                <a href="../downloadFiles/linux.zip" target="_blank" download class="linux">
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
+                <a href="../downloadFiles/macos.zip" target="_blank" download class="macos">
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
             </div>
         </article>
 
@@ -93,19 +102,28 @@
                 <div class="titre_rapport_download">
                     <h3>Cahier des Charges</h3>
                 </div>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                <a href="../img/circle1.png" download>
+                    <a href="../downloadFiles/Cahier_des_Charges.pdf" target="_blank" download="Cahier_des_Charges">
+                        <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                    </a>
                 <div class="titre_rapport_download">
                     <h3>Rapports de Première Soutenance</h3>
                 </div>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                <a href="../downloadFiles/Rapport_de_Soutenance_1.pdf" target="_blank" download="Rapport_de_Soutenance_1">
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
                 <div class="titre_rapport_download">
-                    <h3>Rapports de Soutenance Intermédiare</h3>
+                    <h3>Rapports de Soutenance Intermédiaire</h3>
                 </div>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                <a href="../downloadFiles/Rapport_de_Soutenance_2.pdf" target="_blank" download="Rapport_de_Soutenance_2">
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
                 <div class="titre_rapport_download">
                     <h3>Rapports de Soutenance Finale</h3>
                 </div>
-                <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                <a href="../downloadFiles/Cahier_des_Charges.pdf" target="_blank" download="Rapport_de_Soutenance_3">
+                    <button class="downloadButton"><span class="material-symbols-outlined">file_download</span></button>
+                </a>
             </div>
         </article>
     </body>
