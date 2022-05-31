@@ -9,8 +9,35 @@
     width: 99vw;
 }
 
+.titre_categorie_page_download {
+    color: #333;
+    font-size: calc(20px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+
 @media (max-width: 1075px) {
-    .titre_page_download{
-        color: #333;
+    .test{
+        height: 38vh;
     }
+}
+
+.svgIcons {
+    margin-left: 5px;
+}
+
+.downloadButton:nth-child(1)::before{
+    content:  url("../img/windows.svg") " windows";
+}
+
+.downloadButton:nth-child(2)::before{
+    content:  url("../img/linux.svg") " linux";
+}
+
+.downloadButton:nth-child(3)::before{
+    content:  url("../img/apple.svg") " mac";
+}
+
+.rapports > .downloadButton::before{
+    content: url("../img/pdf.svg") " pdf";
 }
