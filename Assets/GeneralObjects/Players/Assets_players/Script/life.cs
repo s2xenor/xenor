@@ -8,11 +8,11 @@ using UnityEngine.UI;
 public class life : MonoBehaviour //life class 
 {
     //canvas of hearts
-    public Image cooldown;
-    public Image cooldown1;
-    public Image cooldown2;
-    public Image cooldown3;
-    public Image cooldown4;
+    public  Image cooldown;
+    public  Image cooldown1;
+    public  Image cooldown2;
+    public  Image cooldown3;
+    public  Image cooldown4;
     public bool coolingDown;
     public float waitTime = 15.0f;
 
@@ -80,7 +80,7 @@ public class life : MonoBehaviour //life class
      *Function that reduce over the number of 1/4
      */
 
-    public void Reduce4(int hearts) //Function that reduce by 1/4 hearts
+    public  void Reduce4(int hearts) //Function that reduce by 1/4 hearts
     {
         if (coolingDown)//Reduce fill amount over the numbers of 1/4 hearts
         {
