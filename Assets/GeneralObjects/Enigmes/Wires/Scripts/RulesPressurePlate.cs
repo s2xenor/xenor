@@ -24,7 +24,7 @@ public class RulesPressurePlate : MonoBehaviourPunCallbacks
     {
         if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
-            
+            wireManager.GenerateAll();
         }
     }
 
@@ -35,10 +35,6 @@ public class RulesPressurePlate : MonoBehaviourPunCallbacks
             if (PhotonNetwork.IsMasterClient)
             {
                 wireManager.DestroyAll();
-            }
-            else
-            {
-                //call fonction on master side knowing i'm a fucking client
             }
         }
     }
