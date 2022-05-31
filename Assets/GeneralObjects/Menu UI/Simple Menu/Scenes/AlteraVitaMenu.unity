@@ -1695,6 +1695,10 @@ PrefabInstance:
       propertyPath: m_textAlignment
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 7967893025163310217, guid: 823b6ccf2616341e5b9e75856a38e4b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7967893025163310260, guid: 823b6ccf2616341e5b9e75856a38e4b2, type: 3}
       propertyPath: m_Name
       value: Simple Input Field

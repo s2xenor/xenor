@@ -20,6 +20,9 @@ public class ChangeParentMaze : MonoBehaviour
     {
         n++;
         if (collision.tag == "Player")
-            Debug.LogError(n + " Error");
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            Debug.LogError(n + " Wrong");
+        }
     }
 }
