@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initialscore=1.0">
+        <title>AlteraVita</title>
+        <link rel="icon" type="image/svg" href="img/logo_alteravita_sans_fon_sans_texte.png" />
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/play_button.css">
+        <link rel="stylesheet" href="css/downloadOverlay.css">
+        <link rel="stylesheet" href="css/nav_bar.css">
+        <script src="   js/navbar.js"></script>
+    </head>
+    <body>
+        <nav>
+            <input id="menu_check" type="checkbox" class="css-checkbox">
+            <div class="menu_label_back">
+                <label for="menu_check" class="menu_label"></label>
+            </div>
+            <div id="menu_wrapper">
+                <ul class="menu_ul">
+                    <a href="">
+                        <li class="button_play" onmouseover="background0()">
+                            JOUER
+                        </li>
+                    </a>
+                    <a href=""> 
+                        <li class="menu_tab" onmouseover="background25()">
+                            <h1 class="menu_title">Accueil</h1>
+                        </li>
+                    </a>
+                    <a href="html/group_presentation.html"> 
+                        <li class="menu_tab" onmouseover="background50()" >
+                            <h1 class="menu_title">L'Equipe</h1>
+                        </li>
+                    </a>
+                    <a href="html/classement.html"> 
+                    <li class="menu_tab" onmouseover="background75()">
+                        <h1 class="menu_title">Classement</h1>
+                    </li>
+                    </a>
+                    <li class="menu_tab" onmouseover="background100()" onclick="openSubmenu()">
+                        <h1 class="menu_title">Le Jeu</h1>
+                    </li>
+                </ul>
+                <div id="menu_submenu">
+                    <a href="html/histoire.html"> 
+                    <div class="menu_submenu_tab">
+                        <h2 class="menu_submenu_title">L'Histoire</h2>
+                    </div>
+                    </a>
+                    <a href=""> 
+                    <div class="menu_submenu_tab">
+                        <h2 class="menu_submenu_title">Gameplay</h2>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="overlay_play">
+            <h5 class="download_pop_up_title">Notre Jeu vous plaît ? Téléchargez-le !</h5>
+            <button class="button_play" role="button">>>> PLAY</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classement</title>
+    <link rel="stylesheet" href="../css/classement.css">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User 1</th>
+                <th>User 2</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <button id="addict">I need more !</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    
+    <script>
+    
+        // get the quotes from API
+        async function getData(page) {
+            const API_URL = `http://localhost/xenor/load.php?offset=${page*10}`;
+            const response = await fetch(API_URL);
+            // handle 404
+            if (!response.ok) {
+                throw new Error(`An error occurred: ${response.status}`);
+            }
+            return await response.json();
+        }
+    
+        function applyData(data){
+            const table =document.getElementsByTagName("table")[0].getElementsByTagName("tbody")[0];
+            console.log(data)
+            data.forEach(row => {
+                let tr = document.createElement("tr");
+                console.log(row)
+                tr.innerHTML = `<td>${row.id}</td><td>${row.user1}</td><td>${row.user2}</td><td>${row.score}</td>`
+                table.appendChild(tr);
+            });
+        }
+    
+        var count = -1;
+        document.getElementById("addict").addEventListener('click', function(){
+            count++;
+            getData(count).then(res => {
+                applyData(res);
+            })
+        })
+    
+        document.getElementById("addict").click();
+    
+    </script>
+</body>
+</html>

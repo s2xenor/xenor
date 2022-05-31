@@ -1,0 +1,15 @@
+.lot_of_text {
+    padding: 30px 150px;
+    font-size: calc(15px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Roboto Mono', monospace;
+    text-align: justify;
+    text-indent: 50px;
+}
+
+.lot_of_text > p {
+    margin: 50px 0;
+}
+
+.white_text {
+    color: #ccc;
+}
