@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4221725630500410965}
   - component: {fileID: 4221725630500410966}
   - component: {fileID: 4221725630500410967}
-  - component: {fileID: 4221725630500410968}
+  - component: {fileID: 4165956639244394554}
   m_Layer: 0
   m_Name: SingleDoor
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28299707, y: 0.18123908}
   m_EdgeRadius: 0
---- !u!114 &4221725630500410968
+--- !u!114 &4165956639244394554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4221725630500410969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fb511f6b1e41354ea87882b7f219cbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 219a80823a631f045be86f96bccf1311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MessageOnScreenCanvas: {fileID: 0}

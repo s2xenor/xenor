@@ -1,0 +1,43 @@
+body{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  
+  background: linear-gradient(135deg, #290329 0%,#9c149c 20%, #b828cb 25%, #fe961f 65%, #fed11f 80%, #c3fe1f 100%);
+  background-size: 300%;
+}
+
+button{
+  width: 100%;
+}
+
+table ,tr td th{
+  text-align: center;
+  border: 1px solid black;
+}
+
+tbody tr:nth-child(odd){
+  background:#b828cb
+}
+tbody tr:nth-child(even){
+  background:#FF013C
+  
+}
+
+
+tbody {
+  display:block;
+  height: calc(95vh - 4em);
+  overflow:auto;
+}
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+
+table {
+  max-width: 400px;
+  border-collapse: collapse;
+}
