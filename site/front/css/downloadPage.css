@@ -1,0 +1,16 @@
+.titre_page_download {
+    color: #efefef;
+    font-size: calc(30px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 8vh;
+    width: 99vw;
+}
+
+@media (max-width: 1075px) {
+    .titre_page_download{
+        color: #333;
+    }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initialscore=1.0">
+        <title>AlteraVita</title>
+        <link rel="icon" type="image/svg" href="../img/logo_alteravita_sans_fon_sans_texte.png" />
+        <link rel="stylesheet" href="../css/downloadPage.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/nav_bar.css">
+        <script src="../js/navbar.js"></script>
+    </head>
+    <body>
+        <nav>
+            <input id="menu_check" type="checkbox" class="css-checkbox">
+            <div class="menu_label_back">
+                <label for="menu_check" class="menu_label"></label>
+            </div>
+            <div id="menu_wrapper">
+                <ul class="menu_ul">
+                    <a href="">
+                        <li class="button_play" onmouseover="background0()">
+                            JOUER
+                        </li>
+                    </a>
+                    <a href=""> 
+                        <li class="menu_tab" onmouseover="background25()">
+                            <h1 class="menu_title">Accueil</h1>
+                        </li>
+                    </a>
+                    <a href="group_presentation.html"> 
+                        <li class="menu_tab" onmouseover="background50()" >
+                            <h1 class="menu_title">L'Equipe</h1>
+                        </li>
+                    </a>
+                    <a href="classement.html"> 
+                    <li class="menu_tab" onmouseover="background75()">
+                        <h1 class="menu_title">Classement</h1>
+                    </li>
+                    </a>
+                    <li class="menu_tab" onmouseover="background100()" onclick="openSubmenu()">
+                        <h1 class="menu_title">Le Jeu</h1>
+                    </li>
+                </ul>
+                <div id="menu_submenu">
+                    <a href="histoire.html"> 
+                    <div class="menu_submenu_tab">
+                        <h2 class="menu_submenu_title">L'Histoire</h2>
+                    </div>
+                    </a>
+                    <a href=""> 
+                    <div class="menu_submenu_tab">
+                        <h2 class="menu_submenu_title">Gameplay</h2>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="titre_page_download">
+            <h1>AlteraVita - Téléchargement</h1>
+        </div>
+
+        <svg id="visual" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><rect x="0" y="0" width="960" height="540" fill="#ffffff"></rect><path d="M0 186L17.8 185.7C35.7 185.3 71.3 184.7 106.8 186.2C142.3 187.7 177.7 191.3 213.2 187.2C248.7 183 284.3 171 320 163.2C355.7 155.3 391.3 151.7 426.8 152.3C462.3 153 497.7 158 533.2 159.3C568.7 160.7 604.3 158.3 640 159C675.7 159.7 711.3 163.3 746.8 165.3C782.3 167.3 817.7 167.7 853.2 170.2C888.7 172.7 924.3 177.3 942.2 179.7L960 182L960 0L942.2 0C924.3 0 888.7 0 853.2 0C817.7 0 782.3 0 746.8 0C711.3 0 675.7 0 640 0C604.3 0 568.7 0 533.2 0C497.7 0 462.3 0 426.8 0C391.3 0 355.7 0 320 0C284.3 0 248.7 0 213.2 0C177.7 0 142.3 0 106.8 0C71.3 0 35.7 0 17.8 0L0 0Z" fill="#00a7e1"></path><path d="M0 151L17.8 150.3C35.7 149.7 71.3 148.3 106.8 150.2C142.3 152 177.7 157 213.2 155.7C248.7 154.3 284.3 146.7 320 149.3C355.7 152 391.3 165 426.8 162.3C462.3 159.7 497.7 141.3 533.2 142.2C568.7 143 604.3 163 640 167.2C675.7 171.3 711.3 159.7 746.8 157.3C782.3 155 817.7 162 853.2 167.5C888.7 173 924.3 177 942.2 179L960 181L960 0L942.2 0C924.3 0 888.7 0 853.2 0C817.7 0 782.3 0 746.8 0C711.3 0 675.7 0 640 0C604.3 0 568.7 0 533.2 0C497.7 0 462.3 0 426.8 0C391.3 0 355.7 0 320 0C284.3 0 248.7 0 213.2 0C177.7 0 142.3 0 106.8 0C71.3 0 35.7 0 17.8 0L0 0Z" fill="#098ec5"></path><path d="M0 127L17.8 126.2C35.7 125.3 71.3 123.7 106.8 127.5C142.3 131.3 177.7 140.7 213.2 143.7C248.7 146.7 284.3 143.3 320 141.2C355.7 139 391.3 138 426.8 132.3C462.3 126.7 497.7 116.3 533.2 113.8C568.7 111.3 604.3 116.7 640 121.2C675.7 125.7 711.3 129.3 746.8 126.8C782.3 124.3 817.7 115.7 853.2 114C888.7 112.3 924.3 117.7 942.2 120.3L960 123L960 0L942.2 0C924.3 0 888.7 0 853.2 0C817.7 0 782.3 0 746.8 0C711.3 0 675.7 0 640 0C604.3 0 568.7 0 533.2 0C497.7 0 462.3 0 426.8 0C391.3 0 355.7 0 320 0C284.3 0 248.7 0 213.2 0C177.7 0 142.3 0 106.8 0C71.3 0 35.7 0 17.8 0L0 0Z" fill="#0b76aa"></path><path d="M0 85L17.8 87.8C35.7 90.7 71.3 96.3 106.8 101.8C142.3 107.3 177.7 112.7 213.2 109.5C248.7 106.3 284.3 94.7 320 90.8C355.7 87 391.3 91 426.8 96C462.3 101 497.7 107 533.2 103.2C568.7 99.3 604.3 85.7 640 85.7C675.7 85.7 711.3 99.3 746.8 99.8C782.3 100.3 817.7 87.7 853.2 86C888.7 84.3 924.3 93.7 942.2 98.3L960 103L960 0L942.2 0C924.3 0 888.7 0 853.2 0C817.7 0 782.3 0 746.8 0C711.3 0 675.7 0 640 0C604.3 0 568.7 0 533.2 0C497.7 0 462.3 0 426.8 0C391.3 0 355.7 0 320 0C284.3 0 248.7 0 213.2 0C177.7 0 142.3 0 106.8 0C71.3 0 35.7 0 17.8 0L0 0Z" fill="#0a5f8e"></path><path d="M0 58L17.8 59.3C35.7 60.7 71.3 63.3 106.8 62.7C142.3 62 177.7 58 213.2 57.8C248.7 57.7 284.3 61.3 320 65.2C355.7 69 391.3 73 426.8 73.2C462.3 73.3 497.7 69.7 533.2 66.3C568.7 63 604.3 60 640 59.5C675.7 59 711.3 61 746.8 62.8C782.3 64.7 817.7 66.3 853.2 67.3C888.7 68.3 924.3 68.7 942.2 68.8L960 69L960 0L942.2 0C924.3 0 888.7 0 853.2 0C817.7 0 782.3 0 746.8 0C711.3 0 675.7 0 640 0C604.3 0 568.7 0 533.2 0C497.7 0 462.3 0 426.8 0C391.3 0 355.7 0 320 0C284.3 0 248.7 0 213.2 0C177.7 0 142.3 0 106.8 0C71.3 0 35.7 0 17.8 0L0 0Z" fill="#054973"></path><path d="M0 38L17.8 37.7C35.7 37.3 71.3 36.7 106.8 36C142.3 35.3 177.7 34.7 213.2 33.3C248.7 32 284.3 30 320 30.2C355.7 30.3 391.3 32.7 426.8 32.5C462.3 32.3 497.7 29.7 533.2 29.3C568.7 29 604.3 31 640 34.5C675.7 38 711.3 43 746.8 41.2C782.3 39.3 817.7 30.7 853.2 31.3C888.7 32 924.3 42 942.2 47L960 52L960 0L942.2 0C924.3 0 888.7 0 853.2 0C817.7 0 782.3 0 746.8 0C711.3 0 675.7 0 640 0C604.3 0 568.7 0 533.2 0C497.7 0 462.3 0 426.8 0C391.3 0 355.7 0 320 0C284.3 0 248.7 0 213.2 0C177.7 0 142.3 0 106.8 0C71.3 0 35.7 0 17.8 0L0 0Z" fill="#003459"></path></svg>
+        
+        
+        <article>
+            DownLoad (Le Jeu)
+        </article>
+
+        <article>
+            DownLoad (Les Rapports)
+        </article>
+    </body>
+</html>
