@@ -13,13 +13,21 @@ public class MovableCrate : PressurePlate
 
     private GameObject playerLinked;
 
+    // Position of previous TP
+    Vector2 prevTP;
+
     /*
      * Fonctions
      */
 
+    private void Start()
+    {
+        MessageOnScreenCanvas = GameObject.FindGameObjectWithTag("CanvasText");
+        prevTP = transform.position;
+    }
 
     //Appel�e a chaque frame
-    private void Update()
+    private void FixedUpdate()
     {
         //check si on appuie sur E ssi en contact avec la boite est pr�ss�e
         if (Input.GetKeyDown(KeyCode.E))
@@ -48,9 +56,10 @@ public class MovableCrate : PressurePlate
          
             photonView.RPC("UpdateLink", RpcTarget.All, linkedToPlayer);
         }
-        else if (linkedToPlayer)
+        else if (linkedToPlayer && Vector3.Distance(prevTP, transform.position) > .01f) // Check if crate moved a lot
         {
-            photonView.RPC("MoveCoo", RpcTarget.All, transform.position.x, transform.position.y);
+            prevTP = transform.position; // Update prevTP
+            photonView.RPC("MoveCoo", RpcTarget.All, prevTP);
         }
     }
 
@@ -120,9 +129,10 @@ public class MovableCrate : PressurePlate
     * <returns>Return nothing</returns>
     */
     [PunRPC]
-    void MoveCoo(float x, float y)
+    void MoveCoo(Vector2 pos)
     {
-        this.transform.position = new Vector2(x, y);
+        this.transform.position = pos;
+        prevTP = transform.position; // Update prevTP
     }
 
     /**

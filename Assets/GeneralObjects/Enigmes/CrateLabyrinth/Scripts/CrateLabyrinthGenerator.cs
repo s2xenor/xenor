@@ -57,7 +57,6 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             }
 
             SetComponent();
-            SetMsg();
             load = false;
         }
     }
@@ -116,15 +115,6 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         {
             //Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(dumpsterPrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
-        }
-    }
-
-    void SetMsg()
-    {
-        //Lier aux boites qui bougent le canvas d'int�raction
-        foreach (GameObject movableCrate in GameObject.FindGameObjectsWithTag("Box"))
-        {
-            movableCrate.GetComponent<MovableCrate>().MessageOnScreenCanvas = messageOnScreenCanvas;
         }
     }
 
