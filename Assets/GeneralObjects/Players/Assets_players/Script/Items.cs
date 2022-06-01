@@ -14,7 +14,7 @@ public class Items : ScriptableObject
 
     public enum ItemType
     {
-        PotionStreng,
+        PotionStrength,
         PotionDamage,
         Health
     }
