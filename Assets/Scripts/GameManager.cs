@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
             {
                 //SInon on charge la salle
                 nbLabyDone++;
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 25);
+                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
                 if (nbLabyDone>=3)
                 {
                     GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "MainRoom";

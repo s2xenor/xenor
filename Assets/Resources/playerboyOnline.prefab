@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4645910356762190749}
   - component: {fileID: 6908300779748459184}
   - component: {fileID: 1600335200787436466}
-  - component: {fileID: 8661671325335970476}
+  - component: {fileID: 622399253002901253}
   m_Layer: 0
   m_Name: playerboyOnline
   m_TagString: Player
@@ -135,6 +135,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: Magnitude
+  - Type: 3
+    SynchronizeType: 0
+    Name: die
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -240,7 +243,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17902699, y: 0.2000466}
   m_EdgeRadius: 0
---- !u!114 &8661671325335970476
+--- !u!114 &622399253002901253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
