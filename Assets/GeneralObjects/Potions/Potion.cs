@@ -9,7 +9,7 @@ public class Potion : MonoBehaviour
      * Add Object hitbox in children of Potion
      */
 
-    enum Type
+    public enum Type
     {
         Damage,
         Heal
@@ -20,7 +20,7 @@ public class Potion : MonoBehaviour
     float damage = 0;
     float heal = 0;
 
-    Potion(Type type, float x)
+    public Potion(Type type, float x)
     {
         this.type = type;
 
@@ -38,28 +38,28 @@ public class Potion : MonoBehaviour
     }
 
     // Make effect of potion when used
-    public void Effect(Collider2D obj)
+    public void Effect(player joueur, Monsters monstre, life vie)
     {
         switch (type)
         {
             case Type.Damage:
-                if (obj.tag == "Player")
+                if (joueur != null)
                 {
-                    // Damage Player
+                    vie.Reduce4(1);
                 }
                 else
                 {
-                    // Damage Monster
+                    monstre.GetDamage(20);
                 }
                 break;
             case Type.Heal:
-                if (obj.tag == "Player")
+                if (joueur!= null)
                 {
-                    // Heal Player
+                    vie.HealMax();
                 }
                 else
                 {
-                    // Heal Monster
+                    monstre.Heal();
                 }
                 break;
             default:

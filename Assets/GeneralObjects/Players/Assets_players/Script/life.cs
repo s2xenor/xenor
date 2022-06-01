@@ -14,6 +14,7 @@ public class life : MonoBehaviour //life class
     public  Image cooldown3;
     public  Image cooldown4;
     public bool coolingDown;
+    public bool die = false;
     public float waitTime = 15.0f;
 
     // Update is called once per frame
@@ -22,6 +23,14 @@ public class life : MonoBehaviour //life class
     {    
     }*/
 
+    public life(Image heart1, Image heart2, Image heart3, Image heart4, Image heart5)
+    {
+        cooldown=heart1;
+        cooldown1=heart2;
+        cooldown2=heart3;
+        cooldown3=heart4;
+        cooldown4=heart5;
+    }
 
 
 
@@ -48,6 +57,7 @@ public class life : MonoBehaviour //life class
                 return cooldown;
         }
     }
+
 
     /*
      *Function that reduce over the number of 1/2
@@ -113,6 +123,17 @@ public class life : MonoBehaviour //life class
         cooldown2.fillAmount = 1;
         cooldown3.fillAmount = 1;
         cooldown4.fillAmount = 1;
+        die = false;
+    }
+
+
+
+    void Update()
+    {
+        if(cooldown4.fillAmount ==0)
+        {
+            die = true;
+        }
     }
 
 }
