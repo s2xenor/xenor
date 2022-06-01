@@ -57,6 +57,9 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             }
 
             SetComponent();
+
+            Destroy(GameObject.FindGameObjectWithTag("Loading"));
+
             load = false;
         }
     }

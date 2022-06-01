@@ -1602,25 +1602,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingScreen
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8156482761849591692, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
---- !u!1 &1869977110 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7972409333465841413, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
-  m_PrefabInstance: {fileID: 1869977109}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1869977111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869977110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4d60f875e68d248b51893264cdceed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1935172939 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
