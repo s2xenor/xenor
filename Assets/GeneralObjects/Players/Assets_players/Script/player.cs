@@ -25,7 +25,7 @@ public class player : MonoBehaviour
 
 
     //life barre of the player 
-    life vie;
+    public life vie;
        
 
     void Start()

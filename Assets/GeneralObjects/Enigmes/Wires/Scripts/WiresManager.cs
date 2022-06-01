@@ -241,6 +241,13 @@ public class WiresManager : MonoBehaviourPunCallbacks
             else
             {
                 //remove life
+                foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (item.GetComponent<PhotonView>().IsMine)
+                    {
+                        item.GetComponent<player>().vie.Reduce4(1);
+                    }
+                }
                 PhotonView photonView = PhotonView.Get(this);
                 photonView.RPC("DestroyAll", RpcTarget.All);
             }
