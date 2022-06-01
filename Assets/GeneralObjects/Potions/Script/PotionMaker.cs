@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Random;
+using System;
 
 public class PotionMaker : MonoBehaviour
 {
@@ -56,7 +56,7 @@ public class PotionMaker : MonoBehaviour
         // Make effect of potion when used
         public void Effect(Collider2D obj)
         {
-            Random rand = new Random();
+            System.Random rand = new System.Random();
             int random_number=rand.Next(3);
             switch (type)
             {

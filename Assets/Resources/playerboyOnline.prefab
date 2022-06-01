@@ -256,7 +256,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Strength: 15
-  Case_Design: {fileID: 0}
+  animator: {fileID: 0}
+  cooldown: {fileID: 0}
+  cooldown1: {fileID: 0}
+  cooldown2: {fileID: 0}
+  cooldown3: {fileID: 0}
+  cooldown4: {fileID: 0}
+  vie: {fileID: 0}
 --- !u!1001 &2902361104100688680
 PrefabInstance:
   m_ObjectHideFlags: 0

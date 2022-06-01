@@ -22,12 +22,14 @@ public class DoubleDoorM : MonoBehaviourPunCallbacks
     {
         if (collision.tag == "Player" && PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("on enter");
             gameManager.DoorUpdate(1, true);
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log("on exit");
         if (collision.tag == "Player" && PhotonNetwork.IsMasterClient)
         {
             gameManager.DoorUpdate(-1, true);

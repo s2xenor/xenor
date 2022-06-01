@@ -50,6 +50,7 @@ MonoBehaviour:
   - SetTxtProps
   - SetWire
   - UnPlug
+  - ObjectfToActivate
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

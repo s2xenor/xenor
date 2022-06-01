@@ -10,7 +10,7 @@ using Photon.Pun;
 // ATTENTION : On ne doit pas pouvoir revenir sur la première scène car sinon le script va se dupliquer ce qui entraine des bugs
 // Conseil : Placer le script dans le menu de chargement.
 // NE PAS OUBLIER : ajouter un EmptyObject nommé GameManger et contenant le script GameManager sur la première scène du jeu.
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     /*
      * Variables Satiques
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // Va être egal au premier GameManager qu'il trouve dans le jeu
 
     public int QuarterHeartLost = 0; //global number of heart lost during the game
+    public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
     /*
      * Variables Publiques des trucs qu'il y a à sauvgarder
      */
@@ -245,6 +246,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+            
         Scenes = new Dictionary<string, string>();
         Scenes.Add("Crate", "");
         Scenes.Add("Connect", "");
@@ -252,13 +254,18 @@ public class GameManager : MonoBehaviour
         Scenes.Add("Arrows", "");
         Scenes.Add("Wires", "");
         Scenes.Add("Donjon", "");
+        Scenes.Add("Cells", "Cells");
+        Scenes.Add("MainRoom", "MainRoom");
+
     }
 
     int doorActivated = 0;
     public void DoorUpdate(int increment, bool doubleD)
     {
         doorActivated += increment;
-        if((doubleD && doorActivated == 2) || (!doubleD && doorActivated == 1))
+        Debug.Log("door update"+doorActivated);
+        Debug.Log("door increment" + increment);
+        if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1))
         {
             if (LevelCompleted())
             {
@@ -270,18 +277,34 @@ public class GameManager : MonoBehaviour
 
     private bool LevelCompleted()
     {
-        Debug.Log(Scenes["Crate"]);
         string scenesName = SceneManager.GetActiveScene().name;
 
         if (scenesName == Scenes["Connect"]) return false;
         if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
+        if (scenesName == Scenes["Cells"]) return GameObject.Find("ThisSceneManager").GetComponent<DialogueTrigger>().IsLevelFinished();
 
         return true;
     }
 
     private void LoadNextScene()
     {
-        PhotonNetwork.LoadLevel(Scenes["Arrow"]);
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == Scenes["Cells"])
+        {
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+        else if (sceneName == Scenes["MainRoom"])
+        {
+            if(NextSceneDoor != null)
+            {
+                PhotonNetwork.LoadLevel(NextSceneDoor);
+            }
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(Scenes["Arrow"]);
+
+        }
     }
 
 }

@@ -6,6 +6,8 @@ using Photon.Pun;
 public class SingleDoorM : MonoBehaviourPunCallbacks
 {
     private GameManager gameManager;
+
+    public string NextScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
     {
         if (collision.tag == "Player" && PhotonNetwork.IsMasterClient)
         {
+            if(NextScene != null) gameManager.NextSceneDoor = NextScene;
             gameManager.DoorUpdate(1, false);
         }
     }
