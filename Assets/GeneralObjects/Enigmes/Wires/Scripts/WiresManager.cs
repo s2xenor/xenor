@@ -136,7 +136,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
         if (isMasterOnRule)//client need wires
         {
             PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("SetTxtProps", RpcTarget.Others, correctWire, wiresColors, isOnPressureWire);
+            photonView.RPC("SetWire", RpcTarget.Others, correctWire, wiresColors, isOnPressureWire);
         }
         else
         {
@@ -174,8 +174,12 @@ public class WiresManager : MonoBehaviourPunCallbacks
         {
             float y = startY - i * 0.32f;
 
-            plugNumber = Instantiate(plugPrefab, new Vector3(startX, y, -1), Quaternion.identity);
-            plugLetter = Instantiate(plugPrefab, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity);
+            plugNumber = Instantiate(plugPrefab, new Vector3(startX, y, -1), Quaternion.identity, parentObj.transform);
+            //plugNumber.AddComponent<SphereCollider>();
+            //plugNumber.GetComponent<SphereCollider>().isTrigger = true;
+
+
+            plugLetter = Instantiate(plugPrefab, new Vector3(startX + 0.32f * 5, y, -1), Quaternion.identity, parentObj.transform);
 
             plugsN[i] = plugNumber;
             plugsL[i] = plugLetter;
@@ -198,17 +202,18 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
 
             
-            wire = Instantiate(wirePrefab, new Vector3(0, 0, 0), Quaternion.identity);  //create a new wire
+            wire = Instantiate(wirePrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObj.transform);  //create a new wire
             plugsN[i].GetComponent<Plug>().wireManager = this;
             plugsN[i].GetComponent<Plug>().wire = wire;                                                         //adding the wire to the plug script
             wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
             wire.GetComponent<Wire>().color = wiresColor[i];                                                    //setting the wire color
 
-            if (active) //should wire show
+            if (!active && false) //is not on pressure wire
             {
-                wire.SetActive(false);
-                plugsN[i].SetActive(false);
-                plug2.SetActive(false);
+                //wire.SetActive(false);
+                //plugsN[i].SetActive(false);
+                //plug2.SetActive(false);
+                ShowDistantWires(false);
             }
         }
     }
@@ -218,9 +223,31 @@ public class WiresManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ShowDistantWires(bool show)
     {
-        foreach (var item in GameObject.FindGameObjectsWithTag("wireObject"))
+        Debug.Log("show wire"+show);
+        parentObj.SetActive(show);
+    }
+
+    [PunRPC]
+    public void UnPlug(bool correct)
+    {
+        if (PhotonNetwork.IsMasterClient)
         {
-            item.SetActive(show);
+            if (correct)
+            {
+                //activate door
+            }
+            else
+            {
+                //remove life
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("DestroyAll", RpcTarget.All);
+            }
+
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("UnPlug", RpcTarget.MasterClient, correct);
         }
     }
 
@@ -256,14 +283,6 @@ public class WiresManager : MonoBehaviourPunCallbacks
             if (isOnPressureRule)
             {
                 GenerateAll();
-                //if (!isMasterOnWire)//client on wire or no one
-                //{
-                //    if (!isOnPressureWire)//client on wire
-                //    {
-                //        PhotonView photonView = PhotonView.Get(this);
-                //        photonView.RPC("ShowDistantWires", RpcTarget.All, false);
-                //    }
-                //}
             }
         }
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1151379981630096257}
   - component: {fileID: 4730076429989604292}
   - component: {fileID: 7094537689338648948}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: ruleObject
   m_Icon: {fileID: 0}
