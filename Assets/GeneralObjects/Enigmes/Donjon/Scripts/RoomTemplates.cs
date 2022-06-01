@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class RoomTemplates : MonoBehaviour {
 
@@ -17,6 +18,8 @@ public class RoomTemplates : MonoBehaviour {
 	private bool spawnedBoss;
 	public GameObject boss; // Boss room
 
+	bool beganTimer = false;
+
 	void Update()
 	{
 		if (waitTime <= 0 && spawnedBoss == false)
@@ -25,12 +28,22 @@ public class RoomTemplates : MonoBehaviour {
 			{
 				if(i == rooms.Count-1)
 				{
-					Instantiate(boss, rooms[i].transform.position, Quaternion.identity); // Spawn boss
+					if (PhotonNetwork.IsMasterClient)
+						PhotonNetwork.Instantiate(boss.name, rooms[i].transform.position, Quaternion.identity); // Spawn boss
+					
 					spawnedBoss = true;
+
+					Destroy(GameObject.FindGameObjectWithTag("Loading"));
 				}
 			}
 		} 
-		else
+		else if (beganTimer)
+        {
 			waitTime -= Time.deltaTime; // Update timer
+        }
+		else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
+        {
+			beganTimer = true;
+        }
 	}
 }

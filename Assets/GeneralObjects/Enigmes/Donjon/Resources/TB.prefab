@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 61910223407101700}
   - component: {fileID: 50743186921995866}
   - component: {fileID: 114857485172185208}
+  - component: {fileID: 4970999299475071144}
   m_Layer: 0
   m_Name: Spawn Point
   m_TagString: SpawnPoint
@@ -341,6 +342,28 @@ MonoBehaviour:
   openingDirection: 1
   spawned: 0
   waitTime: 4
+--- !u!114 &4970999299475071144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495743175035696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1532460050559808
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +444,7 @@ GameObject:
   - component: {fileID: 61241003714781336}
   - component: {fileID: 50304993449724038}
   - component: {fileID: 114397527311484624}
+  - component: {fileID: 1198367961513991110}
   m_Layer: 0
   m_Name: Spawn Point (1)
   m_TagString: SpawnPoint
@@ -504,6 +528,28 @@ MonoBehaviour:
   openingDirection: 2
   spawned: 0
   waitTime: 4
+--- !u!114 &1198367961513991110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657875908759724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1821337426962794
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4767410067509144}
   - component: {fileID: 114679393966003484}
+  - component: {fileID: 3153808180624267439}
   m_Layer: 0
   m_Name: TB
   m_TagString: Untagged
@@ -795,3 +842,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574b113a1431ad2489b46dd20fdf7dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3153808180624267439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974744948600924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
