@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Photon.Pun;
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
 // Il permet de sauvegarder des données que l'on souhaite récupérer après le chargement de la scène suivante
@@ -235,4 +235,53 @@ public class GameManager : MonoBehaviour
         // On détruit le fichier
         System.IO.File.Delete(filePath);
     }
+
+
+    /*
+     * MULTI 
+     */
+
+    Dictionary<string, string> Scenes;
+
+    public void Start()
+    {
+        Scenes = new Dictionary<string, string>();
+        Scenes.Add("Crate", "");
+        Scenes.Add("Connect", "");
+        Scenes.Add("LabyInvisible", "");
+        Scenes.Add("Arrows", "");
+        Scenes.Add("Wires", "");
+        Scenes.Add("Donjon", "");
+    }
+
+    int doorActivated = 0;
+    public void DoorUpdate(int increment, bool doubleD)
+    {
+        doorActivated += increment;
+        if((doubleD && doorActivated == 2) || (!doubleD && doorActivated == 1))
+        {
+            if (LevelCompleted())
+            {
+                doorActivated = 0;
+                LoadNextScene();
+            }
+        }
+    }
+
+    private bool LevelCompleted()
+    {
+        Debug.Log(Scenes["Crate"]);
+        string scenesName = SceneManager.GetActiveScene().name;
+
+        if (scenesName == Scenes["Connect"]) return false;
+        if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
+
+        return true;
+    }
+
+    private void LoadNextScene()
+    {
+        PhotonNetwork.LoadLevel(Scenes["Arrow"]);
+    }
+
 }

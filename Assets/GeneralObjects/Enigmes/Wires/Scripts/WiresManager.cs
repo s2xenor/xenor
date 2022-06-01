@@ -51,6 +51,11 @@ public class WiresManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public bool IsLevelFinished()
+    {
+        return true;
+    }
+
 
 
     public void GenerateAll()
@@ -208,11 +213,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
             wire.GetComponent<Wire>().Positions = new Transform[2] { plugsN[i].transform, plug2.transform };    //adding two plugs to the wire script
             wire.GetComponent<Wire>().color = wiresColor[i];                                                    //setting the wire color
 
-            if (!active && false) //is not on pressure wire
+            if (!active) //is not on pressure wire
             {
-                //wire.SetActive(false);
-                //plugsN[i].SetActive(false);
-                //plug2.SetActive(false);
                 ShowDistantWires(false);
             }
         }

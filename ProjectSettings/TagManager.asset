@@ -12,6 +12,7 @@ TagManager:
   - Door
   - wireObject
   - ruleObject
+  - GameManager
   layers:
   - Default
   - TransparentFX
