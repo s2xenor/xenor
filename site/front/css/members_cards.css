@@ -22,9 +22,15 @@ Description Membres
 .member-description-active {
     color: #eee;
     text-align: justify;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     animation: member-description 1.5s forwards;
     transform: scale(0);
+}
+
+.member-description-active > p {
+  text-indent: 50px;
 }
 
 @keyframes member-description {
