@@ -15,12 +15,17 @@ public class life : MonoBehaviour //life class
     public  Image cooldown4;
     public bool coolingDown;
     public float waitTime = 15.0f;
-
+    private GameManager gameManager;
     // Update is called once per frame
 
     /*void Update()
     {    
     }*/
+
+    private void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
 
 
 
@@ -34,16 +39,12 @@ public class life : MonoBehaviour //life class
         {
             case 1:
                 return cooldown1;
-                break;
             case 2:
                 return cooldown2;
-                break;
             case 3:
                 return cooldown3;
-                break;
             case 4:
                 return cooldown4;
-                break;
             default:
                 return cooldown;
         }
@@ -54,6 +55,7 @@ public class life : MonoBehaviour //life class
      */
     public void Reduce2(int hearts) //Function that reduce by 1/2 hearts
     {
+        gameManager.QuarterHeartLost += hearts*2;
         if (coolingDown)//Reduce fill amount over the numbers of 1/2 hearts
         {
             float val = 1;//the value which reduces the filAmount 
@@ -82,6 +84,7 @@ public class life : MonoBehaviour //life class
 
     public  void Reduce4(int hearts) //Function that reduce by 1/4 hearts
     {
+        gameManager.QuarterHeartLost += hearts;
         if (coolingDown)//Reduce fill amount over the numbers of 1/4 hearts
         {
             float val = 1;//the value which reduces the filAmount 

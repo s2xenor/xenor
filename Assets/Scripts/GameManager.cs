@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     // Permet que l'on puisse sauvergarder des données depuis n'importe où
     public static GameManager instance; // Va être egal au premier GameManager qu'il trouve dans le jeu
 
-
+    public int QuarterHeartLost = 0; //global number of heart lost during the game
     /*
      * Variables Publiques des trucs qu'il y a à sauvgarder
      */
