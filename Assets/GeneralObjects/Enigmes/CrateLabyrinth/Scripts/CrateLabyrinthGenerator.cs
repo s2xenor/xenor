@@ -58,7 +58,7 @@ public class CrateLabyrinthGenerator : MonoBehaviour
 
             SetComponent();
 
-            Destroy(GameObject.FindGameObjectWithTag("Loading"));
+			GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
 
             load = false;
         }

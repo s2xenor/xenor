@@ -33,7 +33,7 @@ public class RoomTemplates : MonoBehaviour {
 					
 					spawnedBoss = true;
 
-					Destroy(GameObject.FindGameObjectWithTag("Loading"));
+					GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
 				}
 			}
 		} 

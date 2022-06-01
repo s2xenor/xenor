@@ -54,7 +54,8 @@ public class MainMaze : MonoBehaviour
             }
 
             hasSpawned = false;
-            Destroy(GameObject.FindGameObjectWithTag("Loading"));
+
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
         }
     }
 
