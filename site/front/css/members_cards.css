@@ -1,7 +1,9 @@
 .group-presentation {
-    padding: 30px;
+    padding: 2vh 8vw;
     font-size: calc(15px + 5 * ((100vw - 280px) / 680));
     font-family: 'Roboto Mono', monospace;
+    text-align: justify;
+    text-indent: 80px;
 }
 
 /*------------------------------------------
