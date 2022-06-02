@@ -45,7 +45,7 @@ public class PotionMaker : MonoBehaviour
                     heal = x;
                     break;
                 case Type.Stregth:
-                    streng= x;
+                    streng = x;
                     break;
                 default:
                     break;
@@ -55,6 +55,7 @@ public class PotionMaker : MonoBehaviour
         // Make effect of potion when used
         public void Effect(Collider2D obj)
         {
+
             switch (type)
             {
                 case Type.Damage:
