@@ -10,19 +10,24 @@ public class PCMazeGenerator
     private PCTile[][] maze;
     public PCTile[][] Maze => maze;
 
-    private List<(int, int)> startsAndEnds = new List<(int, int)>();
+    public List<(int, int)> startsAndEnds = new List<(int, int)>();
     public List<(int, int)> StartsAndEnds => startsAndEnds;
+    private PCMap mapScript;
 
-    public PCMazeGenerator(int mapSize)
+    public PCMazeGenerator(int mapSize, PCMap mapScript)
     {
+        this.mapScript = mapScript;
         this.mapSize = mapSize;// Random.Range(10, 40);
         maze = new PCTile[mapSize][];
 
-        //Initialisation du labyrinthe
-        InitMaze();
+        if(mapSize > 0)
+        {
+            //Initialisation du labyrinthe
+            InitMaze();
 
-        //Cr�ation du labyrinthe de produit chimique
-        GenerateMaze();
+            //Cr�ation du labyrinthe de produit chimique
+            GenerateMaze();
+        }
     }
 
     /**
@@ -267,15 +272,12 @@ public class PCMazeGenerator
             ends.Add((int)toAdd);
         }
 
+
+        foreach (var start in starts) startsAndEnds.Add((-1, start));
+        foreach (var end in ends) startsAndEnds.Add((MapSize, end));
         //On a joute � startsAndEnds
-        foreach (int start in starts)
-        {
-            startsAndEnds.Add((-1, start));
-        }
-        foreach (int end in ends)
-        {
-            startsAndEnds.Add((mapSize, end));
-        }
+
     }
+
 
 }

@@ -297,7 +297,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
             GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
-            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
             PipeIndex++;
         }
         else

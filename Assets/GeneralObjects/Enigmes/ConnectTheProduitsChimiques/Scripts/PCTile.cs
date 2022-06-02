@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-public class PCTile : MonoBehaviourPunCallbacks
-{
+public class PCTile{ 
     public enum PCTileType
     {
         None = 0,
@@ -52,15 +50,18 @@ public class PCTile : MonoBehaviourPunCallbacks
         this.fluidDirection = fluidDirection;
     }
 
-    public void GlobalAddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
+    public PCTile(PCTileType tileType, PCFluidDirection fluidDirection, PCFluidDirection fluidDirection2)
     {
-        PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("AddDirection", RpcTarget.All, enterDir, exitDir);
+        this.tileType = tileType;
+        this.fluidDirection = fluidDirection;
+        this.fluidDirection2 = fluidDirection2;
     }
 
-    [PunRPC]
+
+
     public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
     {
+
         if (((int)enterDir + (int)exitDir) % 2 == 1)
         {
             if (TileType != PCTileType.None)

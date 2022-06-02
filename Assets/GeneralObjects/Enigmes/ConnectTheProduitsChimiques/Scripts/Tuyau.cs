@@ -77,8 +77,7 @@ public class Tuyau : PressurePlate
         if (pressed && Input.GetKeyDown(KeyCode.R) && TileData.TileType != PCTile.PCTileType.Cross)
         {
             //teléporte les joueurs
-            PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("Rotate", RpcTarget.All);
+            Map.GlobalRotatate(CoordX, CoordY, true);
         }
     }
 
@@ -114,7 +113,6 @@ public class Tuyau : PressurePlate
      * 
      * A chaque appel, remet tous les tuyaux a 0 et recalcule la trajectoire du liquide
      */
-    [PunRPC]
     public void Rotate()
     {
         Rotation++;

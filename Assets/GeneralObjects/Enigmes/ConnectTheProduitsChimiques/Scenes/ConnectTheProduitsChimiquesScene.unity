@@ -283,6 +283,10 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 8666501797103497954, guid: 9610bff595f97d04489c836d0d1eef0f, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: canvaTextPopUP
+      value: 
+      objectReference: {fileID: 1833423487}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5662643444dd66342910ac28b8586c38, type: 3}
 --- !u!1 &1753461746 stripped
@@ -409,3 +413,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
+--- !u!1 &1833423487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8312868088940820041, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
+  m_PrefabInstance: {fileID: 1833423486}
+  m_PrefabAsset: {fileID: 0}

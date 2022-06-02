@@ -13,7 +13,7 @@ public class PCMap : MonoBehaviourPunCallbacks
     public GameObject vitre;
     //Canvas
     public GameObject canvaTextPopUP;
-    
+
     public int nbPipeOk = 0;
 
     public int MapSize = 10;
@@ -41,13 +41,14 @@ public class PCMap : MonoBehaviourPunCallbacks
      * Variables Priv�es
      */
     private PCMazeGenerator mazeGenerator;
-    public List<(int,int)> StartsAndEnds => mazeGenerator.StartsAndEnds;
+    public List<(int, int)> StartsAndEnds => mazeGenerator.StartsAndEnds;
 
     public List<Tuyau> Tuyaux = new List<Tuyau>();
-    
+
     private Tuyau[][] tuyauxMaze;
     public Tuyau[][] TuyauxMaze => tuyauxMaze;
 
+    private bool shouldStartGeneration = false;
 
     GameObject[] gos;
     private bool screenNeedDelete = true;
@@ -57,25 +58,35 @@ public class PCMap : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn master player on network
-            StartGeneration();
+            ShouldStartGeneration();//remove on final
         }
         else
         {
+            mazeGenerator = new PCMazeGenerator(0, this);
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn player on network
         }
+
 
     }
 
     void Update()
     {
+
         gos = GameObject.FindGameObjectsWithTag("Loading");
 
         // Delete loading screen
-        if (screenNeedDelete && GameObject.FindGameObjectsWithTag("Player").Length == 2 && gos.Length != 0 || true)
+        if (screenNeedDelete && GameObject.FindGameObjectsWithTag("Player").Length == 2 && gos.Length != 0)
         {
             screenNeedDelete = false;
             foreach (GameObject go in gos)
                 go.GetComponent<FetchCam>().Del();
+
+        }
+
+        if (!screenNeedDelete && shouldStartGeneration)
+        {
+            shouldStartGeneration = false;
+            StartGeneration();
         }
 
         //Cheat code to enlock door
@@ -85,11 +96,21 @@ public class PCMap : MonoBehaviourPunCallbacks
         }
     }
 
+    public void ShouldStartGeneration() => shouldStartGeneration = true;
+
     // Start is called before the first frame update
     public void StartGeneration()
     {
-        mazeGenerator = new PCMazeGenerator(MapSize);
+        mazeGenerator = new PCMazeGenerator(MapSize, this);
         PhotonView photonView = PhotonView.Get(this);
+
+        for (int i = 0; i < mazeGenerator.startsAndEnds.Count; i++)
+        {
+            photonView.RPC("GlobalStartsAndEnds", RpcTarget.Others, mazeGenerator.startsAndEnds[i].Item1, mazeGenerator.startsAndEnds[i].Item2);
+
+        }
+
+        photonView.RPC("GlobalStartAfterGen", RpcTarget.All, mazeGenerator.MapSize);
 
         //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout � augmenter le difficult�e de l'�nigme
         for (int i = 0; i < mazeGenerator.Maze.Length; i++)
@@ -102,14 +123,14 @@ public class PCMap : MonoBehaviourPunCallbacks
                     switch (nbalea)
                     {
                         case 0:
-                            mazeGenerator.Maze[i][j].GlobalAddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Right);
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Right);
                             break;
                         case 1:
-                            mazeGenerator.Maze[i][j].GlobalAddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Up);
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Up);
                             break;
                         case 2:
-                            mazeGenerator.Maze[i][j].GlobalAddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Right);
-                            mazeGenerator.Maze[i][j].GlobalAddDirection(PCTile.PCFluidDirection.Down, PCTile.PCFluidDirection.Up);
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Left, PCTile.PCFluidDirection.Right);
+                            mazeGenerator.Maze[i][j].AddDirection(PCTile.PCFluidDirection.Down, PCTile.PCFluidDirection.Up);
                             break;
                         default:
                             break;
@@ -139,7 +160,14 @@ public class PCMap : MonoBehaviourPunCallbacks
                 PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
                 if (tile.TileType != PCTile.PCTileType.None)
                 {
-                    photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coordX, coordY, coordY);
+                    if (tile.FluidDirection2 != PCTile.PCFluidDirection.None)
+                    {
+                        photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coordX, coordY, coordY+1, (int)tile.TileType, (int)tile.FluidDirection, 0, (int)tile.FluidDirection2);
+                    }
+                    else
+                    {
+                        photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coordX, coordY, coordY+1, (int)tile.TileType, (int)tile.FluidDirection, 1, -1);
+                    }
                 }
             }
         }
@@ -153,29 +181,17 @@ public class PCMap : MonoBehaviourPunCallbacks
 
         int numeroSource = 0;
         //placement des sources et des arriv�es
-        foreach ((int,int) coords in mazeGenerator.StartsAndEnds)
+        foreach ((int, int) coords in mazeGenerator.StartsAndEnds)
         {
-            Tuyau pipe = PhotonNetwork.Instantiate(tuyau.name, new Vector3((float)0.32 * coords.Item2 - (float)0.16, (float)0.32 * coords.Item1 + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
             if (coords.Item1 == -1)
             {
-                photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coords.Item2, coords.Item1, 0);
-                pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Down);
-                tuyauxMaze[coords.Item2][0] = pipe;
-                pipe.MessageOnScreenCanvas = canvaTextPopUP;
-                pipe.AffichageUpdate();
-                pipe.InitaliseRotation(coords.Item2, 0);
-                pipe.ColorUpdate(PCTile.PCFluidDirection.None, (PCTile.PCFluidColor)numeroSource);
+                photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coords.Item2, coords.Item1, 0, (int)PCTile.PCTileType.Source, (int)PCTile.PCFluidDirection.Down, 2, numeroSource + 1);
                 numeroSource++;
             }
             else
             {
-                photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coords.Item2, coords.Item1, mazeGenerator.MapSize);
-                pipe.TileData = new PCTile(PCTile.PCTileType.Source, PCTile.PCFluidDirection.Up);
-                tuyauxMaze[coords.Item2][mazeGenerator.MapSize+1] = pipe;
-                pipe.InitaliseRotation(coords.Item2, mazeGenerator.MapSize);
-                pipe.MessageOnScreenCanvas = canvaTextPopUP;
-                pipe.AffichageUpdate();
-                Tuyaux.Add(pipe);
+                photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coords.Item2, coords.Item1, mazeGenerator.MapSize+1, (int)PCTile.PCTileType.Source, (int)PCTile.PCFluidDirection.Up, 3, -1);
+
             }
         }
 
@@ -184,7 +200,7 @@ public class PCMap : MonoBehaviourPunCallbacks
         {
             for (int j = -3; j < mazeGenerator.MapSize + 3; j++)
             {
-                if (j==-1 && i >= -1 && i <= mazeGenerator.MapSize)
+                if (j == -1 && i >= -1 && i <= mazeGenerator.MapSize)
                 {
                     j = mazeGenerator.MapSize + 1;
                 }
@@ -198,7 +214,7 @@ public class PCMap : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(wall_left.name, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(wall_right.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
         }
-        for (int i= -3; i < mazeGenerator.MapSize + 3; i++)
+        for (int i = -3; i < mazeGenerator.MapSize + 3; i++)
         {
             PhotonNetwork.Instantiate(wall_down.name, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(wall_top.name, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
@@ -225,17 +241,60 @@ public class PCMap : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void GlobalInstantiatePipe(int coX, int coY, int secondY)
+    public void GlobalInstantiatePipe(int coX, int coY, int secondY, int source, int direction, int from, int val)
     {
-        Tuyau pipe = PhotonNetwork.Instantiate(tuyau.name, new Vector3((float)0.32 * coX - (float)0.16, (float)0.32 * coY + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
+        PCTile tile;
+        if (from == 0) tile = new PCTile((PCTile.PCTileType)source, (PCTile.PCFluidDirection)direction, (PCTile.PCFluidDirection)val);  //multi direction
+        else tile = new PCTile((PCTile.PCTileType)source, (PCTile.PCFluidDirection)direction);
+
+        Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coX - (float)0.16, (float)0.32 * coY + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
         pipe.TileData = tile;
         pipe.MessageOnScreenCanvas = canvaTextPopUP;
         pipe.AffichageUpdate();
         pipe.Map = this;
-        pipe.InitaliseRotation(coX, secondY + 1);
-        Tuyaux.Add(pipe);
-        tuyauxMaze[coX][coY + 1] = pipe;
+        pipe.InitaliseRotation(coX, secondY);
+
+        if (from == 2) pipe.ColorUpdate(PCTile.PCFluidDirection.None, (PCTile.PCFluidColor)val); //source
+        else Tuyaux.Add(pipe); 
+
+        if(from == 3) tuyauxMaze[coX][secondY] = pipe; //exit
+        else tuyauxMaze[coX][secondY] = pipe;
     }
+
+    [PunRPC]
+    public void GlobalStartAfterGen(int size){
+        //Initialisation du tableau de tuyaux
+        tuyauxMaze = new Tuyau[size][];
+        int tabTaille = size + 2;
+        for (int i = 0; i<size; i++)
+        {
+            tuyauxMaze[i] = new Tuyau[tabTaille];
+        }
+    }
+
+    [PunRPC]
+    public void GlobalRotatate(int coX, int coY, bool resend = false)
+    {
+        if (resend)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("GlobalRotatate", RpcTarget.All, coX, coY, false);
+        }
+        else
+        {
+            tuyauxMaze[coX][coY].Rotate();
+        }
+    }
+
+    [PunRPC]
+    public void GlobalStartsAndEnds(int val1, int val2)
+    {
+        mazeGenerator.startsAndEnds.Add((val1, val2));
+    }
+
+
+
+
     /**
      * <summary>Cette fonction permet de v�rouiller ou de d�verouiller la porte de sortie</summary>
      */

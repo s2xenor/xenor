@@ -55,6 +55,10 @@ MonoBehaviour:
   - EndOfGame
   - Rotate
   - AddDirection
+  - GlobalInstantiatePipe
+  - GlobalRotatate
+  - GlobalStartAfterGen
+  - GlobalStartsAndEnds
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
