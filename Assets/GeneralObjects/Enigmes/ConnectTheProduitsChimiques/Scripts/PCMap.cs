@@ -38,7 +38,7 @@ public class PCMap : MonoBehaviour
     public GameObject single_door;
 
     /**
-     * Variables Privées
+     * Variables Privï¿½es
      */
     private PCMazeGenerator mazeGenerator;
     public List<(int,int)> StartsAndEnds => mazeGenerator.StartsAndEnds;
@@ -48,13 +48,17 @@ public class PCMap : MonoBehaviour
     private Tuyau[][] tuyauxMaze;
     public Tuyau[][] TuyauxMaze => tuyauxMaze;
 
+    private void Start()
+    {
+        StartGeneration();
+    }
 
     // Start is called before the first frame update
     public void StartGeneration()
     {
         mazeGenerator = new PCMazeGenerator(MapSize);
 
-        //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout à augmenter le difficultée de l'énigme
+        //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout ï¿½ augmenter le difficultï¿½e de l'ï¿½nigme
         for (int i = 0; i < mazeGenerator.Maze.Length; i++)
         {
             for (int j = 0; j < mazeGenerator.Maze[0].Length; j++)
@@ -123,7 +127,7 @@ public class PCMap : MonoBehaviour
 
 
         int numeroSource = 0;
-        //placement des sources et des arrivées
+        //placement des sources et des arrivï¿½es
         foreach ((int,int) coords in mazeGenerator.StartsAndEnds)
         {
             Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coords.Item2 - (float)0.16, (float)0.32 * coords.Item1 + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
@@ -196,7 +200,7 @@ public class PCMap : MonoBehaviour
 
     void Update()
     {
-        //Cheat code pour dévérouiller la porte
+        //Cheat code pour dï¿½vï¿½rouiller la porte
         if (Input.GetKeyDown(KeyCode.P))
         {
             EndOfGame();
@@ -204,7 +208,7 @@ public class PCMap : MonoBehaviour
     }
 
     /**
-     * <summary>Cette fonction permet de vérouiller ou de déverouiller la porte de sortie</summary>
+     * <summary>Cette fonction permet de vï¿½rouiller ou de dï¿½verouiller la porte de sortie</summary>
      */
     public void EndOfGame()
     {
