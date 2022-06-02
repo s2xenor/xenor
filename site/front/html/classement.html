@@ -5,28 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classement</title>
     <link rel="stylesheet" href="../css/classement.css">
+    <link rel="stylesheet" href="../css/nav_bar.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/play_button.css">
+    <script src="../js/navbar.js"></script>
 </head>
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>User 1</th>
-                <th>User 2</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody>
+    <nav>
+        <input id="menu_check" type="checkbox" class="css-checkbox">
+        <div class="menu_label_back">
+            <label for="menu_check" class="menu_label"></label>
+        </div>
+        <div id="menu_wrapper">
+            <ul class="menu_ul">
+                <a href="downloadPage.html">
+                    <li class="button_play" onmouseover="background0()">
+                        JOUER
+                    </li>
+                </a>
+                <a href="../index.html"> 
+                    <li class="menu_tab" onmouseover="background25()">
+                        <h1 class="menu_title">Accueil</h1>
+                    </li>
+                </a>
+                <a href="group_presentation.html"> 
+                    <li class="menu_tab" onmouseover="background50()" >
+                        <h1 class="menu_title">L'Equipe</h1>
+                    </li>
+                </a>
+                <a href="#"> 
+                <li class="menu_tab" onmouseover="background75()">
+                    <h1 class="menu_title">Classement</h1>
+                </li>
+                </a>
+                <li class="menu_tab" onmouseover="background100()" onclick="openSubmenu()">
+                    <h1 class="menu_title">Le Jeu</h1>
+                </li>
+            </ul>
+            <div id="menu_submenu">
+                <a href="histoire.html"> 
+                <div class="menu_submenu_tab">
+                    <h2 class="menu_submenu_title">L'Histoire</h2>
+                </div>
+                </a>
+                <a href="gameplay.html"> 
+                <div class="menu_submenu_tab">
+                    <h2 class="menu_submenu_title">Gameplay</h2>
+                </div>
+                </a>
+            </div>
+        </div>
+    </nav>
 
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4">
-                    <button id="addict">I need more !</button>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="titre_page">
+        <h1>L'Histoire</h1>
+    </div>
+    <svg id="vague" viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><path d="M0 220L30 218.7C60 217.3 120 214.7 180 236.2C240 257.7 300 303.3 360 295.8C420 288.3 480 227.7 540 232.5C600 237.3 660 307.7 720 338C780 368.3 840 358.7 870 353.8L900 349L900 0L870 0C840 0 780 0 720 0C660 0 600 0 540 0C480 0 420 0 360 0C300 0 240 0 180 0C120 0 60 0 30 0L0 0Z" fill="#131313" stroke-linecap="round" stroke-linejoin="miter"></path></svg>    
+    
+    <article class="body">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User 1</th>
+                    <th>User 2</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Matrix</td>
+                    <td>Hugo Meens</td>
+                    <td>Timothy Didierjean</td>
+                    <td>EpitaLand</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td id="button" colspan="4">
+                        <button id="addict">I need more !</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </article>
 
     
     <script>
