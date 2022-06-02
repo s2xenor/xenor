@@ -5,26 +5,26 @@ using UnityEngine.SceneManagement;
 
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
-// Il permet de sauvegarder des données que l'on souhaite récupérer après le chargement de la scène suivante
-// ATTENTION : ce script ne doit être placé qu'une seule fois dans le jeu !!!!!!!!!!!!!!!!! Lors de la première scene.
-// ATTENTION : On ne doit pas pouvoir revenir sur la première scène car sinon le script va se dupliquer ce qui entraine des bugs
+// Il permet de sauvegarder des donnï¿½es que l'on souhaite rï¿½cupï¿½rer aprï¿½s le chargement de la scï¿½ne suivante
+// ATTENTION : ce script ne doit ï¿½tre placï¿½ qu'une seule fois dans le jeu !!!!!!!!!!!!!!!!! Lors de la premiï¿½re scene.
+// ATTENTION : On ne doit pas pouvoir revenir sur la premiï¿½re scï¿½ne car sinon le script va se dupliquer ce qui entraine des bugs
 // Conseil : Placer le script dans le menu de chargement.
-// NE PAS OUBLIER : ajouter un EmptyObject nommé GameManger et contenant le script GameManager sur la première scène du jeu.
+// NE PAS OUBLIER : ajouter un EmptyObject nommï¿½ GameManger et contenant le script GameManager sur la premiï¿½re scï¿½ne du jeu.
 public class GameManager : MonoBehaviour
 {
     /*
      * Variables Satiques
      * 
-     * Permet que l'on puisse y accèder depuis n'importe quel script même s'il n'est pas dans la hierarchie
+     * Permet que l'on puisse y accï¿½der depuis n'importe quel script mï¿½me s'il n'est pas dans la hierarchie
      */
 
-    // Le Script GameManager lui-même
-    // Permet que l'on puisse sauvergarder des données depuis n'importe où
-    public static GameManager instance; // Va être egal au premier GameManager qu'il trouve dans le jeu
+    // Le Script GameManager lui-mï¿½me
+    // Permet que l'on puisse sauvergarder des donnï¿½es depuis n'importe oï¿½
+    public static GameManager instance; // Va ï¿½tre egal au premier GameManager qu'il trouve dans le jeu
 
 
     /*
-     * Variables Publiques des trucs qu'il y a à sauvgarder
+     * Variables Publiques des trucs qu'il y a ï¿½ sauvgarder
      */
     public PlayerSettings playerSettings = new PlayerSettings();
 
@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
      */
     private int nbLabyDone = 0;
 
+    /**
+     * Menu GameObject
+     */
+    public GameObject menu;
+
     /*
      * Fonctions
      */
@@ -58,25 +63,48 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        ResetSave(); // si on veut pas recupérer les données de la dernière session quand on relance le jeu.
+        ResetSave(); // si on veut pas recupï¿½rer les donnï¿½es de la derniï¿½re session quand on relance le jeu.
 
         instance = this;
-        SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les données
+        SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les donnï¿½es
         SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
     }
 
-    //Fct appellé a chaqque chargement de nouvelle scène (on rappelle que le gamemanager est un objet jamais détruit
+    private void Update()
+    {
+        // Show pause menu when escape is pressed
+        if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 0 && Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
+            int n = pauseMenu.Length;
+
+            // If pause menu already exists, destroy id
+            if (n != 0)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    Destroy(pauseMenu[0]);
+                }
+            }
+            else
+            {
+                Instantiate(menu, Vector2.zero, Quaternion.identity);
+            }
+        }
+    }
+
+    //Fct appellï¿½ a chaqque chargement de nouvelle scï¿½ne (on rappelle que le gamemanager est un objet jamais dï¿½truit
     public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
     {
-        //Si on est dans les salle d'énigme labybox
-        //Alors on appelle le générateur de laby box avec la salle que l'on souhaite charger
+        //Si on est dans les salle d'ï¿½nigme labybox
+        //Alors on appelle le gï¿½nï¿½rateur de laby box avec la salle que l'on souhaite charger
         if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
         {
-            //Ola fct est appelé 2 fois au chargement de la scène donc on fais l'action qu'une seule fois sur 2
+            //Ola fct est appelï¿½ 2 fois au chargement de la scï¿½ne donc on fais l'action qu'une seule fois sur 2
             if (loadNow)
             {
-                //si on a dépaaséé le nb de salle
+                //si on a dï¿½paasï¿½ï¿½ le nb de salle
                 if (LabyBoxNextInt >= 12)
                 {
                     //charger le loby  
@@ -95,13 +123,13 @@ public class GameManager : MonoBehaviour
                     {
                         LabyBoxNextInt += Random.Range(0, 3);
                     }
-                    //on a chargé la salle donc on désarme
+                    //on a chargï¿½ la salle donc on dï¿½sarme
                     loadNow = false;
                 }
             }
             else
             {
-                //on réarme pou charger la salle au prochain appel
+                //on rï¿½arme pou charger la salle au prochain appel
                 loadNow = true;
             }
         }
@@ -126,14 +154,15 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "ConnectTheProduitsChimiquesScene";
                 }
+
                 GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
             }
         }
     }
 
-    //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre
+    //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene ï¿½ l'autre
     /**
-    * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre</summary>
+    * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene ï¿½ l'autre</summary>
     * 
     * <returns>Return nothing</returns>
 */
@@ -143,18 +172,18 @@ public class GameManager : MonoBehaviour
         // NE PAS OUBLIER : il faudra remplacer apr ce qu'il faut pour aller chercher l'inventaire
         // string inventoryData = JsonUtility.ToJson(inventory);
 
-        // Chemin ou va être enregistrer le JSON
-        // persistentDataPath est un dossier qui ne sera jamais modifier par unity même mise à jour
+        // Chemin ou va ï¿½tre enregistrer le JSON
+        // persistentDataPath est un dossier qui ne sera jamais modifier par unity mï¿½me mise ï¿½ jour
         string filePath = Application.persistentDataPath + "/InventoryData.json";
 
-        // On écrit le fichier
-        // NE PAS OUBLIER : Réactiver quand se sera ok
+        // On ï¿½crit le fichier
+        // NE PAS OUBLIER : Rï¿½activer quand se sera ok
         //System.IO.File.WriteAllText(filePath, inventoryData);
     }
 
-    //Fonction SavePlayerSettings() de sauvegarder tous les settings du player après une modification
+    //Fonction SavePlayerSettings() de sauvegarder tous les settings du player aprï¿½s une modification
     /**
-    * <summary>Permet de sauvegarder de sauvegarder tous les settings du player après une modification</summary>
+    * <summary>Permet de sauvegarder de sauvegarder tous les settings du player aprï¿½s une modification</summary>
     * 
     * <returns>Return nothing</returns>
     */
@@ -163,61 +192,61 @@ public class GameManager : MonoBehaviour
         // On utilise le module JsonUtility pour parse tout l'objet
         string playerSettingsData = JsonUtility.ToJson(playerSettings);
 
-        // Chemin ou va être enregistrer le JSON
-        // persistentDataPath est un dossier qui ne sera jamais modifier par unity même mise à jour
+        // Chemin ou va ï¿½tre enregistrer le JSON
+        // persistentDataPath est un dossier qui ne sera jamais modifier par unity mï¿½me mise ï¿½ jour
         string filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
 
-        // On écrit le fichier
+        // On ï¿½crit le fichier
         System.IO.File.WriteAllText(filePath, playerSettingsData);
     }
 
-    //Fonction SaveState() de récuperer les infos sauvgarder dans la scène précédente
+    //Fonction SaveState() de rï¿½cuperer les infos sauvgarder dans la scï¿½ne prï¿½cï¿½dente
     /**
-    * <summary>Permet de récuperer les infos sauvgarder dans la scène précédente</summary>
+    * <summary>Permet de rï¿½cuperer les infos sauvgarder dans la scï¿½ne prï¿½cï¿½dente</summary>
     * 
     * <returns>Return nothing</returns>
     */
     public void LoadState(Scene s, LoadSceneMode mode)
     {
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         string filePath = Application.persistentDataPath + "/InventoryData.json";
 
         if (System.IO.File.Exists(filePath))
         {
-            // On le parse pour récup les infos
+            // On le parse pour rï¿½cup les infos
             string inventoryData = System.IO.File.ReadAllText(filePath);
 
-            // On recrée un inventaire avec les infos
-            // NE PAS OUBLIER : Réactiver quand se sera ok
+            // On recrï¿½e un inventaire avec les infos
+            // NE PAS OUBLIER : Rï¿½activer quand se sera ok
             //inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         }
 
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
 
         if (System.IO.File.Exists(filePath))
         {
-            // On le parse pour récup les infos
+            // On le parse pour rï¿½cup les infos
             string playerSettingsData = System.IO.File.ReadAllText(filePath);
 
-            // On recrée un playerSettings avec les infos
-            // NE PAS OUBLIER : Réactiver quand se sera ok
+            // On recrï¿½e un playerSettings avec les infos
+            // NE PAS OUBLIER : Rï¿½activer quand se sera ok
             playerSettings = JsonUtility.FromJson<PlayerSettings>(playerSettingsData);
         }
     }
 
-    //Fonction ResetSave() permet de supprimer toutes les infos stocké dans les Json
+    //Fonction ResetSave() permet de supprimer toutes les infos stockï¿½ dans les Json
     /**
-    * <summary>Permet de supprimer toutes les infos stocké dans les Json</summary>
+    * <summary>Permet de supprimer toutes les infos stockï¿½ dans les Json</summary>
     * 
     * <returns>Return nothing</returns>
     */
     public void ResetSave()
     {
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         string filePath = Application.persistentDataPath + "/InventoryData.json";
 
-        // On détruit le fichier
+        // On dï¿½truit le fichier
         System.IO.File.Delete(filePath);
     }
 
@@ -229,10 +258,10 @@ public class GameManager : MonoBehaviour
     */
     public void ResetPlayerSettings()
     {
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         string filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
 
-        // On détruit le fichier
+        // On dï¿½truit le fichier
         System.IO.File.Delete(filePath);
     }
 }

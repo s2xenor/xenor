@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PotionHitbox : MonoBehaviour
 {
+    /*life vie;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player" || collision.tag == "Monster")
-            gameObject.transform.parent.GetComponent<Potion>().Effect(collision);
-    }
+        {
+            gameObject.transform.parent.GetComponent<Potion>().Effect(collision,vie);
+        }
+    }*/
 }

@@ -45,7 +45,7 @@ public class PotionMaker : MonoBehaviour
                     heal = x;
                     break;
                 case Type.Stregth:
-                    streng= x;
+                    streng = x;
                     break;
                 default:
                     break;
@@ -55,10 +55,12 @@ public class PotionMaker : MonoBehaviour
         // Make effect of potion when used
         public void Effect(Collider2D obj)
         {
+            int random_number = Random.Range(0, 2);
+
             switch (type)
             {
                 case Type.Damage:
-                    if (obj.tag == "Player")
+                    if (random_number % 2==0)
                     {
                          vie.Reduce4(1);//A function of the life class that reduce by 1/4 the life of the player 
                     }
@@ -68,7 +70,7 @@ public class PotionMaker : MonoBehaviour
                     }
                     break;
                 case Type.Heal:
-                    if (obj.tag == "Player")
+                    if (random_number % 2==0)
                     {
                         vie.HealMax(); //A function of the life class that goes up to the max the life of the player 
                     }
@@ -77,7 +79,7 @@ public class PotionMaker : MonoBehaviour
                         monstre.Heal(); //A function of the Monsters class that goes up to the max the life of the monster
                     }
                     break;
-                case Type.Stregth:
+                /*case Type.Stregth:
                     if (obj.tag == "Player")
                     {
                         joueur.Strength += 5;//Add more strength to the player 
@@ -86,7 +88,7 @@ public class PotionMaker : MonoBehaviour
                     {
                         monstre.attack += 3;//Add more strength to the monster
                     }
-                    break;
+                    break;*/
                 default:
                     break;
             }
