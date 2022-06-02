@@ -69,16 +69,12 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les donn�es
         SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
-
-
-        Screen.fullScreen = false;
-        AudioListener.volume = 1;
     }
 
     private void Update()
     {
         // Show pause menu when escape is pressed
-        if (SceneManager.GetActiveScene().name != "AlteraVitaMenu" && Input.GetKeyDown(KeyCode.Escape))
+        if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 0 && Input.GetKeyDown(KeyCode.Escape))
         {
             GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
             int n = pauseMenu.Length;

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 0}
-  menu: {fileID: 0}
+  menu: {fileID: 7019833040178710460, guid: 370059ade6a6c3245be636ba6ab20ae1, type: 3}
 --- !u!114 &6740182129751275635
 MonoBehaviour:
   m_ObjectHideFlags: 0
