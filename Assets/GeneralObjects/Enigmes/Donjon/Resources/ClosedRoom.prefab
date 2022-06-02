@@ -1645,7 +1645,7 @@ GameObject:
   - component: {fileID: 2340638706262968870}
   m_Layer: 0
   m_Name: ClosedRoom
-  m_TagString: Untagged
+  m_TagString: ClosedRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
