@@ -21,7 +21,7 @@ public class PCMazeGenerator
         //Initialisation du labyrinthe
         InitMaze();
 
-        //Création du labyrinthe de produit chimique
+        //Crï¿½ation du labyrinthe de produit chimique
         GenerateMaze();
     }
 
@@ -31,8 +31,8 @@ public class PCMazeGenerator
     private void InitMaze()
     {
         //Initialisation du labyrinthe
-        //Partie Haute du laby et basse du laby (milieur sera rajouter après)
-        //milieu et un mur de vers inffranchissable et en dessous la tuile est à la bonne position
+        //Partie Haute du laby et basse du laby (milieur sera rajouter aprï¿½s)
+        //milieu et un mur de vers inffranchissable et en dessous la tuile est ï¿½ la bonne position
         for (int i = 0; i < mapSize; i++)
         {
             maze[i] = new PCTile[mapSize];
@@ -46,9 +46,9 @@ public class PCMazeGenerator
     /**
      * <summary>Renvoie toutes le dirrections possible depuis cette case/summary>
      * 
-     * <param name="oldDir">Direction sortant de la tuile précendente</param>
-     * <param name="i">ligne de l'actuel tuile à créer/modifier</param>
-     * <param name="j">colone de l'actuelle tuile à créer/modifier</param>
+     * <param name="oldDir">Direction sortant de la tuile prï¿½cendente</param>
+     * <param name="i">ligne de l'actuel tuile ï¿½ crï¿½er/modifier</param>
+     * <param name="j">colone de l'actuelle tuile ï¿½ crï¿½er/modifier</param>
      * 
      * <returns>List des directions possibles</returns>
      */
@@ -59,13 +59,13 @@ public class PCMazeGenerator
         PCTile tileActu = maze[i][j];
         if (tileActu.TileType == PCTile.PCTileType.Cross)
         {
-            //on arrive sur un tuile déjà à son maximum de capacité donc c mort aucune sol
+            //on arrive sur un tuile dï¿½jï¿½ ï¿½ son maximum de capacitï¿½ donc c mort aucune sol
             return result;
         }
 
         if (tileActu.TileType == PCTile.PCTileType.Corner)
         {
-            //aucune possibilité, c déjà le max pour ce type de tuile c mort aussi
+            //aucune possibilitï¿½, c dï¿½jï¿½ le max pour ce type de tuile c mort aussi
             return result;
         }
 
@@ -139,12 +139,12 @@ public class PCMazeGenerator
     }
 
     /**
-     * <summary>Génère le chemin pour ce tuyaux</summary>
+     * <summary>Gï¿½nï¿½re le chemin pour ce tuyaux</summary>
      * 
-     * <param name="oldDir">Direction sortant de la tuile précendente</param>
-     * <param name="i">ligne de l'actuel tuile à créer/modifier</param>
-     * <param name="j">colone de l'actuelle tuile à créer/modifier</param>
-     * <param name="color">couleur en cour de génération</param>
+     * <param name="oldDir">Direction sortant de la tuile prï¿½cendente</param>
+     * <param name="i">ligne de l'actuel tuile ï¿½ crï¿½er/modifier</param>
+     * <param name="j">colone de l'actuelle tuile ï¿½ crï¿½er/modifier</param>
+     * <param name="color">couleur en cour de gï¿½nï¿½ration</param>
      * 
      * <returns>Integers de la colone du de la fin du tuyaux ou un NULL si chemin impossible</returns>
      */
@@ -196,23 +196,23 @@ public class PCMazeGenerator
         }
 
 
-        //Récursions
+        //Rï¿½cursions
         int? result = GeneratePath(choosenOne, newI, newJ);
         while (result == null)
         {
-            //On rétabli la case comme elle était avant
+            //On rï¿½tabli la case comme elle ï¿½tait avant
             maze[i][j] = oldTile;
             possibles = GetPossibleDirections(oldDir, i, j);
             if (possibles.Count == 0)
             {
-                //ttes les directions possibles ont été testée et elle mène toute à un échec
+                //ttes les directions possibles ont ï¿½tï¿½ testï¿½e et elle mï¿½ne toute ï¿½ un ï¿½chec
                 return null;
             }
-            //on choisit une nouvelle direction aléatoir parmis clle pas encore testée
+            //on choisit une nouvelle direction alï¿½atoir parmis clle pas encore testï¿½e
             nbAlea = Random.Range(0, possibles.Count);
             choosenOne = possibles[nbAlea];
             //on applique la dir sur la case
-            //BUG: old-tile est modifié
+            //BUG: old-tile est modifiï¿½
             maze[i][j].AddDirection(oldDir, choosenOne);
             newI = i;
             newJ = j;
@@ -235,11 +235,11 @@ public class PCMazeGenerator
     }
 
     /**
-     * <summary>Génère un labyrinthe réaliseable</summary>
+     * <summary>Gï¿½nï¿½re un labyrinthe rï¿½aliseable</summary>
      */
     private void GenerateMaze()
     {
-        //On tire 3 nombre aléatoire différents pour les 3 débuts
+        //On tire 3 nombre alï¿½atoire diffï¿½rents pour les 3 dï¿½buts
         List<int> starts = new List<int>() { Random.Range(0, mapSize) };
         for (int i = 0; i < 2; i++)
         {
@@ -267,7 +267,7 @@ public class PCMazeGenerator
             ends.Add((int)toAdd);
         }
 
-        //On a joute à startsAndEnds
+        //On a joute ï¿½ startsAndEnds
         foreach (int start in starts)
         {
             startsAndEnds.Add((-1, start));

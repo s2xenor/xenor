@@ -5,22 +5,22 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
-// Il permet de sauvegarder des données que l'on souhaite récupérer après le chargement de la scène suivante
-// ATTENTION : ce script ne doit être placé qu'une seule fois dans le jeu !!!!!!!!!!!!!!!!! Lors de la première scene.
-// ATTENTION : On ne doit pas pouvoir revenir sur la première scène car sinon le script va se dupliquer ce qui entraine des bugs
+// Il permet de sauvegarder des donnï¿½es que l'on souhaite rï¿½cupï¿½rer aprï¿½s le chargement de la scï¿½ne suivante
+// ATTENTION : ce script ne doit ï¿½tre placï¿½ qu'une seule fois dans le jeu !!!!!!!!!!!!!!!!! Lors de la premiï¿½re scene.
+// ATTENTION : On ne doit pas pouvoir revenir sur la premiï¿½re scï¿½ne car sinon le script va se dupliquer ce qui entraine des bugs
 // Conseil : Placer le script dans le menu de chargement.
-// NE PAS OUBLIER : ajouter un EmptyObject nommé GameManger et contenant le script GameManager sur la première scène du jeu.
+// NE PAS OUBLIER : ajouter un EmptyObject nommï¿½ GameManger et contenant le script GameManager sur la premiï¿½re scï¿½ne du jeu.
 public class GameManager : MonoBehaviourPunCallbacks
 {
     /*
      * Variables Satiques
      * 
-     * Permet que l'on puisse y accèder depuis n'importe quel script même s'il n'est pas dans la hierarchie
+     * Permet que l'on puisse y accï¿½der depuis n'importe quel script mï¿½me s'il n'est pas dans la hierarchie
      */
 
-    // Le Script GameManager lui-même
-    // Permet que l'on puisse sauvergarder des données depuis n'importe où
-    public static GameManager instance; // Va être egal au premier GameManager qu'il trouve dans le jeu
+    // Le Script GameManager lui-mï¿½me
+    // Permet que l'on puisse sauvergarder des donnï¿½es depuis n'importe oï¿½
+    public static GameManager instance; // Va ï¿½tre egal au premier GameManager qu'il trouve dans le jeu
 
 
     /*
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
 
     /*
-     * Variables Publiques des trucs qu'il y a à sauvgarder
+     * Variables Publiques des trucs qu'il y a ï¿½ sauvgarder
      */
     public PlayerSettings playerSettings = new PlayerSettings();
 
@@ -48,16 +48,20 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        ResetSave(); // si on veut pas recupérer les données de la dernière session quand on relance le jeu.
+        ResetSave(); // si on veut pas recupï¿½rer les donnï¿½es de la derniï¿½re session quand on relance le jeu.
 
         instance = this;
-        SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les données
+        SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les donnï¿½es
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
+
+
+        Screen.fullScreen = false;
+        AudioListener.volume = 1;
     }
 
-    //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre
+    //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene ï¿½ l'autre
     /**
-    * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre</summary>
+    * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene ï¿½ l'autre</summary>
     * 
     * <returns>Return nothing</returns>
 */
@@ -67,18 +71,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         // NE PAS OUBLIER : il faudra remplacer apr ce qu'il faut pour aller chercher l'inventaire
         // string inventoryData = JsonUtility.ToJson(inventory);
 
-        // Chemin ou va être enregistrer le JSON
-        // persistentDataPath est un dossier qui ne sera jamais modifier par unity même mise à jour
+        // Chemin ou va ï¿½tre enregistrer le JSON
+        // persistentDataPath est un dossier qui ne sera jamais modifier par unity mï¿½me mise ï¿½ jour
         string filePath = Application.persistentDataPath + "/InventoryData.json";
 
-        // On écrit le fichier
-        // NE PAS OUBLIER : Réactiver quand se sera ok
+        // On ï¿½crit le fichier
+        // NE PAS OUBLIER : Rï¿½activer quand se sera ok
         //System.IO.File.WriteAllText(filePath, inventoryData);
     }
 
-    //Fonction SavePlayerSettings() de sauvegarder tous les settings du player après une modification
+    //Fonction SavePlayerSettings() de sauvegarder tous les settings du player aprï¿½s une modification
     /**
-    * <summary>Permet de sauvegarder de sauvegarder tous les settings du player après une modification</summary>
+    * <summary>Permet de sauvegarder de sauvegarder tous les settings du player aprï¿½s une modification</summary>
     * 
     * <returns>Return nothing</returns>
     */
@@ -87,61 +91,61 @@ public class GameManager : MonoBehaviourPunCallbacks
         // On utilise le module JsonUtility pour parse tout l'objet
         string playerSettingsData = JsonUtility.ToJson(playerSettings);
 
-        // Chemin ou va être enregistrer le JSON
-        // persistentDataPath est un dossier qui ne sera jamais modifier par unity même mise à jour
+        // Chemin ou va ï¿½tre enregistrer le JSON
+        // persistentDataPath est un dossier qui ne sera jamais modifier par unity mï¿½me mise ï¿½ jour
         string filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
 
-        // On écrit le fichier
+        // On ï¿½crit le fichier
         System.IO.File.WriteAllText(filePath, playerSettingsData);
     }
 
-    //Fonction SaveState() de récuperer les infos sauvgarder dans la scène précédente
+    //Fonction SaveState() de rï¿½cuperer les infos sauvgarder dans la scï¿½ne prï¿½cï¿½dente
     /**
-    * <summary>Permet de récuperer les infos sauvgarder dans la scène précédente</summary>
+    * <summary>Permet de rï¿½cuperer les infos sauvgarder dans la scï¿½ne prï¿½cï¿½dente</summary>
     * 
     * <returns>Return nothing</returns>
     */
     public void LoadState(Scene s, LoadSceneMode mode)
     {
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         string filePath = Application.persistentDataPath + "/InventoryData.json";
 
         if (System.IO.File.Exists(filePath))
         {
-            // On le parse pour récup les infos
+            // On le parse pour rï¿½cup les infos
             string inventoryData = System.IO.File.ReadAllText(filePath);
 
-            // On recrée un inventaire avec les infos
-            // NE PAS OUBLIER : Réactiver quand se sera ok
+            // On recrï¿½e un inventaire avec les infos
+            // NE PAS OUBLIER : Rï¿½activer quand se sera ok
             //inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         }
 
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
 
         if (System.IO.File.Exists(filePath))
         {
-            // On le parse pour récup les infos
+            // On le parse pour rï¿½cup les infos
             string playerSettingsData = System.IO.File.ReadAllText(filePath);
 
-            // On recrée un playerSettings avec les infos
-            // NE PAS OUBLIER : Réactiver quand se sera ok
+            // On recrï¿½e un playerSettings avec les infos
+            // NE PAS OUBLIER : Rï¿½activer quand se sera ok
             playerSettings = JsonUtility.FromJson<PlayerSettings>(playerSettingsData);
         }
     }
 
-    //Fonction ResetSave() permet de supprimer toutes les infos stocké dans les Json
+    //Fonction ResetSave() permet de supprimer toutes les infos stockï¿½ dans les Json
     /**
-    * <summary>Permet de supprimer toutes les infos stocké dans les Json</summary>
+    * <summary>Permet de supprimer toutes les infos stockï¿½ dans les Json</summary>
     * 
     * <returns>Return nothing</returns>
     */
     public void ResetSave()
     {
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         string filePath = Application.persistentDataPath + "/InventoryData.json";
 
-        // On détruit le fichier
+        // On dï¿½truit le fichier
         System.IO.File.Delete(filePath);
     }
 
@@ -153,10 +157,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     */
     public void ResetPlayerSettings()
     {
-        // Chemin ou est stocké le json de l'inventaire
+        // Chemin ou est stockï¿½ le json de l'inventaire
         string filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
 
-        // On détruit le fichier
+        // On dï¿½truit le fichier
         System.IO.File.Delete(filePath);
     }
 

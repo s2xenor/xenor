@@ -22,6 +22,6 @@ public class playerwalk : MonoBehaviour
         animator.SetFloat("Horizontal", mouvement.x);//mise en place de l'animation 
         animator.SetFloat("Vertical", mouvement.y);
         animator.SetFloat("Magnitude", mouvement.magnitude);
-        transform.position = transform.position + mouvement * Time.deltaTime;//deplacement du joueur (changement de coordonnées du joueur selon un temps proportionelle)
+        transform.position = transform.position + mouvement * Time.deltaTime;//deplacement du joueur (changement de coordonnï¿½es du joueur selon un temps proportionelle)
     }
 }

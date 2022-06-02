@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class PotionMaker : MonoBehaviour
 {
@@ -46,7 +45,7 @@ public class PotionMaker : MonoBehaviour
                     heal = x;
                     break;
                 case Type.Stregth:
-                    streng= x;
+                    streng = x;
                     break;
                 default:
                     break;
@@ -56,8 +55,8 @@ public class PotionMaker : MonoBehaviour
         // Make effect of potion when used
         public void Effect(Collider2D obj)
         {
-            System.Random rand = new System.Random();
-            int random_number=rand.Next(3);
+            int random_number = Random.Range(0, 2);
+
             switch (type)
             {
                 case Type.Damage:
