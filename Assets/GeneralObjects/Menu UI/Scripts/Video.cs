@@ -10,8 +10,8 @@ public class Video : MonoBehaviour
     // Every quality possible
     string[] names;
 
-    // Has Video tab been set
-    bool set = false;
+    bool initFull = false;
+    bool initQual = false;
 
     bool fullscreen;
     int quality;
@@ -27,7 +27,7 @@ public class Video : MonoBehaviour
         names = QualitySettings.names;
 
         // Fetch current video settings
-        fullscreen = Screen.fullScreen == true;
+        fullscreen = Screen.fullScreen;
         quality = QualitySettings.GetQualityLevel();
 
         // Apply settings to menu
@@ -38,23 +38,35 @@ public class Video : MonoBehaviour
     // Set to fullscreen
     public void Fullscreen()
     {
-        if (set)
+        if (!initFull)
         {
-            // Toggle fullscreen
-            Screen.fullScreen = !Screen.fullScreen;
-            fullscreen = Screen.fullScreen == true;
+            initFull = true;
         }
         else
-            set = true;
+        {
+            if (fullscreenUI.isOn != Screen.fullScreen)
+            {
+                // Toggle fullscreen
+                Screen.fullScreen = !Screen.fullScreen;
+                fullscreen = Screen.fullScreen == true;
+            }
+        }
     }
 
     public void Quality()
     {
-        // Input
-        string s = graphics.text;
+        if (!initQual)
+        {
+            initQual = true;
+        }
+        else
+        {
+            // Input
+            string s = graphics.text;
 
-        // Change quality
-        quality = Array.IndexOf(names, s);
-        QualitySettings.SetQualityLevel(quality);
+            // Change quality
+            quality = Array.IndexOf(names, s);
+            QualitySettings.SetQualityLevel(quality, false);
+        }
     }
 }
