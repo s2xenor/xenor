@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
     public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
-
+    public GameObject menu;
     /*
      * Variables Publiques des trucs qu'il y a � sauvgarder
      */
@@ -78,71 +78,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    //Fct appell� a chaqque chargement de nouvelle sc�ne (on rappelle que le gamemanager est un objet jamais d�truit
-    public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
-    {
-        //Si on est dans les salle d'�nigme labybox
-        //Alors on appelle le g�n�rateur de laby box avec la salle que l'on souhaite charger
-        if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
-        {
-            //Ola fct est appel� 2 fois au chargement de la sc�ne donc on fais l'action qu'une seule fois sur 2
-            if (loadNow)
-            {
-                //si on a d�paas�� le nb de salle
-                if (LabyBoxNextInt >= 12)
-                {
-                    //charger le loby  
-                    SceneManager.LoadScene("MainRoom");
-                }
-                else
-                {
-                    Debug.Log(LabyBoxNext[LabyBoxNextInt]);
-                    Debug.Log(LabyBoxNextInt);
-                    //SInon on charge le salle suivante
-                    GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
-                    //On change la salle suivante
-                    LabyBoxNextInt++;
-                    //si on a finit le tutoriel, alors on saute (ou non) des salles
-                    if (LabyBoxNextInt >= 5)
-                    {
-                        LabyBoxNextInt += Random.Range(0, 3);
-                    }
-                    //on a charg� la salle donc on d�sarme
-                    loadNow = false;
-                }
-            }
-            else
-            {
-                //on r�arme pou charger la salle au prochain appel
-                loadNow = true;
-            }
-        }
-        //Sinon si on est dans la salle connecte les produits chimique
-        else if (SceneManager.GetActiveScene().name == "ConnectTheProduitsChimiquesScene")
-        {
-            if (nbLabyDone >= 3)
-            {
-                //charger le loby  
-                SceneManager.LoadScene("MainRoom");
-            }
-            else
-            {
-                //SInon on charge la salle
-                nbLabyDone++;
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 25);
-                if (nbLabyDone>=3)
-                {
-                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "MainRoom";
-                }
-                else
-                {
-                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "ConnectTheProduitsChimiquesScene";
-                }
-
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
-            }
-        }
-    }
 
     //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene � l'autre
     /**
