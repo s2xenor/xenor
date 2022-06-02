@@ -44,3 +44,33 @@
 #vague2 {
     z-index: 5;
 }
+
+.contentLandPage {
+    height: 1000px;
+    z-index: 50;
+    background-image: url(../img/circlesbackground.svg);
+    background-size: 100vw;
+    background-repeat: no-repeat;
+    transform: scale(1.25);
+}
+
+footer {
+    z-index: 60;
+}
+
+#bluelagondiv {
+    background-color: #002d41;
+    height: 100px;
+    transform: translateY(-40px);
+}
+
+#bluelagondiv > p {
+    font-size: calc(8px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Poppins', sans-serif;
+    padding-right: 350px;
+    color: #fff;
+}
+
+body {
+    max-height: fit-content;
+}
