@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "ConnectTheProduitsChimiquesScene";
                 }
+
                 GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
             }
         }
