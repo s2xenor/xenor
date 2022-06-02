@@ -22,6 +22,8 @@ public class MainMaze : MonoBehaviour
     bool hasSpawned = false;
     bool master = false;
 
+    public GameObject defaultTile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +86,10 @@ public class MainMaze : MonoBehaviour
                     PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size2 + .32f * 3, j * size2 + .32f * -8), Quaternion.identity);
                     // Create lab
                     PhotonNetwork.Instantiate(wallMaze.name, new Vector2(10 * .32f + .16f + i * size, .16f + .32f * -8 + j * size), Quaternion.identity);
+                }
+                else if (i == 0 || i == maze.GetLength(1) - 1)
+                {
+                    PhotonNetwork.Instantiate(defaultTile.name, new Vector3(10 * .32f + .16f + i * size, .16f + .32f * -8 + j * size, 3), Quaternion.identity);
                 }
             }
         }
