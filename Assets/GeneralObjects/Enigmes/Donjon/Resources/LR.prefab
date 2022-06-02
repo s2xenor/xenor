@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8140551628344007132}
   - component: {fileID: 7353852797410480706}
+  - component: {fileID: -4672264402340923562}
   m_Layer: 0
   m_Name: LR
   m_TagString: Untagged
@@ -205,6 +206,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-4672264402340923562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441688459549458173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574b113a1431ad2489b46dd20fdf7dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2594962149242928768
 GameObject:
   m_ObjectHideFlags: 0
