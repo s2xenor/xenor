@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Audio : MonoBehaviour
 {
     float volume;
+    bool initVol = false;
 
     // UI Element
     public Slider volumeUI;
@@ -13,6 +14,7 @@ public class Audio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(AudioListener.volume);
         // Fetch current video settings
         volume = AudioListener.volume;
 
@@ -23,7 +25,15 @@ public class Audio : MonoBehaviour
     // Change volume
     public void Volume()
     {
-        volume = GameObject.Find("Master Volume").GetComponent<Slider>().value;
-        AudioListener.volume = volume;
+        if (!initVol)
+        {
+            initVol = true;
+        }
+        else
+        {
+            Debug.Log(volume);
+            volume = volumeUI.value;
+            AudioListener.volume = volume;
+        }
     }
 }
