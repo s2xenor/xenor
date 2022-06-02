@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PCTile
+using Photon.Pun;
+public class PCTile : MonoBehaviourPunCallbacks
 {
     public enum PCTileType
     {
@@ -52,6 +52,13 @@ public class PCTile
         this.fluidDirection = fluidDirection;
     }
 
+    public void GlobalAddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("AddDirection", RpcTarget.All, enterDir, exitDir);
+    }
+
+    [PunRPC]
     public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
     {
         if (((int)enterDir + (int)exitDir) % 2 == 1)
