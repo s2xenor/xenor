@@ -22,8 +22,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Permet que l'on puisse sauvergarder des données depuis n'importe où
     public static GameManager instance; // Va être egal au premier GameManager qu'il trouve dans le jeu
 
-    public int QuarterHeartLost = 0; //global number of heart lost during the game
+
+    /*
+     * Variables use to determine score
+     */
+    public int QuarterHeartLost = 0;    //global number of heart lost during the game
+    public int TimestampStart = 0;
+
+
     public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
+
     /*
      * Variables Publiques des trucs qu'il y a à sauvgarder
      */
@@ -31,25 +39,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
-
-
-    private bool loadNow = true;
-
-    /**
-     * Variable pour labyrinthe de boite
-     */
-    private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
-    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1"};
-    private int LabyBoxNextInt = 0;
-
-    /**
-     * Variable pour connecte les produits hcimiques
-     */
-    private int nbLabyDone = 0;
-
-    /*
-     * Fonctions
-     */
 
     private void Awake()
     {
@@ -63,73 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         instance = this;
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les données
-        SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
-    }
-
-    //Fct appellé a chaqque chargement de nouvelle scène (on rappelle que le gamemanager est un objet jamais détruit
-    public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
-    {
-        //Si on est dans les salle d'énigme labybox
-        //Alors on appelle le générateur de laby box avec la salle que l'on souhaite charger
-        if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
-        {
-            //Ola fct est appelé 2 fois au chargement de la scène donc on fais l'action qu'une seule fois sur 2
-            if (loadNow)
-            {
-                //si on a dépaaséé le nb de salle
-                if (LabyBoxNextInt >= 12)
-                {
-                    //charger le loby  
-                    SceneManager.LoadScene("MainRoom");
-                }
-                else
-                {
-                    Debug.Log(LabyBoxNext[LabyBoxNextInt]);
-                    Debug.Log(LabyBoxNextInt);
-                    //SInon on charge le salle suivante
-                    GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
-                    //On change la salle suivante
-                    LabyBoxNextInt++;
-                    //si on a finit le tutoriel, alors on saute (ou non) des salles
-                    if (LabyBoxNextInt >= 5)
-                    {
-                        LabyBoxNextInt += Random.Range(0, 3);
-                    }
-                    //on a chargé la salle donc on désarme
-                    loadNow = false;
-                }
-            }
-            else
-            {
-                //on réarme pou charger la salle au prochain appel
-                loadNow = true;
-            }
-        }
-        //Sinon si on est dans la salle connecte les produits chimique
-        else if (SceneManager.GetActiveScene().name == "ConnectTheProduitsChimiquesScene")
-        {
-            if (nbLabyDone >= 3)
-            {
-                //charger le loby  
-                SceneManager.LoadScene("MainRoom");
-            }
-            else
-            {
-                //SInon on charge la salle
-                nbLabyDone++;
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
-                if (nbLabyDone>=3)
-                {
-                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "MainRoom";
-                }
-                else
-                {
-                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "ConnectTheProduitsChimiquesScene";
-                }
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
-            }
-        }
     }
 
     //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene à l'autre
@@ -242,14 +165,14 @@ public class GameManager : MonoBehaviourPunCallbacks
      * MULTI 
      */
 
-    Dictionary<string, string> Scenes;
+    Dictionary<string, string> Scenes;  //Dictionnary allowing to change scene name without messing with code
 
     public void Start()
     {
             
         Scenes = new Dictionary<string, string>();
         Scenes.Add("Crate", "");
-        Scenes.Add("Connect", "");
+        Scenes.Add("Pipe", "");
         Scenes.Add("LabyInvisible", "");
         Scenes.Add("Arrows", "");
         Scenes.Add("Wires", "");
@@ -259,22 +182,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
+
+    //called when a pressure plate is pressed
     int doorActivated = 0;
     public void DoorUpdate(int increment, bool doubleD)
     {
-        doorActivated += increment;
-        Debug.Log("door update"+doorActivated);
-        Debug.Log("door increment" + increment);
-        if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1))
+        doorActivated += increment; //number of pressure pressed
+        if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
         {
             if (LevelCompleted())
             {
-                doorActivated = 0;
-                LoadNextScene();
+                doorActivated = 0;  //reset
+                LoadNextScene();    //go to next scene
             }
         }
     }
 
+    //call adequate function based on scene to check if level finished
     private bool LevelCompleted()
     {
         string scenesName = SceneManager.GetActiveScene().name;
@@ -286,6 +210,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         return true;
     }
 
+    //find next scene and load it based on current scene
     private void LoadNextScene()
     {
         string sceneName = SceneManager.GetActiveScene().name;
@@ -297,14 +222,110 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if(NextSceneDoor != null)
             {
-                PhotonNetwork.LoadLevel(NextSceneDoor);
+                switch (NextSceneDoor)
+                {
+                    case "Crate":
+                        LoadNextCrate();
+                        break;
+                    case "Pipe":
+                        LoadNextPipe();
+                        break;
+                    case "Arrows":
+                        LoadNextArrows();
+                        break;
+                    case "Wires":
+                        LoadNextWires();
+                        break;
+                    default:    //LabyInvisible Donjon
+                        PhotonNetwork.LoadLevel(Scenes[NextSceneDoor]);
+                        break;
+                }
             }
         }
-        else
+        else //is in level
         {
-            PhotonNetwork.LoadLevel(Scenes["Arrow"]);
+            switch (sceneName)
+            {
+                case "Crate":
+                    LoadNextCrate();
+                    break;
+                case "Pipe":
+                    LoadNextPipe();
+                    break;
+                case "Arrows":
+                    LoadNextArrows();
+                    break;
+                case "Wires":
+                    LoadNextWires();
+                    break;
+                default:    //LabyInvisible Donjon
+                    PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+                    break;
+            }
 
         }
     }
+
+    private int PipeIndex = 0;
+    private void LoadNextPipe()
+    {
+        if(PipeIndex <= 3)
+        {
+            PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
+            PipeIndex++;
+        }
+        else
+        {
+            PipeIndex = 0;
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+    }
+
+
+    private string[] ListCrate = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
+    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1"};
+    private int CrateIndex = 0;
+    private void LoadNextCrate()
+    {
+        if(CrateIndex < ListCrate.Length)
+        {
+            PhotonNetwork.LoadLevel(Scenes["Crate"]);   //load scene crate
+            GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
+            CrateIndex++;
+        }
+        else //everything done go to main room
+        {
+            CrateIndex = 5; //skip tutos
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+    }
+
+    private int ArrowIndex = 0;
+    private void LoadNextArrows()
+    {
+        if (ArrowIndex == 0) //tutos
+        {
+
+        }
+        else if(ArrowIndex <= 2)
+        {
+
+        }
+        else //everything done go to main room
+        {
+            ArrowIndex = 1;     //skip tuto
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+    }
+
+    private void LoadNextWires()
+    {
+
+    }
+
+
+
 
 }

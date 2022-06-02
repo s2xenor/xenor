@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PCMap : MonoBehaviour
+public class PCMap : MonoBehaviourPunCallbacks
 {
     /**
      * Variables Publiques
@@ -36,9 +37,9 @@ public class PCMap : MonoBehaviour
     public GameObject top_door_design;
     public GameObject top_door_activated_design;
     public GameObject single_door;
-
+    public GameObject PlayerPrefab;
     /**
-     * Variables Privées
+     * Variables Privï¿½es
      */
     private PCMazeGenerator mazeGenerator;
     public List<(int,int)> StartsAndEnds => mazeGenerator.StartsAndEnds;
@@ -54,7 +55,7 @@ public class PCMap : MonoBehaviour
     {
         mazeGenerator = new PCMazeGenerator(MapSize);
 
-        //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout à augmenter le difficultée de l'énigme
+        //Ajout des tuyaux solitaires (qui peuvent potentiellemnt faire des chemin alternatifs mais servent surtout ï¿½ augmenter le difficultï¿½e de l'ï¿½nigme
         for (int i = 0; i < mazeGenerator.Maze.Length; i++)
         {
             for (int j = 0; j < mazeGenerator.Maze[0].Length; j++)
@@ -93,17 +94,17 @@ public class PCMap : MonoBehaviour
         for (int coordY = 0; coordY < mazeGenerator.MapSize; coordY++)
         {
             //bord gauche et droit
-            Instantiate(vitre, new Vector3((float)0.32 * -1 - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
-            Instantiate(vitre, new Vector3((float)0.32 * mazeGenerator.MapSize - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * -1 - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * mazeGenerator.MapSize - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
             //contenu
             for (int coordX = 0; coordX < mazeGenerator.MapSize; coordX++)
             {
                 PCTile tile = mazeGenerator.Maze[coordY][coordX];
-                Instantiate(vitre, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
+                PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
                 if (tile.TileType != PCTile.PCTileType.None)
                 {
                     //tuyau.GetComponent<Tuyau>().TileData = tile;
-                    Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
+                    Tuyau pipe = PhotonNetwork.Instantiate(tuyau.name, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
                     pipe.TileData = tile;
                     pipe.MessageOnScreenCanvas = canvaTextPopUP;
                     pipe.AffichageUpdate();
@@ -117,16 +118,16 @@ public class PCMap : MonoBehaviour
         //bord bas et bas
         for (int coordX = -1; coordX <= mazeGenerator.MapSize; coordX++)
         {
-            Instantiate(vitre, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * -1 + (float)0.16, 0), Quaternion.identity);
-            Instantiate(vitre, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * mazeGenerator.MapSize + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * -1 + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * mazeGenerator.MapSize + (float)0.16, 0), Quaternion.identity);
         }
 
 
         int numeroSource = 0;
-        //placement des sources et des arrivées
+        //placement des sources et des arrivï¿½es
         foreach ((int,int) coords in mazeGenerator.StartsAndEnds)
         {
-            Tuyau pipe = Instantiate(tuyau, new Vector3((float)0.32 * coords.Item2 - (float)0.16, (float)0.32 * coords.Item1 + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
+            Tuyau pipe = PhotonNetwork.Instantiate(tuyau.name, new Vector3((float)0.32 * coords.Item2 - (float)0.16, (float)0.32 * coords.Item1 + (float)0.16, 0), Quaternion.identity).GetComponent<Tuyau>();
             pipe.Map = this;
             if (coords.Item1 == -1)
             {
@@ -158,33 +159,33 @@ public class PCMap : MonoBehaviour
                 {
                     j = mazeGenerator.MapSize + 1;
                 }
-                Instantiate(floor, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
+                PhotonNetwork.Instantiate(floor.name, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
             }
         }
 
         //Instantie les murs
         for (int j = -3; j < mazeGenerator.MapSize + 3; j++)
         {
-            Instantiate(wall_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
-            Instantiate(wall_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(wall.name_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(wall.name_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * j + (float)0.16, 0), Quaternion.identity);
         }
         for (int i= -3; i < mazeGenerator.MapSize + 3; i++)
         {
-            Instantiate(wall_down, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
-            Instantiate(wall_top, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(wall.name_down, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(wall.name_top, new Vector3((float)0.32 * i - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
         }
-        Instantiate(corner_bottom_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
-        Instantiate(corner_top_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
-        Instantiate(corner_bottom_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
-        Instantiate(corner_top_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(corner.name_bottom_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(corner.name_top_left, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(corner.name_bottom_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * -4 + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(corner.name_top_right, new Vector3((float)0.32 * (mazeGenerator.MapSize + 3) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
 
         // Instantie porte
         //Design
-        Instantiate(left_door_design, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -2 + (float)0.16, 0), Quaternion.identity);
-        Instantiate(top_door_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
-        Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(left.name_door_design, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -2 + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(top.name_door_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(top.name_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
         //Plaque de pression
-        Instantiate(single_door, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(single.name_door, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
         GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().MessageOnScreenCanvas = canvaTextPopUP;
 
         //Quand jeu est fini il faut lier la salle suivante et afficher les portes
@@ -196,7 +197,7 @@ public class PCMap : MonoBehaviour
 
     void Update()
     {
-        //Cheat code pour dévérouiller la porte
+        //Cheat code pour dï¿½vï¿½rouiller la porte
         if (Input.GetKeyDown(KeyCode.P))
         {
             EndOfGame();
@@ -204,7 +205,7 @@ public class PCMap : MonoBehaviour
     }
 
     /**
-     * <summary>Cette fonction permet de vérouiller ou de déverouiller la porte de sortie</summary>
+     * <summary>Cette fonction permet de vï¿½rouiller ou de dï¿½verouiller la porte de sortie</summary>
      */
     public void EndOfGame()
     {
