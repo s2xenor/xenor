@@ -29,9 +29,9 @@ public class MainMaze : MonoBehaviour
 
         map.SetActive(false);
 
-        if (!master) return;
-
         hasSpawned = true;
+
+        if (!master) return;
 
         Maze maze1 = new Maze((ushort)line, (ushort)column); // Create maze
 
@@ -44,10 +44,18 @@ public class MainMaze : MonoBehaviour
 
     private void Update()
     {
-        if (hasSpawned && GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
+        bool twoPlayers = GameObject.FindGameObjectsWithTag("Player").Length == 2;
+
+        if (hasSpawned && twoPlayers)
         {
-            CreateMap();
+            if (master)
+            {
+                CreateMap();
+            }
+
             hasSpawned = false;
+
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
         }
     }
 
