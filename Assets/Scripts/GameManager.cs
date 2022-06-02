@@ -53,10 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         instance = this;
         SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les donn�es
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
-
-
-        Screen.fullScreen = false;
-        AudioListener.volume = 1;
+        Screen.fullScreen = true;
     }
 
     //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene � l'autre
