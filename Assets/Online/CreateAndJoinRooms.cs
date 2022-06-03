@@ -15,14 +15,14 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        //PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.CreateRoom(roomString.text);
 
     }
 
     public void JoinRoom()
     {
-        //PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.JoinRoom(roomString.text);
 
     }

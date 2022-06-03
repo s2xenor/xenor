@@ -89,11 +89,7 @@ public class PCMap : MonoBehaviourPunCallbacks
             StartGeneration();
         }
 
-        //Cheat code to enlock door
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            EndOfGame();
-        }
+        
     }
 
     public void ShouldStartGeneration() => shouldStartGeneration = true;
