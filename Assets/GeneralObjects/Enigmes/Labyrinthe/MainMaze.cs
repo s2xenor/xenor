@@ -57,7 +57,7 @@ public class MainMaze : MonoBehaviour
 
     private void Update()
     {
-        bool twoPlayers = GameObject.FindGameObjectsWithTag("Player").Length == 1;
+        bool twoPlayers = GameObject.FindGameObjectsWithTag("Player").Length == 2;
 
         if (hasSpawned && twoPlayers)
         {
