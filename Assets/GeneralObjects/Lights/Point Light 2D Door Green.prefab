@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3444681487623567849}
   - component: {fileID: 2633517518750474536}
   m_Layer: 0
-  m_Name: Point Light 2D Door
+  m_Name: Point Light 2D Door Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
-  m_Color: {r: 0.37254903, g: 0.6509804, b: 0.454902, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.08955145, a: 1}
   m_Intensity: 0.5
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
