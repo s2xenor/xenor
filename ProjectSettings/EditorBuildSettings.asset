@@ -20,13 +20,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Cells.unity
     guid: d5279265186c79b4f96614ef6596cfd5
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainRoom.unity
     guid: 3a8550abc9c2e6f42b400273fde2b422
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 8dbee02b5fdbcff4d8c27f39fab7b48f
-  - enabled: 0
+  - enabled: 1
     path: Assets/GeneralObjects/Enigmes/CrateLabyrinth/Scenes/CrateLabyrinthScene.unity
     guid: 27d2d8aab7e27cd4ebe795258bc07fc2
   - enabled: 1

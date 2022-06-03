@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4221725630500410965}
   - component: {fileID: 4221725630500410966}
   - component: {fileID: 4221725630500410967}
-  - component: {fileID: 4221725630500410968}
-  - component: {fileID: 6726867916829429640}
+  - component: {fileID: 3380859680740045185}
+  - component: {fileID: -2351715577299807774}
   m_Layer: 0
   m_Name: SingleDoor
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28299707, y: 0.18123908}
   m_EdgeRadius: 0
---- !u!114 &4221725630500410968
+--- !u!114 &3380859680740045185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,12 +120,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4221725630500410969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 219a80823a631f045be86f96bccf1311, type: 3}
+  m_Script: {fileID: 11500000, guid: dc6a6f62da80490489de3838ce5f20eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MessageOnScreenCanvas: {fileID: 0}
-  nextSceneName: 
---- !u!114 &6726867916829429640
+  NextScene: 
+--- !u!114 &-2351715577299807774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,9 +141,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 0}
+  observableSearch: 2
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

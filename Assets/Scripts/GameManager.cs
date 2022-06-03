@@ -222,12 +222,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int PipeIndex = 0;
     private void LoadNextPipe()
     {
+        Debug.Log("log next pipe");
         if(PipeIndex <= 3)
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
-            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
-            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
-            PipeIndex++;
+            Invoke("SubNextPipe", 0.5f);
+
         }
         else
         {
@@ -235,6 +235,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
+    }
+
+    private void SubNextPipe()
+    {
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
+        PipeIndex++;
     }
 
 
@@ -247,7 +254,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(CrateIndex < ListCrate.Length)
         {
             PhotonNetwork.LoadLevel(Scenes["Crate"]);   //load scene crate
-            Invoke("subDel", 0.5f);
+            Invoke("SubNextCrate", 0.5f);
         }
         else //everything done go to main room
         {
@@ -257,7 +264,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void subDel()
+    private void SubNextCrate()
     {
         GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
         CrateIndex++;

@@ -51,14 +51,12 @@ public class PCMap : MonoBehaviourPunCallbacks
     private bool shouldStartGeneration = false;
 
     GameObject[] gos;
-    private bool screenNeedDelete = true;
     void Start()
     {
 
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn master player on network
-            ShouldStartGeneration();//remove on final
         }
         else
         {
@@ -72,27 +70,28 @@ public class PCMap : MonoBehaviourPunCallbacks
     void Update()
     {
 
-        gos = GameObject.FindGameObjectsWithTag("Loading");
 
-        // Delete loading screen
-        if (screenNeedDelete && GameObject.FindGameObjectsWithTag("Player").Length == 2 && gos.Length != 0)
+
+        if (shouldStartGeneration && GameObject.FindGameObjectsWithTag("Player").Length == 2) // Wait for the 2 players and then the master spawns it
         {
-            screenNeedDelete = false;
-            foreach (GameObject go in gos)
-                go.GetComponent<FetchCam>().Del();
-
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StartGeneration();
+            }
         }
 
-        if (!screenNeedDelete && shouldStartGeneration)
-        {
-            shouldStartGeneration = false;
-            StartGeneration();
-        }
 
-        
     }
 
     public void ShouldStartGeneration() => shouldStartGeneration = true;
+
+    [PunRPC]
+    public void GenerationFinished()
+    {
+        GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+    }
+
+
 
     // Start is called before the first frame update
     public void StartGeneration()
@@ -227,13 +226,13 @@ public class PCMap : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate(top_door_activated_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
         //Plaque de pression
         PhotonNetwork.Instantiate(single_door.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
-        GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().MessageOnScreenCanvas = canvaTextPopUP;
+        //GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().MessageOnScreenCanvas = canvaTextPopUP;
 
         //Quand jeu est fini il faut lier la salle suivante et afficher les portes
 
         //Prochaine salle dans porte
 
-
+        photonView.RPC("GenerationFinished", RpcTarget.All);
     }
 
     [PunRPC]

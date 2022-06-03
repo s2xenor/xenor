@@ -287,6 +287,18 @@ PrefabInstance:
       propertyPath: canvaTextPopUP
       value: 
       objectReference: {fileID: 1833423487}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: top_door_design
+      value: 
+      objectReference: {fileID: 6849494773477247910, guid: fe0b48544a7f97745acffba3bc2c39ad, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: left_door_design
+      value: 
+      objectReference: {fileID: 2575262248740547285, guid: f28486171e857f74fb6113ded14ff955, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: top_door_activated_design
+      value: 
+      objectReference: {fileID: 2239402911561651639, guid: 5a71735da9db4bb478ac97937a1f3243, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5662643444dd66342910ac28b8586c38, type: 3}
 --- !u!1 &1753461746 stripped

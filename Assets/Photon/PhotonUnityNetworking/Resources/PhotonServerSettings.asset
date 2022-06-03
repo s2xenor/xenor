@@ -61,6 +61,9 @@ MonoBehaviour:
   - GlobalStartsAndEnds
   - SetDoors
   - loadScene
+  - ShouldStartGeneration
+  - ScreenShouldDeleteToTrue
+  - GenerationFinished
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
