@@ -319,11 +319,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void GoBackToOneLevel()
     {
-        if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex-1;
-        else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1;
-        else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1;
-        else if (sceneName == Scenes["Wires"]) WiresIndex = WiresIndex > 0 ? WiresIndex - 1;
-        else if (sceneName == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1;
+        if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex-1 : CrateIndex;
+        else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
+        else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
+        else if (sceneName == Scenes["Wires"]) WiresIndex = WiresIndex > 0 ? WiresIndex - 1 : WiresIndex;
+        else if (sceneName == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1 : LabyInviIndex;
     }
 
 
