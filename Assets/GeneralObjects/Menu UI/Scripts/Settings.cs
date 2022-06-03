@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class Settings : MonoBehaviour
 {
@@ -31,6 +33,11 @@ public class Settings : MonoBehaviour
 
         // Build
         Application.Quit();
+    }
+
+    public void GoLobby()
+    {
+        PhotonNetwork.LoadLevel("MainRoom"); // Scene to load
     }
 
     public void Delete(GameObject obj)
