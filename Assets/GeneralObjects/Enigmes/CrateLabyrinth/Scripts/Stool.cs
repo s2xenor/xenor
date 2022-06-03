@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// Classe qui gère les collision avec le tabouret
+// Classe qui gï¿½re les collision avec le tabouret
 // Permet que seul les palyers puissant marcher sur les tabourets
 public class Stool : MonoBehaviour
 {
-    //Fonction OnCollisionEnter2D() appelé à chaque collision
+    //Fonction OnCollisionEnter2D() appelï¿½ ï¿½ chaque collision
     /**
-    * <summary>Appelé a chaque collision : permet que le joueur ignore les collisons avec cet objet, mais pas les autres objets</summary>
+    * <summary>Appelï¿½ a chaque collision : permet que le joueur ignore les collisons avec cet objet, mais pas les autres objets</summary>
     * 
-    * <param name="collision">objet qui est entré en collision avec l'objet qui porte le script</param>
+    * <param name="collision">objet qui est entrï¿½ en collision avec l'objet qui porte le script</param>
     * 
     * <returns>Return nothing</returns>
     */

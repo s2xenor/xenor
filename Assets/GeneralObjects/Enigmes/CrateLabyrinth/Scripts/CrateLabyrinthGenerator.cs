@@ -57,11 +57,15 @@ public class CrateLabyrinthGenerator : MonoBehaviour
             }
 
             SetComponent();
-
-			GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
-
             load = false;
+
+            Invoke("RemoveLoadingScreen", 1);
         }
+    }
+
+    void RemoveLoadingScreen()
+    {
+        GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
     }
 
     //Fonction qi va cherche les donn�es du fichier Json et qui les formates
