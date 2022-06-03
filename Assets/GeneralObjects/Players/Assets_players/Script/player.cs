@@ -79,7 +79,11 @@ public class player : MonoBehaviour
         }
         if(!vie.die)
         {
-            animator.SetFloat("die", 1);
+            animator.SetFloat("Die", 0);
+        }
+        if(vie.die)
+        {
+            animator.SetFloat("Die", 1);
         }
         StartCoroutine(waiter());
 
