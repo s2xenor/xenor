@@ -41,7 +41,26 @@ MonoBehaviour:
   - RespawnSpaceship
   - MoveCoo
   - GenerateAll
+  - SetDistantActive
+  - SetOnPressureRules
+  - SetOnPressureWire
+  - DestroyAll
+  - zfe
+  - ShowDistantWires
+  - SetTxtProps
+  - SetWire
+  - UnPlug
+  - ObjectfToActivate
   - UpdateLink
+  - EndOfGame
+  - Rotate
+  - AddDirection
+  - GlobalInstantiatePipe
+  - GlobalRotatate
+  - GlobalStartAfterGen
+  - GlobalStartsAndEnds
+  - SetDoors
+  - loadScene
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

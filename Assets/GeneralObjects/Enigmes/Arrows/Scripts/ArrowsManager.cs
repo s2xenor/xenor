@@ -140,7 +140,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
                 if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//players break rules, apply consequences
                 {
-                    //Debug.Log("consequences");
+                    foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        item.GetComponent<player>().vie.Reduce4(1);
+                    }
+
                     player1Tile[0] = -1;
                     player1Tile[1] = -1;
 

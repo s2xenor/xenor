@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PCTile
-{
+public class PCTile{ 
     public enum PCTileType
     {
         None = 0,
@@ -52,8 +50,18 @@ public class PCTile
         this.fluidDirection = fluidDirection;
     }
 
+    public PCTile(PCTileType tileType, PCFluidDirection fluidDirection, PCFluidDirection fluidDirection2)
+    {
+        this.tileType = tileType;
+        this.fluidDirection = fluidDirection;
+        this.fluidDirection2 = fluidDirection2;
+    }
+
+
+
     public void AddDirection(PCFluidDirection enterDir, PCFluidDirection exitDir)
     {
+
         if (((int)enterDir + (int)exitDir) % 2 == 1)
         {
             if (TileType != PCTileType.None)

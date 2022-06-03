@@ -10,9 +10,9 @@ TagManager:
   - BoxLabyGenerator
   - DoorsToActivate
   - Door
-  - slot
-  - slot (1)
-  - slot (2)
+  - wireObject
+  - ruleObject
+  - GameManager
   layers:
   - Default
   - TransparentFX

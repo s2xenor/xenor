@@ -22,24 +22,35 @@ public class RulesPressurePlate : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
+        if (collision.tag == "Player")
         {
-            
+            if (PhotonNetwork.IsMasterClient)
+            {
+                wireManager.isOnPressureRule = true;
+                if (collision.GetComponent<PhotonView>().IsMine)
+                {
+                    wireManager.isMasterOnRule = true;
+                }
+                else
+                {
+                    wireManager.isMasterOnRule = false;
+                }
+                wireManager.Changes();
+            }
+
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
+        if (collision.tag == "Player")
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                wireManager.DestroyAll();
+                wireManager.isOnPressureRule = false;
+                wireManager.Changes();
             }
-            else
-            {
-                //call fonction on master side knowing i'm a fucking client
-            }
+
         }
     }
 
