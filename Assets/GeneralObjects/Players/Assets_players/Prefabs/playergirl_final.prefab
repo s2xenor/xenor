@@ -1570,6 +1570,7 @@ MonoBehaviour:
   cooldown2: {fileID: 4002803392077879945}
   cooldown3: {fileID: 4002803392843890314}
   cooldown4: {fileID: 4002803391729796750}
+  potionPrefab: {fileID: 8290488347031643809, guid: 7fceb16ad3014ef4c8a3723d17b71fc7, type: 3}
 --- !u!1 &4002803393176181176
 GameObject:
   m_ObjectHideFlags: 0

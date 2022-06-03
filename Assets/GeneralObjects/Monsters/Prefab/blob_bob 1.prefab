@@ -171,6 +171,7 @@ MonoBehaviour:
   attackRange: 0
   damage: 0
   attaclRate: 3
+  animator: {fileID: 2784747048905396094}
   NextWayPointDistance: 2
 --- !u!114 &2784747048905396068
 MonoBehaviour:
