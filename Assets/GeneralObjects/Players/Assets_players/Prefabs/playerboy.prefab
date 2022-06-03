@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4549848381154126649}
   - component: {fileID: 7355880645230302636}
   - component: {fileID: 1942059075575005079}
+  - component: {fileID: 2021965447584928717}
   m_Layer: 0
   m_Name: playerboy
   m_TagString: Player
@@ -170,6 +171,20 @@ MonoBehaviour:
   horizon: Horizontal
   verti: Vertical
   animator: {fileID: 3480359243239183146}
+--- !u!114 &2021965447584928717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894972181480149429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554644fa206beb43bcb142e72d40657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Strength: 15
+  Case_Design: {fileID: 0}
 --- !u!1001 &521142262191899602
 PrefabInstance:
   m_ObjectHideFlags: 0

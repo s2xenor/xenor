@@ -8,7 +8,7 @@ using Photon.Pun;
 
 // Ce script permet d'initialiser la piece pour les labyrinthe de boite, doit etre appeler � chaque nouvelle piece Crate labyrinth enigm
 // NE PAS OUBLIER : les player doivent avoir le tag "Player" !!!
-public class CrateLabyrinthGenerator : MonoBehaviour
+public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
 {
     /*
      * Variables Publique
@@ -18,13 +18,14 @@ public class CrateLabyrinthGenerator : MonoBehaviour
     public GameObject unmovableCratePrefab;
     public GameObject stoolPrefab;
     public GameObject dumpsterPrefab;
-
+    public GameObject playerPrefab;
     //Affichage
     public GameObject messageOnScreenCanvas;
 
     bool master = false;
     bool load = false;
     string room;
+
 
     /*
      * Fonctions
@@ -33,6 +34,15 @@ public class CrateLabyrinthGenerator : MonoBehaviour
     void Start()
     {
         master = PhotonNetwork.IsMasterClient;
+
+        if (master)
+        {
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(1.6f, 0.95f, 0), Quaternion.identity);
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(1.6f, -0.3f, 0), Quaternion.identity);
+        }
     }
 
     private void Update()
@@ -78,11 +88,20 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         return roomData;
     }
 
-    public void loadScene(string roomToLoad)
+    [PunRPC]
+    public void loadScene(string roomToLoad, bool local = false)
     {
-        // Allow the room to spawn
-        load = true;
-        room = roomToLoad;
+        if (!local)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("loadScene", RpcTarget.All, roomToLoad, true);
+        }
+        else
+        {
+            if (master) room = roomToLoad;
+            // Allow the room to spawn
+            load = true;
+        }
     }
 
     void loadScene()

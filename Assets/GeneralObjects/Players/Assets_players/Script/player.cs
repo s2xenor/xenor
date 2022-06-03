@@ -25,12 +25,12 @@ public class player : MonoBehaviour
 
 
     //life barre of the player 
-    life vie;
+    public life vie;
        
 
     void Start()
     {
-        inventaire = GameObject.Find("Inventory").GetComponent<inventory>();
+        //inventaire = GameObject.Find("Inventory").GetComponent<inventory>();
         vie= new life(cooldown, cooldown1, cooldown2, cooldown3, cooldown4);
     }
 
@@ -62,7 +62,7 @@ public class player : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Image").GetComponent<image>().PotionStrength)
+        /*if (GameObject.Find("Image").GetComponent<image>().PotionStrength)
         {
             Strength = Strength * 1.2;
             GameObject.Find("Image").GetComponent<image>().PotionStrength = false;
@@ -72,14 +72,18 @@ public class player : MonoBehaviour
             Potion potion1 = new Potion(Potion.Type.Heal, 5);
             potion1.Effect(this, null, vie); 
             GameObject.Find("Image(2)").GetComponent<image>().PotionHealth = false;
-        }
+        }*/
         if(vie.die)
         {
             animator.SetFloat("die", 0);
         }
         if(!vie.die)
         {
-            animator.SetFloat("die", 1);
+            animator.SetFloat("Die", 0);
+        }
+        if(vie.die)
+        {
+            animator.SetFloat("Die", 1);
         }
         StartCoroutine(waiter());
 

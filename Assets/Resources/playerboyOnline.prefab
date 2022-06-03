@@ -424,11 +424,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
+--- !u!1 &7215858020142977121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5504703489736151881, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
+  m_PrefabInstance: {fileID: 2902361104100688680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7215858020142977118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5504703489736151926, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
   m_PrefabInstance: {fileID: 2902361104100688680}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6279343433336337054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7215858020142977121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3771726560058314582
 PrefabInstance:
   m_ObjectHideFlags: 0

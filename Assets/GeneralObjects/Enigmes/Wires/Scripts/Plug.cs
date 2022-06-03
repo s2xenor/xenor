@@ -17,28 +17,35 @@ public class Plug : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
 
+        
     }
 
-
-    //unplug a wire
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (nb != -1)//nb = -1 by default, 0 if it a left plug and 1 if it is the right plug
+        if (Input.GetKeyDown("e"))
         {
-            if (nb == 1)//is right plug
+            Debug.Log("keydown");
+            if (nb != -1)//nb = -1 by default, 0 if it a left plug and 1 if it is the right plug
             {
-                Debug.Log("you are a success");
+                if (nb == 1)//is right plug
+                {
+                    Debug.Log("you are a success");
+                    wireManager.UnPlug(true);
+                }
+                else
+                {
+                    Debug.Log("you smell bad");
+                    wireManager.UnPlug(false);
+
+                    //make player lose life
+                    //reset all
+                }
+                Destroy(wire);//remove wire unpluged
             }
-            else
-            {
-                Debug.Log("you smell bad");
-                //make player lose life
-                //reset all
-            }
-            Destroy(wire);//remove wire unpluged
         }
     }
-  
+
+
+   
 }

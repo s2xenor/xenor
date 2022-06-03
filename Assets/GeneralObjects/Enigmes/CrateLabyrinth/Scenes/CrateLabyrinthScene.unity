@@ -201,6 +201,7 @@ MonoBehaviour:
   unmovableCratePrefab: {fileID: 1996324278835852403, guid: 14db12be14c40334d983114cc9bb4e4e, type: 3}
   stoolPrefab: {fileID: 4356715998370529207, guid: 0b76f048815a7fd43bfe22166f086eef, type: 3}
   dumpsterPrefab: {fileID: 7896238826597193483, guid: f32322dede1d0514d92a98022cc1666a, type: 3}
+  playerPrefab: {fileID: 8666501797103497954, guid: 9610bff595f97d04489c836d0d1eef0f, type: 3}
   messageOnScreenCanvas: {fileID: 1326575767}
 --- !u!4 &369101425
 Transform:
@@ -300,7 +301,7 @@ PrefabInstance:
     - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: autrePressurePlate
       value: 
-      objectReference: {fileID: 1965841254}
+      objectReference: {fileID: 0}
     - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: MessageOnScreenCanvas
       value: 
@@ -369,7 +370,7 @@ PrefabInstance:
     - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: autrePressurePlate
       value: 
-      objectReference: {fileID: 1935172939}
+      objectReference: {fileID: 0}
     - target: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
       propertyPath: MessageOnScreenCanvas
       value: 
@@ -565,7 +566,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2117407821
-  m_SortingLayer: 0
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1520,7 +1521,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1869977109
 PrefabInstance:
@@ -1539,7 +1540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7972409333465837822, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7972409333465837822, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1624,28 +1625,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8156482761849591692, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
---- !u!114 &1935172939 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
-  m_PrefabInstance: {fileID: 884758437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 584ea2d0a24ba1c4b8f574525d756719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1965841254 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3656451131027091768, guid: c2d757bf9858fab4c973a171c5e762a1, type: 3}
-  m_PrefabInstance: {fileID: 908516347}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 584ea2d0a24ba1c4b8f574525d756719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1990222634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,7 +1741,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2117407821
-  m_SortingLayer: 0
+  m_SortingLayer: -3
   m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -3556,7 +3535,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 656816631
-  m_SortingLayer: 0
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

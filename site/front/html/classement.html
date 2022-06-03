@@ -57,12 +57,12 @@
         document.getElementById("addict").addEventListener('click', function(){
             count++;
             getData(count).then(res => {
+                console.log(res)
                 applyData(res);
             })
         })
     
         document.getElementById("addict").click();
-    
     </script>
 </body>
 </html>
