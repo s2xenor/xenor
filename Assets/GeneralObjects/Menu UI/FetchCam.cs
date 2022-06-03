@@ -13,7 +13,7 @@ public class FetchCam : MonoBehaviour
     {
         light = GameObject.FindGameObjectWithTag("GlobalLight").GetComponent<Light2D>();
         intentsity = light.intensity;
-        light.intensity = .8f;
+        light.intensity = 1;
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
         {

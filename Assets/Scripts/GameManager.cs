@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     //SInon on charge le salle suivante
-                    GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
+                    GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
                     //On change la salle suivante
                     LabyBoxNextInt++;
                     //si on a finit le tutoriel, alors on saute (ou non) des salles
