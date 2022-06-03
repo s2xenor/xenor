@@ -73,13 +73,13 @@ public class player : MonoBehaviour
             potion1.Effect(this, null, vie); 
             GameObject.Find("Image(2)").GetComponent<image>().PotionHealth = false;
         }
-        if(vie.die)
-        {
-            animator.SetFloat("die", 0);
-        }
         if(!vie.die)
         {
-            animator.SetFloat("die", 1);
+            animator.SetFloat("Die", 0);
+        }
+        if(vie.die)
+        {
+            animator.SetFloat("Die", 1);
         }
         StartCoroutine(waiter());
 
