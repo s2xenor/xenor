@@ -1,0 +1,52 @@
+.titre_page_download {
+    color: #efefef;
+    font-size: calc(30px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 8vh;
+    width: 99vw;
+}
+
+.titre_categorie_page_download {
+    color: #333;
+    font-size: calc(20px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    margin-left: 2vw;
+}
+
+.titre_rapport_download{
+    color: #333;
+    font-size: calc(10px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    margin-left: 4vw;
+}
+
+@media (max-width: 1075px) {
+    .bandeauVagues{
+        height: 48vh;
+    }
+}
+
+.svgIcons {
+    margin-left: 5px;
+}
+
+.downloadButton:nth-child(1)::before{
+    content:  url("../img/windows.svg") " Windows";
+}
+
+.linux > .downloadButton::before{
+    content:  url("../img/linux.svg") " Linux";
+}
+
+.macos > .downloadButton::before{
+    content:  url("../img/apple.svg") " Mac";
+}
+
+.rapports > a > .downloadButton::before{
+    content: url("../img/pdf.svg") " PDF";
+}
