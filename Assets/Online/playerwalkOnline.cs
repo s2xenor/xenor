@@ -15,13 +15,14 @@ public class playerwalkOnline : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
 
-        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(-.12f, -.19f);
-
-        if (!view.IsMine) // Remove unecessary camera of other player locally
+        if (!view.IsMine) // Remove unecessary childs of other player locally
         {
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(false);
+            for (int i = 2; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }      
         }
     }
 

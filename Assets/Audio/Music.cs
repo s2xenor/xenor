@@ -22,6 +22,8 @@ public class Music : MonoBehaviour
 
     public void PlayMusic() // Play random music and wait until the end
     {
+        if (_audioSource.isPlaying) return;
+
         int i = Random.Range(0, musics.Length);
 
         _audioSource.clip = musics[i];
