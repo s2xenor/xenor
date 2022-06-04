@@ -30,7 +30,7 @@ public class player : MonoBehaviour
 
     void Start()
     {
-        //inventaire = GameObject.Find("Inventory").GetComponent<inventory>();
+        inventaire = GameObject.Find("Inventory").GetComponent<inventory>();
         vie= new life(cooldown, cooldown1, cooldown2, cooldown3, cooldown4);
     }
 
