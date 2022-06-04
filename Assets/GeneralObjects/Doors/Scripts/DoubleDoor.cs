@@ -58,7 +58,7 @@ public class DoubleDoor : PressurePlate
             //TODO : Changer la couleur de la lupiotte
 
             //On affiche le message qui indique au joueur comment intéragir avec la porte.
-            MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("To interact with the door you should both stand on a different pressure plate");
+            MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Both players need to be on a different pressure plate");
         }
 
     }

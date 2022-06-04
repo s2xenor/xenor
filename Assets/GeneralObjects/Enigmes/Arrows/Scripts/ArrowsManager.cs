@@ -142,7 +142,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 {
                     foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
                     {
-                        item.GetComponent<player>().vie.Reduce4(1);
+                        //item.GetComponent<player>().vie.Reduce4(1);
                     }
 
                     player1Tile[0] = -1;

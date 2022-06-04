@@ -54,12 +54,15 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
                 loadScene();
             }
 
-            SetComponent();
-
-			GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
-
             load = false;
+
+            Invoke("RemoveLoadingScreen", 1);
         }
+    }
+
+    void RemoveLoadingScreen()
+    {
+        GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
     }
 
     //Fonction qi va cherche les donn�es du fichier Json et qui les formates
@@ -125,20 +128,6 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
         {
             //Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(dumpsterPrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
-        }
-    }
-
-    void SetComponent()
-    {
-        // Initialisation de moyen pour lier les boites et le joueur lorsque l'on veut tirer une boite
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))//pour tout les players
-        {
-            // On ajouter un <FixedJoint2D> et on met autoConfigureConnectedAnchor � false (sinon �a lie pas les objets)
-            // POur lier les obj sur chaque boite y aura un script qui permettra de lier la boite au FixedJoint2D ou de les d�lier (avec touche E)
-            // Attention : faudra penser � verifier que y a pas d�j� une boite accroch�e...
-            player.AddComponent<FixedJoint2D>();
-            player.GetComponent<FixedJoint2D>().enabled = false;
-            player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
         }
     }
 }
