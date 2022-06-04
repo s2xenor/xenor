@@ -52,12 +52,32 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
     public void SetDoors(bool Crate, bool Pipe, bool LabyInvisible, bool Arrows, bool Wires, bool Donjon)
     {
         int count = 0;
-        if (Crate) DoorsOpenCrate.SetActive(true); count++;
-        if (Pipe) DoorsOpenCrate.SetActive(true); count++;
-        if (LabyInvisible) DoorsOpenCrate.SetActive(true); count++;
-        if (Arrows) DoorsOpenCrate.SetActive(true); count++;
-        if (Wires) DoorsOpenCrate.SetActive(true); count++;
-        if (Donjon) DoorsOpenCrate.SetActive(true); count++;
+        if (Crate)
+        {
+            DoorsOpenCrate.SetActive(true); count++;
+        }
+        if (Pipe)
+        {
+            DoorsOpenPipe.SetActive(true); count++;
+        }
+        if (LabyInvisible)
+        {
+            DoorsOpenLabyInvisible.SetActive(true); count++;
+        }
+        if (Arrows)
+        {
+            DoorsOpenArrows.SetActive(true); count++;
+        }
+        if (Wires)
+        {
+            DoorsOpenWires.SetActive(true); count++;
+        }
+        if (Donjon)
+        {
+            DoorsOpenDonjon.SetActive(true); count++;
+        }
+
+        Debug.Log($"Crate:{Crate}; Pipe:{Pipe}; LabyInvisible:{LabyInvisible}; Arrows:{Arrows}; Wires:{Wires}; Donjon:{Donjon}");
 
         if (count == 1) Doors1.SetActive(true);
         else if (count == 2) Doors2.SetActive(true);

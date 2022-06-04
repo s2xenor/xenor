@@ -235,7 +235,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             PipeIndex = 0;
-            
+            LevelsCompleted["Pipe"] = true;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
     }
@@ -324,6 +324,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+            LevelsCompleted["LabyInvisible"] = true;
             LabyInviIndex = 0;
         }
 
