@@ -21,6 +21,7 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
     public GameObject Doors5;
     public GameObject Doors6;
 
+    private bool shouldLoad = true;
 
     // Start is called before the first frame update
     void Start()
@@ -38,36 +39,31 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        if(PhotonNetwork.IsMasterClient && shouldLoad && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+        {
+            shouldLoad = false;
+            PhotonView photonView = PhotonView.Get(this);
+            Dictionary<string, bool> LevelsCompleted = GameManager.LevelsCompleted;
+            photonView.RPC("SetDoors", RpcTarget.All, LevelsCompleted["Crate"], LevelsCompleted["Pipe"], LevelsCompleted["LabyInvisible"], LevelsCompleted["Arrows"], LevelsCompleted["Wires"], LevelsCompleted["Donjon"]);
+        }
     }
 
     [PunRPC]
-    public void SetDoors(bool Crate, bool Pipe, bool LabyInvisible, bool Arrows, bool Wires, bool Donjon, bool global)
+    public void SetDoors(bool Crate, bool Pipe, bool LabyInvisible, bool Arrows, bool Wires, bool Donjon)
     {
-        if (global)
-        {
-            PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("SetDoors", RpcTarget.All, Crate, Pipe, LabyInvisible, Arrows, Wires, Donjon, false);
-        }
-        else
-        {
-            int count = 0;
-            if (Crate) DoorsOpenCrate.SetActive(true); count++;
-            if (Pipe) DoorsOpenCrate.SetActive(true); count++;
-            if (LabyInvisible) DoorsOpenCrate.SetActive(true); count++;
-            if (Arrows) DoorsOpenCrate.SetActive(true); count++;
-            if (Wires) DoorsOpenCrate.SetActive(true); count++;
-            if (Donjon) DoorsOpenCrate.SetActive(true); count++;
+        int count = 0;
+        if (Crate) DoorsOpenCrate.SetActive(true); count++;
+        if (Pipe) DoorsOpenCrate.SetActive(true); count++;
+        if (LabyInvisible) DoorsOpenCrate.SetActive(true); count++;
+        if (Arrows) DoorsOpenCrate.SetActive(true); count++;
+        if (Wires) DoorsOpenCrate.SetActive(true); count++;
+        if (Donjon) DoorsOpenCrate.SetActive(true); count++;
 
-            if (count == 1) Doors1.SetActive(true);
-            else if (count == 2) Doors2.SetActive(true);
-            else if (count == 3) Doors3.SetActive(true);
-            else if (count == 4) Doors4.SetActive(true);
-            else if (count == 5) Doors5.SetActive(true);
-            else if (count == 6) Doors6.SetActive(true);
-
-
-        }
-
+        if (count == 1) Doors1.SetActive(true);
+        else if (count == 2) Doors2.SetActive(true);
+        else if (count == 3) Doors3.SetActive(true);
+        else if (count == 4) Doors4.SetActive(true);
+        else if (count == 5) Doors5.SetActive(true);
+        else if (count == 6) Doors6.SetActive(true);
     }
 }

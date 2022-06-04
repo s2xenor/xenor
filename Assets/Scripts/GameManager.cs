@@ -27,7 +27,9 @@ public class GameManager : MonoBehaviourPunCallbacks
      * Variables use to determine score
      */
     public int QuarterHeartLost = 0;    //global number of heart lost during the game
-    public int TimestampStart = 0;
+    private int TimestampStart;
+    public int TimestampEnd;
+
 
     private string sceneName = "";
     private string NextScene = null;
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviourPunCallbacks
      */
 
     private Dictionary<string, string> Scenes;  //Dictionnary allowing to change scene name without messing with code
-    private Dictionary<string, bool> LevelsCompleted;
+    public static Dictionary<string, bool> LevelsCompleted;
 
     public void Start()
     {
@@ -157,7 +159,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         string scenesName = SceneManager.GetActiveScene().name;
 
-        if (scenesName == Scenes["Pipe"]) return false;
+        if (scenesName == Scenes["Pipe"]) return GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().IsLevelFinished();
         if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
         if (scenesName == Scenes["Cells"]) return GameObject.Find("ThisSceneManager").GetComponent<DialogueTrigger>().IsLevelFinished();
 
@@ -178,6 +180,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else if (sceneName == Scenes["Cells"])
         {
+            TimestampStart = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
         else if (sceneName == Scenes["MainRoom"])
@@ -239,7 +242,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextPipe()
     {
-        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        //GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = 5;
+
         GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
         PipeIndex++;
     }
