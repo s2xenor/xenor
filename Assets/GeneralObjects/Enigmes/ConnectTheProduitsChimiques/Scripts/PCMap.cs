@@ -87,6 +87,11 @@ public class PCMap : MonoBehaviourPunCallbacks
     [PunRPC]
     public void GenerationFinished()
     {
+        Invoke("GenerationFinished2", 0.5f);
+    }
+
+    private void GenerationFinished2()
+    {
         GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
     }
 
