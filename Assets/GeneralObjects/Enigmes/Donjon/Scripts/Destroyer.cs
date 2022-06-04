@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Destroyer : MonoBehaviour {
+public class Destroyer : MonoBehaviour 
+{
 
 	void OnTriggerEnter2D(Collider2D other)
 	{

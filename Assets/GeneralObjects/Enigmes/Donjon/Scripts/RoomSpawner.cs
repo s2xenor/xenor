@@ -26,11 +26,12 @@ public class RoomSpawner : MonoBehaviour {
 
     private void Update()
     {
-		if (!spawned && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+		if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
 			Destroy(gameObject, waitTime); // Destroy this in waitTime seconds
-
-			Invoke("Spawn", 0.1f); // Call Spawn() in 0.1 second
+			
+			if (!spawned)
+				Invoke("Spawn", 0.1f); // Call Spawn() in 0.1 second
         }
 	}
 
