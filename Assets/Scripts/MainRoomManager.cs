@@ -6,7 +6,10 @@ using Photon.Pun;
 public class MainRoomManager : MonoBehaviourPunCallbacks
 {
 
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
+
+
     public GameObject DoorsOpenCrate;
     public GameObject DoorsOpenPipe;
     public GameObject DoorsOpenLabyInvisible;
@@ -28,11 +31,11 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-0.38f, -4.16f), Quaternion.identity); // Spawn master player on network
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-0.38f, -4.16f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-1.65f, -4.16f), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-1.65f, -4.16f), Quaternion.identity); // Spawn player on network
         }
     }
 

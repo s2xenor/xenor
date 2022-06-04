@@ -36,7 +36,8 @@ public class PCMap : MonoBehaviourPunCallbacks
     public GameObject top_door_design;
     public GameObject top_door_activated_design;
     public GameObject single_door;
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
     /**
      * Variables Priv�es
      */
@@ -56,12 +57,12 @@ public class PCMap : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-0.7f, -0.3f), Quaternion.identity); // Spawn master player on network
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-0.7f, -0.3f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
             mazeGenerator = new PCMazeGenerator(0, this);
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-1f, -0.3f), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-1f, -0.3f), Quaternion.identity); // Spawn player on network
         }
     }
 

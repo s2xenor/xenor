@@ -28,7 +28,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
     private float startX = -1.76f;
 
     GameObject parentObj;
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
 
     public bool isOnPressureWire = false;
     public bool isOnPressureRule = false;
@@ -46,11 +47,11 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-13*0.32f, 5*0.32f), Quaternion.identity); // Spawn master player on network
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-13*0.32f, 5*0.32f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-13 * 0.32f, 0.32f), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-13 * 0.32f, 0.32f), Quaternion.identity); // Spawn player on network
         }
     }
 

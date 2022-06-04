@@ -18,7 +18,8 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
     public GameObject unmovableCratePrefab;
     public GameObject stoolPrefab;
     public GameObject dumpsterPrefab;
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
     //Affichage
     public GameObject messageOnScreenCanvas;
 
@@ -37,11 +38,11 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
 
         if (master)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(1.6f, 0.95f, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector3(1.6f, 0.95f, 0), Quaternion.identity);
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(1.6f, -0.3f, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector3(1.6f, -0.3f, 0), Quaternion.identity);
         }
     }
 
