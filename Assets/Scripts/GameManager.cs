@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             { "Donjon", "Tutorial" },
             { "Cells", "Cells" },
             { "MainRoom", "MainRoom" },
-            { "FinalScene", "" },
+            { "FinalScene", "FinalScene" },
         };
 
         LevelsCompleted = new Dictionary<string, bool>
