@@ -61,11 +61,10 @@ MonoBehaviour:
   - GlobalStartsAndEnds
   - SetDoors
   - loadScene
-  - ShouldStartGeneration
-  - ScreenShouldDeleteToTrue
-  - GenerationFinished
-  - ActivateDoors
-  - SetupDoorExit
+  - UpdateNumberOnline
+  - ShowImagRPCe
+  - ShowImageRPC
+  - UpdateNumberRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
