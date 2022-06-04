@@ -17,10 +17,16 @@ public class FixedTextPopUP : MonoBehaviour
     //Variable qui permet de v�rouiller (ne pas supprimer et �v�ntuellement ne pas ajouter) un autre message sur l'�cran du joueur
     public bool textLock = false;
 
+    Canvas canvas;
 
     /*
      * Fonctions
      */
+
+    private void Start()
+    {
+        canvas = GetComponent<Canvas>();
+    }
 
     //Fonction PressToInteractText() permet d'afficher un message utilitaire sur l'�crand du joueur
     /**
@@ -34,6 +40,7 @@ public class FixedTextPopUP : MonoBehaviour
     {
         if (!textLock)
         {
+            canvas.enabled = true;
             //Cherche l'�l�ment texte du texte dans le Canvas
             Text txt = gameObject.GetComponentInChildren<Text>();
             txt.enabled = true;
@@ -52,7 +59,7 @@ public class FixedTextPopUP : MonoBehaviour
         if (!textLock)
         {
             gameObject.GetComponentInChildren<Text>().enabled = false;
+            canvas.enabled = false;
         }
     }
-
 }

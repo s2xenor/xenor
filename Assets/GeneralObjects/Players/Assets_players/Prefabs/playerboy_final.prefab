@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   cooldown2: {fileID: 5700580796452602335}
   cooldown3: {fileID: 5700580796441231574}
   cooldown4: {fileID: 5700580798352575868}
+  vie: {fileID: 0}
 --- !u!1001 &2274418110478673178
 PrefabInstance:
   m_ObjectHideFlags: 0

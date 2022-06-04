@@ -32,10 +32,10 @@ RectTransform:
   m_Father: {fileID: 8312868088940820034}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -33.015167, y: 202.00339}
-  m_SizeDelta: {x: 808.8012, y: 205.8212}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 525.0434, y: -24.19168}
+  m_SizeDelta: {x: 1149.604, y: 204.2046}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5224992708609799364
 CanvasRenderer:
@@ -90,11 +90,11 @@ GameObject:
   - component: {fileID: 8312868088940820046}
   m_Layer: 5
   m_Name: TextPopUpCanvas
-  m_TagString: Untagged
+  m_TagString: CanvasText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8312868088940820034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8312868088940820041}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -217,15 +217,15 @@ RectTransform:
   m_GameObject: {fileID: 8312868089204199291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.775, y: 2.4491, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 8312868088940820034}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122.02023, y: 204}
-  m_SizeDelta: {x: 200.3515, y: 15.7298}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 25.9, y: -23}
+  m_SizeDelta: {x: 200.3515, y: 15.729797}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8312868089204199294
 CanvasRenderer:
@@ -257,15 +257,15 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 53bd2da7b9ef39c4d9448fad5700e900, type: 3}
-    m_FontSize: 8
+    m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 78
-    m_Alignment: 4
+    m_MaxSize: 120
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Both players need to be on a different pressure plate

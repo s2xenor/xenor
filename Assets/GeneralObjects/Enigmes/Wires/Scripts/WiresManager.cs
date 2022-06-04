@@ -34,6 +34,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public bool isMasterOnWire = false;
     public bool isMasterOnRule = false;
 
+    bool delLoad = false; // Has loading screen been deleted ?
+
     // Start is called before the first frame update
     void Start()
     {
@@ -163,7 +165,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < nbRules+1; i++)
         {
             txt = Instantiate(rulesTextPrefab, new Vector3(startX + coefX, startY - nbRules * 0.32f + coefY, 0), Quaternion.identity, canvasRules.transform);
-            txt.GetComponent<Transform>().position = new Vector3(startX + coefX, startY - i * 0.32f + coefY, 0);
+            txt.GetComponent<Transform>().position = new Vector3(startX + coefX - 3, startY - i * 0.32f + coefY, 0);
 
             txt.GetComponent<Text>().text = txts[i];
             txt.transform.SetParent(canvasRules.transform);
@@ -245,7 +247,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
                 {
                     if (item.GetComponent<PhotonView>().IsMine)
                     {
-                        item.GetComponent<player>().vie.Reduce4(1);
+                        //item.GetComponent<player>().vie.Reduce4(1);
                     }
                 }
                 PhotonView photonView = PhotonView.Get(this);
@@ -301,6 +303,12 @@ public class WiresManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (!delLoad && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+        {
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+            delLoad = true;
+        }
+
         if (isOnPressureRule)
         {
             if (isMasterOnRule) Debug.Log("master on rule");
