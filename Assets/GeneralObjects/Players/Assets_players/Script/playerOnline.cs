@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 //player class
-public class player : MonoBehaviour
+public class playerOnline : MonoBehaviour
 {
     //Attack of the player 
     public double Strength = 15;
@@ -12,7 +13,7 @@ public class player : MonoBehaviour
 
     public Animator animator;
     //inventory associate to the player 
-    inventory inventaire;
+    inventoryOnline inventaire;
 
 
     public Image cooldown;
@@ -24,16 +25,28 @@ public class player : MonoBehaviour
 
     //life barre of the player 
     public life vie;
+
+    PhotonView view;
+
+    AudioSource audioSource;
+    public AudioClip pickup;
        
 
     void Start()
     {
-        inventaire = GetComponentInChildren<inventory>();
+        inventaire = GetComponentInChildren<inventoryOnline>();
         vie= new life(cooldown, cooldown1, cooldown2, cooldown3, cooldown4);
+        view = GetComponent<PhotonView>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (view.IsMine)
+        {
+            audioSource.clip = pickup;  
+            audioSource.Play();
+        }
 
         switch (collision.gameObject.tag)
         {
