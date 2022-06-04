@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+
+
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
 // Il permet de sauvegarder des donn�es que l'on souhaite r�cup�rer apr�s le chargement de la sc�ne suivante
@@ -83,12 +85,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
             {
-                sceneName = SceneManager.GetActiveScene().name;
-                GoBackToOneLevel();
-                PhotonNetwork.LoadLevel("Loading");   //load scene load
-                NextScene = "MainRoom";
-                Invoke("LoadNextScene", 0.5f);
-
+                GoBackToLobby();
             }
             else if (Input.GetKeyDown(KeyCode.N)) //go to next room
             {
@@ -280,16 +277,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (ArrowIndex == 0) //tutos
         {
-
+            PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            ArrowIndex++;
         }
         else if(ArrowIndex <= 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            ArrowIndex++;
         }
         else //everything done go to main room
         {
             LevelsCompleted["Arrows"] = true;
-            
             ArrowIndex = 1;     //skip tuto
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
@@ -339,6 +337,24 @@ public class GameManager : MonoBehaviourPunCallbacks
         else if (sceneName == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1 : LabyInviIndex;
     }
 
+    public void GoBackToLobby()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
+        GoBackToOneLevel();
+        PhotonNetwork.LoadLevel("Loading");   //load scene load
+        NextScene = "MainRoom";
+        Invoke("LoadNextScene", 0.5f);
+    }
+
+    public int CalculateScore()
+    {
+        int secDuration = TimestampEnd - TimestampStart;
+        int START_SCORE = 15000;
+        int COEF_LIFE = 10;
+        int COEF_TIME = 1;
+
+        return START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
+    }
 
 
 

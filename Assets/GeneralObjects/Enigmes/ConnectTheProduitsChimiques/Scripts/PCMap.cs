@@ -56,12 +56,12 @@ public class PCMap : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn master player on network
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-0.7f, -0.3f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
             mazeGenerator = new PCMazeGenerator(0, this);
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-1f, -0.3f), Quaternion.identity); // Spawn player on network
         }
     }
 
@@ -310,7 +310,7 @@ public class PCMap : MonoBehaviourPunCallbacks
     public void EndOfGame(bool finish = true)
     {
         isLevelFinished = finish;
-        GameObject.FindGameObjectWithTag("DoorsToActivate").SetActive(finish);
+        GameObject.FindGameObjectsWithTag("DoorsToActivate")[0].SetActive(finish);
     }
 
     public bool IsLevelFinished() => isLevelFinished;

@@ -311,16 +311,9 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
         if (!delLoad && GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
-            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
             delLoad = true;
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
         }
-
-        if (isOnPressureRule)
-        {
-            if (isMasterOnRule) Debug.Log("master on rule");
-            else Debug.Log("client on rule");
-        }
-        else Debug.Log("nothing on rule");
         //if (isOnPressureWire)
         //{
         //    if (isMasterOnWire) Debug.Log("master on wires");
