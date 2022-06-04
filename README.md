@@ -29,7 +29,7 @@ Mais si Clothilde n’était qu’en réalité qu’une autre scientifique qui �
         * ``/Canvas`` : le système d'affichage sur écran du joueur
         * ``/DialogSystem`` : le système de dialogue
         * ``/Doors`` : le système de portes
-        * ``/Enigm`` : les différentes enigmes
+        * ``/Enigmes`` : les différentes enigmes
         * ``/Monster`` : le système de monstre
         * ``/Potion`` : le système de potion
         * ``/Player`` : les joueurs

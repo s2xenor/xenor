@@ -77,4 +77,9 @@ public class DialogueManager : MonoBehaviour {
 		dialogueTrigger.TriggerDialogue();
 	}
 
+	public bool IsDialodFinished()
+    {
+		return sentences.Count == 0;
+    }
+
 }

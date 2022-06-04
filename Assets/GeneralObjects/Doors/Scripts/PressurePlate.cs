@@ -46,7 +46,7 @@ public class PressurePlate : MonoBehaviourPunCallbacks
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Si ce qui est entrée en collision est un joueur
-        if (other.tag == "Player")
+        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine)
         {
             //On indique que la plaque est préssée
             pressed = true;
@@ -68,7 +68,7 @@ public class PressurePlate : MonoBehaviourPunCallbacks
     private void OnTriggerExit2D(Collider2D other)
     {
         //Si ce qui sort est un joueur
-        if (other.tag == "Player")
+        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine)
         {
             //On indique que la plaque n'est plus préssée
             pressed = false;
