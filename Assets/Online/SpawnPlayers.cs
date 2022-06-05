@@ -5,10 +5,18 @@ using Photon.Pun;
 
 public class SpawnPlayers : MonoBehaviour
 {
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
 
     private void Awake()
     {
-        PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn player on network
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn player on network
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(0.32f, 0), Quaternion.identity); // Spawn player on network
+        }
     }
 }

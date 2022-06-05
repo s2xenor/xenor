@@ -18,7 +18,7 @@ public class PCMap : MonoBehaviourPunCallbacks
 
     public int MapSize = 10;
 
-    public string NextSceneName = "MainRoom";
+    private bool isLevelFinished = false;
 
     /**
      * Prefabs
@@ -36,7 +36,8 @@ public class PCMap : MonoBehaviourPunCallbacks
     public GameObject top_door_design;
     public GameObject top_door_activated_design;
     public GameObject single_door;
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
     /**
      * Variables Priv�es
      */
@@ -51,48 +52,51 @@ public class PCMap : MonoBehaviourPunCallbacks
     private bool shouldStartGeneration = false;
 
     GameObject[] gos;
-    private bool screenNeedDelete = true;
     void Start()
     {
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn master player on network
-            ShouldStartGeneration();//remove on final
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-0.7f, -0.3f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
             mazeGenerator = new PCMazeGenerator(0, this);
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0, 0), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-1f, -0.3f), Quaternion.identity); // Spawn player on network
         }
-
-
     }
 
     void Update()
     {
 
-        gos = GameObject.FindGameObjectsWithTag("Loading");
 
-        // Delete loading screen
-        if (screenNeedDelete && GameObject.FindGameObjectsWithTag("Player").Length == 2 && gos.Length != 0)
+
+        if (shouldStartGeneration && GameObject.FindGameObjectsWithTag("Player").Length == 2) // Wait for the 2 players and then the master spawns it
         {
-            screenNeedDelete = false;
-            foreach (GameObject go in gos)
-                go.GetComponent<FetchCam>().Del();
-
+            if (PhotonNetwork.IsMasterClient)
+            {
+                shouldStartGeneration = false;
+                StartGeneration();
+            }
         }
 
-        if (!screenNeedDelete && shouldStartGeneration)
-        {
-            shouldStartGeneration = false;
-            StartGeneration();
-        }
 
-        
     }
 
     public void ShouldStartGeneration() => shouldStartGeneration = true;
+
+    [PunRPC]
+    public void GenerationFinished()
+    {
+        Invoke("GenerationFinished2", 0.5f);
+    }
+
+    private void GenerationFinished2()
+    {
+        GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+    }
+
+
 
     // Start is called before the first frame update
     public void StartGeneration()
@@ -156,7 +160,7 @@ public class PCMap : MonoBehaviourPunCallbacks
                 PhotonNetwork.Instantiate(vitre.name, new Vector3((float)0.32 * coordX - (float)0.16, (float)0.32 * coordY + (float)0.16, 0), Quaternion.identity);
                 if (tile.TileType != PCTile.PCTileType.None)
                 {
-                    if (tile.FluidDirection2 != PCTile.PCFluidDirection.None)
+                    if (tile.FluidDirection2 != PCTile.PCFluidDirection.None) 
                     {
                         photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coordX, coordY, coordY+1, (int)tile.TileType, (int)tile.FluidDirection, 0, (int)tile.FluidDirection2);
                     }
@@ -181,7 +185,7 @@ public class PCMap : MonoBehaviourPunCallbacks
         {
             if (coords.Item1 == -1)
             {
-                photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coords.Item2, coords.Item1, 0, (int)PCTile.PCTileType.Source, (int)PCTile.PCFluidDirection.Down, 2, numeroSource + 1);
+                photonView.RPC("GlobalInstantiatePipe", RpcTarget.All, coords.Item2, coords.Item1, 0, (int)PCTile.PCTileType.Source, (int)PCTile.PCFluidDirection.Down, 2, numeroSource); //source
                 numeroSource++;
             }
             else
@@ -224,16 +228,26 @@ public class PCMap : MonoBehaviourPunCallbacks
         //Design
         PhotonNetwork.Instantiate(left_door_design.name, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -2 + (float)0.16, 0), Quaternion.identity);
         PhotonNetwork.Instantiate(top_door_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
-        PhotonNetwork.Instantiate(top_door_activated_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        //PhotonNetwork.Instantiate(top_door_activated_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        photonView.RPC("SetupDoorExit", RpcTarget.All, false);
+
         //Plaque de pression
         PhotonNetwork.Instantiate(single_door.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
-        GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().MessageOnScreenCanvas = canvaTextPopUP;
+        //GameObject.FindGameObjectWithTag("Door").GetComponent<SingleDoor>().MessageOnScreenCanvas = canvaTextPopUP;
 
         //Quand jeu est fini il faut lier la salle suivante et afficher les portes
 
         //Prochaine salle dans porte
 
+        photonView.RPC("GenerationFinished", RpcTarget.All);
+    }
 
+    [PunRPC]
+    public void SetupDoorExit(bool active)
+    {
+        GameObject t = Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+        t.tag = "DoorsToActivate";
+        t.SetActive(active);
     }
 
     [PunRPC]
@@ -296,6 +310,9 @@ public class PCMap : MonoBehaviourPunCallbacks
      */
     public void EndOfGame(bool finish = true)
     {
-        GameObject.FindGameObjectWithTag("DoorsToActivate").GetComponent<SpriteRenderer>().enabled = finish;
+        isLevelFinished = finish;
+        GameObject.FindGameObjectsWithTag("DoorsToActivate")[0].SetActive(finish);
     }
+
+    public bool IsLevelFinished() => isLevelFinished;
 }

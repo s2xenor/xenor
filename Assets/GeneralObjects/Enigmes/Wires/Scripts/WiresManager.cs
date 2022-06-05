@@ -17,6 +17,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public GameObject rulesTextPrefab;      //text ui
 
     public bool isOn = false;
+    public bool isFinished = false;
 
     public GameObject[] plugsL = new GameObject[nbWires];
     public GameObject[] plugsN = new GameObject[nbWires];
@@ -27,7 +28,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
     private float startX = -1.76f;
 
     GameObject parentObj;
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
 
     public bool isOnPressureWire = false;
     public bool isOnPressureRule = false;
@@ -45,20 +47,15 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-12*0.32f, 5*0.32f), Quaternion.identity); // Spawn master player on network
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-13*0.32f, 5*0.32f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-12 * 0.32f, 2 * 0.32f), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-13 * 0.32f, 0.32f), Quaternion.identity); // Spawn player on network
         }
     }
 
-    public bool IsLevelFinished()
-    {
-        return true;
-    }
-
-
+    public bool IsLevelFinished() => isFinished;
 
     public void GenerateAll()
     {
@@ -67,15 +64,14 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
         int correctWire = 0;
 
-        
 
+        //generating a color for each wire
+        for (int i = 0; i < nbWires; i++) wiresColors[i] = Random.Range(0, 4);
 
         /*
-        * SHOW RULES
+        * CREATE RULES
         */
-        //show sinon
         string[] txts = new string[nbRules + 1];
-        
 
         int nbFils, color, unplug, rn, fil;
         bool finished = false;                  //a rule above is already valid
@@ -89,6 +85,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
                 nbFils = Random.Range(2, nbWires / 2);
                 if (findNbColors(color) >= nbFils && !finished)
                 {
+                    Debug.Log("finished at" + i);
                     correctWire = unplug;
                     finished = true;
                 }
@@ -99,6 +96,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
                 fil = Random.Range(0, nbWires);
                 if (wiresColors[fil] == color && !finished)
                 {
+                    Debug.Log("finished at" + i);
                     correctWire = unplug;
                     finished = true;
                 }
@@ -109,6 +107,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
                 nbFils = Random.Range(1, nbWires / 2);
                 if (findNbColors(color) < nbFils && !finished)
                 {
+                    Debug.Log("finished at" + i);
                     correctWire = unplug;
                     finished = true;
                 }
@@ -117,6 +116,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
         }
 
+        // last rules to be sure
         unplug = Random.Range(0, nbWires);
         txts[txts.Length-1] = $"Sinon débranchez le {nbToWord(unplug + 1)}";
 
@@ -136,9 +136,6 @@ public class WiresManager : MonoBehaviourPunCallbacks
         /*
          * Creating wires
          */
-
-        //generating a color for each wire
-        for (int i = 0; i < nbWires; i++) wiresColors[i] = Random.Range(0, 4);
 
         if (isMasterOnRule)//client need wires
         {
@@ -172,6 +169,12 @@ public class WiresManager : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    public void ActivateDoors()
+    {
+        Debug.Log("ok");
+        foreach (var item in GameObject.FindGameObjectsWithTag("DoorsToActivate")) item.GetComponent<SpriteRenderer>().enabled = true;
+    }
 
     [PunRPC]
     public void SetWire(int correctWire, int[] wiresColor, bool active)
@@ -234,11 +237,16 @@ public class WiresManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void UnPlug(bool correct)
     {
+        PhotonView photonView = PhotonView.Get(this);
+
         if (PhotonNetwork.IsMasterClient)
         {
             if (correct)
             {
                 //activate door
+                isFinished = true;
+                Debug.Log("success");
+                photonView.RPC("ActivateDoors", RpcTarget.All);
             }
             else
             {
@@ -250,14 +258,12 @@ public class WiresManager : MonoBehaviourPunCallbacks
                         //item.GetComponent<player>().vie.Reduce4(1);
                     }
                 }
-                PhotonView photonView = PhotonView.Get(this);
                 photonView.RPC("DestroyAll", RpcTarget.All);
             }
 
         }
         else
         {
-            PhotonView photonView = PhotonView.Get(this);
             photonView.RPC("UnPlug", RpcTarget.MasterClient, correct);
         }
     }
@@ -303,26 +309,18 @@ public class WiresManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+
         if (!delLoad && GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
-            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
             delLoad = true;
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
         }
-
-        if (isOnPressureRule)
-        {
-            if (isMasterOnRule) Debug.Log("master on rule");
-            else Debug.Log("client on rule");
-        }
-        else Debug.Log("nothing on rule");
-
-
-        if (isOnPressureWire)
-        {
-            if (isMasterOnWire) Debug.Log("master on wires");
-            else Debug.Log("client on wires");
-        }
-        else Debug.Log("nothing on wires");
+        //if (isOnPressureWire)
+        //{
+        //    if (isMasterOnWire) Debug.Log("master on wires");
+        //    else Debug.Log("client on wires");
+        //}
+        //else Debug.Log("nothing on wires");
 
     }
 
@@ -343,7 +341,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
     }
 
-    //calculate the number of wire of a giwen color
+    //calculate the number of wire of a given color
     int findNbColors(int color)
     {
         int nb = 0;
