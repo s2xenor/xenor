@@ -825,6 +825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b554644fa206beb43bcb142e72d40657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/GeneralObjects/Players/Assets_players/Prefabs/playergirl_final.prefab
+  panel: {fileID: 0}
+  slot: 000000000000000000000000
+--- !u!1 &4002803392433838140
+=======
   Strength: 15
 <<<<<<< HEAD:Assets/GeneralObjects/Players/Prefabs/playergirl_local_final.prefab
   boy: 0
@@ -841,6 +846,7 @@ MonoBehaviour:
   cooldown4: {fileID: 4002803391729796750}
   vie: {fileID: 0}
 --- !u!1 &4002803393176181176
+>>>>>>> 36da5dea1b9b50d0335a82b27ca18d3270c44c0c:Assets/GeneralObjects/Players/Prefabs/playergirl_local_final.prefab
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1310,6 +1316,23 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
+<<<<<<< HEAD:Assets/GeneralObjects/Players/Assets_players/Prefabs/playergirl_final.prefab
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 2223703904508614566, guid: ed29355088d498341b4b8588ed97dbcc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.25, y: 0.33}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!95 &4002803392846534273
+Animator:
+=======
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6334003124517534072
@@ -1418,6 +1441,7 @@ Canvas:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6334003124527519800}
   m_Enabled: 1
+>>>>>>> 36da5dea1b9b50d0335a82b27ca18d3270c44c0c:Assets/GeneralObjects/Players/Prefabs/playergirl_local_final.prefab
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}

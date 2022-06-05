@@ -32,7 +32,7 @@ public class playerOnline : MonoBehaviour
     public AudioClip pickup;
        
 
-    void Start()
+    void Awake()
     {
         inventaire = GetComponentInChildren<inventoryOnline>();
         vie= new life(cooldown, cooldown1, cooldown2, cooldown3, cooldown4);
@@ -42,7 +42,7 @@ public class playerOnline : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (view.IsMine)
+        if (collision.gameObject.tag.Contains("slot") && view.IsMine)
         {
             audioSource.clip = pickup;  
             audioSource.Play();
