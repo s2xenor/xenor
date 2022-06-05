@@ -10,18 +10,17 @@ public class Monstre : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] float speed;//speed of the monster 
-    private float PlayerDetectTime;
-    public float PlayerDetectRate;
-    public float chaseRange;
-    static public float start_pv;
-    int round=1;
-    private float pv = start_pv;
+    private float PlayerDetectTime;//time to detect the player 
+    public float PlayerDetectRate;//speed to detect the player 
+    public float chaseRange;//distance to detect the player
+    int round=1;//number of round 
+    public float pv;//life of the monster
+    bool dead = false;//bool make sure taht the monster is not dead
 
 
     [Header("Attack")]
-    [SerializeField] float attackRange;
-    [SerializeField] int damage;
-    [SerializeField] float attaclRate;
+    [SerializeField] float attackRange;//distance to attack
+    [SerializeField] float attaclRate;//speed to attack
     private float lastAttackTime;
 
     [Header("Component")]
@@ -32,20 +31,21 @@ public class Monstre : MonoBehaviour
 
 
     [Header("PathFinding")]
-    public float NextWayPointDistance = 2f;
+    public float NextWayPointDistance = 2f;//diatance player monster
     Path path;
-    int currentPath = 0;
-    bool reachEndPath = false;
-    Seeker seeker;
+    int currentPath = 0;//number of path
+    bool reachEndPath = false;//valid path
+    Seeker seeker;//the detection part of the map 
 
-    void Start()
+    void Start()//start the path finding
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
+    
 
-    void OnPathComplete(Path p)
+    void OnPathComplete(Path p)//verify if the path is valid 
     {
         if (!p.error)
         {
@@ -56,9 +56,9 @@ public class Monstre : MonoBehaviour
 
     void UpdatePath()
     {
-        if (seeker.IsDone() && targetPlayer!=null)
+        if (seeker.IsDone() && targetPlayer!=null && !dead)
         {
-            seeker.StartPath(rb.position, targetPlayer.transform.position, OnPathComplete);
+            seeker.StartPath(rb.position, targetPlayer.transform.position, OnPathComplete);// research a valid path
         }
 
     }
@@ -66,34 +66,33 @@ public class Monstre : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if(targetPlayer!=null)
+        if (targetPlayer != null && !dead )
         {
-            float dist = Vector2.Distance(transform.position, targetPlayer.transform.position);
-            if (dist < attackRange && Time.time - lastAttackTime >= attaclRate)
-            {
-                //attack
-                rb.velocity = Vector2.zero;
-            }
-            else if (dist > attackRange)
+            float dist = Vector2.Distance(transform.position, targetPlayer.transform.position);// distance
+
+
+           
+            if (dist > attackRange)//check if the distance 
             {
                 if (path == null)
                     return;
-                
-                if (currentPath >= path.vectorPath.Count)
+
+                if (currentPath >= path.vectorPath.Count)//check the good path
                 {
                     reachEndPath = true;
+                    return;
                 }
                 else
                 {
                     reachEndPath = false;
                 }
-                
-                Vector2 direction = ((Vector2)path.vectorPath[currentPath] - rb.position).normalized;
-                Vector2 force = direction * speed * Time.fixedDeltaTime;
 
-                rb.velocity = force;
+                Vector2 direction = ((Vector2)path.vectorPath[currentPath] - rb.position).normalized;//create the direction
+                Vector2 force = direction * speed * Time.fixedDeltaTime; //create a mouvement 
+
+                rb.velocity = force;//move
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentPath]);
-                if (distance < NextWayPointDistance)
+                if (distance < NextWayPointDistance)//check the distance between the next position and the current one
                 {
                     currentPath++;
                 }
@@ -101,35 +100,37 @@ public class Monstre : MonoBehaviour
             }
             else
             {
-                rb.velocity = Vector2.zero;
+
+                rb.velocity = Vector2.zero;//stop the monster 
             }
         }
         DetectPlayer();
+        StartCoroutine(waiter());//make the attack all the 15 sec 
     }
 
     void DetectPlayer()
     {
-        if(Time.time-PlayerDetectTime>PlayerDetectRate)
+        if(Time.time-PlayerDetectTime>PlayerDetectRate)//can the player be detect
         {
-            PlayerDetectTime = Time.time;
-            foreach(playerwalk player in FindObjectsOfType<playerwalk>())
+            PlayerDetectTime = Time.time;//detect the player on the moment
+            foreach(playerwalk player in FindObjectsOfType<playerwalk>())//research all the player 
             {
                 if(player!=null)
                 {
-                    float dist = Vector2.Distance(transform.position, player.transform.position);
+                    float dist = Vector2.Distance(transform.position, player.transform.position);//go to the player
 
                     if(player == targetPlayer)
                     {
                         if(dist>chaseRange)
                         {
-                            targetPlayer = null;
+                            targetPlayer = null;//no player on the path
                         }
                     }
 
                     else if (dist < chaseRange)
                     {
                         if (targetPlayer == null)
-                            targetPlayer = player;
+                            targetPlayer = player;//change the player 
                     }
                 }
             }
@@ -143,62 +144,74 @@ public class Monstre : MonoBehaviour
         {
             
 
-            case "slot (1)"://damage potion 
-                /*GameObject current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalk>());
-                GetDamage(current_player.GetComponent<player>().Strengt);*/
+            case "Potion"://damage potion 
+                playerwalk current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalk>()[0]);
+                GetDamage((float)current_player.GetComponent<player>().Strength);//have damage
                 Destroy(colision.gameObject);
                 break;
+            case "Player":
+                Attack();//attack animation
+                colision.gameObject.GetComponent<player>().GetDamage();//reduce player life
+                break;
+
         }
+        
     }
-    /*public GameObject ChangeTarget(GameObject current_player)
+
+
+    public playerwalk ChangeTarget(playerwalk current_player)//change the target player 
     {
-        GameObject other_player = FindObjectsOfType<playerwalk>();
-        if (other_player == current_player)
+        foreach(playerwalk other_player in FindObjectsOfType<playerwalk>())//research all the player
         {
-            other_player = FindObjectsOfType<playerwalk>();
+            if (other_player != current_player && current_player.GetComponent<player>().Strength < other_player.GetComponent<player>().Strength)
+                return other_player;//change player 
         }
-        else if (other_player != current_player /*&& current_player.Strength < other_player.Strength)
-            return other_player;
         return current_player;
 
-    }*/
+    }
 
     public void GetDamage(float damage)
     {
-        pv -= damage;
+        pv -= damage;//reduce the life 
 
         if (pv <= 0)
-            Die();
-        else
-        {
-            // Run damaged animation
-            animator.SetFloat("Damage", (0.5f));
-        }
+            Die();//die animation 
+        
     }
 
-    void Die()
+    void Die()//kill the monster 
     {
-        // Run death animation
-        animator.SetFloat("Die", 1);
+        
+        
+        animator.SetFloat("Die", 1);// Run death animation
+        dead = true;
     }
 
-    void Attack()
+    void Attack()//attack the player 
     {
+        
+
         // Run Attack animation
-        if (round % 2 == 0)
+        if (round % 2 == 0)//make a animation depending on the round 
         {
-            animator.SetFloat("Attack", (0.5f)); //Animation attack number 1
+            animator.SetFloat("Attack", 1f); //Animation attack number 1
+            round += 1;
         }
         else
         {
-            animator.SetFloat("Attack", (0.1f));//Animation attack number 2
+            animator.SetFloat("Attack", 0.1f);//Animation attack number 2
+            round += 1;
         }
     }
 
-    public void Heal()
-    {
-        pv = start_pv;
-    }
 
+    /*
+     * make wait 15 before remove the attack animation
+     */
+    IEnumerator waiter()
+    {
+            yield return new WaitForSeconds(15);
+            animator.SetFloat("Attack", 0f);//remove the attack animation 
+    }
 
 }
