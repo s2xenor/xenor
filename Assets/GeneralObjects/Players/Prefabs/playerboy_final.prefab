@@ -186,17 +186,12 @@ MonoBehaviour:
   Strength: 15
   boy: 1
   animator: {fileID: 9173885504738363832}
-<<<<<<< HEAD:Assets/GeneralObjects/Players/Prefabs/playerboy_final.prefab
-  vie: {fileID: 0}
-  potionPrefab: {fileID: 8290488347031643809, guid: 7fceb16ad3014ef4c8a3723d17b71fc7, type: 3}
-=======
   cooldown: {fileID: 5700580797238342705}
   cooldown1: {fileID: 5700580796704645586}
   cooldown2: {fileID: 5700580796452602335}
   cooldown3: {fileID: 5700580796441231574}
   cooldown4: {fileID: 5700580798352575868}
   vie: {fileID: 0}
->>>>>>> f9bfac583d019f517885d87d79bd974e1c8d8820:Assets/GeneralObjects/Players/Assets_players/Prefabs/playerboy_final.prefab
 --- !u!1001 &2274418110478673178
 PrefabInstance:
   m_ObjectHideFlags: 0
