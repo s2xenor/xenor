@@ -295,11 +295,11 @@ PrefabInstance:
     - target: {fileID: 5270109752559312532, guid: 768d11d6eeb97774ea8031de929cfe3a, type: 3}
       propertyPath: playerBoyPrefab
       value: 
-      objectReference: {fileID: 6147628036122659623, guid: 7f76d6766bd3663428f5506d20ccc09b, type: 3}
+      objectReference: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
     - target: {fileID: 5270109752559312532, guid: 768d11d6eeb97774ea8031de929cfe3a, type: 3}
       propertyPath: playerGirlPrefab
       value: 
-      objectReference: {fileID: 4002803392846534298, guid: d43290df29b4a174791b7f5961b902ea, type: 3}
+      objectReference: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
     - target: {fileID: 5270109752559312532, guid: 768d11d6eeb97774ea8031de929cfe3a, type: 3}
       propertyPath: prefabsR.Array.size
       value: 24

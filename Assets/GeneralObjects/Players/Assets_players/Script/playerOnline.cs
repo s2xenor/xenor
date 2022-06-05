@@ -42,6 +42,8 @@ public class playerOnline : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if(!view) view = GetComponent<PhotonView>();
+        if(!audioSource) audioSource = GetComponent<AudioSource>();
         if (view.IsMine)
         {
             audioSource.clip = pickup;  

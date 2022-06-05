@@ -1616,8 +1616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406f39326a3c94baa70130dca4df7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBoyPrefab: {fileID: 6147628036122659623, guid: 7f76d6766bd3663428f5506d20ccc09b, type: 3}
-  playerGirlPrefab: {fileID: 4002803392846534298, guid: d43290df29b4a174791b7f5961b902ea, type: 3}
+  playerBoyPrefab: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
+  playerGirlPrefab: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
   DoorsOpenCrate: {fileID: 640261867}
   DoorsOpenPipe: {fileID: 1747917135}
   DoorsOpenLabyInvisible: {fileID: 551890179}

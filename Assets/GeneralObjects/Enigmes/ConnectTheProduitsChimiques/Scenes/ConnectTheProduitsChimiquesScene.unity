@@ -351,7 +351,7 @@ PrefabInstance:
     - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
       propertyPath: playerBoyPrefab
       value: 
-      objectReference: {fileID: 6147628036122659623, guid: 7f76d6766bd3663428f5506d20ccc09b, type: 3}
+      objectReference: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
     - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
       propertyPath: top_door_design
       value: 
@@ -363,7 +363,7 @@ PrefabInstance:
     - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
       propertyPath: playerGirlPrefab
       value: 
-      objectReference: {fileID: 4002803392846534298, guid: d43290df29b4a174791b7f5961b902ea, type: 3}
+      objectReference: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
     - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
       propertyPath: top_door_activated_design
       value: 

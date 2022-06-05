@@ -478,8 +478,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   wiresColors: 0000000000000000000000000000000000000000000000000000000000000000
-  playerBoyPrefab: {fileID: 6147628036122659623, guid: 7f76d6766bd3663428f5506d20ccc09b, type: 3}
-  playerGirlPrefab: {fileID: 4002803392846534298, guid: d43290df29b4a174791b7f5961b902ea, type: 3}
+  playerBoyPrefab: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
+  playerGirlPrefab: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
   isOnPressureWire: 0
   isOnPressureRule: 0
   isMasterOnWire: 0

@@ -157,8 +157,8 @@ MonoBehaviour:
   unmovableCratePrefab: {fileID: 1996324278835852403, guid: 14db12be14c40334d983114cc9bb4e4e, type: 3}
   stoolPrefab: {fileID: 4356715998370529207, guid: 0b76f048815a7fd43bfe22166f086eef, type: 3}
   dumpsterPrefab: {fileID: 7896238826597193483, guid: f32322dede1d0514d92a98022cc1666a, type: 3}
-  playerBoyPrefab: {fileID: 6147628036122659623, guid: 7f76d6766bd3663428f5506d20ccc09b, type: 3}
-  playerGirlPrefab: {fileID: 4002803392846534298, guid: d43290df29b4a174791b7f5961b902ea, type: 3}
+  playerBoyPrefab: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
+  playerGirlPrefab: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
   messageOnScreenCanvas: {fileID: 1326575767}
 --- !u!4 &369101425
 Transform:
