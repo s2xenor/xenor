@@ -3,30 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Box
-  - local
-  - WiresCam
-  - BoxLabyGenerator
-  - DoorsToActivate
-  - Door
-<<<<<<< HEAD
-  - slot
-  - slot (1)
-  - slot (2)
-  - Potion
-  - Monster
-  - Loading
-=======
-  - wireObject
-  - ruleObject
-  - GameManager
->>>>>>> f9bfac583d019f517885d87d79bd974e1c8d8820
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Obstacle
+  - 
   - Water
   - UI
   - 
@@ -56,21 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: FloorUnder
-    uniqueID: 3369972685
-    locked: 0
-  - name: Floor
-    uniqueID: 2177559475
-    locked: 0
-  - name: Design
-    uniqueID: 656816631
-    locked: 0
-  - name: GroundObects
-    uniqueID: 2795827669
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 1747968327
     locked: 0

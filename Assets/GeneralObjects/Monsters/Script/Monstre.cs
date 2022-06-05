@@ -90,6 +90,10 @@ public class Monstre : MonoBehaviour
                 Vector2 direction = ((Vector2)path.vectorPath[currentPath] - rb.position).normalized;//create the direction
                 Vector2 force = direction * speed * Time.fixedDeltaTime; //create a mouvement 
 
+                animator.SetFloat("Horizontal", direction.x);//mise en place de l'animation 
+                animator.SetFloat("Vertical", direction.y);
+                animator.SetFloat("Magnitude", direction.magnitude);
+
                 rb.velocity = force;//move
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentPath]);
                 if (distance < NextWayPointDistance)//check the distance between the next position and the current one
@@ -118,6 +122,7 @@ public class Monstre : MonoBehaviour
                 if(player!=null)
                 {
                     float dist = Vector2.Distance(transform.position, player.transform.position);//go to the player
+
 
                     if(player == targetPlayer)
                     {
