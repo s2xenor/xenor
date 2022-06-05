@@ -111,10 +111,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             { "Crate", "CrateLabyrinthScene" },
             { "Pipe", "ConnectTheProduitsChimiquesScene" },
-            { "LabyInvisible", "Labyrinthe" },
+            { "LabyInvisible", "LabyInv" },
             { "Arrows", "ArrowScene" },
             { "Wires", "WiresScene" },
-            { "Donjon", "Tutorial" },
+            { "Donjon", "Donjon" },
             { "Cells", "Cells" },
             { "MainRoom", "MainRoom" },
             { "FinalScene", "FinalScene" },
