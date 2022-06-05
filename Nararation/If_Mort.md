@@ -1,8 +1,8 @@
-# Première Rencontre avec un Montre 
+# Entree dasn le Donjon
 
 ## Contexte :
 
-Les deux joueurs viennent d'entrer dans la salle principale et se retrouvent nez à nez avec un monstre.
+Les deux joueurs ont réussi à sortir du donjon en un seul morceau
 
 ## Texte :
 
@@ -23,4 +23,4 @@ Les manières/façons dont sont dites les choses seront exprimées en **(gras en
 
 ### Histoire :
 
-```Clothilde``` : Bon... Je dois l'avouer... Mes talents de hackeuse sont un chouilla rouillés... Ca fait quelques années maintenant que les autorités ont arrêté tous mes confrères de l'EPITA car ils essayaient de mettre en garde les populations contre les dérives de la société... Et, ça fait également quelques années que je ne suis que l'agent de nettoyage de la salle des serveurs... Et ils se pourrait que j'ai.... comment dire... ouvert la cage de quelques-unes des expériences des scientifiques par erreur en tentant de vous libérer... Faites attention, ces créatures sont très dangereuses... 
+```Narrateur``` : Malheureusement les scientifiques ont été plus rapide que Clothilde pour venir vous sauver... Ils vous remettent dans vos cellules et triple votre surveillance... Clothilde est remerciée et les expériences sur vous reprenent comme si de rien n'était...

@@ -1,12 +1,12 @@
-# Entree dasn le Donjon
+# Enigme : Labyrinthe de Tuyaux
 
 ## Contexte :
 
-Les deux joueurs viennent de choisir de prendre la porte qui mène au donjon (avec tous les monstres)
+Les deux joueurs sont dans la salle de produits chimiques
 
 ## Texte :
 
-*Cette partie de l'histoire n'est pas essentielle à la connaissance des mécaniques du jeu, elle ne peut pas être passée mais ne bloque pas les joueurs dans leur progression*
+*Cette partie de l'histoire est essentielle à la connaissance des mécaniques du jeu, elle ne peut donc pas être passée, elle sert à expliquer comment résoudre ce type d'énigmes. Cependant le dialogue ne bloque pas la possibilité d'intéragir avec l'environement et donc de finir le niveau...*
 
 ### Notations :
 
@@ -21,10 +21,8 @@ Un bruit/effet sonore sera indiqué par du texte en *italique*.
 
 Les manières/façons dont sont dites les choses seront exprimées en **(gras entre parenthèse)**
 
-### Histoire :
+### Histoire
 
-```Clothide``` : Mince... Mince... Mince... MIIiiiiiinnnnceeeeee....... 
-```Clothide``` : Euh... 
-```Clothide``` : Comment dire ?...... 
-```Clothide``` : Hum... 
-```Clothide``` : il se pourrait que vous ayez pris la porte qui mène aux cages des autres expériences des scientifiques... hum... Bonne Chance.......
+*Bruit alarme*
+
+```Clothide``` : Ohoh... La salle vient de se vérouiller à cause d'un fuite de produits chimiques... Réparez vite les tuyaux et restaurez le flux pour que le système de sécurité réactive la port et que vous puissiez vous échapper.
