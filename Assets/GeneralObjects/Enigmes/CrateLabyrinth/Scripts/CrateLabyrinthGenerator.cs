@@ -57,7 +57,7 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
 
             load = false;
 
-            //Invoke("RemoveLoadingScreen", 1);
+            Invoke("RemoveLoadingScreen", 1);
         }
     }
 

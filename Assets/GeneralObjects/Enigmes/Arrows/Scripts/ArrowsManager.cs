@@ -36,7 +36,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     //coord to spawn
     float cox = startX + 2 * 0.32f;
     float coMx = startX + 6 * 0.32f; //co x of master
-    float coy = startY + 3 * 0.32f;
+    float coy = startY + 2.5f * 0.32f;
 
     void Start()
     {
@@ -52,8 +52,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         }
 
         //resize cam to see more laby
-        GameObject cam = t.transform.GetChild(0).gameObject;
-        cam.GetComponent<Camera>().fieldOfView = 120;
+        t.GetComponentInChildren<Camera>().fieldOfView = 120;
 
         //get player
         players[0] = t.GetComponent<Transform>();
@@ -111,10 +110,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     public void Update()
     {
         // Delete loading screen
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("Loading");
-        if (gos.Length != 0 && GameObject.FindGameObjectsWithTag("Player").Length == 2)
-            foreach (GameObject go in gos)
-                go.GetComponent<FetchCam>().Del();
+        GameObject go = GameObject.FindGameObjectWithTag("Loading");
+        if (go != null && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+            go.GetComponent<FetchCam>().Del();
 
         if (PhotonNetwork.IsMasterClient)
         {
