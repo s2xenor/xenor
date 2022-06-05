@@ -96,6 +96,46 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void SaveData()
+    {
+        // On utilise le module JsonUtility pour parse tout l'objet
+        GameData dataToSave = new GameData(LevelsCompleted, new int[] { CrateIndex, PipeIndex, LabyInviIndex, ArrowIndex, WiresIndex }, new int[] { }, new int[] { });
+        string playerSettingsData = JsonUtility.ToJson(dataToSave);
+
+        // Chemin ou va �tre enregistrer le JSON
+        // persistentDataPath est un dossier qui ne sera jamais modifier par unity m�me mise � jour
+        string filePath = Application.persistentDataPath + "/Game.json";
+
+        // On �crit le fichier
+        System.IO.File.WriteAllText(filePath, playerSettingsData);
+    }
+
+    public void LoadData()
+    {
+        // Chemin ou est stock� le json
+        string filePath = Application.persistentDataPath + "/Game.json";
+
+        if (System.IO.File.Exists(filePath))
+        {
+            // On le parse pour r�cup les infos
+            string data = System.IO.File.ReadAllText(filePath);
+
+            GameData datas = JsonUtility.FromJson<GameData>(data);
+
+            LevelsCompleted = datas.LevelsCompleted;    //load levels completed
+
+            //load level in a room
+            CrateIndex = datas.LevelIndex[0];
+            PipeIndex = datas.LevelIndex[1];
+            LabyInviIndex = datas.LevelIndex[2];
+            ArrowIndex = datas.LevelIndex[2];
+            WiresIndex = datas.LevelIndex[4];
+
+
+        }
+
+    }
+
 
     /*
      * MULTI 
@@ -111,7 +151,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             { "Crate", "CrateLabyrinthScene" },
             { "Pipe", "ConnectTheProduitsChimiquesScene" },
-            { "LabyInvisible", "Labyrinthe" },
+            { "LabyInvisible", "Laby1" },
             { "Arrows", "ArrowScene" },
             { "Wires", "WiresScene" },
             { "Donjon", "Tutorial" },
