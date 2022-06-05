@@ -832,9 +832,9 @@ public class AstarPath : VersionedMonoBehaviour {
 			if (logPathResults == PathLog.InGame) {
 				inGameDebugPath = debug;
 			} else if (path.error) {
-				Debug.LogWarning(debug);
+				//Debug.LogWarning(debug);
 			} else {
-				Debug.Log(debug);
+				//Debug.Log(debug);
 			}
 		}
 	}
@@ -1379,7 +1379,7 @@ public class AstarPath : VersionedMonoBehaviour {
 		if (!Application.isPlaying) return;
 
 		if (logPathResults == PathLog.Heavy)
-			Debug.Log("+++ AstarPath Component Destroyed - Cleaning Up Pathfinding Data +++");
+			//Debug.Log("+++ AstarPath Component Destroyed - Cleaning Up Pathfinding Data +++");
 
 		if (active != this) return;
 
@@ -1397,7 +1397,7 @@ public class AstarPath : VersionedMonoBehaviour {
 		pathProcessor.queue.TerminateReceivers();
 
 		if (logPathResults == PathLog.Heavy)
-			Debug.Log("Processing Possible Work Items");
+			//Debug.Log("Processing Possible Work Items");
 
 		// Stop the graph update thread (if it is running)
 		graphUpdates.DisableMultithreading();
@@ -1406,21 +1406,21 @@ public class AstarPath : VersionedMonoBehaviour {
 		pathProcessor.JoinThreads();
 
 		if (logPathResults == PathLog.Heavy)
-			Debug.Log("Returning Paths");
+			//Debug.Log("Returning Paths");
 
 
 		// Return all paths
 		pathReturnQueue.ReturnPaths(false);
 
 		if (logPathResults == PathLog.Heavy)
-			Debug.Log("Destroying Graphs");
+			//Debug.Log("Destroying Graphs");
 
 
 		// Clean up graph data
 		data.OnDestroy();
 
 		if (logPathResults == PathLog.Heavy)
-			Debug.Log("Cleaning up variables");
+			//Debug.Log("Cleaning up variables");
 
 		// Clear variables up, static variables are good to clean up, otherwise the next scene might get weird data
 
@@ -1781,7 +1781,7 @@ public class AstarPath : VersionedMonoBehaviour {
 		System.GC.Collect();
 
 		if (logPathResults != PathLog.None && logPathResults != PathLog.OnlyErrors) {
-			Debug.Log("Scanning - Process took "+(lastScanTime*1000).ToString("0")+" ms to complete");
+			//Debug.Log("Scanning - Process took "+(lastScanTime*1000).ToString("0")+" ms to complete");
 		}
 	}
 
@@ -1867,7 +1867,7 @@ public class AstarPath : VersionedMonoBehaviour {
 		waitForPathDepth++;
 
 		if (waitForPathDepth == 5) {
-			Debug.LogError("You are calling the BlockUntilCalculated function recursively (maybe from a path callback). Please don't do this.");
+			//Debug.LogError("You are calling the BlockUntilCalculated function recursively (maybe from a path callback). Please don't do this.");
 		}
 
 		if (path.PipelineState < PathState.ReturnQueue) {
@@ -1934,7 +1934,7 @@ public class AstarPath : VersionedMonoBehaviour {
 		var astar = active;
 
 		if (System.Object.ReferenceEquals(astar, null)) {
-			Debug.LogError("There is no AstarPath object in the scene or it has not been initialized yet");
+			//Debug.LogError("There is no AstarPath object in the scene or it has not been initialized yet");
 			return;
 		}
 
@@ -1949,9 +1949,9 @@ public class AstarPath : VersionedMonoBehaviour {
 		}
 
 		if (astar.graphs == null || astar.graphs.Length == 0) {
-			Debug.LogError("There are no graphs in the scene");
+			//Debug.LogError("There are no graphs in the scene");
 			path.FailWithError("There are no graphs in the scene");
-			Debug.LogError(path.errorLog);
+			//Debug.LogError(path.errorLog);
 			return;
 		}
 
