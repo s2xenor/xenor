@@ -18,7 +18,7 @@ TagManager:
   - Inventory
   - CanvasText
   - Pause
-  - ArrowsManager
+  - Manager
   layers:
   - Default
   - TransparentFX

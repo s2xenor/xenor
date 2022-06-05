@@ -57,6 +57,17 @@ public class WiresManager : MonoBehaviourPunCallbacks
 
     public bool IsLevelFinished() => isFinished;
 
+    [PunRPC]
+    public void StartDialogue(bool local = false)
+    {
+        if (local) this.GetComponentInParent<DialogueTriggerG>().triggerOnload = true;
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("StartDialogue", RpcTarget.All, true);
+        }
+    }
+
     public void GenerateAll()
     {
         if (isOn) return;

@@ -299,18 +299,24 @@ public class GameManager : MonoBehaviourPunCallbacks
         //create small laby for tutos on master
         if (ArrowIndex == 0)
         {
-            GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().x = 5;
-            GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().y = 5;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().x = 5;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().y = 5;
 
         }
-        GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().shouldStart = true;
-        GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().StartDialogue();
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().shouldStart = true;
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().StartDialogue();
     }
 
     private int WiresIndex = 0;
     private void LoadNextWires()
     {
-        if(WiresIndex < 2)
+        if(WiresIndex == 0) //tutos
+        {
+            PhotonNetwork.LoadLevel(Scenes["Wires"]);
+            Invoke("LoadWires", 0.5f);
+            WiresIndex++;
+        }
+        else if(WiresIndex < 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Wires"]);
             WiresIndex++;
@@ -324,6 +330,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
+    private void LoadWires()
+    {
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<WiresManager>().StartDialogue();
+    }
 
     int LabyInviIndex = 0;
     private void LoadNextLabyInvi()
