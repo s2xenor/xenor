@@ -23,9 +23,7 @@ Les manières/façons dont sont dites les choses seront exprimées en **(gras en
 
 ### Histoire
 
-*Bruit alarme*
-
-```Clothilde``` : Cette salle est protégée par des pièges mais les scientifiques avaient peur d'oublier le bon chemin donc ils l'ont inscrit sur le sol. Selon votre vision de la vie (que vous voyez le verre à moitié vide ou à moitié plein) vous voyez ou non certains dessins au sol (c'est une nouvelle technologie secrête développée par le labo XENOR). Pour retrouver le chemin il faut être au moins à deux car on ne peut pas voir tous les dessins seul... Pour retrouver la sortie, il faut suivre ces deux règles :
+```Clothilde``` : Cette salle est protégée par des pièges mais les scientifiques avaient peur d'oublier le bon chemin donc ils l'ont inscrit sur le sol. Selon votre vision de la vie (que vous voyez le verre à moitié vide ou à moitié plein) vous voyez ou non certains dessins au sol (c'est une nouvelle technologie secrète développée par le labo XENOR). Pour retrouver le chemin il faut être au moins à deux car on ne peut pas voir tous les dessins seul... Pour retrouver la sortie, il faut suivre ces deux règles :
 * Il faut toujours aller dans le sens des flèches et 
 * il ne faut jamais sur une dalle où la flèche est à contre-sens !
 Ne les oubliez pas ! 
