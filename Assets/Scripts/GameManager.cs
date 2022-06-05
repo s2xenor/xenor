@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+
+
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
 // Il permet de sauvegarder des donn�es que l'on souhaite r�cup�rer apr�s le chargement de la sc�ne suivante
@@ -27,7 +29,9 @@ public class GameManager : MonoBehaviourPunCallbacks
      * Variables use to determine score
      */
     public int QuarterHeartLost = 0;    //global number of heart lost during the game
-    public int TimestampStart = 0;
+    private int TimestampStart;
+    public int TimestampEnd;
+
 
     private string sceneName = "";
     private string NextScene = null;
@@ -81,12 +85,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
             {
-                sceneName = SceneManager.GetActiveScene().name;
-                GoBackToOneLevel();
-                PhotonNetwork.LoadLevel("Loading");   //load scene load
-                NextScene = "MainRoom";
-                Invoke("LoadNextScene", 0.5f);
-
+                GoBackToLobby();
             }
             else if (Input.GetKeyDown(KeyCode.N)) //go to next room
             {
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviourPunCallbacks
      */
 
     private Dictionary<string, string> Scenes;  //Dictionnary allowing to change scene name without messing with code
-    private Dictionary<string, bool> LevelsCompleted;
+    public static Dictionary<string, bool> LevelsCompleted;
 
     public void Start()
     {
@@ -118,7 +117,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             { "Donjon", "Tutorial" },
             { "Cells", "Cells" },
             { "MainRoom", "MainRoom" },
-            { "FinalScene", "" },
+            { "FinalScene", "FinalScene" },
         };
 
         LevelsCompleted = new Dictionary<string, bool>
@@ -157,7 +156,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         string scenesName = SceneManager.GetActiveScene().name;
 
-        if (scenesName == Scenes["Pipe"]) return false;
+        if (scenesName == Scenes["Pipe"]) return GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().IsLevelFinished();
         if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
         if (scenesName == Scenes["Cells"]) return GameObject.Find("ThisSceneManager").GetComponent<DialogueTrigger>().IsLevelFinished();
 
@@ -178,6 +177,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else if (sceneName == Scenes["Cells"])
         {
+            TimestampStart = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
         else if (sceneName == Scenes["MainRoom"])
@@ -222,19 +222,28 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int PipeIndex = 0;
     private void LoadNextPipe()
     {
+        Debug.Log("log next pipe");
         if(PipeIndex <= 3)
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
-            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
-            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
-            PipeIndex++;
+            Invoke("SubNextPipe", 0.5f);
+
         }
         else
         {
             PipeIndex = 0;
-            
+            LevelsCompleted["Pipe"] = true;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
+    }
+
+    private void SubNextPipe()
+    {
+        //GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = 5;
+
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
+        PipeIndex++;
     }
 
 
@@ -247,7 +256,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(CrateIndex < ListCrate.Length)
         {
             PhotonNetwork.LoadLevel(Scenes["Crate"]);   //load scene crate
-            Invoke("subDel", 0.5f);
+            Invoke("SubNextCrate", 0.5f);
         }
         else //everything done go to main room
         {
@@ -257,7 +266,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void subDel()
+    private void SubNextCrate()
     {
         GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
         CrateIndex++;
@@ -268,16 +277,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (ArrowIndex == 0) //tutos
         {
-
+            PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            ArrowIndex++;
         }
         else if(ArrowIndex <= 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            ArrowIndex++;
         }
         else //everything done go to main room
         {
             LevelsCompleted["Arrows"] = true;
-            
             ArrowIndex = 1;     //skip tuto
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
@@ -312,6 +322,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+            LevelsCompleted["LabyInvisible"] = true;
             LabyInviIndex = 0;
         }
 
@@ -326,6 +337,24 @@ public class GameManager : MonoBehaviourPunCallbacks
         else if (sceneName == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1 : LabyInviIndex;
     }
 
+    public void GoBackToLobby()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
+        GoBackToOneLevel();
+        PhotonNetwork.LoadLevel("Loading");   //load scene load
+        NextScene = "MainRoom";
+        Invoke("LoadNextScene", 0.5f);
+    }
+
+    public int CalculateScore()
+    {
+        int secDuration = TimestampEnd - TimestampStart;
+        int START_SCORE = 15000;
+        int COEF_LIFE = 10;
+        int COEF_TIME = 1;
+
+        return START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
+    }
 
 
 

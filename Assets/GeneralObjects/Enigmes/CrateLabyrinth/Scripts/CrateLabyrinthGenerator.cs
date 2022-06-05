@@ -18,7 +18,8 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
     public GameObject unmovableCratePrefab;
     public GameObject stoolPrefab;
     public GameObject dumpsterPrefab;
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
     //Affichage
     public GameObject messageOnScreenCanvas;
 
@@ -37,28 +38,16 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
 
         if (master)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(1.6f, 0.95f, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector3(1.6f, 0.95f, 0), Quaternion.identity);
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(1.6f, -0.3f, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector3(1.6f, -0.3f, 0), Quaternion.identity);
         }
     }
 
     private void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
-        {
-            //CheatCode pour CrateLabyrinthScene
-            if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
-            {
-                //si on appuie sur la touche P, �a nous tp � la fin du niveau
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                players[0].GetComponent<Transform>().position = new Vector3(-4, 1, 0);
-                players[1].GetComponent<Transform>().position = new Vector3(-4, (float)-0.5, 0);
-            }
-        }
-        
         if (load && GameObject.FindGameObjectsWithTag("Player").Length == 2) // Wait for the 2 players and then the master spawns it
         {
             if (master)

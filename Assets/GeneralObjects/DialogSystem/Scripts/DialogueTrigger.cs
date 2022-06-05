@@ -14,17 +14,34 @@ public class DialogueTrigger : MonoBehaviourPunCallbacks
 
 	public List<GameObject> objectsToActivate;
 
-    public GameObject playerPrefab;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
+
+    public bool final = false;
 
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (final)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0.92f, -0.3f), Quaternion.identity); // Spawn master player on network
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-0.37f, -0.33f), Quaternion.identity); // Spawn master player on network
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(0.915f, -0.33f), Quaternion.identity); // Spawn player on network
+            }
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-0.37f, -0.3f), Quaternion.identity); // Spawn player on network
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(0.92f, -0.3f), Quaternion.identity); // Spawn master player on network
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-0.37f, -0.3f), Quaternion.identity); // Spawn player on network
+            }
         }
     }
     private void Update()

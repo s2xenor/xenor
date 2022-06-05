@@ -137,9 +137,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: Magnitude
-  - Type: 3
+  - Type: 1
     SynchronizeType: 0
-    Name: die
+    Name: Die
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0

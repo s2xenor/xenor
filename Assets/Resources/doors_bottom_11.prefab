@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8906066207953855750}
   - component: {fileID: 1110387641206557325}
-  - component: {fileID: 5578334843400726026}
+  - component: {fileID: 4208409502205414338}
   m_Layer: 0
   m_Name: doors_bottom_11
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5578334843400726026
+--- !u!114 &4208409502205414338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0

@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 7664343939250262140}
   - component: {fileID: 3142943589614788971}
   m_Layer: 5
-  m_Name: Back (2)
+  m_Name: Lobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,6 +600,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 11500000, guid: d8154dd4659a5ab4aaa2747b48d34ddf, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: set_name
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GoBackToLobby
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &8268190668268704677
@@ -782,7 +794,7 @@ GameObject:
   - component: {fileID: 2743456044820222603}
   - component: {fileID: 1375776459498011581}
   m_Layer: 5
-  m_Name: Back (1)
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1104,6 +1116,10 @@ PrefabInstance:
     - target: {fileID: 8060018623192157739, guid: c670bd4027a03ba46bf9266cb0d59b7b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8567332562733511723, guid: c670bd4027a03ba46bf9266cb0d59b7b, type: 3}
+      propertyPath: m_Name
+      value: Exit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c670bd4027a03ba46bf9266cb0d59b7b, type: 3}

@@ -9,9 +9,11 @@ public class FetchCam : MonoBehaviour
     Light2D light; // Global Light
     float intentsity; // Original intensity of the light
 
-    private void Start()
+    void Start()
     {
-        light = GameObject.FindGameObjectWithTag("GlobalLight").GetComponent<Light2D>();
+        Debug.Log("late start loading");
+        Debug.Log(GameObject.FindGameObjectsWithTag("GlobalLight").Length);
+        light = GameObject.FindGameObjectsWithTag("GlobalLight")[0].GetComponent<Light2D>();
         intentsity = light.intensity;
         light.intensity = 1;
 
@@ -29,6 +31,7 @@ public class FetchCam : MonoBehaviour
 
     public void Del()
     {
+        Debug.Log("delete loading");
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (obj.GetComponent<PhotonView>().IsMine)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7597690514644801551}
   - component: {fileID: 5690834277975979482}
-  - component: {fileID: -7137619117577262176}
+  - component: {fileID: -5609393434549820660}
   m_Layer: 0
   m_Name: doors_top_1
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7137619117577262176
+--- !u!114 &-5609393434549820660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

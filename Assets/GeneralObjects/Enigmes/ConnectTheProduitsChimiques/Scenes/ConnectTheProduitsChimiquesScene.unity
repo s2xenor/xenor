@@ -224,6 +224,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
+--- !u!1001 &693608028
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.1430254
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.0955846
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182608749417524346, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949856285030263813, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
+      propertyPath: m_Name
+      value: Global Light 2D
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5febc99bf2fba2f489c62e1eb30885ca, type: 3}
 --- !u!1001 &1753461745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,6 +348,26 @@ PrefabInstance:
       propertyPath: canvaTextPopUP
       value: 
       objectReference: {fileID: 1833423487}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: playerBoyPrefab
+      value: 
+      objectReference: {fileID: 6147628036122659623, guid: 7f76d6766bd3663428f5506d20ccc09b, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: top_door_design
+      value: 
+      objectReference: {fileID: 6849494773477247910, guid: 81c5e620b67244b48be5ea447dfb6d85, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: left_door_design
+      value: 
+      objectReference: {fileID: 2575262248740547285, guid: f28486171e857f74fb6113ded14ff955, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: playerGirlPrefab
+      value: 
+      objectReference: {fileID: 4002803392846534298, guid: d43290df29b4a174791b7f5961b902ea, type: 3}
+    - target: {fileID: 9097918333847869757, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: top_door_activated_design
+      value: 
+      objectReference: {fileID: 2239402911561651639, guid: f67a0b222e5024a44849f86108746549, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5662643444dd66342910ac28b8586c38, type: 3}
 --- !u!1 &1753461746 stripped
