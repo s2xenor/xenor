@@ -1,0 +1,11 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "Ah...",
+        "Les voilà...",
+        "Enfin !...",
+        "C'était pas des flèches ceux là...",
+        "Rammenez-les à leur cellules."
+    ],
+    "nextDialogPath" : "Dialogs/fin3"
+}

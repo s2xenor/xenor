@@ -1,0 +1,12 @@
+{
+    "name" : "Narrateur",
+    "sentences" : [
+        "Quatre gardes que vous n’aviez pas vus jusqu’à présent s’avance et vous saisissent vous et votre compagnon par les bras.",
+        "Vous vous laissez faire, trop choqué pour réagir...",
+        "Clothilde qui vous a pourtant aidé à vous échapper ordonne maintenant votre retour à l’incarcération.",
+        "On vous retourne face à la grande porte que vous venez de prendre, vous apercevez deux écrans numérique affichant respectivement « Crésus : Clone n°397 » et « Crésus : Clone n°398 » ainsi que deux notes très détaillées.",
+        "Au-dessus de la porte se trouve le logo de Xenor, en dessous un slogan : « Avec Xenor, négationnez la mort ».",
+        "Vous comprenez alors que Clothilde ne vous aidait pas à vous échapper mais évaluait simplement vos capacités."
+    ],
+    "nextDialogPath" : "Dialogs/fin4"
+}

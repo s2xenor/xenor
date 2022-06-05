@@ -1,0 +1,8 @@
+{
+    "name" : "Narrateur",
+    "sentences" : [
+        "On vous injecte un produit...",
+        "Vous emmetez une dernière pensée avant de sombrer dans le noir infini..."
+    ],
+    "nextDialogPath" : "Dialogs/fin6"
+}
