@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 7507810734419630642}
   - component: {fileID: 7507810734419630641}
   - component: {fileID: 7507810734419630640}
-  - component: {fileID: 7507810734419630655}
+  - component: {fileID: 464492727019567744}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7507810734419630655
+--- !u!114 &464492727019567744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3827b78ecda514240942fa6777b66681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 7507810734466967879}
   slot: 000000000000000000000000
 --- !u!1 &7507810734440849439
 GameObject:
@@ -282,7 +283,7 @@ GameObject:
   - component: {fileID: 7507810734440849428}
   - component: {fileID: 7507810734440849427}
   - component: {fileID: 7507810734440849426}
-  - component: {fileID: 7507810734440849425}
+  - component: {fileID: 1170899527190167874}
   m_Layer: 5
   m_Name: Image(2)
   m_TagString: Untagged
@@ -364,7 +365,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7507810734440849425}
+        - m_Target: {fileID: 1170899527190167874}
           m_TargetAssemblyTypeName: image, Assembly-CSharp
           m_MethodName: ShowImage
           m_Mode: 1
@@ -376,7 +377,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7507810734440849425
+--- !u!114 &1170899527190167874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,7 +507,7 @@ GameObject:
   - component: {fileID: 7507810734515566917}
   - component: {fileID: 7507810734515566916}
   - component: {fileID: 7507810734515566915}
-  - component: {fileID: 7507810734515566914}
+  - component: {fileID: 2856882122535077405}
   m_Layer: 5
   m_Name: Image(1)
   m_TagString: Untagged
@@ -588,7 +589,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7507810734515566914}
+        - m_Target: {fileID: 2856882122535077405}
           m_TargetAssemblyTypeName: image, Assembly-CSharp
           m_MethodName: ShowImage
           m_Mode: 1
@@ -600,7 +601,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7507810734515566914
+--- !u!114 &2856882122535077405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -627,7 +628,7 @@ GameObject:
   - component: {fileID: 7507810734598970892}
   - component: {fileID: 7507810734598970891}
   - component: {fileID: 7507810734598970890}
-  - component: {fileID: 7507810734598970889}
+  - component: {fileID: 2111196908064058587}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -709,7 +710,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7507810734598970889}
+        - m_Target: {fileID: 2111196908064058587}
           m_TargetAssemblyTypeName: image, Assembly-CSharp
           m_MethodName: ShowImage
           m_Mode: 1
@@ -721,7 +722,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7507810734598970889
+--- !u!114 &2111196908064058587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -15,13 +15,14 @@ public class playerwalkOnline : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
 
-        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(-.12f, -.19f);
-
-        if (!view.IsMine) // Remove unecessary camera of other player locally
+        if (!view.IsMine) // Remove unecessary childs of other player locally
         {
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(false);
+            for (int i = 2; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }      
         }
     }
 
@@ -30,7 +31,7 @@ public class playerwalkOnline : MonoBehaviour
     {
         if (view.IsMine)
         {
-            Vector3 mouvement = new Vector3(Input.GetAxis(horizon), Input.GetAxis(verti), 0.0f);//creation du mouvement avec horizon=direction
+            Vector3 mouvement = Vector3.ClampMagnitude(new Vector3(Input.GetAxis(horizon), Input.GetAxis(verti), 0),1);//creation du mouvement avec horizon=direction
             animator.SetFloat("Horizontal", mouvement.x);//mise en place de l'animation 
             animator.SetFloat("Vertical", mouvement.y);
             animator.SetFloat("Magnitude", mouvement.magnitude);

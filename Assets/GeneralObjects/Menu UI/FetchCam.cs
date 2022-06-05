@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class FetchCam : MonoBehaviour
 {
-    private void Start()
+    Light2D light; // Global Light
+    float intentsity; // Original intensity of the light
+
+    void Start()
     {
+        Debug.Log("late start loading");
+        Debug.Log(GameObject.FindGameObjectsWithTag("GlobalLight").Length);
+        light = GameObject.FindGameObjectsWithTag("GlobalLight")[0].GetComponent<Light2D>();
+        intentsity = light.intensity;
+        light.intensity = 1;
+
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (obj.GetComponent<PhotonView>().IsMine)
             {
-                gameObject.GetComponent<Canvas>().worldCamera = obj.transform.GetComponentInChildren<Camera>();
-                obj.GetComponent<playerwalkOnline>().enabled = false;
+                gameObject.GetComponent<Canvas>().worldCamera = obj.transform.GetComponentInChildren<Camera>(); // Assign player camera to canvas
+                obj.GetComponent<playerwalkOnline>().enabled = false; // Disable moving
+                obj.GetComponentInChildren<Light2D>().enabled = false; // Disable lights
                 break;
             }
         }
@@ -20,14 +31,18 @@ public class FetchCam : MonoBehaviour
 
     public void Del()
     {
+        Debug.Log("delete loading");
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (obj.GetComponent<PhotonView>().IsMine)
             {
                 obj.GetComponent<playerwalkOnline>().enabled = true;
+                obj.GetComponentInChildren<Light2D>().enabled = true;
                 break;
             }
         }
+
+        light.intensity = intentsity;
 
         Destroy(gameObject);
     }

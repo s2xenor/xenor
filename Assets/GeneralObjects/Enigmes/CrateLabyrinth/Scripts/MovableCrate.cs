@@ -13,8 +13,7 @@ public class MovableCrate : PressurePlate
 
     private GameObject playerLinked;
 
-    // Position of previous TP
-    Vector2 prevTP;
+    GameObject canvasPopUp;
 
     /*
      * Fonctions
@@ -23,11 +22,11 @@ public class MovableCrate : PressurePlate
     private void Start()
     {
         MessageOnScreenCanvas = GameObject.FindGameObjectWithTag("CanvasText");
-        prevTP = transform.position;
+        canvasPopUp = GameObject.FindGameObjectWithTag("CanvasText");
     }
 
     //Appel�e a chaque frame
-    private void FixedUpdate()
+    private void Update()
     {
         //check si on appuie sur E ssi en contact avec la boite est pr�ss�e
         if (Input.GetKeyDown(KeyCode.E))
@@ -46,20 +45,14 @@ public class MovableCrate : PressurePlate
             if (mycoll && pressed && !linkedToPlayer)
             {
                 // on la lie au perso
-                Link();
+                photonView.RPC("UpdateLink", RpcTarget.All, player[0].gameObject.GetPhotonView().ViewID);
             }
             //sinon, si la boite est d�j� li�e � ce qqn, on lui fais l�cher la boite
-            else if (linkedToPlayer)
+            else if (linkedToPlayer && playerLinked.GetPhotonView().IsMine)
             {
-                UnLink();
+             //   UnLink();
+                photonView.RPC("UpdateLink", RpcTarget.All, 0);
             }
-         
-            photonView.RPC("UpdateLink", RpcTarget.All, linkedToPlayer);
-        }
-        else if (linkedToPlayer && Vector3.Distance(prevTP, transform.position) > .01f) // Check if crate moved a lot
-        {
-            prevTP = transform.position; // Update prevTP
-            photonView.RPC("MoveCoo", RpcTarget.All, prevTP);
         }
     }
 
@@ -74,7 +67,8 @@ public class MovableCrate : PressurePlate
     {
         //On affiche le message qui indique au joueur comment int�ragir avec la porte.
         //Grace � fonctionnalit� lock le message ne s'affichera que si c pas lock
-        MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to start pulling the box");
+        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine)
+            MessageOnScreenCanvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to start pulling the box");
     }
 
     /**
@@ -82,10 +76,10 @@ public class MovableCrate : PressurePlate
     * 
     * <returns>Return nothing</returns>
     */
-    private void Link()
+    private void Link(int id)
     {
         //le premier joueur qui est entr� en collision avec la boite stock� dans PressurePlate.cs
-        playerLinked = player[0].gameObject; 
+        playerLinked = PhotonView.Find(id).gameObject;
 
         //on r�cupere le component qui permet de faire le lien
         FixedJoint2D lienActuel = playerLinked.GetComponent<FixedJoint2D>();
@@ -128,12 +122,6 @@ public class MovableCrate : PressurePlate
     * 
     * <returns>Return nothing</returns>
     */
-    [PunRPC]
-    void MoveCoo(Vector2 pos)
-    {
-        this.transform.position = pos;
-        prevTP = transform.position; // Update prevTP
-    }
 
     /**
     * <summary>Update linekedToPlayer</summary>
@@ -141,8 +129,11 @@ public class MovableCrate : PressurePlate
     * <returns>Return nothing</returns>
     */
     [PunRPC]
-    void UpdateLink(bool b)
+    void UpdateLink(int id)
     {
-        linkedToPlayer = b;
+        if (linkedToPlayer)
+            UnLink();
+        else
+            Link(id);
     }
 }

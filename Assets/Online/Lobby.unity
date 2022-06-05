@@ -418,9 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3f6c81cc52677499241e74a79986d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createInput: {fileID: 1465029236}
-  joinInput: {fileID: 595497551}
-  sceneInt: 3
+  roomString: {fileID: 1465029236}
+  sceneInt: 2
   sceneString: 
 --- !u!4 &498992984
 Transform:
@@ -1356,7 +1355,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 46}
+  m_AnchoredPosition: {x: 0, y: 49}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056990621

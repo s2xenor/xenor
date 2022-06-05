@@ -8,7 +8,7 @@ using Photon.Pun;
 
 // Ce script permet d'initialiser la piece pour les labyrinthe de boite, doit etre appeler � chaque nouvelle piece Crate labyrinth enigm
 // NE PAS OUBLIER : les player doivent avoir le tag "Player" !!!
-public class CrateLabyrinthGenerator : MonoBehaviour
+public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
 {
     /*
      * Variables Publique
@@ -18,13 +18,15 @@ public class CrateLabyrinthGenerator : MonoBehaviour
     public GameObject unmovableCratePrefab;
     public GameObject stoolPrefab;
     public GameObject dumpsterPrefab;
-
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
     //Affichage
     public GameObject messageOnScreenCanvas;
 
     bool master = false;
     bool load = false;
     string room;
+
 
     /*
      * Fonctions
@@ -33,22 +35,19 @@ public class CrateLabyrinthGenerator : MonoBehaviour
     void Start()
     {
         master = PhotonNetwork.IsMasterClient;
+
+        if (master)
+        {
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector3(1.6f, 0.95f, 0), Quaternion.identity);
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector3(1.6f, -0.3f, 0), Quaternion.identity);
+        }
     }
 
     private void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
-        {
-            //CheatCode pour CrateLabyrinthScene
-            if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
-            {
-                //si on appuie sur la touche P, �a nous tp � la fin du niveau
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                players[0].GetComponent<Transform>().position = new Vector3(-4, 1, 0);
-                players[1].GetComponent<Transform>().position = new Vector3(-4, (float)-0.5, 0);
-            }
-        }
-        
         if (load && GameObject.FindGameObjectsWithTag("Player").Length == 2) // Wait for the 2 players and then the master spawns it
         {
             if (master)
@@ -56,12 +55,15 @@ public class CrateLabyrinthGenerator : MonoBehaviour
                 loadScene();
             }
 
-            SetComponent();
-
-			GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
-
             load = false;
+
+            Invoke("RemoveLoadingScreen", 1);
         }
+    }
+
+    void RemoveLoadingScreen()
+    {
+        GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
     }
 
     //Fonction qi va cherche les donn�es du fichier Json et qui les formates
@@ -75,11 +77,20 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         return roomData;
     }
 
-    public void loadScene(string roomToLoad)
+    [PunRPC]
+    public void loadScene(string roomToLoad, bool local = false)
     {
-        // Allow the room to spawn
-        load = true;
-        room = roomToLoad;
+        if (!local)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("loadScene", RpcTarget.All, roomToLoad, true);
+        }
+        else
+        {
+            if (master) room = roomToLoad;
+            // Allow the room to spawn
+            load = true;
+        }
     }
 
     void loadScene()
@@ -118,20 +129,6 @@ public class CrateLabyrinthGenerator : MonoBehaviour
         {
             //Instantiate(dumpsterPrefab, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(dumpsterPrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
-        }
-    }
-
-    void SetComponent()
-    {
-        // Initialisation de moyen pour lier les boites et le joueur lorsque l'on veut tirer une boite
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))//pour tout les players
-        {
-            // On ajouter un <FixedJoint2D> et on met autoConfigureConnectedAnchor � false (sinon �a lie pas les objets)
-            // POur lier les obj sur chaque boite y aura un script qui permettra de lier la boite au FixedJoint2D ou de les d�lier (avec touche E)
-            // Attention : faudra penser � verifier que y a pas d�j� une boite accroch�e...
-            player.AddComponent<FixedJoint2D>();
-            player.GetComponent<FixedJoint2D>().enabled = false;
-            player.GetComponent<FixedJoint2D>().autoConfigureConnectedAnchor = false;
         }
     }
 }

@@ -16,7 +16,8 @@ public class Music : MonoBehaviour
 
     private void Update()
     {
-        PlayMusic();
+        if (!_audioSource.isPlaying)
+            Invoke("PlayMusic", 20);
     }
 
     public void PlayMusic() // Play random music and wait until the end

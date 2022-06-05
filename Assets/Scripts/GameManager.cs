@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+
 
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
@@ -10,7 +12,7 @@ using UnityEngine.SceneManagement;
 // ATTENTION : On ne doit pas pouvoir revenir sur la premi�re sc�ne car sinon le script va se dupliquer ce qui entraine des bugs
 // Conseil : Placer le script dans le menu de chargement.
 // NE PAS OUBLIER : ajouter un EmptyObject nomm� GameManger et contenant le script GameManager sur la premi�re sc�ne du jeu.
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     /*
      * Variables Satiques
@@ -24,36 +26,24 @@ public class GameManager : MonoBehaviour
 
 
     /*
+     * Variables use to determine score
+     */
+    public int QuarterHeartLost = 0;    //global number of heart lost during the game
+    private int TimestampStart;
+    public int TimestampEnd;
+
+
+    private string sceneName = "";
+    private string NextScene = null;
+    public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
+    public GameObject menu;
+    /*
      * Variables Publiques des trucs qu'il y a � sauvgarder
      */
     public PlayerSettings playerSettings = new PlayerSettings();
 
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
-
-
-    private bool loadNow = true;
-
-    /**
-     * Variable pour labyrinthe de boite
-     */
-    private string[] LabyBoxNext = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
-    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1"};
-    private int LabyBoxNextInt = 0;
-
-    /**
-     * Variable pour connecte les produits hcimiques
-     */
-    private int nbLabyDone = 0;
-
-    /**
-     * Menu GameObject
-     */
-    public GameObject menu;
-
-    /*
-     * Fonctions
-     */
 
     private void Awake()
     {
@@ -63,11 +53,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        ResetSave(); // si on veut pas recup�rer les donn�es de la derni�re session quand on relance le jeu.
 
         instance = this;
-        SceneManager.sceneLoaded += LoadState; //maintenant quand on load une nouvelle scene on va aussi appeler le truc pour load les donn�es
-        SceneManager.sceneLoaded += ChargeCrateLabyrinthScene;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
     }
 
@@ -92,176 +79,283 @@ public class GameManager : MonoBehaviour
                 Instantiate(menu, Vector2.zero, Quaternion.identity);
             }
         }
-    }
 
-    //Fct appell� a chaqque chargement de nouvelle sc�ne (on rappelle que le gamemanager est un objet jamais d�truit
-    public void ChargeCrateLabyrinthScene(Scene s, LoadSceneMode mode)
-    {
-        //Si on est dans les salle d'�nigme labybox
-        //Alors on appelle le g�n�rateur de laby box avec la salle que l'on souhaite charger
-        if (SceneManager.GetActiveScene().name == "CrateLabyrinthScene")
-        {
-            //Ola fct est appel� 2 fois au chargement de la sc�ne donc on fais l'action qu'une seule fois sur 2
-            if (loadNow)
-            {
-                //si on a d�paas�� le nb de salle
-                if (LabyBoxNextInt >= 12)
-                {
-                    //charger le loby  
-                    SceneManager.LoadScene("MainRoom");
-                }
-                else
-                {
-                    Debug.Log(LabyBoxNext[LabyBoxNextInt]);
-                    Debug.Log(LabyBoxNextInt);
-                    //SInon on charge le salle suivante
-                    GameObject.FindGameObjectsWithTag("BoxLabyGenerator")[0].GetComponent<CrateLabyrinthGenerator>().loadScene(LabyBoxNext[LabyBoxNextInt]);
-                    //On change la salle suivante
-                    LabyBoxNextInt++;
-                    //si on a finit le tutoriel, alors on saute (ou non) des salles
-                    if (LabyBoxNextInt >= 5)
-                    {
-                        LabyBoxNextInt += Random.Range(0, 3);
-                    }
-                    //on a charg� la salle donc on d�sarme
-                    loadNow = false;
-                }
-            }
-            else
-            {
-                //on r�arme pou charger la salle au prochain appel
-                loadNow = true;
-            }
-        }
-        //Sinon si on est dans la salle connecte les produits chimique
-        else if (SceneManager.GetActiveScene().name == "ConnectTheProduitsChimiquesScene")
-        {
-            if (nbLabyDone >= 3)
-            {
-                //charger le loby  
-                SceneManager.LoadScene("MainRoom");
-            }
-            else
-            {
-                //SInon on charge la salle
-                nbLabyDone++;
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 25);
-                if (nbLabyDone>=3)
-                {
-                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "MainRoom";
-                }
-                else
-                {
-                    GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().NextSceneName = "ConnectTheProduitsChimiquesScene";
-                }
 
-                GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartGeneration();
+        if (PhotonNetwork.IsMasterClient)   //cheat code 
+        {
+            if (Input.GetKeyDown(KeyCode.M)) //go to main room
+            {
+                GoBackToLobby();
+            }
+            else if (Input.GetKeyDown(KeyCode.N)) //go to next room
+            {
+                sceneName = SceneManager.GetActiveScene().name;
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextScene", 0.5f);
             }
         }
     }
 
-    //Fonction SaveState() de sauvegarder toutes les infos que l'on souhaite conserver d'une scene � l'autre
-    /**
-    * <summary>Permet de sauvegarder toutes les infos que l'on souhaite conserver d'une scene � l'autre</summary>
-    * 
-    * <returns>Return nothing</returns>
-*/
-    public void SaveState()
+
+    /*
+     * MULTI 
+     */
+
+    private Dictionary<string, string> Scenes;  //Dictionnary allowing to change scene name without messing with code
+    public static Dictionary<string, bool> LevelsCompleted;
+
+    public void Start()
     {
-        // On utilise le module JsonUtility pour parse tout l'objet
-        // NE PAS OUBLIER : il faudra remplacer apr ce qu'il faut pour aller chercher l'inventaire
-        // string inventoryData = JsonUtility.ToJson(inventory);
 
-        // Chemin ou va �tre enregistrer le JSON
-        // persistentDataPath est un dossier qui ne sera jamais modifier par unity m�me mise � jour
-        string filePath = Application.persistentDataPath + "/InventoryData.json";
+        Scenes = new Dictionary<string, string>
+        {
+            { "Crate", "CrateLabyrinthScene" },
+            { "Pipe", "ConnectTheProduitsChimiquesScene" },
+            { "LabyInvisible", "Labyrinthe" },
+            { "Arrows", "ArrowScene" },
+            { "Wires", "WiresScene" },
+            { "Donjon", "Tutorial" },
+            { "Cells", "Cells" },
+            { "MainRoom", "MainRoom" },
+            { "FinalScene", "FinalScene" },
+        };
 
-        // On �crit le fichier
-        // NE PAS OUBLIER : R�activer quand se sera ok
-        //System.IO.File.WriteAllText(filePath, inventoryData);
+        LevelsCompleted = new Dictionary<string, bool>
+        {
+            { "Crate", false },
+            { "Pipe", false },
+            { "LabyInvisible", false },
+            { "Arrows", false },
+            { "Wires", false },
+            { "Donjon", false },
+        };
+
     }
 
-    //Fonction SavePlayerSettings() de sauvegarder tous les settings du player apr�s une modification
-    /**
-    * <summary>Permet de sauvegarder de sauvegarder tous les settings du player apr�s une modification</summary>
-    * 
-    * <returns>Return nothing</returns>
-    */
-    public void SavePlayerSettings()
+
+    //called when a pressure plate is pressed
+    int doorActivated = 0;
+    public void DoorUpdate(int increment, bool doubleD)
     {
-        // On utilise le module JsonUtility pour parse tout l'objet
-        string playerSettingsData = JsonUtility.ToJson(playerSettings);
-
-        // Chemin ou va �tre enregistrer le JSON
-        // persistentDataPath est un dossier qui ne sera jamais modifier par unity m�me mise � jour
-        string filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
-
-        // On �crit le fichier
-        System.IO.File.WriteAllText(filePath, playerSettingsData);
-    }
-
-    //Fonction SaveState() de r�cuperer les infos sauvgarder dans la sc�ne pr�c�dente
-    /**
-    * <summary>Permet de r�cuperer les infos sauvgarder dans la sc�ne pr�c�dente</summary>
-    * 
-    * <returns>Return nothing</returns>
-    */
-    public void LoadState(Scene s, LoadSceneMode mode)
-    {
-        // Chemin ou est stock� le json de l'inventaire
-        string filePath = Application.persistentDataPath + "/InventoryData.json";
-
-        if (System.IO.File.Exists(filePath))
+        Debug.Log("door update; incremnet: " + increment + "; dooractivated: "+ increment+doorActivated);
+        doorActivated += increment; //number of pressure pressed
+        if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
         {
-            // On le parse pour r�cup les infos
-            string inventoryData = System.IO.File.ReadAllText(filePath);
-
-            // On recr�e un inventaire avec les infos
-            // NE PAS OUBLIER : R�activer quand se sera ok
-            //inventory = JsonUtility.FromJson<Inventory>(inventoryData);
-        }
-
-        // Chemin ou est stock� le json de l'inventaire
-        filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
-
-        if (System.IO.File.Exists(filePath))
-        {
-            // On le parse pour r�cup les infos
-            string playerSettingsData = System.IO.File.ReadAllText(filePath);
-
-            // On recr�e un playerSettings avec les infos
-            // NE PAS OUBLIER : R�activer quand se sera ok
-            playerSettings = JsonUtility.FromJson<PlayerSettings>(playerSettingsData);
+            if (IsLevelCompleted())
+            {
+                doorActivated = 0;  //reset
+                sceneName = SceneManager.GetActiveScene().name;
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextScene", 0.5f);
+            }
         }
     }
 
-    //Fonction ResetSave() permet de supprimer toutes les infos stock� dans les Json
-    /**
-    * <summary>Permet de supprimer toutes les infos stock� dans les Json</summary>
-    * 
-    * <returns>Return nothing</returns>
-    */
-    public void ResetSave()
+    //call adequate function based on scene to check if level finished
+    private bool IsLevelCompleted()
     {
-        // Chemin ou est stock� le json de l'inventaire
-        string filePath = Application.persistentDataPath + "/InventoryData.json";
+        string scenesName = SceneManager.GetActiveScene().name;
 
-        // On d�truit le fichier
-        System.IO.File.Delete(filePath);
+        if (scenesName == Scenes["Pipe"]) return GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().IsLevelFinished();
+        if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
+        if (scenesName == Scenes["Cells"]) return GameObject.Find("ThisSceneManager").GetComponent<DialogueTrigger>().IsLevelFinished();
+
+        return true;
     }
 
-    //Fonction ResetPlayerSettings() permet de supprimer tous les settings du player
-    /**
-    * <summary>Permet de supprimer tous les settings du player</summary>
-    * 
-    * <returns>Return nothing</returns>
-    */
-    public void ResetPlayerSettings()
+    //find next scene and load it based on current scene
+    private void LoadNextScene()
     {
-        // Chemin ou est stock� le json de l'inventaire
-        string filePath = Application.persistentDataPath + "/PlayerSettingsData.json";
-
-        // On d�truit le fichier
-        System.IO.File.Delete(filePath);
+        Debug.Log("next scene");
+        
+        Debug.Log(sceneName);
+        if(NextScene != null)
+        {
+            Debug.Log("next scene diff null");
+            PhotonNetwork.LoadLevel(Scenes[NextScene]);
+            NextScene = null;
+        }
+        else if (sceneName == Scenes["Cells"])
+        {
+            TimestampStart = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+        else if (sceneName == Scenes["MainRoom"])
+        {
+            if(NextSceneDoor != null)
+            {
+                switch (NextSceneDoor)
+                {
+                    case "Crate":
+                        LoadNextCrate();
+                        break;
+                    case "Pipe":
+                        LoadNextPipe();
+                        break;
+                    case "Arrows":
+                        LoadNextArrows();
+                        break;
+                    case "Wires":
+                        LoadNextWires();
+                        break;
+                    default:    //LabyInvisible Donjon
+                        PhotonNetwork.LoadLevel(Scenes[NextSceneDoor]);
+                        break;
+                }
+            }
+        }
+        else //is in level
+        {
+            if (sceneName == Scenes["Crate"]) LoadNextCrate();
+            else if (sceneName == Scenes["Pipe"]) LoadNextPipe();
+            else if (sceneName == Scenes["Arrows"]) LoadNextArrows();
+            else if (sceneName == Scenes["Wires"]) LoadNextWires();
+            else if (sceneName == Scenes["LabyInvisible"]) LoadNextLabyInvi();
+            else //donjon
+            {
+                LevelsCompleted["Donjon"] = true;
+                PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+            }
+        }
     }
+
+    private int PipeIndex = 0;
+    private void LoadNextPipe()
+    {
+        Debug.Log("log next pipe");
+        if(PipeIndex <= 3)
+        {
+            PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
+            Invoke("SubNextPipe", 0.5f);
+
+        }
+        else
+        {
+            PipeIndex = 0;
+            LevelsCompleted["Pipe"] = true;
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+    }
+
+    private void SubNextPipe()
+    {
+        //GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = 5;
+
+        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
+        PipeIndex++;
+    }
+
+
+    private string[] ListCrate = new string[] { "room_tuto1", "room_tuto2", "room_tuto3", "room_tuto4", "room_tuto5", "room_2_1"
+    , "room_2_2", "room_2_3", "room_2_4", "room_2_5", "room_3_1", "room_4_1"};
+    private int CrateIndex = 0;
+    private void LoadNextCrate()
+    {
+        Debug.Log("load next crate");
+        if(CrateIndex < ListCrate.Length)
+        {
+            PhotonNetwork.LoadLevel(Scenes["Crate"]);   //load scene crate
+            Invoke("SubNextCrate", 0.5f);
+        }
+        else //everything done go to main room
+        {
+            LevelsCompleted["Crate"] = true;
+            CrateIndex = 5; //skip tutos
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+    }
+
+    private void SubNextCrate()
+    {
+        GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
+        CrateIndex++;
+    }
+
+    private int ArrowIndex = 0;
+    private void LoadNextArrows()
+    {
+        if (ArrowIndex == 0) //tutos
+        {
+            PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            ArrowIndex++;
+        }
+        else if(ArrowIndex <= 2)
+        {
+            PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            ArrowIndex++;
+        }
+        else //everything done go to main room
+        {
+            LevelsCompleted["Arrows"] = true;
+            ArrowIndex = 1;     //skip tuto
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+        }
+    }
+
+    private int WiresIndex = 0;
+    private void LoadNextWires()
+    {
+        if(WiresIndex < 2)
+        {
+            PhotonNetwork.LoadLevel(Scenes["Wires"]);
+            WiresIndex++;
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+            LevelsCompleted["Wires"] = true;
+            WiresIndex = 0;
+        }
+
+    }
+
+
+    int LabyInviIndex = 0;
+    private void LoadNextLabyInvi()
+    {
+        if (LabyInviIndex < 2)
+        {
+            LabyInviIndex++;
+            PhotonNetwork.LoadLevel(Scenes["LabyInvisible"]);
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+            LevelsCompleted["LabyInvisible"] = true;
+            LabyInviIndex = 0;
+        }
+
+    }
+
+    private void GoBackToOneLevel()
+    {
+        if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex-1 : CrateIndex;
+        else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
+        else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
+        else if (sceneName == Scenes["Wires"]) WiresIndex = WiresIndex > 0 ? WiresIndex - 1 : WiresIndex;
+        else if (sceneName == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1 : LabyInviIndex;
+    }
+
+    public void GoBackToLobby()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
+        GoBackToOneLevel();
+        PhotonNetwork.LoadLevel("Loading");   //load scene load
+        NextScene = "MainRoom";
+        Invoke("LoadNextScene", 0.5f);
+    }
+
+    public int CalculateScore()
+    {
+        int secDuration = TimestampEnd - TimestampStart;
+        int START_SCORE = 15000;
+        int COEF_LIFE = 10;
+        int COEF_TIME = 1;
+
+        return START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
+    }
+
+
+
 }

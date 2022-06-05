@@ -8,7 +8,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     public List<GameObject> prefabsL; //prefabs laby
     public List<GameObject> prefabsR; //prefabs room
-    public GameObject playerPrefab;
+
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
 
     //coo to start create laby
     private const int startX = 0;
@@ -42,11 +44,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
         GameObject t;
         if (PhotonNetwork.IsMasterClient)
         {
-            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn master player on network
+            t = PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn master player on network
         }
         else
         {
-            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(cox, coy), Quaternion.identity); // Spawn player on network
+            t = PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(cox, coy), Quaternion.identity); // Spawn player on network
         }
 
         //resize cam to see more laby
@@ -140,7 +142,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
                 if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//players break rules, apply consequences
                 {
-                    //Debug.Log("consequences");
+                    foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        //item.GetComponent<player>().vie.Reduce4(1);
+                    }
+
                     player1Tile[0] = -1;
                     player1Tile[1] = -1;
 

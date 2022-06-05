@@ -1,0 +1,33 @@
+.blueback {
+    background-color: #3c6e71;
+}
+
+.lot_of_text {
+    padding: 30px 150px;
+    font-size: calc(15px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Roboto Mono', monospace;
+    text-align: justify;
+    text-indent: 50px;
+    color: #ddd;
+}
+
+.lot_of_text > p > a {
+    color: #ddd;
+}
+
+.lot_of_text > p {
+    margin: 50px 0;
+}
+
+.white_text {
+    color: #ccc;
+}
+
+.category_second_title {
+    margin: 10px -30px;
+    margin-top: 50px;
+}
+
+.liste {
+    margin-left: 100px;
+}
