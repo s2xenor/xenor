@@ -278,6 +278,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (ArrowIndex == 0) //tutos
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            Invoke("LoadArrows", 0.5f);
             ArrowIndex++;
         }
         else if(ArrowIndex <= 2)
@@ -291,6 +292,19 @@ public class GameManager : MonoBehaviourPunCallbacks
             ArrowIndex = 1;     //skip tuto
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
+    }
+
+    private void LoadArrows()
+    {
+        //create small laby for tutos on master
+        if (ArrowIndex == 0)
+        {
+            GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().x = 5;
+            GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().y = 5;
+
+        }
+        GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().shouldStart = true;
+        GameObject.FindGameObjectWithTag("ArrowsManager").GetComponent<ArrowsManager>().StartDialogue();
     }
 
     private int WiresIndex = 0;
