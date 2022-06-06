@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000000
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -186,12 +186,8 @@ MonoBehaviour:
   Strength: 15
   boy: 1
   animator: {fileID: 9173885504738363832}
-  cooldown: {fileID: 5700580797238342705}
-  cooldown1: {fileID: 5700580796704645586}
-  cooldown2: {fileID: 5700580796452602335}
-  cooldown3: {fileID: 5700580796441231574}
-  cooldown4: {fileID: 5700580798352575868}
   vie: {fileID: 0}
+  potionPrefab: {fileID: 0}
 --- !u!1001 &2274418110478673178
 PrefabInstance:
   m_ObjectHideFlags: 0

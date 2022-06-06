@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 3991705281585660317}
   - component: {fileID: 6933902727933510297}
   - component: {fileID: 3563532172012554430}
-  - component: {fileID: 2237523875754050673}
   m_Layer: 0
   m_Name: playergirl_final_online
   m_TagString: Player
@@ -268,8 +267,9 @@ MonoBehaviour:
   cooldown2: {fileID: 5700580796452602335}
   cooldown3: {fileID: 5700580796441231574}
   cooldown4: {fileID: 5700580798352575868}
-  vie: {fileID: 0}
   pickup: {fileID: 8300000, guid: 5513b8bb1b34c2844b45570180127e76, type: 3}
+  boy: 0
+  potionPrefab: {fileID: 8290488347031643809, guid: 1d03e630ed26c474e98a47b886607dbe, type: 3}
 --- !u!82 &6933902727933510297
 AudioSource:
   m_ObjectHideFlags: 0
@@ -367,24 +367,6 @@ AudioSource:
     m_PostInfinity: 2
     m_RotationOrder: 4
 --- !u!255 &3563532172012554430
-FixedJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6147628036122659623}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_DampingRatio: 0
-  m_Frequency: 0
---- !u!255 &2237523875754050673
 FixedJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
