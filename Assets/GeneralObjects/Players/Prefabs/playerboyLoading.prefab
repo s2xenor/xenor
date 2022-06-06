@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6786501646487300783}
   - component: {fileID: 2423242595644995937}
   - component: {fileID: 3480359243239183146}
-  - component: {fileID: -8856900193194910971}
+  - component: {fileID: 1267470844567583815}
   m_Layer: 0
   m_Name: playerboyLoading
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1001
   m_Sprite: {fileID: 1200279859839323936, guid: 2771bebf215588249a664401b8bbf362, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -103,7 +103,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-8856900193194910971
+--- !u!114 &1267470844567583815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1894972181480149429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e586952525f7954c96d5b1067236ab7, type: 3}
+  m_Script: {fileID: 11500000, guid: bdb17d3b89e0fa5459b965a02cd91acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3480359243239183146}
+  animator: {fileID: 0}

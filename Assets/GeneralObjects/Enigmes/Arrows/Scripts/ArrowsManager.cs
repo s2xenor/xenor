@@ -59,12 +59,6 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
         //get player
         players[0] = t.GetComponent<Transform>();
-
-
-        
-
-        
-
     }
 
     [PunRPC]
@@ -138,11 +132,8 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             shouldStart = false;
             StartGeneration();
 
+            photonView.RPC("DelLoad", RpcTarget.All);
         }
-        // Delete loading screen
-        GameObject go = GameObject.FindGameObjectWithTag("Loading");
-        if (go != null && GameObject.FindGameObjectsWithTag("Player").Length == 2)
-            go.GetComponent<FetchCam>().Del();
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -558,6 +549,15 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             }
         }
         return true;
+    }
+
+    [PunRPC]
+    void DelLoad()
+    {
+        // Delete loading screen
+        GameObject go = GameObject.FindGameObjectWithTag("Loading");
+        if (go != null && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+            go.GetComponent<FetchCam>().Del();
     }
 
 }

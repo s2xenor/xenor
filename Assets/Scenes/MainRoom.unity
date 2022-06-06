@@ -586,7 +586,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -686680309032943070, guid: 4a38a05583bf60e46ab21570a3633ce5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -737,7 +737,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -8935822725395769976, guid: 947d90b8f4cc827439ea8da854b51f38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -901,7 +901,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 3569576332296296172, guid: 297429a31e700c644a84966a955617c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1125,7 +1125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -8935822725395769976, guid: 947d90b8f4cc827439ea8da854b51f38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1407,7 +1407,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 3569576332296296172, guid: 297429a31e700c644a84966a955617c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406f39326a3c94baa70130dca4df7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBoyPrefab: {fileID: 8666501797103497954, guid: 9610bff595f97d04489c836d0d1eef0f, type: 3}
+  playerBoyPrefab: {fileID: 6147628036122659623, guid: b3dd3f3941375874ca64faa85295e366, type: 3}
   playerGirlPrefab: {fileID: 6147628036122659623, guid: a0bba6a4661a1b949b1bbf4c0b5c2fd3, type: 3}
   DoorsOpenCrate: {fileID: 640261867}
   DoorsOpenPipe: {fileID: 1747917135}
@@ -2438,6 +2438,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2482520342676786307, guid: 06232c1433014ff499cef1dda293244e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5935923059854992253, guid: 06232c1433014ff499cef1dda293244e, type: 3}
       propertyPath: m_RootOrder
       value: 29
@@ -7502,6 +7506,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2956442499411009853, guid: 529e03ed0e51fef46996f2cbded935e0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7337333071883904043, guid: 529e03ed0e51fef46996f2cbded935e0, type: 3}
       propertyPath: m_Name
       value: door5
@@ -7638,6 +7646,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4128518719756425436, guid: eac05e97373796845a104525ac54c7af, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4274827805164375986, guid: eac05e97373796845a104525ac54c7af, type: 3}
       propertyPath: m_RootOrder
       value: 31

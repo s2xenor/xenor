@@ -304,7 +304,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2974359912109935723, guid: 132681f4ce515564da4276e8284d7e2c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 132681f4ce515564da4276e8284d7e2c, type: 3}
 --- !u!4 &437556314874258381 stripped
 Transform:
@@ -374,7 +375,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8856900193194910971, guid: 3c2662bdf2473e742a1a43d6dcb55985, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3c2662bdf2473e742a1a43d6dcb55985, type: 3}
 --- !u!4 &3498680385737521791 stripped
 Transform:
