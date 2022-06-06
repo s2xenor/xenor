@@ -29,9 +29,17 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if (sceneString != null && sceneString != "")
-            PhotonNetwork.LoadLevel(sceneString); // Scene to load
-        else
-            PhotonNetwork.LoadLevel(sceneInt); // Scene to load
+        GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if (gameManager.continuePrevGame)
+        {
+            PhotonNetwork.LoadLevel("MainRoom"); // load main room
+        }
+        else //load default scene usually cells
+        {
+            if (sceneString != null && sceneString != "")
+                PhotonNetwork.LoadLevel(sceneString); // Scene to load
+            else
+                PhotonNetwork.LoadLevel(sceneInt); // Scene to load
+        }
     }
 }

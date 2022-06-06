@@ -36,6 +36,8 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public bool isMasterOnWire = false;
     public bool isMasterOnRule = false;
 
+    private GameObject[] DoorsToActivate;
+
     bool delLoad = false; // Has loading screen been deleted ?
 
     // Start is called before the first frame update
@@ -43,7 +45,12 @@ public class WiresManager : MonoBehaviourPunCallbacks
     {
         //PhotonView photonView = PhotonView.Get(this);
         //photonView.RPC("MoveCoo", RpcTarget.MasterClient);
+
+        //setup door off
         parentObj = new GameObject("WireEnigmParent");
+        DoorsToActivate = GameObject.FindGameObjectsWithTag("DoorsToActivate");
+        foreach (var door in DoorsToActivate) door.SetActive(false);
+
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -56,6 +63,17 @@ public class WiresManager : MonoBehaviourPunCallbacks
     }
 
     public bool IsLevelFinished() => isFinished;
+
+    [PunRPC]
+    public void StartDialogue(bool local = false)
+    {
+        if (local) this.GetComponentInParent<DialogueTriggerG>().triggerOnload = true;
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("StartDialogue", RpcTarget.All, true);
+        }
+    }
 
     public void GenerateAll()
     {
@@ -172,8 +190,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ActivateDoors()
     {
-        Debug.Log("ok");
-        foreach (var item in GameObject.FindGameObjectsWithTag("DoorsToActivate")) item.GetComponent<SpriteRenderer>().enabled = true;
+        foreach (var door in DoorsToActivate) door.SetActive(true);
     }
 
     [PunRPC]

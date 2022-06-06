@@ -1201,6 +1201,14 @@ PrefabInstance:
       propertyPath: mazeContainer
       value: 
       objectReference: {fileID: 567842210}
+    - target: {fileID: 7778126104539987783, guid: 557517e131793b04c94a297ece91e182, type: 3}
+      propertyPath: playerBoyPrefab
+      value: 
+      objectReference: {fileID: 6147628036122659623, guid: 2722380df3857c643bd89f3fa6980edf, type: 3}
+    - target: {fileID: 7778126104539987783, guid: 557517e131793b04c94a297ece91e182, type: 3}
+      propertyPath: playerGirlPrefab
+      value: 
+      objectReference: {fileID: 4002803392846534298, guid: 5b8dfa6fd6daf9642bfbd55541e36008, type: 3}
     - target: {fileID: 8149121653771789476, guid: 557517e131793b04c94a297ece91e182, type: 3}
       propertyPath: m_RootOrder
       value: 0

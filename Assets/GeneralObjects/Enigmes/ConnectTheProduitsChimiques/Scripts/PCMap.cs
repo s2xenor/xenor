@@ -16,7 +16,7 @@ public class PCMap : MonoBehaviourPunCallbacks
 
     public int nbPipeOk = 0;
 
-    public int MapSize = 10;
+    public int MapSize = 5; //tutos size
 
     private bool isLevelFinished = false;
 
@@ -94,6 +94,18 @@ public class PCMap : MonoBehaviourPunCallbacks
     private void GenerationFinished2()
     {
         GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+    }
+
+
+    [PunRPC]
+    public void StartDialogue(bool local = false)
+    {
+        if (local) this.GetComponentInParent<DialogueTriggerG>().triggerOnload = true;
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("StartDialogue", RpcTarget.All, true);
+        }
     }
 
 
@@ -229,7 +241,7 @@ public class PCMap : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate(left_door_design.name, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -2 + (float)0.16, 0), Quaternion.identity);
         PhotonNetwork.Instantiate(top_door_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
         //PhotonNetwork.Instantiate(top_door_activated_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
-        photonView.RPC("SetupDoorExit", RpcTarget.All, false);
+        photonView.RPC("SetupDoorExit", RpcTarget.All, true, false);
 
         //Plaque de pression
         PhotonNetwork.Instantiate(single_door.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
@@ -243,11 +255,19 @@ public class PCMap : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetupDoorExit(bool active)
+    public void SetupDoorExit(bool first, bool active)
     {
-        GameObject t = Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
-        t.tag = "DoorsToActivate";
-        t.SetActive(active);
+        if (first) //init doors
+        {
+            GameObject t = Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+            t.tag = "DoorsToActivate";
+            top_door_activated_design = t;
+            t.SetActive(active);
+        }
+        else
+        {
+            top_door_activated_design.SetActive(active);
+        }
     }
 
     [PunRPC]
@@ -311,7 +331,7 @@ public class PCMap : MonoBehaviourPunCallbacks
     public void EndOfGame(bool finish = true)
     {
         isLevelFinished = finish;
-        GameObject.FindGameObjectsWithTag("DoorsToActivate")[0].SetActive(finish);
+        SetupDoorExit(false, finish);
     }
 
     public bool IsLevelFinished() => isLevelFinished;
