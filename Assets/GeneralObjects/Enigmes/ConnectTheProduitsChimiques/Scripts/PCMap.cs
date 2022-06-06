@@ -16,7 +16,7 @@ public class PCMap : MonoBehaviourPunCallbacks
 
     public int nbPipeOk = 0;
 
-    public int MapSize = 10;
+    public int MapSize = 5; //tutos size
 
     private bool isLevelFinished = false;
 
@@ -94,6 +94,18 @@ public class PCMap : MonoBehaviourPunCallbacks
     private void GenerationFinished2()
     {
         GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+    }
+
+
+    [PunRPC]
+    public void StartDialogue(bool local = false)
+    {
+        if (local) this.GetComponentInParent<DialogueTriggerG>().triggerOnload = true;
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("StartDialogue", RpcTarget.All, true);
+        }
     }
 
 

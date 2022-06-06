@@ -130,8 +130,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             LabyInviIndex = datas.LevelIndex[2];
             ArrowIndex = datas.LevelIndex[2];
             WiresIndex = datas.LevelIndex[4];
-
-
         }
 
     }
@@ -262,8 +260,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int PipeIndex = 0;
     private void LoadNextPipe()
     {
-        Debug.Log("log next pipe");
-        if(PipeIndex <= 3)
+        if(PipeIndex == 0)//tutos
+        {
+            PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
+            Invoke("SubNextPipe", 0.5f);
+
+        }
+        else if(PipeIndex <= 4) //3 levels after
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
             Invoke("SubNextPipe", 0.5f);
@@ -271,7 +274,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            PipeIndex = 0;
+            PipeIndex = 1;
             LevelsCompleted["Pipe"] = true;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
@@ -279,10 +282,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextPipe()
     {
-        //GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
-        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = 5;
+        if (PipeIndex == 0) GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartDialogue(); //tutos should start dialogue
+        else GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
 
         GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
+
         PipeIndex++;
     }
 

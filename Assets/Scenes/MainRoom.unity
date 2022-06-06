@@ -239,6 +239,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name
       value: SingleDoorLabyInvi
@@ -655,6 +667,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name
       value: SingleDoorFinal
@@ -805,6 +825,14 @@ PrefabInstance:
     - target: {fileID: 4221725630500410965, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name
@@ -1027,6 +1055,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name
       value: SingleDoorDonjon
@@ -1230,6 +1266,14 @@ PrefabInstance:
     - target: {fileID: 4221725630500410965, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name
@@ -1566,6 +1610,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name
       value: SingleDoorArrows
@@ -1616,12 +1668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406f39326a3c94baa70130dca4df7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBoyPrefab: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
-<<<<<<< HEAD
-  playerGirlPrefab: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
-=======
-  playerGirlPrefab: {fileID: 6147628036122659623, guid: af540e205efe3e84a93ac80981fbd1ed, type: 3}
->>>>>>> 0ba4948685685598ada45af3fc17ba611836561b
+  playerBoyPrefab: {fileID: 8666501797103497954, guid: 9610bff595f97d04489c836d0d1eef0f, type: 3}
+  playerGirlPrefab: {fileID: 6147628036122659623, guid: a0bba6a4661a1b949b1bbf4c0b5c2fd3, type: 3}
   DoorsOpenCrate: {fileID: 640261867}
   DoorsOpenPipe: {fileID: 1747917135}
   DoorsOpenLabyInvisible: {fileID: 551890179}
@@ -2080,6 +2128,14 @@ PrefabInstance:
     - target: {fileID: 4221725630500410965, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221725630500410966, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4221725630500410969, guid: 8997871d8d4e2df4892998f248b6e945, type: 3}
       propertyPath: m_Name

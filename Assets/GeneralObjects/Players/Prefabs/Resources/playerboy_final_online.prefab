@@ -19,11 +19,7 @@ GameObject:
   - component: {fileID: 939505773493283287}
   - component: {fileID: 3991705281585660317}
   - component: {fileID: 6933902727933510297}
-<<<<<<< HEAD:Assets/GeneralObjects/Players/Assets_players/Prefabs/Resources/playerboy_final_online.prefab
   - component: {fileID: -4264674568565182609}
-=======
-  - component: {fileID: 3563532172012554430}
->>>>>>> 0ba4948685685598ada45af3fc17ba611836561b:Assets/GeneralObjects/Players/Prefabs/Resources/playerboy_final_online.prefab
   m_Layer: 0
   m_Name: playerboy_final_online
   m_TagString: Player
