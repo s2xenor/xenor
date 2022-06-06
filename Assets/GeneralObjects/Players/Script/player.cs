@@ -31,9 +31,9 @@ public class player : MonoBehaviour
     {
         inventaire = GameObject.Find("Inventory").GetComponent<inventory>();//retrieve the prefab of the inventory 
         if(boy)
-            vie = GameObject.Find("life_hearts (3)").GetComponent<life>();// create life barre if boy 
+            vie = GameObject.Find("life_hearts_boy").GetComponent<life>();// create life barre if boy 
         else
-            vie= GameObject.Find("life_hearts (2)").GetComponent<life>();// create life barre if girl
+            vie= GameObject.Find("life_hearts_girl").GetComponent<life>();// create life barre if girl
     }
 
     /*

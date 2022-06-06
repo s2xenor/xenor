@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 7644181172971926198}
   - component: {fileID: 7644181172971926193}
   - component: {fileID: 7644181172971926192}
+  - component: {fileID: 2495067050330429758}
   m_Layer: 5
   m_Name: life_hearts_girl
   m_TagString: Untagged
@@ -409,6 +410,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2495067050330429758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7644181172971926195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fadb9f938f4b38d4d908728f79dbdace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: {fileID: 7644181172179344225}
+  cooldown1: {fileID: 7644181172103787317}
+  cooldown2: {fileID: 7644181173152837638}
+  cooldown3: {fileID: 7644181172376245253}
+  cooldown4: {fileID: 7644181173946526721}
+  die: 0
+  waitTime: 15
 --- !u!1 &7644181173152837632
 GameObject:
   m_ObjectHideFlags: 0
