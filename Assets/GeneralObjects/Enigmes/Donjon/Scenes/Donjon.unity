@@ -481,11 +481,11 @@ PrefabInstance:
     - target: {fileID: 4467486025400415049, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
       propertyPath: playerB
       value: 
-      objectReference: {fileID: 6147628036122659623, guid: 21f0546badc07d44bb4e409fd8663fc5, type: 3}
+      objectReference: {fileID: 6147628036122659623, guid: b3dd3f3941375874ca64faa85295e366, type: 3}
     - target: {fileID: 4467486025400415049, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
       propertyPath: playerG
       value: 
-      objectReference: {fileID: 6147628036122659623, guid: af540e205efe3e84a93ac80981fbd1ed, type: 3}
+      objectReference: {fileID: 6147628036122659623, guid: a0bba6a4661a1b949b1bbf4c0b5c2fd3, type: 3}
     - target: {fileID: 4467486025400415049, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
       propertyPath: closedRoom
       value: 

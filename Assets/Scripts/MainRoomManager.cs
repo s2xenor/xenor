@@ -35,7 +35,7 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-1.65f, -4.16f), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-1.8f, -4.3f), Quaternion.identity); // Spawn player on network
         }
     }
 

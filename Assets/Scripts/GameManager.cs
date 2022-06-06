@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
 
+    public bool continuePrevGame = false; //player continue prev game or not
+
     private void Awake()
     {
         if (GameManager.instance != null)
@@ -95,6 +97,55 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    public void SaveData()
+    {
+        // On utilise le module JsonUtility pour parse tout l'objet
+        GameData dataToSave = new GameData(LevelsCompleted, new int[] { CrateIndex, PipeIndex, LabyInviIndex, ArrowIndex, WiresIndex }, new int[] { }, new int[] { });
+        string playerSettingsData = JsonUtility.ToJson(dataToSave);
+
+        // Chemin ou va �tre enregistrer le JSON
+        // persistentDataPath est un dossier qui ne sera jamais modifier par unity m�me mise � jour
+        string filePath = Application.persistentDataPath + "/Game.json";
+
+        // On �crit le fichier
+        System.IO.File.WriteAllText(filePath, playerSettingsData);
+    }
+
+    public bool LoadData()
+    {
+        // Chemin ou est stock� le json
+        string filePath = Application.persistentDataPath + "/Game.json";
+
+        if (System.IO.File.Exists(filePath))
+        {
+            // On le parse pour r�cup les infos
+            string data = System.IO.File.ReadAllText(filePath);
+
+            GameData datas = JsonUtility.FromJson<GameData>(data);
+
+            LevelsCompleted = datas.LevelsCompleted;    //load levels completed
+
+            //load level in a room
+            CrateIndex = datas.LevelIndex[0];
+            PipeIndex = datas.LevelIndex[1];
+            LabyInviIndex = datas.LevelIndex[2];
+            ArrowIndex = datas.LevelIndex[2];
+            WiresIndex = datas.LevelIndex[4];
+            return true;
+        }
+        return false;
+
+    }
+
+    public void ContinueGame() {
+        if (LoadData()) //if could load prev game
+        {
+            continuePrevGame = true;
+        }
+    }
+
+
 
 
     /*
@@ -222,8 +273,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int PipeIndex = 0;
     private void LoadNextPipe()
     {
-        Debug.Log("log next pipe");
-        if(PipeIndex <= 3)
+        if(PipeIndex == 0)//tutos
+        {
+            PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
+            Invoke("SubNextPipe", 0.5f);
+
+        }
+        else if(PipeIndex <= 4) //3 levels after
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
             Invoke("SubNextPipe", 0.5f);
@@ -231,7 +287,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            PipeIndex = 0;
+            PipeIndex = 1;
             LevelsCompleted["Pipe"] = true;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
@@ -239,10 +295,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextPipe()
     {
-        //GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
-        GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = 5;
+        if (PipeIndex == 0) GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartDialogue(); //tutos should start dialogue
+        else GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
 
         GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
+
         PipeIndex++;
     }
 
@@ -278,6 +335,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (ArrowIndex == 0) //tutos
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
+            Invoke("LoadArrows", 0.5f);
             ArrowIndex++;
         }
         else if(ArrowIndex <= 2)
@@ -293,10 +351,29 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void LoadArrows()
+    {
+        //create small laby for tutos on master
+        if (ArrowIndex == 0)
+        {
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().x = 5;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().y = 5;
+
+        }
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().shouldStart = true;
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().StartDialogue();
+    }
+
     private int WiresIndex = 0;
     private void LoadNextWires()
     {
-        if(WiresIndex < 2)
+        if(WiresIndex == 0) //tutos
+        {
+            PhotonNetwork.LoadLevel(Scenes["Wires"]);
+            Invoke("LoadWires", 0.5f);
+            WiresIndex++;
+        }
+        else if(WiresIndex < 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Wires"]);
             WiresIndex++;
@@ -310,6 +387,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
+    private void LoadWires()
+    {
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<WiresManager>().StartDialogue();
+    }
 
     int LabyInviIndex = 0;
     private void LoadNextLabyInvi()
@@ -330,6 +411,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void GoBackToOneLevel()
     {
+        //remove one level from the scene exited preventing skipping levels
         if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex-1 : CrateIndex;
         else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
         else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
