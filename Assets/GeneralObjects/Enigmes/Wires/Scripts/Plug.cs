@@ -7,34 +7,37 @@ public class Plug : MonoBehaviour
 
     public int nb = -1;
     public GameObject wire;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    public WiresManager wireManager;
+
+
+    private bool isTrigger = false;
 
     // Update is called once per frame
     void Update()
     {
-       
 
-    }
-
-
-    //unplug a wire
-    void OnMouseDown()
-    {
-        Debug.Log("ffrf");
-        if (nb != -1)//nb = -1 by default, 0 if it a left plug and 1 if it is the right plug
+        if (isTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            if(nb == 1)//is right plug
+            if (nb != -1)//nb = -1 by default, 0 if it a left plug and 1 if it is the right plug
             {
-                Debug.Log("you are a success");
+                Destroy(wire);//remove wire unpluged
+                if (nb == 1)//is right plug
+                {
+                    wireManager.UnPlug(true);
+                }
+                else
+                {
+                    wireManager.UnPlug(false);
+
+                    //make player lose life
+                    //reset all
+                }
             }
-            else
-            {
-                Debug.Log("you smell bad");
-            }
-            Destroy(wire);//remove wire unpluged
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision) => isTrigger = true;
+    private void OnTriggerExit2D(Collider2D collision) => isTrigger = false;
+
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 //PressurePlate sert à detecter la présence d'un individu sur l'objet sur lequel le script est
 //NE PAS OUBLIER : ajouter un composant BoxCollider2D
@@ -8,7 +9,7 @@ using UnityEngine;
 //NE PAS OUBLIER : les joueur doivent avoir un composant RigidBody2D !!! (mettre la variable "Gravity Scale" à 0 car on est en TOP-DOWN (donc pas de gravitée))
 //NE PAS OUBLIER : cocher le isTrigger sur le composant BoxCollider2D !!!
 //ATTENTION : joueurs doivent avoir le tag "Player"
-public class PressurePlate : MonoBehaviour
+public class PressurePlate : MonoBehaviourPunCallbacks
 {
     /*
      * Variables Publiques
@@ -45,11 +46,11 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Si ce qui est entrée en collision est un joueur
-        if (other.tag == "Player")
+        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine)
         {
             //On indique que la plaque est préssée
             pressed = true;
-            //On stocke le player (au cas où qu'on en ai besoin plus tard pour un ajout de features (mais pour l'instant ça sert à rien)
+            //On stocke le player
             player.Add(other);
             //On réalise l'action
             OnPressure(other);
@@ -67,7 +68,7 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         //Si ce qui sort est un joueur
-        if (other.tag == "Player")
+        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine)
         {
             //On indique que la plaque n'est plus préssée
             pressed = false;

@@ -19,7 +19,7 @@ public class README : MonoBehaviour {
 	/* How to implement :
 	 * Create empty game object with script "Room templates" and complete the variables
 	 * Create rooms with empty objects for each exit, placed at the middle of the adjacent room location, with the script "Room spawner" attached
-	 * Create empty at the middle of each room with the script "Destroyer"
+	 * Create empty at the middle of the entry room with the script "Destroyer"
 	 */ 
 
 }

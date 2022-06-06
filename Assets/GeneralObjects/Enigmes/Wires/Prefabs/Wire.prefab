@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1318582337159180358}
   m_Layer: 0
   m_Name: Wire
-  m_TagString: Untagged
+  m_TagString: wireObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,8 +70,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1499139627
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 3}
@@ -83,8 +83,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.037517548
+        value: 0.055120945
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -146,6 +146,7 @@ MonoBehaviour:
   Positions:
   - {fileID: 0}
   - {fileID: 0}
+  color: 0
 --- !u!64 &-1318582337159180358
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class DialogueTrigger : MonoBehaviour {
+public class DialogueTrigger : MonoBehaviourPunCallbacks
+{
 
 	//nom du fichier json ^� est stock� le dialogue
 	//NE PAS OUBLIER : de bien d�fnir le bon de premier ficheir l� oi� on mets le dialogue trigger
@@ -12,6 +14,36 @@ public class DialogueTrigger : MonoBehaviour {
 
 	public List<GameObject> objectsToActivate;
 
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
+
+    public bool final = false;
+
+    void Start()
+    {
+        if (final)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-0.37f, -0.33f), Quaternion.identity); // Spawn master player on network
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(0.915f, -0.33f), Quaternion.identity); // Spawn player on network
+            }
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(0.92f, -0.3f), Quaternion.identity); // Spawn master player on network
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-0.37f, -0.3f), Quaternion.identity); // Spawn player on network
+            }
+        }
+    }
     private void Update()
     {
         if (triggerOnload)
@@ -36,12 +68,27 @@ public class DialogueTrigger : MonoBehaviour {
 			//D�but du dialogue
 			FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
 		}
-        else if (objectsToActivate != null && objectsToActivate.Count != 0)
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("ObjectfToActivate", RpcTarget.All);
+        }
+	}
+
+    [PunRPC]
+    public void ObjectfToActivate()
+    {
+        if (objectsToActivate != null && objectsToActivate.Count != 0)
         {
             foreach (GameObject obj in objectsToActivate)
             {
-				obj.SetActive(true);
+                obj.SetActive(true);
             }
         }
-	}
+    }
+
+    public bool IsLevelFinished()
+    {
+        return FindObjectOfType<DialogueManager>().IsDialodFinished();
+    }
 }

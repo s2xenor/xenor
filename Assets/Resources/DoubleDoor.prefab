@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3461065241833005402}
   - component: {fileID: 3461065241833005403}
   - component: {fileID: 3461065241833005401}
-  - component: {fileID: 7631591219872855127}
   - component: {fileID: 8855773129375113728}
+  - component: {fileID: -4567082239214497288}
   m_Layer: 0
   m_Name: DoubleDoor
   m_TagString: Untagged
@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1499139627
-  m_SortingLayer: -1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 117a56a7b7e8442418fd414f67cca656, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -111,21 +111,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28366935, y: 0.18148968}
   m_EdgeRadius: 0
---- !u!114 &7631591219872855127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3461065241833005733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 584ea2d0a24ba1c4b8f574525d756719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MessageOnScreenCanvas: {fileID: 0}
-  nextSceneName: 
-  autrePressurePlate: {fileID: 0}
 --- !u!114 &8855773129375113728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +129,20 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-4567082239214497288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3461065241833005733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8adbf257e5efbf545ad93447ec0e7f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
