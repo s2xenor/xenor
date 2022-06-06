@@ -29,7 +29,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Obstacle
+  - 
   - Water
   - UI
   - 
@@ -59,21 +59,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: FloorUnder
-    uniqueID: 3369972685
-    locked: 0
-  - name: Floor
-    uniqueID: 2177559475
-    locked: 0
-  - name: Design
-    uniqueID: 656816631
-    locked: 0
-  - name: GroundObects
-    uniqueID: 2795827669
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 1747968327
     locked: 0
