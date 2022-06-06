@@ -17,6 +17,16 @@ public class life : MonoBehaviour //life class
     public float waitTime = 15.0f;
     private GameManager gameManager;
 
+
+    public life(Image heart1, Image heart2, Image heart3, Image heart4, Image heart5)
+    {
+        cooldown = heart1;
+        cooldown1 = heart2;
+        cooldown2 = heart3;
+        cooldown3 = heart4;
+        cooldown4 = heart5;
+    }
+
     void Start()
     {
 
