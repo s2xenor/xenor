@@ -20,7 +20,22 @@ public class RoomTemplates : MonoBehaviour {
 
 	bool beganTimer = false;
 
-	void Update()
+	public GameObject playerB;
+	public GameObject playerG;
+
+    private void Start()
+    {
+		if (PhotonNetwork.IsMasterClient)
+		{
+			PhotonNetwork.Instantiate(playerB.name, new Vector2(-3, 1.5f), Quaternion.identity); // Spawn master player on network
+		}
+		else
+		{
+			PhotonNetwork.Instantiate(playerG.name, new Vector2(-4, 1.5f), Quaternion.identity); // Spawn player on network
+		}
+	}
+
+    void Update()
 	{
 		if (waitTime <= 0 && spawnedBoss == false)
 		{

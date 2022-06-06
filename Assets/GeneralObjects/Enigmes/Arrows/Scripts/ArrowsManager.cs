@@ -36,7 +36,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     //coord to spawn
     float cox = startX + 2 * 0.32f;
     float coMx = startX + 6 * 0.32f; //co x of master
-    float coy = startY + 3 * 0.32f;
+    float coy = startY + 2.5f * 0.32f;
 
     public bool shouldStart = false;
 
@@ -140,10 +140,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
         }
         // Delete loading screen
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("Loading");
-        if (gos.Length != 0 && GameObject.FindGameObjectsWithTag("Player").Length == 2)
-            foreach (GameObject go in gos)
-                go.GetComponent<FetchCam>().Del();
+        GameObject go = GameObject.FindGameObjectWithTag("Loading");
+        if (go != null && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+            go.GetComponent<FetchCam>().Del();
 
         if (PhotonNetwork.IsMasterClient)
         {
