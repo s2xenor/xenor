@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     //NE PAS OUBLIER : idem aevc inventory
     // public Inventory inventory = new Inventory();
 
+    public bool continuePrevGame = false; //player continue prev game or not
+
     private void Awake()
     {
         if (GameManager.instance != null)
@@ -110,7 +112,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         System.IO.File.WriteAllText(filePath, playerSettingsData);
     }
 
-    public void LoadData()
+    public bool LoadData()
     {
         // Chemin ou est stock� le json
         string filePath = Application.persistentDataPath + "/Game.json";
@@ -130,9 +132,20 @@ public class GameManager : MonoBehaviourPunCallbacks
             LabyInviIndex = datas.LevelIndex[2];
             ArrowIndex = datas.LevelIndex[2];
             WiresIndex = datas.LevelIndex[4];
+            return true;
         }
+        return false;
 
     }
+
+    public void ContinueGame() {
+        if (LoadData()) //if could load prev game
+        {
+            continuePrevGame = true;
+        }
+    }
+
+
 
 
     /*
@@ -398,6 +411,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void GoBackToOneLevel()
     {
+        //remove one level from the scene exited preventing skipping levels
         if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex-1 : CrateIndex;
         else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
         else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
