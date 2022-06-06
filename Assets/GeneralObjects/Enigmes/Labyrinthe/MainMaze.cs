@@ -24,8 +24,8 @@ public class MainMaze : MonoBehaviour
 
     public GameObject defaultTile;
 
-    public GameObject playerB;
-    public GameObject playerG;
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +34,11 @@ public class MainMaze : MonoBehaviour
 
         if (master)
         {
-            PhotonNetwork.Instantiate(playerB.name, new Vector2(1.05f, -0.77f), Quaternion.identity); // Spawn master player on network
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(1.05f, -0.77f), Quaternion.identity); // Spawn master player on network
         }
         else
         {
-            PhotonNetwork.Instantiate(playerG.name, new Vector2(1.05f, -2.05f), Quaternion.identity); // Spawn player on network
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(1.05f, -2.05f), Quaternion.identity); // Spawn player on network
         }
 
         map.SetActive(false);

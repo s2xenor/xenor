@@ -19,6 +19,12 @@ TagManager:
   - wireObject
   - ruleObject
   - GameManager
+  - GlobalLight
+  - Loading
+  - Inventory
+  - CanvasText
+  - Pause
+  - Manager
   layers:
   - Default
   - TransparentFX

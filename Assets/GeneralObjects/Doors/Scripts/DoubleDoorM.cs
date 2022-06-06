@@ -12,6 +12,8 @@ public class DoubleDoorM : MonoBehaviourPunCallbacks
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
