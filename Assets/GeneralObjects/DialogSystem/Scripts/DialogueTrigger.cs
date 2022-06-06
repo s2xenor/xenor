@@ -13,6 +13,7 @@ public class DialogueTrigger : MonoBehaviourPunCallbacks
 	public bool triggerOnload = false;
 
 	public List<GameObject> objectsToActivate;
+	public List<GameObject> objectsToDeactivate;
 
     public GameObject playerBoyPrefab;
     public GameObject playerGirlPrefab;
@@ -83,6 +84,14 @@ public class DialogueTrigger : MonoBehaviourPunCallbacks
             foreach (GameObject obj in objectsToActivate)
             {
                 obj.SetActive(true);
+            }
+        }
+
+        if (objectsToDeactivate != null && objectsToDeactivate.Count != 0)
+        {
+            foreach (GameObject obj in objectsToDeactivate)
+            {
+                obj.SetActive(false);
             }
         }
     }
