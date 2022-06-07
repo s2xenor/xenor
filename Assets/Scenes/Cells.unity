@@ -708,7 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ddd33eae28b5148a72170d47ccd942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Dialogs/test
+  filePath: Dialogs/intro
   triggerOnload: 1
   objectsToActivate:
   - {fileID: 3932166750075194791}
@@ -764,6 +764,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 909830347044289718, guid: 0faa330f3f1635a4eb4d3e648a776505, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: fcbdd773eacfbc747901682eb3ae22a8, type: 3}
     - target: {fileID: 909830347044289718, guid: 0faa330f3f1635a4eb4d3e648a776505, type: 3}
       propertyPath: animator
       value: 

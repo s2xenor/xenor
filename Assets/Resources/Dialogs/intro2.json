@@ -1,0 +1,9 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "1 2, 1 2, vous m'entendez ?",
+        "Vous m'entendez ? Faites-moi un signe au moins, je ne peux pas vous entendre moi.",
+        "Ok parfait ! Bon..."
+    ],
+    "nextDialogPath" : "Dialogs/intro3"
+}

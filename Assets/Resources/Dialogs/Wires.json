@@ -1,8 +1,14 @@
 {
     "name" : "Clothilde",
     "sentences" : [
-        "wires",
-        "yep"
+        "Flûte !",
+        "Le système électrique des portes de cette salle est cassé, réparez le pour pouvoir dévérouiller la porte !",
+        "Les scientifiques ont conçu le système de réparation de manière sécurisée.",
+        "Pour éviter que des malfrats ne s'accagent le système.",
+        "Il faut que l'un d'entre vous se mette sur la plaque de pression du haut pour faire apparaitre l'holograme des fils et le second sur celle du bas pour afficher les consignes.",
+        "Si vous devez quitter les plaques de pression, il faudra toujours que le dernier à quitter la plaque soit celui qui dispose des consignes,",
+        "sinon les cablâges seront changés par un robot pour vous désorienter.",
+        "Il suffira ensuite de lire les consignes pour couper les bons câbles et vous en sortir !"
     ],
     "nextDialogPath" : ""
 }

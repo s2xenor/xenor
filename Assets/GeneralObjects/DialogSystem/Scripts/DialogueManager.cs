@@ -47,7 +47,6 @@ public class DialogueManager : MonoBehaviour {
 	//Afficahge de la phrase suivante pour ce perso
 	public void DisplayNextSentence()
 	{
-
 		if (sentences.Count == 0) // If no more sentences to say
 		{
 			EndDialogue();

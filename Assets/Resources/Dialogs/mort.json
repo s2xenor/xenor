@@ -1,0 +1,9 @@
+{
+    "name" : "Narrateur",
+    "sentences" : [
+        "Malheureusement les scientifiques ont été plus rapide que Clothilde pour venir vous sauver...",
+        "Ils vous remettent dans vos cellules et triple votre surveillance...",
+        "Clothilde est remerciée et les expériences sur vous reprenent comme si de rien n'était..."
+    ],
+    "nextDialogPath" : ""
+}

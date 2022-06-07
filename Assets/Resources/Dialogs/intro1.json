@@ -1,0 +1,10 @@
+{
+    "name" : "Narrateur",
+    "sentences" : [
+        "Vous ouvrez les yeux.",
+        "Vous ne reconnaissez pas les murs de votre chambre, il n'y a pas cette tache d'infiltration sur le mur en face de votre lit, à cause de la conduite d'eau que vous deviez faire réparer le mois dernier...",
+        "Vous réalisez que vous êtes dans une cellule.",
+        "Votre pouls grimpe à vive allure, vous n'avez aucune idée de pourquoi vous êtes là."
+    ],
+    "nextDialogPath" : "Dialogs/intro2"
+}

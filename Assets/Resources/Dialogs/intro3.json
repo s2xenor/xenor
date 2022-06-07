@@ -1,0 +1,11 @@
+{
+    "name" : "Narrateur",
+    "sentences" : [
+        "Vous réalisez soudain que vous n'avez pas bougé.",
+        "Vous tournez la tête.",
+        "Vous n'êtes pas seul.",
+        "Il y a quelqu'un à côté de vous, derrière un mur de verre.",
+        "Vous comprenez très vite que cette personne est un autre détenu, comme vous."
+    ],
+    "nextDialogPath" : "Dialogs/intro4"
+}
