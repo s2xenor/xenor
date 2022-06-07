@@ -279,7 +279,7 @@ MonoBehaviour:
   cooldown3: {fileID: 5700580796441231574}
   cooldown4: {fileID: 5700580798352575868}
   pickup: {fileID: 8300000, guid: 5513b8bb1b34c2844b45570180127e76, type: 3}
-  boy: 0
+  boy: 1
   potionPrefab: {fileID: 8290488347031643809, guid: 1d03e630ed26c474e98a47b886607dbe, type: 3}
 --- !u!114 &-6630921280133295559
 MonoBehaviour:
