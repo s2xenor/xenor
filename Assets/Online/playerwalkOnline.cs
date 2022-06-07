@@ -8,6 +8,7 @@ public class playerwalkOnline : MonoBehaviour
     public string horizon;
     public string verti;
     public Animator animator;
+    Vector3 movement;
 
     PhotonView view;
     
@@ -15,10 +16,25 @@ public class playerwalkOnline : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
 
-        if (!view.IsMine) // Remove unecessary camera of other player localle
+        if (!view.IsMine) // Remove unecessary childs of other player locally
         {
-            transform.GetChild(0).gameObject.SetActive(false);
+            for (int i = 2; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }      
+        }
+    }
+
+    private void Update()
+    {
+        if (view.IsMine)
+        {
+            movement = Vector3.ClampMagnitude(new Vector3(Input.GetAxis(horizon), Input.GetAxis(verti)), 1);//creation du mouvement avec horizon=direction
+            animator.SetFloat("Horizontal", movement.x);//mise en place de l'animation 
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Magnitude", movement.magnitude);
         }
     }
 
@@ -27,11 +43,7 @@ public class playerwalkOnline : MonoBehaviour
     {
         if (view.IsMine)
         {
-            Vector3 mouvement = new Vector3(Input.GetAxis(horizon), Input.GetAxis(verti), 0.0f);//creation du mouvement avec horizon=direction
-            animator.SetFloat("Horizontal", mouvement.x);//mise en place de l'animation 
-            animator.SetFloat("Vertical", mouvement.y);
-            animator.SetFloat("Magnitude", mouvement.magnitude);
-            transform.position = transform.position + mouvement * Time.deltaTime;//deplacement du joueur (changement de coordonnées du joueur selon un temps proportionelle)
+            transform.position = transform.position + movement * Time.deltaTime;//deplacement du joueur (changement de coordonnï¿½es du joueur selon un temps proportionelle)
         }
     }
 }

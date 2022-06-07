@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class RoomSpawner : MonoBehaviour {
 
@@ -15,53 +16,69 @@ public class RoomSpawner : MonoBehaviour {
 
 	public float waitTime = 4f;
 
-	void Start()
+	bool master;
+
+	void Awake()
 	{
-		Destroy(gameObject, waitTime); // Destroy this in waitTime seconds
 		templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-		Invoke("Spawn", 0.1f); // Call Spawn() in 0.1 second
+		master = PhotonNetwork.IsMasterClient;
 	}
 
+    private void Update()
+    {
+		if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
+        {
+			Destroy(gameObject, waitTime); // Destroy this in waitTime seconds
+			
+			if (!spawned)
+				Invoke("Spawn", 0.1f); // Call Spawn() in 0.1 second
+        }
+	}
 
 	void Spawn() // Spawn rooms
 	{
-		if(!spawned)
+		if (!master)
+        {
+			spawned = true;
+        }
+		else if (!spawned)
 		{
 			int rand;
 			if(openingDirection == 1) // Top door
 			{
 				// Need to spawn a room with a BOTTOM door.
 				rand = Random.Range(0, templates.bottomRooms.Length); // Random index
-				Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation); // Choose random room
+				PhotonNetwork.Instantiate(templates.bottomRooms[rand].name, transform.position, templates.bottomRooms[rand].transform.rotation); // Choose random room
 			} 
 			else if(openingDirection == 2) // Bottom coor
 			{
 				// Need to spawn a room with a TOP door.
 				rand = Random.Range(0, templates.topRooms.Length);
-				Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+				PhotonNetwork.Instantiate(templates.topRooms[rand].name, transform.position, templates.topRooms[rand].transform.rotation);
 			} 
 			else if(openingDirection == 3) // Right door
 			{
 				// Need to spawn a room with a LEFT door.
 				rand = Random.Range(0, templates.leftRooms.Length);
-				Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+				PhotonNetwork.Instantiate(templates.leftRooms[rand].name, transform.position, templates.leftRooms[rand].transform.rotation);
 			} 
 			else if(openingDirection == 4) // Left door
 			{
 				// Need to spawn a room with a RIGHT door.
 				rand = Random.Range(0, templates.rightRooms.Length);
-				Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+				PhotonNetwork.Instantiate(templates.rightRooms[rand].name, transform.position, templates.rightRooms[rand].transform.rotation);
 			}
 			spawned = true;
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
+	void OnTriggerEnter2D(Collider2D other)
+	{
 		if(other.CompareTag("SpawnPoint")) // If collides with another SpawnPoint
 		{
 			if(!other.GetComponent<RoomSpawner>().spawned && !spawned) // If both spawned at the same time
 			{
-				Instantiate(templates.closedRoom, transform.position, Quaternion.identity); // Spawn closed door
+				PhotonNetwork.Instantiate(templates.closedRoom.name, transform.position, Quaternion.identity); // Spawn closed door
 				Destroy(gameObject); // Destroy SpawnPoint
 			} 
 			spawned = true;

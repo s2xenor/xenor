@@ -22,16 +22,30 @@ public class MainMaze : MonoBehaviour
     bool hasSpawned = false;
     bool master = false;
 
+    public GameObject defaultTile;
+
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         master = PhotonNetwork.IsMasterClient;
 
+        if (master)
+        {
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(1.05f, -0.77f), Quaternion.identity); // Spawn master player on network
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(1.05f, -2.05f), Quaternion.identity); // Spawn player on network
+        }
+
         map.SetActive(false);
 
-        if (!master) return;
-
         hasSpawned = true;
+
+        if (!master) return;
 
         Maze maze1 = new Maze((ushort)line, (ushort)column); // Create maze
 
@@ -44,10 +58,18 @@ public class MainMaze : MonoBehaviour
 
     private void Update()
     {
-        if (hasSpawned && GameObject.FindGameObjectsWithTag("Player").Length == 2 && master)
+        bool twoPlayers = GameObject.FindGameObjectsWithTag("Player").Length == 2;
+
+        if (hasSpawned && twoPlayers)
         {
-            CreateMap();
+            if (master)
+            {
+                CreateMap();
+            }
+
             hasSpawned = false;
+
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
         }
     }
 
@@ -64,7 +86,7 @@ public class MainMaze : MonoBehaviour
 
     void CreateMap() // Create map for labyrinthe
     {
-        float size = 0.32f / 2, size2 = .32f;
+        float size = 0.32f, size2 = .16f * .8f * (.35f / .5f);
 
         for (UInt16 i = 0; i < maze.GetLength(0); i++)
         {
@@ -72,17 +94,21 @@ public class MainMaze : MonoBehaviour
             {
                 if (maze[i,j] == 1)
                 {
-                    // Create wall
-                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size, j * size), Quaternion.identity);
-
-                    PhotonNetwork.Instantiate(wallMaze.name, new Vector2(3.2f - 4 * .32f + .16f + i * size2, .16f + .32f * -8 + j * size2), Quaternion.identity);
+                    // Create map
+                    PhotonNetwork.Instantiate(wallMap.name, new Vector2(i * size2 + .32f * 3.625f, j * size2 + .32f * -7), Quaternion.identity);
+                    // Create lab
+                    PhotonNetwork.Instantiate(wallMaze.name, new Vector2(10 * .32f + .16f + i * size, .16f + .32f * -8 + j * size), Quaternion.identity);
+                }
+                else if (i == 0 || i == maze.GetLength(1) - 1)
+                {
+                    PhotonNetwork.Instantiate(defaultTile.name, new Vector3(10 * .32f + .16f + i * size, .16f + .32f * -8 + j * size, 3), Quaternion.identity);
                 }
             }
         }
 
         // Adjust size
         mazeContainer.transform.localScale = new Vector2(4, 4);
-        map.transform.localScale = new Vector2(50, 50);
+        map.transform.localScale = new Vector2(.35f, .35f);
     }
 
     void Print() // Print maze

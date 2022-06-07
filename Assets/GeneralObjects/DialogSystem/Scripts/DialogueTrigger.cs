@@ -1,17 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class DialogueTrigger : MonoBehaviour {
+public class DialogueTrigger : MonoBehaviourPunCallbacks
+{
 
-	//nom du fichier json ^ù est stocké le dialogue
-	//NE PAS OUBLIER : de bien défnir le bon de premier ficheir là oiù on mets le dialogue trigger
+	//nom du fichier json ^ï¿½ est stockï¿½ le dialogue
+	//NE PAS OUBLIER : de bien dï¿½fnir le bon de premier ficheir lï¿½ oiï¿½ on mets le dialogue trigger
 	public string filePath;
 
 	public bool triggerOnload = false;
 
 	public List<GameObject> objectsToActivate;
+	public List<GameObject> objectsToDeactivate;
 
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
+
+    public bool final = false;
+
+    void Start()
+    {
+        if (final)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(-0.37f, -0.33f), Quaternion.identity); // Spawn master player on network
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(0.915f, -0.33f), Quaternion.identity); // Spawn player on network
+            }
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(0.92f, -0.3f), Quaternion.identity); // Spawn master player on network
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-0.37f, -0.3f), Quaternion.identity); // Spawn player on network
+            }
+        }
+    }
     private void Update()
     {
         if (triggerOnload)
@@ -27,21 +60,44 @@ public class DialogueTrigger : MonoBehaviour {
 			//Lecture du fichier json
 			var dialoguesData = Resources.Load<TextAsset>(filePath);
 
-			//création de l'objet qui stocke les phrases du dialogue en fonction du json
+			//crï¿½ation de l'objet qui stocke les phrases du dialogue en fonction du json
 			Dialogue dialogue = JsonUtility.FromJson<Dialogue>(dialoguesData.text);
 
 			//changement du chemin du nom du prochain fichier
 			filePath = dialogue.nextDialogPath;
 
-			//Début du dialogue
+			//Dï¿½but du dialogue
 			FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
 		}
-        else if (objectsToActivate != null && objectsToActivate.Count != 0)
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("ObjectfToActivate", RpcTarget.All);
+        }
+	}
+
+    [PunRPC]
+    public void ObjectfToActivate()
+    {
+        if (objectsToActivate != null && objectsToActivate.Count != 0)
         {
             foreach (GameObject obj in objectsToActivate)
             {
-				obj.SetActive(true);
+                obj.SetActive(true);
             }
         }
-	}
+
+        if (objectsToDeactivate != null && objectsToDeactivate.Count != 0)
+        {
+            foreach (GameObject obj in objectsToDeactivate)
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    public bool IsLevelFinished()
+    {
+        return FindObjectOfType<DialogueManager>().IsDialodFinished();
+    }
 }

@@ -8,25 +8,40 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
+  - enabled: 1
     path: Assets/Online/MultiplayerLoading.unity
     guid: f9e33ae046b468d46b55b2048f64a706
   - enabled: 0
     path: Assets/Online/Lobby.unity
     guid: 56247ed6eb0aa964d8b6e81ade15f149
   - enabled: 1
+    path: Assets/GeneralObjects/Menu UI/Simple Menu/Scenes/AlteraVitaMenu.unity
+    guid: f2080f3004879b34ea94887ed1fe43d1
+  - enabled: 0
     path: Assets/Scenes/Cells.unity
     guid: d5279265186c79b4f96614ef6596cfd5
   - enabled: 1
     path: Assets/Scenes/MainRoom.unity
     guid: 3a8550abc9c2e6f42b400273fde2b422
   - enabled: 1
-    path: Assets/GeneralObjects/Enigmes/CrateLabyrinth/Scenes/CrateLabyrinthScene.unity
-    guid: 27d2d8aab7e27cd4ebe795258bc07fc2
-  - enabled: 1
     path: Assets/GeneralObjects/Enigmes/ConnectTheProduitsChimiques/Scenes/ConnectTheProduitsChimiquesScene.unity
     guid: 14f9c5d4be2978047aebb214b4b261ea
   - enabled: 0
-    path: Assets/GeneralObjects/Enigmes/Arrows/Scenes/Example.unity
+    path: Assets/GeneralObjects/Enigmes/CrateLabyrinth/Scenes/CrateLabyrinthScene.unity
+    guid: 27d2d8aab7e27cd4ebe795258bc07fc2
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: 8dbee02b5fdbcff4d8c27f39fab7b48f
+  - enabled: 0
+    path: Assets/Scenes/FinalScene.unity
+    guid: 6019098d1a1495945baf872fd98870fb
+  - enabled: 0
+    path: Assets/GeneralObjects/Enigmes/Labyrinthe/Labyrinthe.unity
+    guid: 9faf53a2e4c20d744a8d7b7da8dc3a97
+  - enabled: 0
+    path: Assets/GeneralObjects/Enigmes/Arrows/Scenes/ArrowScene.unity
     guid: 57aec45c743824849a2890571a01edc0
+  - enabled: 0
+    path: Assets/GeneralObjects/Enigmes/Wires/Scenes/WiresScene.unity
+    guid: f773c410ed6d8074d891b1fb509db5da
   m_configObjects: {}

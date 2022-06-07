@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 72dc3ae76297ac346b51d00de51ddbc1
+<<<<<<<< HEAD:Assets/GeneralObjects/DialogSystem/Prefabs/DialogueManagerG.prefab.meta
+guid: 6081a41df059ce044ad52efbdd41c1f4
+========
+guid: b0283464d944ab54c9d243b076b50b86
+>>>>>>>> 0ba4948685685598ada45af3fc17ba611836561b:Assets/GeneralObjects/Potions/Prefabs/PinkPotion.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

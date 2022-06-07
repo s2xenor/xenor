@@ -4,6 +4,11 @@
     font-family: 'Roboto Mono', monospace;
     text-align: justify;
     text-indent: 50px;
+    color: #ddd;
+}
+
+.lot_of_text > p > a {
+    color: #ddd;
 }
 
 .lot_of_text > p {

@@ -5,6 +5,11 @@
 *{
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
+}
+
+body{
+    overflow-x: hidden;
 }
 
 .category_title {
@@ -12,7 +17,6 @@
     font-weight: bold;
     font-size: calc(38px + 5 * ((100vw - 280px) / 680));
 }
-
 
 .acqua-back {
     background-color: #49967c;

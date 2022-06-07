@@ -3,28 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Sert a afficher un message (passer en argument) sur l'écran du joueur
+// Sert a afficher un message (passer en argument) sur l'ï¿½cran du joueur
 // A mettre sur le canvas qui contient le texte de message d'interaction.
-// ATTENTION : Le Canvas doit contenir un élément Texte 
+// ATTENTION : Le Canvas doit contenir un ï¿½lï¿½ment Texte 
 // ATTENTION : Le script est sur le Canvas
-// NE PAS OUBLIER : de désactivé le canva (et seulement le canva) dans unity ! 
+// NE PAS OUBLIER : de dï¿½sactivï¿½ le canva (et seulement le canva) dans unity ! 
 public class FixedTextPopUP : MonoBehaviour
 {
     /*
      * Varaibles Publiques
      */
 
-    //Variable qui permet de vérouiller (ne pas supprimer et événtuellement ne pas ajouter) un autre message sur l'écran du joueur
+    //Variable qui permet de vï¿½rouiller (ne pas supprimer et ï¿½vï¿½ntuellement ne pas ajouter) un autre message sur l'ï¿½cran du joueur
     public bool textLock = false;
 
+    Canvas canvas;
 
     /*
      * Fonctions
      */
 
-    //Fonction PressToInteractText() permet d'afficher un message utilitaire sur l'écrand du joueur
+    private void Start()
+    {
+        canvas = GetComponent<Canvas>();
+    }
+
+    //Fonction PressToInteractText() permet d'afficher un message utilitaire sur l'ï¿½crand du joueur
     /**
-    * <summary>Permet d'afficher un message sur l'écran du joueur</summary>
+    * <summary>Permet d'afficher un message sur l'ï¿½cran du joueur</summary>
     * 
     * <param name="message">message que l'on souhaite afficher</param>
     * 
@@ -34,15 +40,17 @@ public class FixedTextPopUP : MonoBehaviour
     {
         if (!textLock)
         {
-            //Cherche l'élément texte du texte dans le Canvas
+            canvas.enabled = true;
+            //Cherche l'ï¿½lï¿½ment texte du texte dans le Canvas
+            Text txt = gameObject.GetComponentInChildren<Text>();
+            txt.enabled = true;
             gameObject.GetComponentInChildren<Text>().text = message;
-            gameObject.SetActive(true);
         }
     }
 
-    //Fonction PressToInteractText() permet de supprimer un éventuel message présent sur l'écran du joueur
+    //Fonction PressToInteractText() permet de supprimer un ï¿½ventuel message prï¿½sent sur l'ï¿½cran du joueur
     /**
-    * <summary>Permet de désactiver l'affichage du message de l'écran du joueur</summary>
+    * <summary>Permet de dï¿½sactiver l'affichage du message de l'ï¿½cran du joueur</summary>
     * 
     * <returns>Return nothing</returns>
     */
@@ -50,8 +58,8 @@ public class FixedTextPopUP : MonoBehaviour
     {
         if (!textLock)
         {
-            gameObject.SetActive(false);
+            gameObject.GetComponentInChildren<Text>().enabled = false;
+            canvas.enabled = false;
         }
     }
-
 }

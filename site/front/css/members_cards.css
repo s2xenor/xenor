@@ -1,7 +1,9 @@
 .group-presentation {
-    padding: 30px;
+    padding: 2vh 8vw;
     font-size: calc(15px + 5 * ((100vw - 280px) / 680));
     font-family: 'Roboto Mono', monospace;
+    text-align: justify;
+    text-indent: 80px;
 }
 
 /*------------------------------------------
@@ -22,9 +24,15 @@ Description Membres
 .member-description-active {
     color: #eee;
     text-align: justify;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     animation: member-description 1.5s forwards;
     transform: scale(0);
+}
+
+.member-description-active > p {
+  text-indent: 50px;
 }
 
 @keyframes member-description {

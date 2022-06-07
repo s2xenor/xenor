@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class Tuyau : PressurePlate
 {
     public PCTile TileData = new PCTile();
@@ -77,7 +77,7 @@ public class Tuyau : PressurePlate
         if (pressed && Input.GetKeyDown(KeyCode.R) && TileData.TileType != PCTile.PCTileType.Cross)
         {
             //teléporte les joueurs
-            Rotate();
+            Map.GlobalRotatate(CoordX, CoordY, true);
         }
     }
 
@@ -113,7 +113,7 @@ public class Tuyau : PressurePlate
      * 
      * A chaque appel, remet tous les tuyaux a 0 et recalcule la trajectoire du liquide
      */
-    private void Rotate()
+    public void Rotate()
     {
         Rotation++;
         Rotation %= 4;
@@ -145,8 +145,7 @@ public class Tuyau : PressurePlate
         //si c'était bon alors on revérouille la porte en attendant de voir si c encore bon
         if (Map.nbPipeOk == 3)
         {
-            Map.DoorLocked = false;
-            Map.EndOfGame();
+            Map.EndOfGame(false);
         }
         //Remise a zéro du nombre de tuyaux reliés à la fin
         Map.nbPipeOk = 0;
@@ -575,7 +574,6 @@ public class Tuyau : PressurePlate
                 if (Map.nbPipeOk == 3)
                 {
                     //le jeux est finit ! 
-                    Map.DoorLocked = true;
                     Map.EndOfGame();
                 }
                 break;

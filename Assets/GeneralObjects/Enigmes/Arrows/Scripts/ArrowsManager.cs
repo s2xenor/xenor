@@ -8,17 +8,19 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     public List<GameObject> prefabsL; //prefabs laby
     public List<GameObject> prefabsR; //prefabs room
-    public GameObject playerPrefab;
+
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
 
     //coo to start create laby
     private const int startX = 0;
     private const int startY = 0;
 
     //size of labry
-    private const int x = 12;
-    private const int y = 12;
+    public int x = 12;
+    public int y = 12;
 
-    private int[,] laby = new int[x, y];
+    private int[,] laby;
 
     public Transform[] players = new Transform[2]; // Position des 2 joueurs
     public float tileSize = 0.32f; // Taille des tiles du labyrinthe
@@ -34,27 +36,44 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     //coord to spawn
     float cox = startX + 2 * 0.32f;
     float coMx = startX + 6 * 0.32f; //co x of master
-    float coy = startY + 3 * 0.32f;
+    float coy = startY + 2.5f * 0.32f;
+
+    public bool shouldStart = false;
+
     void Start()
     {
 
         GameObject t;
         if (PhotonNetwork.IsMasterClient)
         {
-            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn master player on network
+            t = PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(coMx, coy), Quaternion.identity); // Spawn master player on network
         }
         else
         {
-            t = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(cox, coy), Quaternion.identity); // Spawn player on network
+            t = PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(cox, coy), Quaternion.identity); // Spawn player on network
         }
 
         //resize cam to see more laby
-        GameObject cam = t.transform.GetChild(0).gameObject;
-        cam.GetComponent<Camera>().fieldOfView = 120;
+        //GameObject cam = t.transform.GetChild(0).gameObject;
+        //cam.GetComponent<Camera>().fieldOfView = 120;
 
         //get player
         players[0] = t.GetComponent<Transform>();
+    }
 
+    [PunRPC]
+    public void StartDialogue(bool local = false)
+    {
+        if (local) this.GetComponentInParent<DialogueTriggerG>().triggerOnload = true;
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("StartDialogue", RpcTarget.All, true);
+        }
+    }
+
+    private void StartGeneration()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
 
@@ -65,32 +84,31 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             int previous = (int)Direction.down;
 
             //create logic laby
-            while(Xt < x)
+            while (Xt < x)
             {
                 int r = Random.Range(0, 3);
                 if (r == 0) // go down
                 {
-                    laby[Xt, Yt] = (int)Direction.down+addPrevious(previous);
+                    laby[Xt, Yt] = (int)Direction.down + addPrevious(previous);
                     Xt += 1;
                     previous = (int)Direction.down;
-                } 
+                }
                 else if (r == 1 && Yt + 1 < y && previous != (int)Direction.left) //go right
                 {
-                    laby[Xt, Yt] = (int)Direction.right+addPrevious(previous);
+                    laby[Xt, Yt] = (int)Direction.right + addPrevious(previous);
                     Yt += 1;
-                    previous = (int) Direction.right;
-                } 
+                    previous = (int)Direction.right;
+                }
                 else if (r == 2 && Yt - 1 >= 0 && previous != (int)Direction.right)//go left
                 {
                     laby[Xt, Yt] = (int)Direction.left + addPrevious(previous);
                     Yt -= 1;
-                    previous = (int) Direction.left;
+                    previous = (int)Direction.left;
                 }
             }
 
             drawLaby();
         }
-
     }
 
     //move client's player
@@ -107,6 +125,16 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
     public void Update()
     {
+
+        if (shouldStart)
+        {
+            laby = new int[x, y];
+            shouldStart = false;
+            StartGeneration();
+
+            photonView.RPC("DelLoad", RpcTarget.All);
+        }
+
         if (PhotonNetwork.IsMasterClient)
         {
 
@@ -133,7 +161,11 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
                 if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//players break rules, apply consequences
                 {
-                    //Debug.Log("consequences");
+                    foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        //item.GetComponent<player>().vie.Reduce4(1);
+                    }
+
                     player1Tile[0] = -1;
                     player1Tile[1] = -1;
 
@@ -517,6 +549,15 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             }
         }
         return true;
+    }
+
+    [PunRPC]
+    void DelLoad()
+    {
+        // Delete loading screen
+        GameObject go = GameObject.FindGameObjectWithTag("Loading");
+        if (go != null && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+            go.GetComponent<FetchCam>().Del();
     }
 
 }
