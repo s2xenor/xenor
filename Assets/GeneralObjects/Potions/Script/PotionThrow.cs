@@ -6,16 +6,21 @@ using Photon.Pun;
 
 public class PotionThrow : MonoBehaviour
 {
+    public GameObject part;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag != "Player" && !collision.isTrigger)
         {
-
-            Destroy(gameObject, .05f);
+            GetComponent<SpriteRenderer>().enabled = false;
+            Destroy(Instantiate(part, transform.position, Quaternion.identity), 1);
+            Destroy(gameObject, 1);
         }
         else if (collision.tag == "Player" && !collision.gameObject.GetComponent<PhotonView>().IsMine)
         {
-            Destroy(gameObject, .05f);
+            GetComponent<SpriteRenderer>().enabled = false;
+            Destroy(Instantiate(part, transform.position, Quaternion.identity), 1);
+            Destroy(gameObject, 1);
         }
     }
 

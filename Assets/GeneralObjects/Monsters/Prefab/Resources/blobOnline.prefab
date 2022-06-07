@@ -298,9 +298,10 @@ MonoBehaviour:
   pv: 20
   attackRange: 0.4
   animator: {fileID: 2784747048905396094}
-  NextWayPointDistance: 2
+  NextWayPointDistance: 1
   animLen: 0.6
   hitbox: {fileID: 4141594036243269681}
+  potionSpawn: {fileID: 8597258513792731460, guid: 15473d5cc8d2dab4384c20b6016538dc, type: 3}
 --- !u!50 &7629567209812999981
 Rigidbody2D:
   serializedVersion: 4

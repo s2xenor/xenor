@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+using Photon.Pun;
 
 public class life : MonoBehaviour //life class 
 {
@@ -16,7 +15,7 @@ public class life : MonoBehaviour //life class
     public bool die = false;
     public float waitTime = 15.0f;
     private GameManager gameManager;
-
+    
 
     public life(Image heart1, Image heart2, Image heart3, Image heart4, Image heart5)
     {
@@ -60,6 +59,7 @@ public class life : MonoBehaviour //life class
     /*
      *Function that reduce over the number of 1/2
      */
+    [PunRPC]
     public void Reduce2(int hearts) //Function that reduce by 1/2 hearts
     {
         if (gameManager == null)
@@ -118,14 +118,13 @@ public class life : MonoBehaviour //life class
     //Make the fillAmount of all the canvas to 1 
     public void HealMax()
     {
-        if (die)
+        if (die) // revive and heal 1 heart
         {
-            cooldown3.fillAmount = 1;
             cooldown4.fillAmount = 1;
             die = false;
 
         }
-        else
+        else // heal 5 hearts
         {
             cooldown.fillAmount = 1;
             cooldown1.fillAmount = 1;

@@ -9,6 +9,7 @@ public class imageOnline : MonoBehaviour
     public bool PotionStrength = false;
     public bool PotionDamage = false;
     public bool PotionHealth = false;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,5 @@ public class imageOnline : MonoBehaviour
                     break;
             }
         }
-
-
     }
 }

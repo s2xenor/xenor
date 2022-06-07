@@ -73,6 +73,9 @@ MonoBehaviour:
   - StrengthRPC
   - HealRPC
   - DamageRPC
+  - Die
+  - Reduce2
+  - GetDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

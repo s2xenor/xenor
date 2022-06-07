@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using Pathfinding;
-
-
+using Photon.Pun;
 
 public class MonstreOnline : MonoBehaviour
 {
@@ -41,8 +40,10 @@ public class MonstreOnline : MonoBehaviour
 
     public float animLen;
     public GameObject hitbox;
-
+    GameObject hitboxTmp;
+    public GameObject potionSpawn;
     Transform tr;
+    PhotonView view;
 
     void Start()//start the path finding
     {
@@ -50,6 +51,7 @@ public class MonstreOnline : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         InvokeRepeating("UpdatePath", 0f, .5f);
         tr = GetComponent<Transform>();
+        view = GetComponent<PhotonView>();
     }
     
 
@@ -164,7 +166,7 @@ public class MonstreOnline : MonoBehaviour
         {
             case "Player":
                 if (!dead)
-                    colision.gameObject.GetComponent<playerOnline>().GetDamage();//reduce player life
+                    colision.gameObject.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);//reduce player life
                 
                 break;
         }
@@ -175,9 +177,12 @@ public class MonstreOnline : MonoBehaviour
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "Potion"://damage potion 
+                if (dead) return;
                 playerwalkOnline current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalkOnline>()[0]);
-                GetDamage((float)current_player.GetComponent<playerOnline>().Strength);//have damage
+                view.RPC("GetDamage", RpcTarget.All, (float)current_player.GetComponent<playerOnline>().Strength);//have damage
                 Destroy(colision.gameObject);
+                if (dead)
+                    PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation);
                 break;
         }
     }
@@ -190,22 +195,22 @@ public class MonstreOnline : MonoBehaviour
                 return other_player;//change player 
         }
         return current_player;
-
+            
     }
 
+    [PunRPC]
     public void GetDamage(float damage)
     {
         pv -= damage;//reduce the life 
 
         if (pv <= 0)
-            Die();//die animation 
-        
+            GetComponent<PhotonView>().RPC("Die", RpcTarget.All);
     }
 
+    [PunRPC]
     void Die()//kill the monster 
     {
-        
-        
+        if (hitboxTmp != null) Destroy(hitboxTmp);
         animator.SetFloat("Die", 1);// Run death animation
         dead = true;
     }
@@ -215,9 +220,9 @@ public class MonstreOnline : MonoBehaviour
         if (dead || isAnim) return;
 
         isAnim = true;
-        GameObject tmp = Instantiate(hitbox, transform.position, Quaternion.identity);
-        tmp.SetActive(true);
-        tmp.transform.parent = this.gameObject.transform;
+        hitboxTmp = Instantiate(hitbox, transform.position, Quaternion.identity);
+        hitboxTmp.SetActive(true);
+        hitboxTmp.transform.parent = this.gameObject.transform;
         // Run Attack animation
         if (round % 2 == 0)//make a animation depending on the round 
         {
@@ -230,18 +235,18 @@ public class MonstreOnline : MonoBehaviour
             round += 1;
         }
 
-        StartCoroutine(waiter(tmp));//make the attack all the 15 sec 
+        StartCoroutine(waiter());//make the attack all the 15 sec 
     }
 
 
     /*
      * make wait 15 before remove the attack animation
      */
-    IEnumerator waiter(GameObject tmp)
+    IEnumerator waiter()
     {
         yield return new WaitForSeconds(animLen);
         animator.SetFloat("Attack", 0);//remove the attack animation 
-        Destroy(tmp);
+        Destroy(hitboxTmp);
         isAnim = false;
     }
 

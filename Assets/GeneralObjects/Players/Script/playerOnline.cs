@@ -63,28 +63,38 @@ public class playerOnline : MonoBehaviour
             audioSource.Play();
         }
 
+
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "slot"://strength potion 
-                inventaire.slot[0] += 1;
-                inventaire.UpdateNumber(0, inventaire.slot[0].ToString());//add to the inventory 
+                if (view.IsMine)
+                {
+                    inventaire.slot[0] += 1;
+                    inventaire.UpdateNumber(0, inventaire.slot[0].ToString());//add to the inventory 
+                }
                 Destroy(colision.gameObject);// destroy the GameObject of the scene
                 break;
 
             case "slot (1)"://damage potion 
-                inventaire.slot[1] += 1;
-                inventaire.UpdateNumber(1, inventaire.slot[1].ToString());
+                if (view.IsMine)
+                {
+                    inventaire.slot[1] += 1;
+                    inventaire.UpdateNumber(1, inventaire.slot[1].ToString());
+                }
                 Destroy(colision.gameObject);
                 break;
 
-            case "slot (2)"://health potion 
-                inventaire.slot[2] += 1;
-                inventaire.UpdateNumber(2, inventaire.slot[2].ToString());
+            case "slot (2)"://health potion
+                if (view.IsMine)
+                {
+                    inventaire.slot[2] += 1;
+                    inventaire.UpdateNumber(2, inventaire.slot[2].ToString());
+                }   
                 Destroy(colision.gameObject);
                 break;
 
             case "Monster":
-                colision.gameObject.GetComponent<MonstreOnline>().GetDamage((float)(Strength / (Strength - 1)));//make damage on monster 
+                colision.gameObject.GetComponent<MonstreOnline>().GetDamage((float)(Strength / 2));//make damage on monster 
                 break;
         }
     }
@@ -92,7 +102,7 @@ public class playerOnline : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Image").GetComponent<imageOnline>().PotionHealth)//Strength potion 
+        if (GameObject.Find("Image(0)").GetComponent<imageOnline>().PotionHealth)//Strength potion 
         {
             view.RPC("HealRPC", RpcTarget.All);
         }
@@ -128,7 +138,7 @@ public class playerOnline : MonoBehaviour
     {
         if (Strength > 15)
         {
-            yield return new WaitForSeconds(30);
+            yield return new WaitForSeconds(15);
             Strength /= 1.2f;
 
             if (Strength < 15)
@@ -155,6 +165,6 @@ public class playerOnline : MonoBehaviour
     {
         PotionOnline potion1 = new PotionOnline(PotionOnline.Type.Heal, 5);
         potion1.Effect(this, vie); //heal the palyer
-        GameObject.Find("Image").GetComponent<imageOnline>().PotionHealth = false;
+        GameObject.Find("Image(0)").GetComponent<imageOnline>().PotionHealth = false;
     }
 }

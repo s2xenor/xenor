@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2090371591621388451
 Transform:
   m_ObjectHideFlags: 0
@@ -346,6 +346,7 @@ MonoBehaviour:
   pv: 50
   attackRange: 0.4
   animator: {fileID: 209577098894530743}
-  NextWayPointDistance: 2
+  NextWayPointDistance: 1
   animLen: 0.6
   hitbox: {fileID: 3970235864730370896}
+  potionSpawn: {fileID: 8597258513792731460, guid: 15473d5cc8d2dab4384c20b6016538dc, type: 3}
