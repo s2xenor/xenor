@@ -344,7 +344,7 @@ MonoBehaviour:
   PlayerDetectRate: 0.2
   chaseRange: 2
   pv: 50
-  attackRange: 0.4
+  attackRange: 0.3
   animator: {fileID: 908180815689974750}
   NextWayPointDistance: 1
   animLen: 0.6

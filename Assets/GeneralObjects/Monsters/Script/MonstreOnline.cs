@@ -165,7 +165,7 @@ public class MonstreOnline : MonoBehaviour
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "Player":
-                if (!dead)
+                if (!dead && PhotonNetwork.IsMasterClient)
                     colision.gameObject.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);//reduce player life
                 
                 break;
@@ -179,7 +179,8 @@ public class MonstreOnline : MonoBehaviour
             case "Potion"://damage potion 
                 if (dead) return;
                 playerwalkOnline current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalkOnline>()[0]);
-                view.RPC("GetDamage", RpcTarget.All, (float)current_player.GetComponent<playerOnline>().Strength);//have damage
+                if (PhotonNetwork.IsMasterClient)
+                    view.RPC("GetDamage", RpcTarget.All, (float)current_player.GetComponent<playerOnline>().Strength);//have damage
                 Destroy(colision.gameObject);
                 if (dead)
                     PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation);

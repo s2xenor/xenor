@@ -76,6 +76,7 @@ MonoBehaviour:
   - Die
   - Reduce2
   - GetDamage
+  - Reduce2Bis
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
