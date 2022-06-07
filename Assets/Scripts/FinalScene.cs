@@ -33,14 +33,14 @@ public class FinalScene : MonoBehaviourPunCallbacks
         if (canLoad && Input.GetKeyDown(KeyCode.Escape))
         {
             Instantiate(finalScreen, Vector2.zero, Quaternion.identity);
-            Invoke("SetFct", 0.1f);
+            Invoke("SetFct", 0.5f);
             canLoad = false;
         }
     }
 
     private void SetFct()
     {
-        GameObject.FindGameObjectWithTag("Box").GetComponent<TextMeshPro>().text = $"Félicitations vous avez fini Altervita ! \nVotre score est: {score} \nPour le sauvergarder et l'envoyer dans le tableau des scores, veuillez entrer un username :";
+        //GameObject.FindGameObjectWithTag("Box").GetComponent<TextMeshPro>().text = "ui";/*$"Félicitations vous avez fini Altervita ! \nVotre score est: {score} \nPour le sauvergarder et l'envoyer dans le tableau des scores, veuillez entrer un username :";*/
     }
 
 
@@ -93,6 +93,7 @@ public class FinalScene : MonoBehaviourPunCallbacks
     //set username after button send his click
     public void ClickSend()
     {
+        Debug.Log("click send");
         if (PhotonNetwork.IsMasterClient)
         {
             SetUsername(GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, true);
