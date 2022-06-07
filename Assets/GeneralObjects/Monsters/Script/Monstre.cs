@@ -20,7 +20,6 @@ public class Monstre : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float attackRange;//distance to attack
-    [SerializeField] float attaclRate;//speed to attack
     private float lastAttackTime;
 
 
