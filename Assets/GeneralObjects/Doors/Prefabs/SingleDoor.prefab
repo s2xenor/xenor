@@ -122,5 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6a6f62da80490489de3838ce5f20eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 8312868088940820041, guid: bb7b2afb3af0cfa40b7b2d641d947dab, type: 3}
   NextScene: 

@@ -31,7 +31,7 @@ public class DoubleDoorM : MonoBehaviourPunCallbacks
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
             txt = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
@@ -40,7 +40,7 @@ public class DoubleDoorM : MonoBehaviourPunCallbacks
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
             DoorUpdate(-1);
             txt = false;

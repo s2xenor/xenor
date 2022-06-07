@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Networking;
+
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
 // Il permet de sauvegarder des donn�es que l'on souhaite r�cup�rer apr�s le chargement de la sc�ne suivante
@@ -49,10 +47,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool continuePrevGame = false; //player continue prev game or not
 
     //final scene
-    private string user1;
-    private string user2;
-    private GameObject score;
-    private GameObject finalMenu;
+    private int score;
 
 
     private void Awake()
@@ -73,19 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         // Show pause menu when escape is pressed
         if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 0 && Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SceneManager.GetActiveScene().name == "FinalScene")
-            {
-                if (finalMenu.activeSelf)
-                {
-                    finalMenu.SetActive(false);
-                }
-                else
-                {
-                    finalMenu.SetActive(true);
-                    score.GetComponent<TextMeshPro>().text =  CalculateScore().ToString();
-                }
-            }
-            else
+            if (SceneManager.GetActiveScene().name != "FinalScene")
             {
                 GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
                 int n = pauseMenu.Length;
@@ -115,6 +98,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             else if (Input.GetKeyDown(KeyCode.N)) //go to next room
             {
                 sceneName = SceneManager.GetActiveScene().name;
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextScene", 0.5f);
+            }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                NextScene = "FinalScene";
                 PhotonNetwork.LoadLevel("Loading");   //load scene load
                 Invoke("LoadNextScene", 0.5f);
             }
@@ -209,19 +198,28 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     //called when a pressure plate is pressed
     int doorActivated = 0;
+    [PunRPC]
     public void DoorUpdate(int increment, bool doubleD)
     {
-        Debug.Log("door update; incremnet: " + increment + "; dooractivated: "+ increment+doorActivated);
-        doorActivated += increment; //number of pressure pressed
-        if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (IsLevelCompleted())
+            Debug.Log("door update; incremnet: " + increment + "; dooractivated: "+ increment+doorActivated);
+            doorActivated += increment; //number of pressure pressed
+            if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
             {
-                doorActivated = 0;  //reset
-                sceneName = SceneManager.GetActiveScene().name;
-                PhotonNetwork.LoadLevel("Loading");   //load scene load
-                Invoke("LoadNextScene", 0.5f);
+                if (IsLevelCompleted())
+                {
+                    doorActivated = 0;  //reset
+                    sceneName = SceneManager.GetActiveScene().name;
+                    PhotonNetwork.LoadLevel("Loading");   //load scene load
+                    Invoke("LoadNextScene", 0.5f);
+                }
             }
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("DoorUpdate", RpcTarget.MasterClient, increment, doubleD);
         }
     }
 
@@ -248,10 +246,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("next scene diff null");
             PhotonNetwork.LoadLevel(Scenes[NextScene]);
-            if (NextScene == "FinalScene")
-            {
-                Invoke("FinalSceneSub", 0.5f);
-            }
             NextScene = null;
         }
         else if (sceneName == Scenes["Cells"])
@@ -364,16 +358,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int ArrowIndex = 0;
     private void LoadNextArrows()
     {
-        if (ArrowIndex == 0) //tutos
+        
+        if(ArrowIndex <= 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
             Invoke("LoadArrows", 0.5f);
-            ArrowIndex++;
-        }
-        else if(ArrowIndex <= 2)
-        {
-            PhotonNetwork.LoadLevel(Scenes["Arrows"]);
-            ArrowIndex++;
         }
         else //everything done go to main room
         {
@@ -388,12 +377,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         //create small laby for tutos on master
         if (ArrowIndex == 0)
         {
-            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().x = 5;
-            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().y = 5;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().x = 7;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().y = 7;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().StartDialogue();
 
         }
         GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().shouldStart = true;
-        GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().StartDialogue();
+        ArrowIndex++;
     }
 
     private int WiresIndex = 0;
@@ -466,75 +456,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         int START_SCORE = 15000;
         int COEF_LIFE = 10;
         int COEF_TIME = 1;
-
-        return START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
-    }
-
-    private void FinalSceneSub()
-    {
-        score = GameObject.FindGameObjectWithTag("Finish");
-        finalMenu = GameObject.FindGameObjectWithTag("Box");
-        finalMenu.SetActive(false);
-        TimestampEnd = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
-    }
-
-
-    //set username of player
-    [PunRPC]
-    public void SetUsername(string username, bool master = true)
-    {
-        if (master) user1 = username;
-        else user2 = username;
-
-        if(user1 != null && user2 != null)
-        {
-            StartCoroutine(MakeRequests());
-        }
-    }
-
-    private IEnumerator MakeRequests()
-    {
-        string url = $"http://xenor.usiobe.com/xenor/add.php?u1={user1}&u2={user2}&score={CalculateScore().ToString()}";
-        var getRequest = CreateRequest(url);
-        yield return getRequest.SendWebRequest();
-    }
-
-    private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)
-    {
-        var request = new UnityWebRequest(path, type.ToString());
-
-        if (data != null)
-        {
-            var bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        }
-
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        return request;
-    }
-
-
-    public enum RequestType
-    {
-        GET = 0,
-        POST = 1,
-        PUT = 2
-    }
-
-    //set username after button send his click
-    public void ClickSend()
-    {
+        score = START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
         if (PhotonNetwork.IsMasterClient)
         {
-            SetUsername(GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, true);
-        }
-        else
-        {
-            PhotonView photonview = GetComponent<PhotonView>();
-            photonview.RPC("SetUsername", RpcTarget.MasterClient, GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, false);
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<FinalScene>().SetScore(score);
         }
 
+        return score;
     }
+
+
+
+    
 }

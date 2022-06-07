@@ -3,39 +3,60 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
+using Photon.Pun;
+using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Text;
 
-public class FinalScene : MonoBehaviour
+public class FinalScene : MonoBehaviourPunCallbacks
 {
+
+    public GameObject finalScreen;
+    GameManager gameManager;
+    private bool canLoad = false;
+    private string user1;
+    private string user2;
+    private int score;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(MakeRequests());
-        
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager.TimestampEnd = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (canLoad && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Instantiate(finalScreen, Vector2.zero, Quaternion.identity);
+        }
     }
 
+    
+
+    //set username of player
+    [PunRPC]
+    public void SetUsername(string username, bool master = true)
+    {
+        if (master) user1 = username;
+        else user2 = username;
+
+        if (user1 != null && user2 != null)
+        {
+            StartCoroutine(MakeRequests());
+        }
+    }
 
     private IEnumerator MakeRequests()
     {
-        // GET
-        var getRequest = CreateRequest("http://localhost/xenor/add.php?u1=yep&u2=yep2&score=501");
+        string url = $"http://xenor.usiobe.com/xenor/add.php?u1={user1}&u2={user2}&score={CalculateScore().ToString()}";
+        var getRequest = CreateRequest(url);
         yield return getRequest.SendWebRequest();
-        //var deserializedGetData = JsonUtility.FromJson<Todo>(getRequest.downloadHandler.text);
-
-        //// POST
-        //var dataToPost = new PostData() { Hero = "John Wick", PowerLevel = 9001 };
-        //var postRequest = CreateRequest("https://reqbin.com/echo/post/json", RequestType.POST, dataToPost);
-        //yield return postRequest.SendWebRequest();
-        //var deserializedPostData = JsonUtility.FromJson<PostResult>(postRequest.downloadHandler.text);
-
-        //// Trigger continuation of game flow
     }
-
 
     private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)
     {
@@ -53,10 +74,6 @@ public class FinalScene : MonoBehaviour
         return request;
     }
 
-    private void AttachHeader(UnityWebRequest request, string key, string value)
-    {
-        request.SetRequestHeader(key, value);
-    }
 
     public enum RequestType
     {
@@ -65,27 +82,30 @@ public class FinalScene : MonoBehaviour
         PUT = 2
     }
 
-
-    public class Todo
+    //set username after button send his click
+    public void ClickSend()
     {
-        // Ensure no getters / setters
-        // Typecase has to match exactly
-        public int userId;
-        public int id;
-        public string title;
-        public bool completed;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SetUsername(GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, true);
+        }
+        else
+        {
+            PhotonView photonview = GetComponent<PhotonView>();
+            photonview.RPC("SetUsername", RpcTarget.MasterClient, GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, false);
+        }
+
     }
 
-    [System.Serializable]
-    public class PostData
+    public void SetScore(int score, bool local = false)
     {
-        public string Hero;
-        public int PowerLevel;
-    }
+        if(local) this.score = score;
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("SetScore", RpcTarget.All, score, true);
+        }
 
-    public class PostResult
-    {
-        public string success { get; set; }
     }
 
 }

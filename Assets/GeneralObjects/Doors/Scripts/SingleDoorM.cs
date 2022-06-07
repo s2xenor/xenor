@@ -12,7 +12,7 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
     public string NextScene;
 
     private bool isActive = false;
-
+    private int indent = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,20 +26,20 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
     {
         if (isActive && Input.GetKeyDown(KeyCode.E))
         {
-            DoorUpdate(1);
+            gameManager.DoorUpdate(1, false);
             //canvas.GetComponent<Text>().text = ("Level is not finished");
             //canvas.GetComponent<Canvas>();
             //canvas.GetComponent<Canvas>().GetComponent<Text>().text = "Level is not finished";
             //canvas.GetComponent<Canvas>().enabled = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Level is not finished");
-
+            indent -= 1;
             isActive = false;
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
             isActive = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
@@ -49,26 +49,13 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
             isActive = false;
-            DoorUpdate(-1);
+            gameManager.DoorUpdate(indent, false);
+            indent = 0;
             canvas.GetComponent<FixedTextPopUP>().SupprPressToInteractText();
         }
     }
 
-    [PunRPC]
-    public void DoorUpdate(int increment)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            gameManager.DoorUpdate(increment, false);
-        }
-        else
-        {
-            PhotonView p = this.GetComponent<PhotonView>();
-            p.RPC("DoorUpdate", RpcTarget.MasterClient, increment);
-
-        }
-    }
 }
