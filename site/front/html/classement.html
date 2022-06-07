@@ -74,10 +74,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Matrix</td>
+                    <td>-1</td>
                     <td>Hugo Meens</td>
                     <td>Timothy Didierjean</td>
-                    <td>EpitaLand</td>
+                    <td>4200</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -95,7 +95,7 @@
     
         // get the quotes from API
         async function getData(page) {
-            const API_URL = `http://localhost/xenor/load.php?offset=${page*10}`;
+            const API_URL = `http://xenor.usiobe.com/load.php?offset=${page*10}`;
             const response = await fetch(API_URL);
             // handle 404
             if (!response.ok) {

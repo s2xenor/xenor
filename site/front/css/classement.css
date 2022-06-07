@@ -47,6 +47,10 @@ th {
   box-shadow: 2px 2px 2px #7F7F7F;
 }
 
+td{
+  color: #212421;
+}
+
 tbody tr:nth-child(odd){
   background:#cbcbcb;
 }
