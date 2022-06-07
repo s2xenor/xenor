@@ -194,7 +194,7 @@ public class MonstreOnline : MonoBehaviour
 
     void Attack()//attack the player 
     {
-        
+        if (dead) return;
 
         // Run Attack animation
         if (round % 2 == 0)//make a animation depending on the round 

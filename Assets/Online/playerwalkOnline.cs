@@ -20,7 +20,7 @@ public class playerwalkOnline : MonoBehaviour
 
         if (!view.IsMine) // Remove unecessary childs of other player locally
         {
-            for (int i = 2; i < transform.childCount; i++)
+            for (int i = 2; i < transform.childCount - 1; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(false);
             }      

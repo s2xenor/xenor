@@ -41,7 +41,7 @@ public class playerOnline : MonoBehaviour
     void Start()
     {
         inventaire = transform.GetComponentInChildren<inventoryOnline>();//retrieve the prefab of the inventory 
-        transform.GetComponentInChildren<life>();// create life bar
+        vie = transform.GetComponentInChildren<life>();// create life bar
     }
 
 
@@ -106,10 +106,12 @@ public class playerOnline : MonoBehaviour
         if (!vie.die)
         {
             animator.SetFloat("Die", 0);//Remove the die animation 
+            gameObject.GetComponent<playerwalkOnline>().enabled = true;
         }
         if (vie.die)
         {
             animator.SetFloat("Die", 1);//make the die animation 
+            gameObject.GetComponent<playerwalkOnline>().enabled = false;
         }
 
     }
