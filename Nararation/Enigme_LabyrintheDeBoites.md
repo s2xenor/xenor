@@ -37,7 +37,7 @@ Les manières/façons dont sont dites les choses seront exprimées en **(gras en
 
 [Necessaire de tirer une boite pour se frailler un chemin.]
 
-```Clothilde``` : Si vous vous rapprochez assez d'une boite vous devriez voir des poignées que vous pouvez attraper pour tirer les boites.
+```Clothilde``` : Si vous vous rapprochez assez d'une boite vous devriez voir des poignées que vous pouvez attraper pour les tirer.
 
 ### Salle du Tutoriel 4 : Benne à boites
 
@@ -45,7 +45,7 @@ Les manières/façons dont sont dites les choses seront exprimées en **(gras en
 
 ### Salle du Tutoriel 5 : Tabourets
 
-```Clothilde``` : Les trucs rouges au sols c'est des tabourets. Ne vous moquez pas c'est pratique pour les gens petits comme moi... Ils sont fixés au sols et permettent aux personnes de petite taille de monter dessus pour trouvez la boite qu'ils recherchent... Vous ne pouvez pas pousser une boîte dessus mais vous vous pouvez monter dessus !
+```Clothilde``` : Les trucs rouges au sols c'est des tabourets. Ne vous moquez pas c'est pratique pour les gens petits comme moi... Ils sont fixés au sols et permettent aux personnes de petite taille de monter dessus pour trouvez la boite qu'ils recherchent... Vous ne pouvez pas pousser une boîte dessus mais vous, vous pouvez monter dessus !
 
 ### Première vrai salle : 
 
