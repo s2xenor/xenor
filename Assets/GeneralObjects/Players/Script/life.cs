@@ -62,32 +62,41 @@ public class life : MonoBehaviour //life class
      */
     public void Reduce2(int hearts) //Function that reduce by 1/2 hearts
     {
+        if (gameManager == null)
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         gameManager.QuarterHeartLost += hearts*2;
+
+        Image cd = cooldown;
 
         float val = 1;//the value which reduces the filAmount 
         int j = 1;//count of round to switch to the next canvas of heart
         for (int i = 0; i < hearts; i++)
         {
             val -= 0.5f;
-            while (cooldown.fillAmount == 0 && j<5)
+            while (cd.fillAmount <= 0 && j<5)
             {
-                cooldown.fillAmount = 0;
-                cooldown = SwitchImage(j);//Change the image of heart when the filAmount is at 0
+                cd = SwitchImage(j);//Change the image of heart when the filAmount is at 0
                 j++;
-                val = 1;
             }
             
-            cooldown.fillAmount -= val;
+            cd.fillAmount -= val;
             
         }
     }
+
     /*
      *Function that reduce over the number of 1/4
      */
 
     public void Reduce4(int hearts) //Function that reduce by 1/4 hearts
     {
+        if (gameManager == null)
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         gameManager.QuarterHeartLost += hearts;
+
+        Image cd = cooldown;
 
         float val = 1;//the value which reduces the filAmount 
         int j = 1;//count of round to switch to the next canvas of heart
@@ -95,35 +104,42 @@ public class life : MonoBehaviour //life class
         for (int i = 0; i < hearts; i++)
         {
             val -= 0.25f;
-            while (cooldown.fillAmount == 0 && j < 5)
+            while (cd.fillAmount <= 0 && j < 5)
             {
-                cooldown.fillAmount = 0;
-                cooldown = SwitchImage(j);//Change the image of heart when the filAmount is at 0
+                cd = SwitchImage(j);//Change the image of heart when the filAmount is at 0
                 j++;
-                val = 1;
             }
             
-                cooldown.fillAmount -= val;
+            cd.fillAmount -= val;
             
         }
     }
 
-    //Make the filAmount of all the canvas to 1 
+    //Make the fillAmount of all the canvas to 1 
     public void HealMax()
     {
-        cooldown.fillAmount = 1;
-        cooldown1.fillAmount = 1;
-        cooldown2.fillAmount = 1;
-        cooldown3.fillAmount = 1;
-        cooldown4.fillAmount = 1;
-        die = false;
+        if (die)
+        {
+            cooldown3.fillAmount = 1;
+            cooldown4.fillAmount = 1;
+            die = false;
+
+        }
+        else
+        {
+            cooldown.fillAmount = 1;
+            cooldown1.fillAmount = 1;
+            cooldown2.fillAmount = 1;
+            cooldown3.fillAmount = 1;
+            cooldown4.fillAmount = 1;
+        }
     }
 
 
 
     void Update()//verify if the player is not dead
     {
-        if(cooldown4.fillAmount ==0)
+        if(cooldown4.fillAmount <= 0)
         {
             die = true;
         }

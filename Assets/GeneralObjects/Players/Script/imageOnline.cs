@@ -26,16 +26,16 @@ public class imageOnline : MonoBehaviour
             inventaire.UpdateNumber(slot_number, inventaire.slot[slot_number].ToString());
             switch (slot_number)
             {
-                case 0://strength
-                    PotionStrength = true;
+                case 0://healt
+                    PotionHealth = true;
                     break;
 
                 case 1://damage
                     PotionDamage = true;
                     break;
 
-                case 2://health
-                    PotionHealth = true;
+                case 2://strength
+                    PotionStrength = true;
                     break;
             }
         }

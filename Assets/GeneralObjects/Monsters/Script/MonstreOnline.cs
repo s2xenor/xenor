@@ -6,7 +6,7 @@ using Pathfinding;
 
 
 
-public class Monstre : MonoBehaviour
+public class MonstreOnline : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] float speed;//speed of the monster 
@@ -26,7 +26,7 @@ public class Monstre : MonoBehaviour
 
     [Header("Component")]
     Rigidbody2D rb;//Rigidbody of the monster 
-    private playerwalk targetPlayer; // component that make the player walk 
+    private playerwalkOnline targetPlayer; // component that make the player walk 
     public Animator animator;//animator of the monster 
 
 
@@ -42,7 +42,7 @@ public class Monstre : MonoBehaviour
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        //InvokeRepeating("UpdatePath", 0f, .5f);
     }
     
 
@@ -116,7 +116,7 @@ public class Monstre : MonoBehaviour
         if(Time.time-PlayerDetectTime>PlayerDetectRate)//can the player be detect
         {
             PlayerDetectTime = Time.time;//detect the player on the moment
-            foreach(playerwalk player in FindObjectsOfType<playerwalk>())//research all the player 
+            foreach(playerwalkOnline player in FindObjectsOfType<playerwalkOnline>())//research all the player 
             {
                 if(player!=null)
                 {
@@ -145,28 +145,30 @@ public class Monstre : MonoBehaviour
     {
         switch (colision.gameObject.tag)//take the tag of the object
         {
-            
-
-            case "Potion"://damage potion 
-                playerwalk current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalk>()[0]);
-                GetDamage((float)current_player.GetComponent<player>().Strength);//have damage
-                Destroy(colision.gameObject);
-                break;
             case "Player":
                 Attack();//attack animation
-                colision.gameObject.GetComponent<player>().GetDamage();//reduce player life
+                colision.gameObject.GetComponent<playerOnline>().GetDamage();//reduce player life
                 break;
-
         }
-        
     }
 
-
-    public playerwalk ChangeTarget(playerwalk current_player)//change the target player 
+    private void OnTriggerEnter2D(Collider2D colision)
     {
-        foreach(playerwalk other_player in FindObjectsOfType<playerwalk>())//research all the player
+        switch (colision.gameObject.tag)//take the tag of the object
         {
-            if (other_player != current_player && current_player.GetComponent<player>().Strength < other_player.GetComponent<player>().Strength)
+            case "Potion"://damage potion 
+                playerwalkOnline current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalkOnline>()[0]);
+                GetDamage((float)current_player.GetComponent<playerOnline>().Strength);//have damage
+                Destroy(colision.gameObject);
+                break;
+        }
+    }
+
+    public playerwalkOnline ChangeTarget(playerwalkOnline current_player)//change the target player 
+    {
+        foreach(playerwalkOnline other_player in FindObjectsOfType<playerwalkOnline>())//research all the player
+        {
+            if (other_player != current_player && current_player.GetComponent<playerOnline>().Strength < other_player.GetComponent<playerOnline>().Strength)
                 return other_player;//change player 
         }
         return current_player;
@@ -192,7 +194,7 @@ public class Monstre : MonoBehaviour
 
     void Attack()//attack the player 
     {
-        
+        if (dead) return;
 
         // Run Attack animation
         if (round % 2 == 0)//make a animation depending on the round 
