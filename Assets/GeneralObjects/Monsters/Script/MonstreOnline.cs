@@ -20,7 +20,6 @@ public class MonstreOnline : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float attackRange;//distance to attack
-    [SerializeField] float attaclRate;//speed to attack
     private float lastAttackTime;
 
 
@@ -38,11 +37,19 @@ public class MonstreOnline : MonoBehaviour
     bool reachEndPath = false;//valid path
     Seeker seeker;//the detection part of the map 
 
+    bool isAnim = false;
+
+    public float animLen;
+    public GameObject hitbox;
+
+    Transform tr;
+
     void Start()//start the path finding
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        //InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating("UpdatePath", 0f, .5f);
+        tr = GetComponent<Transform>();
     }
     
 
@@ -62,6 +69,17 @@ public class MonstreOnline : MonoBehaviour
             seeker.StartPath(rb.position, targetPlayer.transform.position, OnPathComplete);// research a valid path
         }
 
+    }
+    
+    private void Update()
+    {
+        if (rb.velocity.x > -.5f && rb.velocity.x < .5f  && rb.velocity.x > 0)
+            tr.localScale = new Vector3(-1, 1, 0);
+        else if (rb.velocity.x > -.5f && rb.velocity.x < .5f && rb.velocity.x != 0)
+            tr.localScale = new Vector2(1, 1);
+
+        if (isAnim)
+            rb.velocity = new Vector2(0, 0);
     }
 
     private void FixedUpdate()
@@ -103,12 +121,11 @@ public class MonstreOnline : MonoBehaviour
             }
             else
             {
-
                 rb.velocity = Vector2.zero;//stop the monster 
+                Attack();
             }
         }
         DetectPlayer();
-        StartCoroutine(waiter());//make the attack all the 15 sec 
     }
 
     void DetectPlayer()
@@ -146,8 +163,9 @@ public class MonstreOnline : MonoBehaviour
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "Player":
-                Attack();//attack animation
-                colision.gameObject.GetComponent<playerOnline>().GetDamage();//reduce player life
+                if (!dead)
+                    colision.gameObject.GetComponent<playerOnline>().GetDamage();//reduce player life
+                
                 break;
         }
     }
@@ -194,8 +212,12 @@ public class MonstreOnline : MonoBehaviour
 
     void Attack()//attack the player 
     {
-        if (dead) return;
+        if (dead || isAnim) return;
 
+        isAnim = true;
+        GameObject tmp = Instantiate(hitbox, transform.position, Quaternion.identity);
+        tmp.SetActive(true);
+        tmp.transform.parent = this.gameObject.transform;
         // Run Attack animation
         if (round % 2 == 0)//make a animation depending on the round 
         {
@@ -207,16 +229,20 @@ public class MonstreOnline : MonoBehaviour
             animator.SetFloat("Attack", 0.1f);//Animation attack number 2
             round += 1;
         }
+
+        StartCoroutine(waiter(tmp));//make the attack all the 15 sec 
     }
 
 
     /*
      * make wait 15 before remove the attack animation
      */
-    IEnumerator waiter()
+    IEnumerator waiter(GameObject tmp)
     {
-            yield return new WaitForSeconds(15);
-            animator.SetFloat("Attack", 0f);//remove the attack animation 
+        yield return new WaitForSeconds(animLen);
+        animator.SetFloat("Attack", 0);//remove the attack animation 
+        Destroy(tmp);
+        isAnim = false;
     }
 
     public void walk(Vector2 mouvement)

@@ -37,11 +37,14 @@ public class playerOnline : MonoBehaviour
     //damage potion prefab use by the player 
     public GameObject potionPrefab;
 
+    Rigidbody2D rb;
+
 
     void Start()
     {
         inventaire = transform.GetComponentInChildren<inventoryOnline>();//retrieve the prefab of the inventory 
         vie = transform.GetComponentInChildren<life>();// create life bar
+        rb = transform.GetComponentInChildren<Rigidbody2D>();
     }
 
 
@@ -114,6 +117,7 @@ public class playerOnline : MonoBehaviour
             gameObject.GetComponent<playerwalkOnline>().enabled = false;
         }
 
+        rb.velocity = Vector3.zero;
     }
 
 
