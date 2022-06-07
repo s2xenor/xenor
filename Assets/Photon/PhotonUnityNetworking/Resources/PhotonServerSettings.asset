@@ -69,6 +69,7 @@ MonoBehaviour:
   - GenerationFinished
   - SetupDoorExit
   - StartDialogue
+  - DoorUpdate
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

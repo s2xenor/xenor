@@ -90,14 +90,14 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             int previous = (int)Direction.down;
 
             //create logic laby
-            while (Xt < x)
+            while (Xt < x)  //while current height is inferior to max height
             {
                 int r = Random.Range(0, 3);
                 if (r == 0) // go down
                 {
-                    laby[Xt, Yt] = (int)Direction.down + addPrevious(previous);
+                    laby[Xt, Yt] = (int)Direction.down + addPrevious(previous); //add minimal tile
                     Xt += 1;
-                    previous = (int)Direction.down;
+                    previous = (int)Direction.down; //store previous direction
                 }
                 else if (r == 1 && Yt + 1 < y && previous != (int)Direction.left) //go right
                 {
@@ -450,18 +450,14 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
         //decide which tile will be draw on which players
         int[,] spawnLaby = new int[x, y];
-        int r = Random.Range(0, 3);
+        int r ;
 
         for (int x = 0; x < laby.GetLength(0); x++)
         {
             for (int y = 0; y < laby.GetLength(1); y++)
             {
                 r = Random.Range(0, 8);
-                if(r == 1 || r == 0) //setup both
-                {
-                    spawnLaby[x, y] = 2;
-                }
-                else if(r%2 == 0) //setup local
+                if(r%2 == 0) //setup local
                 {
                     spawnLaby[x, y] = 0;
                 }
@@ -492,10 +488,6 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                     Instantiate(prefabsL[0], new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity, parentObj.transform);
                     t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
                     t.SetActive(false);
-                }
-                else //both (== 2)
-                {
-                    t= PhotonNetwork.Instantiate(prefabsL[prefabNb].name, new Vector3(startX + y * 0.32f + 0.1f, startY - x * 0.32f - 0.32f), Quaternion.identity);
                 }
             }
         }
