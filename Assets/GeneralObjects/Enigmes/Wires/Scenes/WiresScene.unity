@@ -378,7 +378,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1499139627
-  m_SortingLayer: -1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 117a56a7b7e8442418fd414f67cca656, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -625,8 +625,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   wiresColors: 0000000000000000000000000000000000000000000000000000000000000000
-  playerBoyPrefab: {fileID: 8666501797103497954, guid: 9610bff595f97d04489c836d0d1eef0f, type: 3}
-  playerGirlPrefab: {fileID: 4002803392846534298, guid: dca970138eff9ef458c549a3f23885c0, type: 3}
+  playerBoyPrefab: {fileID: 6147628036122659623, guid: b3dd3f3941375874ca64faa85295e366, type: 3}
+  playerGirlPrefab: {fileID: 6147628036122659623, guid: a0bba6a4661a1b949b1bbf4c0b5c2fd3, type: 3}
   isOnPressureWire: 0
   isOnPressureRule: 0
   isMasterOnWire: 0
@@ -808,7 +808,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2117407821
-  m_SortingLayer: -3
+  m_SortingLayer: 0
   m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -3416,7 +3416,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1499139627
-  m_SortingLayer: -1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 117a56a7b7e8442418fd414f67cca656, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

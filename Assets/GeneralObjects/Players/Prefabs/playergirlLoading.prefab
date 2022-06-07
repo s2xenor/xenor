@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7543867110525847624}
   - component: {fileID: 7543867110525847627}
   - component: {fileID: 7543867110525847637}
-  - component: {fileID: 2974359912109935723}
+  - component: {fileID: 8381971668077881370}
   m_Layer: 0
   m_Name: playergirlLoading
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1001
   m_Sprite: {fileID: 2223703904508614566, guid: ed29355088d498341b4b8588ed97dbcc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -103,7 +103,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2974359912109935723
+--- !u!114 &8381971668077881370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7543867110525847636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e586952525f7954c96d5b1067236ab7, type: 3}
+  m_Script: {fileID: 11500000, guid: bdb17d3b89e0fa5459b965a02cd91acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7543867110525847637}
+  animator: {fileID: 0}

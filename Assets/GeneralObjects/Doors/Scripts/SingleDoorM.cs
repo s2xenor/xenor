@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class SingleDoorM : MonoBehaviourPunCallbacks
 {
     private GameManager gameManager;
-    public GameObject canvas;
+    private GameObject canvas;
 
     public string NextScene;
 
@@ -16,7 +17,8 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        Instantiate(canvas, new Vector2(0, 0), Quaternion.identity);
+        canvas = GameObject.FindGameObjectWithTag("CanvasText");
+
     }
 
     // Update is called once per frame
@@ -25,24 +27,29 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
         if (isActive && Input.GetKeyDown(KeyCode.E))
         {
             DoorUpdate(1);
+            //canvas.GetComponent<Text>().text = ("Level is not finished");
+            //canvas.GetComponent<Canvas>();
+            //canvas.GetComponent<Canvas>().GetComponent<Text>().text = "Level is not finished";
+            //canvas.GetComponent<Canvas>().enabled = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Level is not finished");
+
             isActive = false;
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && PhotonNetwork.IsMasterClient)
+        if (collision.tag == "Player")
         {
             isActive = true;
-            if (NextScene != null) gameManager.NextSceneDoor = NextScene;
-            DoorUpdate(1);
+            canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
+        if (NextScene != null) gameManager.NextSceneDoor = NextScene;
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && PhotonNetwork.IsMasterClient)
+        if (collision.tag == "Player")
         {
             isActive = false;
             DoorUpdate(-1);

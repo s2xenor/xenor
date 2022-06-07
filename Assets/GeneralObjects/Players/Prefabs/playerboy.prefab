@@ -184,7 +184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Strength: 15
-  Case_Design: {fileID: 0}
+  boy: 1
+  animator: {fileID: 3480359243239183146}
+  vie: {fileID: 0}
+  potionPrefab: {fileID: 8290488347031643809, guid: 7fceb16ad3014ef4c8a3723d17b71fc7, type: 3}
 --- !u!1001 &521142262191899602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,11 +205,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5504703489736151926, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000011920929
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 5504703489736151926, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.000000029802322
       objectReference: {fileID: 0}
     - target: {fileID: 5504703489736151926, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -239,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 5504703489736151926, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504703489736151927, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
+      propertyPath: orthographic size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e68bf71d2721e6047bb9a9060e76f6a7, type: 3}
@@ -326,11 +333,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3647418220539945487, guid: 9ef7820c5b436954387a64a24dc0a991, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000011920929
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 3647418220539945487, guid: 9ef7820c5b436954387a64a24dc0a991, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.000000029802322
       objectReference: {fileID: 0}
     - target: {fileID: 3647418220539945487, guid: 9ef7820c5b436954387a64a24dc0a991, type: 3}
       propertyPath: m_LocalPosition.z

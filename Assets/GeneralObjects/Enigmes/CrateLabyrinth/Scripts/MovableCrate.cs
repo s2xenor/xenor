@@ -50,7 +50,6 @@ public class MovableCrate : PressurePlate
             //sinon, si la boite est d�j� li�e � ce qqn, on lui fais l�cher la boite
             else if (linkedToPlayer && playerLinked.GetPhotonView().IsMine)
             {
-             //   UnLink();
                 photonView.RPC("UpdateLink", RpcTarget.All, 0);
             }
         }

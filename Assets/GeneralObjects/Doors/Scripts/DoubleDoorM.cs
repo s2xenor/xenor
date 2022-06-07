@@ -6,13 +6,13 @@ using Photon.Pun;
 public class DoubleDoorM : MonoBehaviourPunCallbacks
 {
     private GameManager gameManager;
-    public GameObject canvas;
+    private GameObject canvas;
     private bool txt = false;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        Instantiate(canvas, new Vector2(0, 0), Quaternion.identity);
+        canvas = GameObject.FindGameObjectWithTag("CanvasText");
     }
 
 

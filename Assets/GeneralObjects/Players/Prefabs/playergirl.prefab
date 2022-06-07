@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7543867110525847624}
   - component: {fileID: 7543867110525847627}
   - component: {fileID: 7543867110525847637}
-  - component: {fileID: 7543867110525847625}
   - component: {fileID: 1060427265776713376}
   - component: {fileID: 8386739470296287710}
   - component: {fileID: 2138857182001945731}
+  - component: {fileID: 6939921039261952316}
   m_Layer: 0
   m_Name: playergirl
   m_TagString: Player
@@ -106,24 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7543867110525847625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543867110525847636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20e442604dae0274a987abb58971ea41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizon: Horizontalbis
-  verti: Verticalbis
-  animator: {fileID: 7543867110525847637}
-  target: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  smoothing: 0
 --- !u!61 &1060427265776713376
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,9 +166,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Strength: 15
-  animator: {fileID: 0}
-  cooldown: {fileID: 0}
-  cooldown1: {fileID: 0}
-  cooldown2: {fileID: 0}
-  cooldown3: {fileID: 0}
-  cooldown4: {fileID: 0}
+  boy: 0
+  animator: {fileID: 7543867110525847637}
+  vie: {fileID: 0}
+  potionPrefab: {fileID: 8290488347031643809, guid: 7fceb16ad3014ef4c8a3723d17b71fc7, type: 3}
+--- !u!114 &6939921039261952316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543867110525847636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cddd552cba2d6148bdf04fe70e9c752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizon: Horizontalbis
+  verti: Vertcalbis
+  animator: {fileID: 7543867110525847637}

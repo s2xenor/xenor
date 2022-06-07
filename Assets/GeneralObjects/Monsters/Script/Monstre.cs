@@ -23,6 +23,7 @@ public class Monstre : MonoBehaviour
     [SerializeField] float attaclRate;//speed to attack
     private float lastAttackTime;
 
+
     [Header("Component")]
     Rigidbody2D rb;//Rigidbody of the monster 
     private playerwalk targetPlayer; // component that make the player walk 
@@ -89,6 +90,8 @@ public class Monstre : MonoBehaviour
 
                 Vector2 direction = ((Vector2)path.vectorPath[currentPath] - rb.position).normalized;//create the direction
                 Vector2 force = direction * speed * Time.fixedDeltaTime; //create a mouvement 
+                walk(direction);
+                
 
                 rb.velocity = force;//move
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentPath]);
@@ -118,6 +121,7 @@ public class Monstre : MonoBehaviour
                 if(player!=null)
                 {
                     float dist = Vector2.Distance(transform.position, player.transform.position);//go to the player
+
 
                     if(player == targetPlayer)
                     {
@@ -212,6 +216,13 @@ public class Monstre : MonoBehaviour
     {
             yield return new WaitForSeconds(15);
             animator.SetFloat("Attack", 0f);//remove the attack animation 
+    }
+
+    public void walk(Vector2 mouvement)
+    {
+        animator.SetFloat("Horizontal", mouvement.x);//mise en place de l'animation 
+        animator.SetFloat("Vertical", mouvement.y);
+        animator.SetFloat("Magnitude", mouvement.magnitude);
     }
 
 }
