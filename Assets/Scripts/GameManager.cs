@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-
-
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Networking;
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
 // Il permet de sauvegarder des donn�es que l'on souhaite r�cup�rer apr�s le chargement de la sc�ne suivante
@@ -47,6 +48,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public bool continuePrevGame = false; //player continue prev game or not
 
+    //final scene
+    private string user1;
+    private string user2;
+    private GameObject score;
+    private GameObject finalMenu;
+
+
     private void Awake()
     {
         if (GameManager.instance != null)
@@ -65,20 +73,35 @@ public class GameManager : MonoBehaviourPunCallbacks
         // Show pause menu when escape is pressed
         if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 0 && Input.GetKeyDown(KeyCode.Escape))
         {
-            GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
-            int n = pauseMenu.Length;
-
-            // If pause menu already exists, destroy id
-            if (n != 0)
+            if (SceneManager.GetActiveScene().name == "FinalScene")
             {
-                for (int i = 0; i < n; i++)
+                if (finalMenu.activeSelf)
                 {
-                    Destroy(pauseMenu[0]);
+                    finalMenu.SetActive(false);
+                }
+                else
+                {
+                    finalMenu.SetActive(true);
+                    score.GetComponent<TextMeshPro>().text =  CalculateScore().ToString();
                 }
             }
             else
             {
-                Instantiate(menu, Vector2.zero, Quaternion.identity);
+                GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
+                int n = pauseMenu.Length;
+
+                // If pause menu already exists, destroy id
+                if (n != 0)
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        Destroy(pauseMenu[0]);
+                    }
+                }
+                else
+                {
+                    Instantiate(menu, Vector2.zero, Quaternion.identity);
+                }
             }
         }
 
@@ -214,16 +237,21 @@ public class GameManager : MonoBehaviourPunCallbacks
         return true;
     }
 
+
     //find next scene and load it based on current scene
     private void LoadNextScene()
     {
         Debug.Log("next scene");
         
         Debug.Log(sceneName);
-        if(NextScene != null)
+        if (NextScene != null)
         {
             Debug.Log("next scene diff null");
             PhotonNetwork.LoadLevel(Scenes[NextScene]);
+            if (NextScene == "FinalScene")
+            {
+                Invoke("FinalSceneSub", 0.5f);
+            }
             NextScene = null;
         }
         else if (sceneName == Scenes["Cells"])
@@ -231,9 +259,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             TimestampStart = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
+        else if (sceneName == Scenes["FinalScene"])
+        {
+            //todo
+        }
         else if (sceneName == Scenes["MainRoom"])
         {
-            if(NextSceneDoor != null)
+            if (NextSceneDoor != null)
             {
                 switch (NextSceneDoor)
                 {
@@ -438,6 +470,71 @@ public class GameManager : MonoBehaviourPunCallbacks
         return START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
     }
 
+    private void FinalSceneSub()
+    {
+        score = GameObject.FindGameObjectWithTag("Finish");
+        finalMenu = GameObject.FindGameObjectWithTag("Box");
+        finalMenu.SetActive(false);
+        TimestampEnd = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
+    }
 
 
+    //set username of player
+    [PunRPC]
+    public void SetUsername(string username, bool master = true)
+    {
+        if (master) user1 = username;
+        else user2 = username;
+
+        if(user1 != null && user2 != null)
+        {
+            StartCoroutine(MakeRequests());
+        }
+    }
+
+    private IEnumerator MakeRequests()
+    {
+        string url = $"http://xenor.usiobe.com/xenor/add.php?u1={user1}&u2={user2}&score={CalculateScore().ToString()}";
+        var getRequest = CreateRequest(url);
+        yield return getRequest.SendWebRequest();
+    }
+
+    private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)
+    {
+        var request = new UnityWebRequest(path, type.ToString());
+
+        if (data != null)
+        {
+            var bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        }
+
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        return request;
+    }
+
+
+    public enum RequestType
+    {
+        GET = 0,
+        POST = 1,
+        PUT = 2
+    }
+
+    //set username after button send his click
+    public void ClickSend()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SetUsername(GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, true);
+        }
+        else
+        {
+            PhotonView photonview = GetComponent<PhotonView>();
+            photonview.RPC("SetUsername", RpcTarget.MasterClient, GameObject.FindGameObjectWithTag("Username").GetComponent<InputField>().text, false);
+        }
+
+    }
 }
