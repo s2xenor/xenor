@@ -53,6 +53,7 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
                 Dictionary<string, bool> LevelsCompleted = GameManager.LevelsCompleted;
                 photonView.RPC("SetDoors", RpcTarget.All, LevelsCompleted["Crate"], LevelsCompleted["Pipe"], LevelsCompleted["LabyInvisible"], LevelsCompleted["Arrows"], LevelsCompleted["Wires"], LevelsCompleted["Donjon"]);
             }
+            shouldLoad = false;
         }
     }
 

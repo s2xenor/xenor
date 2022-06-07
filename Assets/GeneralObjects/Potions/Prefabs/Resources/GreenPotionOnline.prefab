@@ -169,6 +169,8 @@ MonoBehaviour:
   PotionStrength: 0
   PotionDamage: 0
   PotionHealth: 0
+  animator: {fileID: 0}
+  index: 0
 --- !u!114 &323973362016243568
 MonoBehaviour:
   m_ObjectHideFlags: 0

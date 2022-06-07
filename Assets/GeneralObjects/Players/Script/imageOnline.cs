@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class imageOnline : MonoBehaviour
@@ -11,10 +12,28 @@ public class imageOnline : MonoBehaviour
     public bool PotionHealth = false;
     public Animator animator;
 
+    GameManager gameManager;
+    public int index;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         inventaire = GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventoryOnline>();
+
+        if (inventaire != null)
+        {
+            if (PhotonNetwork.IsMasterClient) // Get potion number
+            {
+                inventaire.slot[index] = gameManager.potions[0, index];
+            }
+            else
+            {
+                inventaire.slot[index] = gameManager.potions[1, index];
+            }
+
+            inventaire.UpdateNumber(index, inventaire.slot[index].ToString());
+        }
     }
 
     public void ShowImage()
@@ -39,6 +58,23 @@ public class imageOnline : MonoBehaviour
                     PotionStrength = true;
                     break;
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (inventaire != null)
+        {
+            if (PhotonNetwork.IsMasterClient) // Get potion number
+            {
+                gameManager.potions[0, index] = inventaire.slot[index];
+            }
+            else
+            {
+                gameManager.potions[1, index] = inventaire.slot[index];
+            }
+
+            inventaire.UpdateNumber(index, inventaire.slot[index].ToString());
         }
     }
 }

@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     private string NextScene = null;
     public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
     public GameObject menu;
+
+    public int[,] potions; // Nombre de potions de base
+    public int[] hearths; // Nombre degats actuels
+
     /*
      * Variables Publiques des trucs qu'il y a � sauvgarder
      */
@@ -55,9 +59,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
 
-
         instance = this;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
+        
+        potions = new int[,] { { 10, 10, 10 }, { 10, 10, 10 } };
+        hearths = new int[] { 0, 0 };
     }
 
     private void Update()
