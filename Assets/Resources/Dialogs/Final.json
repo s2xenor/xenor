@@ -1,8 +1,12 @@
 {
-    "name" : "Clothilde",
+    "name" : "Narrateur",
     "sentences" : [
-        "cheh",
-        "yep"
+        "Vous parvenez enfin à vous échapper, mais lorsque vous poussez la porte de la sortie vous ne trouvez pas la lumière puissante et la douce chaleur du soleil qu’il vous a semblé apercevoir par les fenêtres du labo mais bien la lumière blafarde d’une salle éclairée aux néons.",
+        "Vous êtes dans une nouvelle salle de laboratoire carrelée de carreaux blancs sans vie qui vous oppressent,",
+        "seulement,",
+        "vous n’êtes pas seul...",
+        "Clothilde est là !",
+        "Vous vous sentez tout de suite rassuré. Une sorte de vague de chaleur et de bien-être vous envahit."
     ],
-    "nextDialogPath" : ""
+    "nextDialogPath" : "Dialogs/fin2"
 }

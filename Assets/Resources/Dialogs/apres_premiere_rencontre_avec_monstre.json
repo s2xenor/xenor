@@ -1,0 +1,16 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "Bon...",
+        "Il faut que je vous avoue autre chose...",
+        "J'ai pas réussi à ouvrir la porte principale du labo... celle en face de vous...",
+        "Elle n'est pas connectée au système informatique, il faut absolument utiliser les clefs...",
+        "Je sais que les scientifiques ont caché des clefs dans le labo (au cas où) mais ils les ont bien protégées...",
+        "Il va falloir que vous traversiez les salles du laboratoires pour les trouver mais ça risque de ne pas être facile...",
+        "Entre les monstres que j'ai libéré et les énigmes placée par les scientifiques...",
+        "Bonne chance...",
+        "Mais depêchez-vous...",
+        "Je ne sais pas pour combien de temps ils en ont..."
+    ],
+    "nextDialogPath" : ""
+}

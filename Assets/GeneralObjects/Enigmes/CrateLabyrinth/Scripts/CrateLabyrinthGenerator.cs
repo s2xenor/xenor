@@ -131,5 +131,21 @@ public class CrateLabyrinthGenerator : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(dumpsterPrefab.name, new Vector3((float)0.32 * coord.x - (float)0.16, (float)0.32 * coord.y + (float)0.16, 0), Quaternion.identity);
         }
     }
+
+    //demare le dialogue
+    [PunRPC]
+    public void StartDialogue(string dialogfile, bool local = false)
+    {
+        if (local)
+        {
+            this.GetComponentInParent<DialogueTriggerG>().filePath = dialogfile;
+            this.GetComponentInParent<DialogueTriggerG>().triggerOnload = true;
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("StartDialogue", RpcTarget.All, dialogfile, true);
+        }
+    }
 }
 
