@@ -198,7 +198,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     //called when a pressure plate is pressed
     int doorActivated = 0;
-    [PunRPC]
     public void DoorUpdate(int increment, bool doubleD)
     {
         if (PhotonNetwork.IsMasterClient)
@@ -237,7 +236,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
     //find next scene and load it based on current scene
-    private void LoadNextScene()
+    public void LoadNextScene()
     {
         Debug.Log("next scene");
         
@@ -413,6 +412,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<WiresManager>().StartDialogue();
     }
+
 
     int LabyInviIndex = 0;
     private void LoadNextLabyInvi()

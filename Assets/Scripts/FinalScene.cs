@@ -17,14 +17,14 @@ public class FinalScene : MonoBehaviourPunCallbacks
     private bool canLoad = false;
     private string user1;
     private string user2;
-    private int score;
+    private int score = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         gameManager.TimestampEnd = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
-
+        gameManager.CalculateScore();
     }
 
     // Update is called once per frame
@@ -33,10 +33,17 @@ public class FinalScene : MonoBehaviourPunCallbacks
         if (canLoad && Input.GetKeyDown(KeyCode.Escape))
         {
             Instantiate(finalScreen, Vector2.zero, Quaternion.identity);
+            Invoke("SetFct", 0.1f);
+            canLoad = false;
         }
     }
 
-    
+    private void SetFct()
+    {
+        GameObject.FindGameObjectWithTag("Box").GetComponent<TextMeshPro>().text = $"Félicitations vous avez fini Altervita ! \nVotre score est: {score} \nPour le sauvergarder et l'envoyer dans le tableau des scores, veuillez entrer un username :";
+    }
+
+
 
     //set username of player
     [PunRPC]
@@ -44,16 +51,17 @@ public class FinalScene : MonoBehaviourPunCallbacks
     {
         if (master) user1 = username;
         else user2 = username;
-
+        Debug.Log("set username");
         if (user1 != null && user2 != null)
         {
+            Debug.Log("send request");
             StartCoroutine(MakeRequests());
         }
     }
 
     private IEnumerator MakeRequests()
     {
-        string url = $"http://xenor.usiobe.com/xenor/add.php?u1={user1}&u2={user2}&score={CalculateScore().ToString()}";
+        string url = $"http://xenor.usiobe.com/xenor/add.php?u1={user1}&u2={user2}&score={score}";
         var getRequest = CreateRequest(url);
         yield return getRequest.SendWebRequest();
     }
@@ -97,9 +105,14 @@ public class FinalScene : MonoBehaviourPunCallbacks
 
     }
 
+    [PunRPC]
     public void SetScore(int score, bool local = false)
     {
-        if(local) this.score = score;
+        if (local)
+        {
+            this.score = score;
+            canLoad = true;
+        }
         else
         {
             PhotonView photonView = PhotonView.Get(this);

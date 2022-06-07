@@ -27,10 +27,6 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
         if (isActive && Input.GetKeyDown(KeyCode.E))
         {
             gameManager.DoorUpdate(1, false);
-            //canvas.GetComponent<Text>().text = ("Level is not finished");
-            //canvas.GetComponent<Canvas>();
-            //canvas.GetComponent<Canvas>().GetComponent<Text>().text = "Level is not finished";
-            //canvas.GetComponent<Canvas>().enabled = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Level is not finished");
             indent -= 1;
             isActive = false;
@@ -43,7 +39,11 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
         {
             isActive = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
-        if (NextScene != null) gameManager.NextSceneDoor = NextScene;
+            if (NextScene != null) gameManager.NextSceneDoor = NextScene;
+        }
+        if(collision.tag == "Player" && PhotonNetwork.IsMasterClient && !collision.GetComponent<PhotonView>().IsMine)
+        {
+            gameManager.DoorUpdate(1, false);
         }
     }
 
