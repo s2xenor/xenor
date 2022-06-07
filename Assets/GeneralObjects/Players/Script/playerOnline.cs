@@ -111,7 +111,10 @@ public class playerOnline : MonoBehaviour
         }
         if (GameObject.Find("Image(1)").GetComponent<imageOnline>().PotionDamage)//damage potion
         {
-            PhotonNetwork.Instantiate(potionPrefab.name, transform.position, Quaternion.identity);
+            if (!boy)
+                PhotonNetwork.Instantiate(potionPrefab.name, transform.position, Quaternion.identity);
+            else
+                PhotonNetwork.Instantiate(potionPrefab.name, new Vector2(transform.position.x, transform.position.y - .2f), Quaternion.identity);
 
             GameObject.Find("Image(1)").GetComponent<imageOnline>().PotionDamage = false;//remove the object of the inventory
         }
