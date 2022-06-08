@@ -10,13 +10,13 @@ public class PotionThrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Player" && !collision.isTrigger)
+        if (collision.gameObject.tag != "Player" && !collision.isTrigger)
         {
             GetComponent<SpriteRenderer>().enabled = false;
             Destroy(Instantiate(part, transform.position, Quaternion.identity), 1);
             Destroy(gameObject, 1);
         }
-        else if (collision.tag == "Player" && !collision.gameObject.GetComponent<PhotonView>().IsMine)
+        else if (collision.gameObject.tag == "Player" && !collision.gameObject.GetComponent<PhotonView>().IsMine)
         {
             GetComponent<SpriteRenderer>().enabled = false;
             Destroy(Instantiate(part, transform.position, Quaternion.identity), 1);

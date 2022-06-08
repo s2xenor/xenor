@@ -46,8 +46,6 @@ public class life : MonoBehaviour //life class
             Debug.Log(gameManager.hearths[1]);
 
         }
-
-        Invoke("FalseStart", .1f);
     }
 
 

@@ -342,7 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   PlayerDetectRate: 0.2
-  chaseRange: 2
+  chaseRange: 1
   pv: 50
   attackRange: 0.3
   animator: {fileID: 209577098894530743}

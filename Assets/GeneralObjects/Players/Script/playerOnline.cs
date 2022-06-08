@@ -60,6 +60,8 @@ public class playerOnline : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D colision)
     {
+        if (colision.gameObject.tag == "Potion") return;
+
         if (colision.gameObject.tag.Contains("slot") && view.IsMine)
         {
             audioSource.clip = pickup;  
@@ -155,7 +157,7 @@ public class playerOnline : MonoBehaviour
 
     public void GetDamage()//make damage on the player 
     {
-        vie.Reduce2(1); //Reduce 1/2 of the life bar
+        vie.GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1); //Reduce 1/2 of the life bar
     }
 
     [PunRPC]

@@ -179,11 +179,14 @@ public class MonstreOnline : MonoBehaviour
             case "Potion"://damage potion 
                 if (dead) return;
                 playerwalkOnline current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalkOnline>()[0]);
-                if (PhotonNetwork.IsMasterClient)
-                    view.RPC("GetDamage", RpcTarget.All, (float)current_player.GetComponent<playerOnline>().Strength);//have damage
-                Destroy(colision.gameObject);
+                
                 if (dead)
+                {
                     PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation);
+                    if (PhotonNetwork.IsMasterClient)
+                        view.RPC("GetDamage", RpcTarget.All, (float)current_player.GetComponent<playerOnline>().Strength);//have damage
+                }
+                Destroy(colision.gameObject);
                 break;
         }
     }
