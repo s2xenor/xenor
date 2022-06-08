@@ -8,5 +8,13 @@
         "Au-dessus de la porte se trouve le logo de Xenor, en dessous un slogan : « Avec Xenor, négationnez la mort ».",
         "Vous comprenez alors que Clothilde ne vous aidait pas à vous échapper mais évaluait simplement vos capacités."
     ],
+    "audioName" : [
+        "conclu12",
+        "conclu13",
+        "conclu14",
+        "conclu15",
+        "conclu16",
+        "conclu17"
+    ],
     "nextDialogPath" : "Dialogs/fin4"
 }

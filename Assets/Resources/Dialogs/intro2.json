@@ -5,5 +5,10 @@
         "Vous m'entendez ? Faites-moi un signe au moins, je ne peux pas vous entendre moi.",
         "Ok parfait ! Bon..."
     ],
+    "audioName" : [
+        "intro12",
+        "intro13",
+        "intro14"
+    ],
     "nextDialogPath" : "Dialogs/intro3"
 }

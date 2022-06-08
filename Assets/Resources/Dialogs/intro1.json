@@ -6,5 +6,11 @@
         "Vous réalisez que vous êtes dans une cellule.",
         "Votre pouls grimpe à vive allure, vous n'avez aucune idée de pourquoi vous êtes là."
     ],
+    "audioName" : [
+        "intro7",
+        "intro8",
+        "intro10",
+        "intro11"
+    ],
     "nextDialogPath" : "Dialogs/intro2"
 }

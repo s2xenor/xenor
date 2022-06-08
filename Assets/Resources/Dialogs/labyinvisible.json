@@ -7,5 +7,12 @@
         "Malheureusement je ne pourrais pas le déplacer, l'un d'entre vous va devoir se déplacer dans le labyrinthe et l'autre devra le guider...",
         "Mais faites très attention, les scientifiques ont installé des piques très aiguisés, également invisibles, sur les murs du labyrinthes alors mieux vaut ne pas se tromper..."
     ],
+    "audioName" : [
+        "invisible1",
+        "invisible2",
+        "invisible3",
+        "invisible4",
+        "invisible5"
+    ],
     "nextDialogPath" : ""
 }

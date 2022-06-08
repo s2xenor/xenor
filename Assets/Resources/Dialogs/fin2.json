@@ -7,5 +7,12 @@
         "C'était pas des flèches ceux là...",
         "Rammenez-les à leur cellules."
     ],
+    "audioName" : [
+        "conclu7",
+        "conclu8",
+        "conclu9",
+        "conclu10",
+        "conclu11"
+    ],
     "nextDialogPath" : "Dialogs/fin3"
 }
