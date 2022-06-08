@@ -20,7 +20,7 @@ public class RoomSpawner : MonoBehaviour {
 
 	void Awake()
 	{
-		templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+		templates = GameObject.FindGameObjectWithTag("Manager").GetComponent<RoomTemplates>();
 		master = PhotonNetwork.IsMasterClient;
 	}
 

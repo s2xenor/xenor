@@ -268,4 +268,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Both players need to be on a different pressure plate
+  m_Text: Press E to interact with the door

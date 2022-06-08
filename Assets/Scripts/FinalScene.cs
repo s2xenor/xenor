@@ -3,39 +3,82 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
+using Photon.Pun;
+using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Text;
 
-public class FinalScene : MonoBehaviour
+public class FinalScene : MonoBehaviourPunCallbacks
 {
+
+    public GameObject finalScreen;
+    GameManager gameManager;
+    private bool canLoad = false;
+    private string userPlayer1;
+    private string userPlayer2;
+    private int score = 5;
+
+    public GameObject playerBoyPrefab;
+    public GameObject playerGirlPrefab;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(MakeRequests());
-        
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager.TimestampEnd = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
+        gameManager.CalculateScore();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(playerBoyPrefab.name, new Vector2(0.93f, -0.29f), Quaternion.identity); // Spawn master player on network
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(playerGirlPrefab.name, new Vector2(-0.49f, -0.456f), Quaternion.identity); // Spawn player on network
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (canLoad && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Instantiate(finalScreen, Vector2.zero, Quaternion.identity);
+            Invoke("SetFct", 0.5f);
+            canLoad = false;
+        }
     }
 
+    private void SetFct()
+    {
+        GameObject.FindGameObjectWithTag("Box").GetComponentInChildren<TMP_Text>().SetText($"Félicitations vous avez fini Altervita !\nUn classement des scores est disponbile sur le site du repo du projet (https://github.com/s2xenor/xenor)\nVotre score est : {score}\nPour le sauvergarder et l'envoyer dans le tableau des scores, veuillez entrer un username :");
+    }
+
+
+
+    //set username of player
+    [PunRPC]
+    public void SetUsername(string username, bool master = true)
+    {
+        if (master) userPlayer1 = username;
+        else userPlayer2 = username;
+
+        if (userPlayer1 != null && userPlayer2 != null)
+        {
+            if (score < 0) score = 0;
+            StartCoroutine(MakeRequests());
+        }
+    }
 
     private IEnumerator MakeRequests()
     {
-        // GET
-        var getRequest = CreateRequest("http://localhost/xenor/add.php?u1=yep&u2=yep2&score=501");
+        score = 5;
+        string url = "http://xenor.usiobe.com/add.php?u1="+ userPlayer1 + "&u2="+ userPlayer2+ "&score="+score;
+        var getRequest = CreateRequest(url);
         yield return getRequest.SendWebRequest();
-        //var deserializedGetData = JsonUtility.FromJson<Todo>(getRequest.downloadHandler.text);
-
-        //// POST
-        //var dataToPost = new PostData() { Hero = "John Wick", PowerLevel = 9001 };
-        //var postRequest = CreateRequest("https://reqbin.com/echo/post/json", RequestType.POST, dataToPost);
-        //yield return postRequest.SendWebRequest();
-        //var deserializedPostData = JsonUtility.FromJson<PostResult>(postRequest.downloadHandler.text);
-
-        //// Trigger continuation of game flow
     }
-
 
     private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)
     {
@@ -53,10 +96,6 @@ public class FinalScene : MonoBehaviour
         return request;
     }
 
-    private void AttachHeader(UnityWebRequest request, string key, string value)
-    {
-        request.SetRequestHeader(key, value);
-    }
 
     public enum RequestType
     {
@@ -65,27 +104,35 @@ public class FinalScene : MonoBehaviour
         PUT = 2
     }
 
-
-    public class Todo
+    //set username after button send his click
+    public void ClickSend()
     {
-        // Ensure no getters / setters
-        // Typecase has to match exactly
-        public int userId;
-        public int id;
-        public string title;
-        public bool completed;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SetUsername(GameObject.FindGameObjectWithTag("Username").transform.GetChild(2).GetComponent<Text>().text, true);
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("SetUsername", RpcTarget.MasterClient, GameObject.FindGameObjectWithTag("Username").transform.GetChild(2).GetComponent<Text>().text, false);
+        }
+
     }
 
-    [System.Serializable]
-    public class PostData
+    [PunRPC]
+    public void SetScore(int score, bool local = false)
     {
-        public string Hero;
-        public int PowerLevel;
-    }
+        if (local)
+        {
+            this.score = score;
+            canLoad = true;
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("SetScore", RpcTarget.All, score, true);
+        }
 
-    public class PostResult
-    {
-        public string success { get; set; }
     }
 
 }
