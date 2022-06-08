@@ -750,6 +750,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
+--- !u!1 &4467486024412545301 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4467486025400415055, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
+  m_PrefabInstance: {fileID: 4467486024412545300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4467486024412545302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4467486024412545301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f4db66cf3493540a38779b4ac00ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Dialogs/entreedonjon
+  triggerOnload: 1
 --- !u!1001 &6130001525254516249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -803,7 +822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1960933725201003440, guid: 9281813134093e24ba12650cc75ce223, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1960933725201003440, guid: 9281813134093e24ba12650cc75ce223, type: 3}
       propertyPath: m_AnchorMax.x
@@ -939,5 +958,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

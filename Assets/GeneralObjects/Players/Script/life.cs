@@ -32,19 +32,16 @@ public class life : MonoBehaviour //life class
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         view = GetComponent<PhotonView>();
 
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+
+        if (!PhotonNetwork.IsMasterClient) return;
 
         if (view.IsMine)
         {
             view.RPC("Reduce2Bis", RpcTarget.All, gameManager.hearths[0]);
-                Debug.Log(gameManager.hearths[0]);
         }
         else
         {
             view.RPC("Reduce2Bis", RpcTarget.All, gameManager.hearths[1]);
-            Debug.Log(gameManager.hearths[1]);
-
         }
     }
 
@@ -95,17 +92,15 @@ public class life : MonoBehaviour //life class
             
             cd.fillAmount -= .5f;
 
-            if (!view.IsMine) return;
+            if (!PhotonNetwork.IsMasterClient) return;
 
-            if (PhotonNetwork.IsMasterClient)
+            if (view.IsMine)
             {
                 gameManager.hearths[0] += 1;
-                Debug.Log(gameManager.hearths[0]);
             }
             else
             {
                 gameManager.hearths[1] += 1;
-                Debug.Log(gameManager.hearths[1]);
             }
         }
     }
@@ -165,9 +160,9 @@ public class life : MonoBehaviour //life class
             cooldown4.fillAmount = 1;
             die = false;
 
-            if (!view.IsMine) return;
+            if (!PhotonNetwork.IsMasterClient) return;
 
-            if (PhotonNetwork.IsMasterClient)
+            if (view.IsMine)
                 gameManager.hearths[0] = 8;
             else
                 gameManager.hearths[1] = 8;
@@ -180,9 +175,9 @@ public class life : MonoBehaviour //life class
             cooldown3.fillAmount = 1;
             cooldown4.fillAmount = 1;
 
-            if (!view.IsMine) return;
+            if (!PhotonNetwork.IsMasterClient) return;
 
-            if (PhotonNetwork.IsMasterClient)
+            if (view.IsMine)
                 gameManager.hearths[0] = 0;
             else
                 gameManager.hearths[1] = 0;

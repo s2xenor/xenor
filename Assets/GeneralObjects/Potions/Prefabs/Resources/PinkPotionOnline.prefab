@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06e5e8d38fb03a48a3257e9f2b98279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventaire: {fileID: 0}
   PotionStrength: 0
   PotionDamage: 0
   PotionHealth: 0
@@ -256,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3943702533430832189, guid: 3a91d47e6e7043e45bf10e84428e787d, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4714837290741592723, guid: 3a91d47e6e7043e45bf10e84428e787d, type: 3}
       propertyPath: m_Name

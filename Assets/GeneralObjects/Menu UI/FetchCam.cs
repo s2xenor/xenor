@@ -6,20 +6,22 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class FetchCam : MonoBehaviour
 {
-    Light2D light; // Global Light
-    float intentsity = 1; // Original intensity of the light
     bool del = false;
+    GameObject[] monstres;
+
+    private void Start()
+    {
+        monstres = GameObject.FindGameObjectsWithTag("Monster");
+
+        foreach (var item in monstres)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 
     void Update()
     {
         if (del) return;
-
-        if (light == null)
-            light = GameObject.FindGameObjectWithTag("GlobalLight").GetComponent<Light2D>();
-
-        if (light.intensity != 1)
-            intentsity = light.intensity;
-        light.intensity = 1;
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
         {
@@ -48,9 +50,9 @@ public class FetchCam : MonoBehaviour
             }
         }
 
-        if (light)
+        foreach (var item in monstres)
         {
-            light.intensity = intentsity;
+            item.gameObject.SetActive(true);
         }
 
         Destroy(gameObject);

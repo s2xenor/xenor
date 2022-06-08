@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class imageOnline : MonoBehaviour
 {
-    inventoryOnline inventaire;
+    public inventoryOnline inventaire;
     public bool PotionStrength = false;
     public bool PotionDamage = false;
     public bool PotionHealth = false;
@@ -19,7 +19,6 @@ public class imageOnline : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        inventaire = GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventoryOnline>();
 
         if (inventaire != null)
         {

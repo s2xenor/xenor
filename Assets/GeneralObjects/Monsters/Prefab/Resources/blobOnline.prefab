@@ -296,10 +296,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   PlayerDetectRate: 0.2
-  chaseRange: 1.5
+  chaseRange: 1.3
   pv: 20
   dead: 0
-  attackRange: 0.25
+  attackRange: 0.2
   animator: {fileID: 2784747048905396094}
   NextWayPointDistance: 1
   animLen: 0.6
@@ -489,7 +489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3943702533430832189, guid: 3a91d47e6e7043e45bf10e84428e787d, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4714837290741592723, guid: 3a91d47e6e7043e45bf10e84428e787d, type: 3}
       propertyPath: m_Name

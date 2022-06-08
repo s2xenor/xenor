@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06e5e8d38fb03a48a3257e9f2b98279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventaire: {fileID: 0}
   PotionStrength: 0
   PotionDamage: 0
   PotionHealth: 0

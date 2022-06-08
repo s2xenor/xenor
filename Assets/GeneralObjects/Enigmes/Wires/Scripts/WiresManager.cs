@@ -268,11 +268,14 @@ public class WiresManager : MonoBehaviourPunCallbacks
             else
             {
                 //remove life
-                foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    if (item.GetComponent<PhotonView>().IsMine)
+                    foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
                     {
-                        //item.GetComponent<player>().vie.Reduce4(1);
+                        if (item.GetComponent<PhotonView>().IsMine)
+                        {
+                            item.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);
+                        }
                     }
                 }
                 photonView.RPC("DestroyAll", RpcTarget.All);
@@ -332,13 +335,6 @@ public class WiresManager : MonoBehaviourPunCallbacks
             delLoad = true;
             GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
         }
-        //if (isOnPressureWire)
-        //{
-        //    if (isMasterOnWire) Debug.Log("master on wires");
-        //    else Debug.Log("client on wires");
-        //}
-        //else Debug.Log("nothing on wires");
-
     }
 
 

@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Runtime.InteropServices;
-using IWshRuntimeLibrary;
+/*using IWshRuntimeLibrary;
 using Octokit;
 using File = System.IO.File;
 
@@ -284,3 +284,4 @@ namespace AlteraVita
     }
 
 }
+*/
