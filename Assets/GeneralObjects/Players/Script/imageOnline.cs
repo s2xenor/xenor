@@ -31,7 +31,7 @@ public class imageOnline : MonoBehaviour
                 inventaire.slot[index] = gameManager.potions[1, index];
             }
 
-            inventaire.UpdateNumber(index, inventaire.slot[index].ToString());
+            inventaire.UpdateNumber(index, inventaire.slot[index].ToString());// Met a jour le texte de l'inventaire
         }
     }
 
@@ -73,7 +73,7 @@ public class imageOnline : MonoBehaviour
                 gameManager.potions[1, index] = inventaire.slot[index];
             }
 
-            inventaire.UpdateNumber(index, inventaire.slot[index].ToString());
+            inventaire.UpdateNumber(index, inventaire.slot[index].ToString());// Met a jour le texte de l'inventaire
         }
     }
 }
