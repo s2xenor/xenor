@@ -49,6 +49,8 @@ public class RoomTemplates : MonoBehaviour {
 					spawnedBoss = true;
 
 					GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+
+					GameObject.Find("AstarPath").GetComponent<AstarPath>().Scan();	
 				}
 			}
 		} 

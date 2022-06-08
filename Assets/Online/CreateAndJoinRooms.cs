@@ -17,7 +17,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.CreateRoom(roomString.text);
-
     }
 
     public void JoinRoom()

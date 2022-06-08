@@ -14,7 +14,8 @@ public class FetchCam : MonoBehaviour
     {
         if (del) return;
 
-        light = GameObject.FindGameObjectsWithTag("GlobalLight")[0].GetComponent<Light2D>();
+        if (light == null)
+            light = GameObject.FindGameObjectWithTag("GlobalLight").GetComponent<Light2D>();
 
         if (light.intensity != 1)
             intentsity = light.intensity;

@@ -12,7 +12,7 @@ public class SpawnObj : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         if (random && Random.Range(0, 2) == 0) return;
 
         for (int i = 0; i < nb; i++)

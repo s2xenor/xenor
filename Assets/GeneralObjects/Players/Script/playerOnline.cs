@@ -24,12 +24,13 @@ public class playerOnline : MonoBehaviour
 
 
     //life barre of the player 
-    life vie;
+    public life vie;
 
     PhotonView view;
 
     AudioSource audioSource;
     public AudioClip pickup;
+    public AudioClip hit;
 
 
     public bool boy;
@@ -99,7 +100,13 @@ public class playerOnline : MonoBehaviour
                 break;
 
             case "Monster":
-                colision.gameObject.GetComponent<MonstreOnline>().GetDamage((float)(Strength / 2));//make damage on monster 
+                colision.gameObject.GetComponent<MonstreOnline>().GetDamage((float)(Strength));//make damage on monster 
+
+                if (!colision.gameObject.GetComponent<MonstreOnline>().dead)
+                {
+                    audioSource.clip = hit;
+                    audioSource.Play();
+                }
                 break;
         }
     }
@@ -113,11 +120,12 @@ public class playerOnline : MonoBehaviour
         }
         if (GameObject.Find("Image(1)").GetComponent<imageOnline>().PotionDamage)//damage potion
         {
+            GameObject popo = null;
             if (!boy)
-                PhotonNetwork.Instantiate(potionPrefab.name, transform.position, Quaternion.identity);
+                popo = PhotonNetwork.Instantiate(potionPrefab.name, transform.position, Quaternion.identity); // create potion
             else
-                PhotonNetwork.Instantiate(potionPrefab.name, new Vector2(transform.position.x, transform.position.y - .2f), Quaternion.identity);
-
+                popo = PhotonNetwork.Instantiate(potionPrefab.name, new Vector2(transform.position.x, transform.position.y - .2f), Quaternion.identity);
+            popo.GetComponent<PhotonView>().RPC("SetOwner", RpcTarget.All, view.ViewID); // set owner
             GameObject.Find("Image(1)").GetComponent<imageOnline>().PotionDamage = false;//remove the object of the inventory
         }
         if (GameObject.Find("Image(2)").GetComponent<imageOnline>().PotionStrength)// health potion 
@@ -157,7 +165,8 @@ public class playerOnline : MonoBehaviour
 
     public void GetDamage()//make damage on the player 
     {
-        vie.GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1); //Reduce 1/2 of the life bar
+        if (PhotonNetwork.IsMasterClient)
+            vie.GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1); //Reduce 1/2 of the life bar
     }
 
     [PunRPC]
@@ -174,5 +183,6 @@ public class playerOnline : MonoBehaviour
         PotionOnline potion1 = new PotionOnline(PotionOnline.Type.Heal, 5);
         potion1.Effect(this, vie); //heal the palyer
         GameObject.Find("Image(0)").GetComponent<imageOnline>().PotionHealth = false;
+        GetComponent<playerwalkOnline>().enabled = true;
     }
 }

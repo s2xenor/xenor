@@ -7746,6 +7746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion
       objectReference: {fileID: 0}
+    - target: {fileID: 8597258513792731460, guid: 15473d5cc8d2dab4384c20b6016538dc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15473d5cc8d2dab4384c20b6016538dc, type: 3}
 --- !u!1001 &7050017177254185236
