@@ -16,6 +16,7 @@ public class GlobalScript : MonoBehaviourPunCallbacks
         
     }
 
+    [PunRPC]
     public void DoorUpdate(int indent, bool doubleD)
     {
         if (PhotonNetwork.IsMasterClient)

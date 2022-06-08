@@ -49,4 +49,9 @@ public class Settings : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<FinalScene>().ClickSend();
     }
+
+    public void ContinueGame()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().ContinueGame();
+    }
 }
