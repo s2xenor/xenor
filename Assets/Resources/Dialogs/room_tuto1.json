@@ -8,5 +8,13 @@
         "mais celles munies d'une croix sont impossibles à déplacer, la légende raconte qu'elles étaient déjà là avant la construction du laboratoire.",
         "Vous pouvez pousser ou tirer les boites avec une seule planche clouée sur le dessus."
     ],
+    "audioName" : [
+        "1boite1",
+        "1boite2",
+        "1boite3",
+        "1boite4",
+        "1boite5",
+        "1boite6"
+    ],
     "nextDialogPath" : ""
 }

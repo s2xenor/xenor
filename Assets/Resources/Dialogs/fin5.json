@@ -4,5 +4,9 @@
         "On vous injecte un produit...",
         "Vous emmetez une dernière pensée avant de sombrer dans le noir infini..."
     ],
+    "audioName" : [
+        "conclu20",
+        "conclu21"
+    ],
     "nextDialogPath" : "Dialogs/fin6"
 }

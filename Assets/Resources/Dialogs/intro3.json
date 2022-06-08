@@ -7,5 +7,12 @@
         "Il y a quelqu'un à côté de vous, derrière un mur de verre.",
         "Vous comprenez très vite que cette personne est un autre détenu, comme vous."
     ],
+    "audioName" : [
+        "intro15",
+        "intro16",
+        "intro17",
+        "intro18",
+        "intro19"
+    ],
     "nextDialogPath" : "Dialogs/intro4"
 }

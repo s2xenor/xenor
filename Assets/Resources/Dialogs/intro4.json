@@ -8,8 +8,21 @@
         "Le monde n'est plus ce qu'il était, les hommes sont obstinés par le désir de vivre éternellement et certains sont prêts à payer très cher pour que cela se réalise...",
         "Les scientifiques qui dirigent ce laboratoire ont fait grandir des clones (vous) de leur clients pour remplacer leurs organes défaillants.",
         "C'est trop pour moi... avant on faisait ça avec des cochons mais sur des humains... Alors j'ai décidé de vous aider à vous enfuir pour que vous puissiez mettre cela au grand jour...",
-        "J'ai hacké les systèmes de verouillage des portes pour vous libérer. Ce n'était pas trop difficile, je suis une ancienne étudiante de l'EPITA.",
+        "J'ai hacké les systèmes de verouillage des portes pour vous libérer.",
+        "Ce n'était pas trop difficile, je suis une ancienne étudiante de l'EPITA.",
         "Allez ! Dépêchez-vous de sortir de là ! Le temps presse !"
+    ],
+    "audioName" : [
+        "intro20",
+        "intro21",
+        "intro22",
+        "intro23",
+        "intro24",
+        "intro25",
+        "intro26",
+        "intro27",
+        "intro28",
+        "intro29"
     ],
     "nextDialogPath" : ""
 }

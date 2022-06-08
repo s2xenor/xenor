@@ -8,5 +8,13 @@
         "Oh c'est bon toi !",
         "Me saoule pas avec ta fausse bonne conscience !... Et puis on en serait pas là si tu avais liké le message de Lionel... Bon... c'est pas tout mais je dois aller bosser moi !"
     ],
-    "nextDialogPath" : "Dialogs/test1"
+    "audioName" : [
+        "intro1",
+        "intro2",
+        "intro3",
+        "intro4",
+        "intro5",
+        "intro6"
+    ],
+    "nextDialogPath" : "Dialogs/intro1"
 }

@@ -6,5 +6,11 @@
         "Ils sont fixés au sols et permettent aux personnes de petite taille de monter dessus pour trouvez la boite qu'ils recherchent...",
         "Vous ne pouvez pas pousser une boîte dessus mais vous vous pouvez monter dessus !"
     ],
+    "audioName" : [
+        "5boite1",
+        "5boite2",
+        "5boite3",
+        "5boite4"
+    ],
     "nextDialogPath" : ""
 }
