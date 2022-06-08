@@ -31,12 +31,12 @@ public class DialogueManager : MonoBehaviour {
 		audioManager = FindObjectOfType<AudioManager>();
 	}
 
-	//Cette fonction est appelée pour démarer le dialogue
+	//Cette fonction est appelï¿½e pour dï¿½marer le dialogue
 	public void StartDialogue(Dialogue dialogue, DialogueTrigger dialogueTrigger)
 	{
 		this.dialogueTrigger = dialogueTrigger;
 
-		//Affichage de la boîte de dialogue
+		//Affichage de la boï¿½te de dialogue
 		animator.SetBool("IsOpen", true);
 
 		//affiche du nom de celui qui parle dans la boite de dialogue
@@ -50,7 +50,7 @@ public class DialogueManager : MonoBehaviour {
 			sentences.Enqueue(sentence);
 		}
 
-		foreach (string audioName in dialogue.audioName) // add à la file tous les noms des audios
+		foreach (string audioName in dialogue.audioName) // add ï¿½ la file tous les noms des audios
         {
 			audioNames.Enqueue(audioName);
         }

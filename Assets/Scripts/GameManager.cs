@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
+        return; // To remove cheat codes
 
         if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
@@ -119,6 +120,30 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     monster.GetComponent<PhotonView>().RPC("Die", RpcTarget.All);
                 }
+            }
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PhotonNetwork.LoadLevel(Scenes["Donjon"]);
+            }
+            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                LoadNextArrows();
+            }
+            else if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                LoadNextCrate();
+            }
+            else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                LoadNextWires();
+            }
+            else if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                LoadNextLabyInvi();
+            }
+            else if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                LoadNextPipe();
             }
         }
     }

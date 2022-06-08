@@ -47,6 +47,7 @@ MonoBehaviour:
   nameText: {fileID: 3956754497930594420}
   dialogueText: {fileID: 3956754497811813828}
   animator: {fileID: 3956754497830881224}
+  audioManager: {fileID: 0}
 --- !u!1001 &3305525120982565128
 PrefabInstance:
   m_ObjectHideFlags: 0
