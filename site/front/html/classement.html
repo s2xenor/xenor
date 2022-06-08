@@ -95,7 +95,7 @@
     
         // get the quotes from API
         async function getData(page) {
-            const API_URL = `http://xenor.usiobe.com/load.php?offset=${page*10}`;
+            const API_URL = `https://xenor.usiobe.com/load.php?offset=${page*10}`;
             const response = await fetch(API_URL);
             // handle 404
             if (!response.ok) {
