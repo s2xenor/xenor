@@ -1,4 +1,9 @@
 config.php
+*.css.meta
+*.js.meta
+*.html.meta
+*.cs.meta
+*.php.meta
 *.wav.meta
 *.json.meta
 

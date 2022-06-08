@@ -16,7 +16,7 @@ public class PCMap : MonoBehaviourPunCallbacks
 
     public int nbPipeOk = 0;
 
-    public int MapSize = 5; //tutos size
+    public int MapSize; //tutos size
 
     private bool isLevelFinished = false;
 
@@ -113,6 +113,7 @@ public class PCMap : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     public void StartGeneration()
     {
+        Debug.Log(MapSize);
         mazeGenerator = new PCMazeGenerator(MapSize, this);
         PhotonView photonView = PhotonView.Get(this);
 
@@ -241,7 +242,7 @@ public class PCMap : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate(left_door_design.name, new Vector3((float)0.32 * -4 - (float)0.16, (float)0.32 * -2 + (float)0.16, 0), Quaternion.identity);
         PhotonNetwork.Instantiate(top_door_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
         //PhotonNetwork.Instantiate(top_door_activated_design.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
-        photonView.RPC("SetupDoorExit", RpcTarget.All, true, false);
+        photonView.RPC("SetupDoorExit", RpcTarget.All, true, false, mazeGenerator.MapSize);
 
         //Plaque de pression
         PhotonNetwork.Instantiate(single_door.name, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 2) + (float)0.16, 0), Quaternion.identity);
@@ -255,11 +256,11 @@ public class PCMap : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetupDoorExit(bool first, bool active)
+    public void SetupDoorExit(bool first, bool active, int mapSize)
     {
         if (first) //init doors
         {
-            GameObject t = Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mazeGenerator.MapSize + 1) - (float)0.16, (float)0.32 * (mazeGenerator.MapSize + 3) + (float)0.16, 0), Quaternion.identity);
+            GameObject t = Instantiate(top_door_activated_design, new Vector3((float)0.32 * (mapSize + 1) - (float)0.16, (float)0.32 * (mapSize + 3) + (float)0.16, 0), Quaternion.identity);
             t.tag = "DoorsToActivate";
             top_door_activated_design = t;
             t.SetActive(active);
@@ -331,7 +332,7 @@ public class PCMap : MonoBehaviourPunCallbacks
     public void EndOfGame(bool finish = true)
     {
         isLevelFinished = finish;
-        SetupDoorExit(false, finish);
+        SetupDoorExit(false, finish, -1);
     }
 
     public bool IsLevelFinished() => isLevelFinished;

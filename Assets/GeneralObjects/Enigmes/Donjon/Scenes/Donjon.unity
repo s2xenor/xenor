@@ -281,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
---- !u!1001 &1743948758
+--- !u!1001 &513228312
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -678,6 +678,10 @@ PrefabInstance:
     - target: {fileID: 4467486025400415055, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
       propertyPath: m_Name
       value: Room Templates
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467486025400415055, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
+      propertyPath: m_TagString
+      value: Manager
       objectReference: {fileID: 0}
     - target: {fileID: 5792551268519485612, guid: bdf423060f6abd9449ff3c8d5e10b500, type: 3}
       propertyPath: sceneViewId

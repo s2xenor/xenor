@@ -89,4 +89,5 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
         else if (count == 5) Doors5.SetActive(true);
         else if (count == 6) Doors6.SetActive(true);
     }
+
 }
