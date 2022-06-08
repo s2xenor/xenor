@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class SingleDoorM : MonoBehaviourPunCallbacks
+public class SingleDoorM : MonoBehaviour
 {
     private GameManager gameManager;
     private GameObject canvas;
@@ -26,7 +26,13 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
     {
         if (isActive && Input.GetKeyDown(KeyCode.E))
         {
-            gameManager.DoorUpdate(1, false);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                gameManager.DoorUpdate(1, false);
+                if (NextScene != null) gameManager.NextSceneDoor = NextScene;
+            }
+            else GameObject.FindGameObjectWithTag("Manager").GetComponent<GlobalScript>().DoorUpdate(1, false);
+
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Level is not finished");
             indent -= 1;
             isActive = false;
@@ -39,11 +45,10 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
         {
             isActive = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
-            if (NextScene != null) gameManager.NextSceneDoor = NextScene;
         }
-        if(collision.tag == "Player" && PhotonNetwork.IsMasterClient && !collision.GetComponent<PhotonView>().IsMine)
+        if(collision.tag == "Player") //setup nextscene door for client for him and overwrite it if is one other door in update
         {
-            gameManager.DoorUpdate(1, false);
+            if (NextScene != null) gameManager.NextSceneDoor = NextScene;
         }
     }
 
@@ -52,7 +57,9 @@ public class SingleDoorM : MonoBehaviourPunCallbacks
         if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
             isActive = false;
-            gameManager.DoorUpdate(indent, false);
+            if (PhotonNetwork.IsMasterClient) gameManager.DoorUpdate(indent, false);
+            else GameObject.FindGameObjectWithTag("Manager").GetComponent<GlobalScript>().DoorUpdate(indent, false);
+            
             indent = 0;
             canvas.GetComponent<FixedTextPopUP>().SupprPressToInteractText();
         }

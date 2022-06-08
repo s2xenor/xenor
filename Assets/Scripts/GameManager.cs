@@ -357,7 +357,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextCrate()
     {
-        GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
         CrateIndex++;
     }
 

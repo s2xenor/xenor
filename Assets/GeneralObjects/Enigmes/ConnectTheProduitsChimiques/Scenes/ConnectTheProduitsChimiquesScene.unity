@@ -349,6 +349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PipeLabyGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 9097918333847869754, guid: 5662643444dd66342910ac28b8586c38, type: 3}
+      propertyPath: m_TagString
+      value: Manager
+      objectReference: {fileID: 0}
     - target: {fileID: 9097918333847869756, guid: 5662643444dd66342910ac28b8586c38, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -468,6 +472,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filePath: Dialogs/Pipe
   triggerOnload: 0
+--- !u!114 &1753461749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753461746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35ffd62b102937c4ba357ba885e637dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1833423486
 PrefabInstance:
   m_ObjectHideFlags: 0

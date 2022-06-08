@@ -723,6 +723,7 @@ GameObject:
   - component: {fileID: 1452663443}
   - component: {fileID: 1452663446}
   - component: {fileID: 1452663445}
+  - component: {fileID: 1452663447}
   m_Layer: 0
   m_Name: ThisSceneManager
   m_TagString: Manager
@@ -795,6 +796,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filePath: Dialogs/Final
   triggerOnload: 1
+--- !u!114 &1452663447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452663442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35ffd62b102937c4ba357ba885e637dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1577082454
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -23,8 +23,10 @@ public class DoubleDoorM : MonoBehaviourPunCallbacks
     {
         if(txt && Input.GetKeyDown(KeyCode.E))
         {
-            gameManager.DoorUpdate(1, true);
-            canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Both player need to be on a pressure plate");
+            if (PhotonNetwork.IsMasterClient) gameManager.DoorUpdate(1, true);
+            else GameObject.FindGameObjectWithTag("Manager").GetComponent<GlobalScript>().DoorUpdate(1, true);
+
+            canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Both player need to activate a pressure plate");
             txt = false;
             indent -= 1;
         }
@@ -38,24 +40,20 @@ public class DoubleDoorM : MonoBehaviourPunCallbacks
             txt = true;
             canvas.GetComponent<FixedTextPopUP>().PressToInteractText("Press E to interact with the door");
         }
-        if(collision.tag == "Player" && !collision.GetComponent<PhotonView>().IsMine && PhotonNetwork.IsMasterClient)
-        {
-            gameManager.DoorUpdate(1, true);
-        }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player" && collision.GetComponent<PhotonView>().IsMine)
         {
-            gameManager.DoorUpdate(indent, true);
             txt = false;
+            if (PhotonNetwork.IsMasterClient) gameManager.DoorUpdate(indent, true);
+            else GameObject.FindGameObjectWithTag("Manager").GetComponent<GlobalScript>().DoorUpdate(indent, true);
+
+            indent = 0;
             canvas.GetComponent<FixedTextPopUP>().SupprPressToInteractText();
         }
-        if (collision.tag == "Player" && !collision.GetComponent<PhotonView>().IsMine && PhotonNetwork.IsMasterClient)
-        {
-            gameManager.DoorUpdate(-1, true);
-        }
+
     }
 
 
