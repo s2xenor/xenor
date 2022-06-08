@@ -237,6 +237,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (scenesName == Scenes["Pipe"]) return GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().IsLevelFinished();
         if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
         if (scenesName == Scenes["Cells"]) return GameObject.Find("ThisSceneManager").GetComponent<DialogueTrigger>().IsLevelFinished();
+        if (scenesName == Scenes["MainRoom"] && NextSceneDoor == "FinalScene")
+        {
+            foreach (var item in LevelsCompleted)
+            {
+                if (!item.Value) return false;
+            }
+        }
+        Debug.Log("test finish");
+        Debug.Log(NextScene);
+        Debug.Log(scenesName == Scenes["MainRoom"]);
 
         return true;
     }
@@ -327,8 +337,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextPipe()
     {
-        if (PipeIndex == 0) GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartDialogue(); //tutos should start dialogue
-        else GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        if (PipeIndex == 0)
+        {
+            Debug.Log("tutos");
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartDialogue(); //tutos should start dialogue
+        }
+        else
+        {
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(7, 20);
+        }
 
         GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
 
