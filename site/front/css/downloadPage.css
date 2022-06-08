@@ -50,3 +50,12 @@
 .rapports > a > .downloadButton::before{
     content: url("../img/pdf.svg") " PDF";
 }
+
+.softs {
+    display: flex;
+}
+
+.softs > a > img {
+    width: 8vw;
+    padding: 1vw;
+}

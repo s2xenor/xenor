@@ -47,6 +47,9 @@
 
 .contentLandPage {
     height: 1000px;
+    padding: 500px 0px;
+    padding-top: 600px;
+    margin-top: 200px;
     z-index: 50;
     background-image: url(../img/circlesbackground.svg);
     background-size: 100vw;
@@ -73,4 +76,22 @@ footer {
 
 body {
     max-height: fit-content;
+}
+
+.unbloc {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.unbloc > h4 {
+    font-weight: bold;
+    font-size: calc(13px + 5 * ((100vw - 280px) / 680));
+    font-family: 'Poppins', sans-serif;
+    padding: 5px;
+}
+
+.unbloc > img {
+    width: 40vw;
 }
