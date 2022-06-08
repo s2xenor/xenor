@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
 
-        if (PhotonNetwork.IsMasterClient)   //cheat code 
+        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
             {
@@ -106,6 +106,13 @@ public class GameManager : MonoBehaviourPunCallbacks
                 NextScene = "FinalScene";
                 PhotonNetwork.LoadLevel("Loading");   //load scene load
                 Invoke("LoadNextScene", 0.5f);
+            }
+            else if (Input.GetKeyDown(KeyCode.K))   //kill every monster
+            {
+                foreach (var monster in GameObject.FindGameObjectsWithTag("Monster"))
+                {
+                    monster.GetComponent<PhotonView>().RPC("Die", RpcTarget.All);
+                }
             }
         }
     }
