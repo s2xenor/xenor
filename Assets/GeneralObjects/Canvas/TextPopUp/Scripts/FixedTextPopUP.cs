@@ -26,6 +26,8 @@ public class FixedTextPopUP : MonoBehaviour
     private void Start()
     {
         canvas = GetComponent<Canvas>();
+        //canvas.enabled = false;
+        Debug.Log(canvas);
     }
 
     //Fonction PressToInteractText() permet d'afficher un message utilitaire sur l'�crand du joueur
@@ -40,6 +42,7 @@ public class FixedTextPopUP : MonoBehaviour
     {
         if (!textLock)
         {
+            Debug.Log(canvas);
             canvas.enabled = true;
             //Cherche l'�l�ment texte du texte dans le Canvas
             Text txt = gameObject.GetComponentInChildren<Text>();

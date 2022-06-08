@@ -48,7 +48,10 @@ public class FetchCam : MonoBehaviour
             }
         }
 
-        light.intensity = intentsity;
+        if (light)
+        {
+            light.intensity = intentsity;
+        }
 
         Destroy(gameObject);
     }

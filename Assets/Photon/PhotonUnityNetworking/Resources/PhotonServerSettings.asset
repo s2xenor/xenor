@@ -69,7 +69,11 @@ MonoBehaviour:
   - GenerationFinished
   - SetupDoorExit
   - StartDialogue
+  - DoorUpdate
   - DelLoad
+  - SetUsername
+  - CalculateScore
+  - SetScore
   - StrengthRPC
   - HealRPC
   - DamageRPC

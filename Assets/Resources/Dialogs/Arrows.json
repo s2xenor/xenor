@@ -10,5 +10,15 @@
         "* Toujours dans le sens des flèches \n * et jamais à contre sens !",
         "Allez ! Vous allez y arriver !"
     ],
+    "audioName" : [
+        "fleche1",
+        "fleche2",
+        "fleche3",
+        "fleche4",
+        "fleche5",
+        "fleche6",
+        "fleche7",
+        "fleche8"
+    ],
     "nextDialogPath" : ""
 }

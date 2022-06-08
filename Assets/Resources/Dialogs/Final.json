@@ -8,5 +8,13 @@
         "Clothilde est là !",
         "Vous vous sentez tout de suite rassuré. Une sorte de vague de chaleur et de bien-être vous envahit."
     ],
+    "audioName" : [
+        "conclu1",
+        "conclu2",
+        "conclu3",
+        "conclu4",
+        "conclu5",
+        "conclu6"
+    ],
     "nextDialogPath" : "Dialogs/fin2"
 }

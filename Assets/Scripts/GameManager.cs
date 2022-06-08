@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-
 // Ce script permet de gere tout ce qui doit passer entre les scenes
 // Egalement les sauvegarde
 // Il permet de sauvegarder des donn�es que l'on souhaite r�cup�rer apr�s le chargement de la sc�ne suivante
@@ -51,6 +50,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public bool continuePrevGame = false; //player continue prev game or not
 
+    //final scene
+    private int score;
+
+
     private void Awake()
     {
         if (GameManager.instance != null)
@@ -71,25 +74,28 @@ public class GameManager : MonoBehaviourPunCallbacks
         // Show pause menu when escape is pressed
         if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 0 && Input.GetKeyDown(KeyCode.Escape))
         {
-            GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
-            int n = pauseMenu.Length;
+            if (SceneManager.GetActiveScene().name != "FinalScene")
+            {
+                GameObject[] pauseMenu = GameObject.FindGameObjectsWithTag("Pause");
+                int n = pauseMenu.Length;
 
-            // If pause menu already exists, destroy id
-            if (n != 0)
-            {
-                for (int i = 0; i < n; i++)
+                // If pause menu already exists, destroy id
+                if (n != 0)
                 {
-                    Destroy(pauseMenu[0]);
+                    for (int i = 0; i < n; i++)
+                    {
+                        Destroy(pauseMenu[0]);
+                    }
                 }
-            }
-            else
-            {
-                Instantiate(menu, Vector2.zero, Quaternion.identity);
+                else
+                {
+                    Instantiate(menu, Vector2.zero, Quaternion.identity);
+                }
             }
         }
 
 
-        if (PhotonNetwork.IsMasterClient)   //cheat code 
+        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
             {
@@ -100,6 +106,19 @@ public class GameManager : MonoBehaviourPunCallbacks
                 sceneName = SceneManager.GetActiveScene().name;
                 PhotonNetwork.LoadLevel("Loading");   //load scene load
                 Invoke("LoadNextScene", 0.5f);
+            }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                NextScene = "FinalScene";
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextScene", 0.5f);
+            }
+            else if (Input.GetKeyDown(KeyCode.K))   //kill every monster
+            {
+                foreach (var monster in GameObject.FindGameObjectsWithTag("Monster"))
+                {
+                    monster.GetComponent<PhotonView>().RPC("Die", RpcTarget.All);
+                }
             }
         }
     }
@@ -194,17 +213,25 @@ public class GameManager : MonoBehaviourPunCallbacks
     int doorActivated = 0;
     public void DoorUpdate(int increment, bool doubleD)
     {
-        Debug.Log("door update; incremnet: " + increment + "; dooractivated: "+ increment+doorActivated);
-        doorActivated += increment; //number of pressure pressed
-        if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (IsLevelCompleted())
+            Debug.Log("door update; incremnet: " + increment + "; dooractivated: "+ increment+doorActivated);
+            doorActivated += increment; //number of pressure pressed
+            if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
             {
-                doorActivated = 0;  //reset
-                sceneName = SceneManager.GetActiveScene().name;
-                PhotonNetwork.LoadLevel("Loading");   //load scene load
-                Invoke("LoadNextScene", 0.5f);
+                if (IsLevelCompleted())
+                {
+                    doorActivated = 0;  //reset
+                    sceneName = SceneManager.GetActiveScene().name;
+                    PhotonNetwork.LoadLevel("Loading");   //load scene load
+                    Invoke("LoadNextScene", 0.5f);
+                }
             }
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("DoorUpdate", RpcTarget.MasterClient, increment, doubleD);
         }
     }
 
@@ -216,17 +243,28 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (scenesName == Scenes["Pipe"]) return GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().IsLevelFinished();
         if (scenesName == Scenes["Wires"]) return GameObject.Find("WireManager").GetComponent<WiresManager>().IsLevelFinished();
         if (scenesName == Scenes["Cells"]) return GameObject.Find("ThisSceneManager").GetComponent<DialogueTrigger>().IsLevelFinished();
+        if (scenesName == Scenes["MainRoom"] && NextSceneDoor == "FinalScene")
+        {
+            foreach (var item in LevelsCompleted)
+            {
+                if (!item.Value) return false;
+            }
+        }
+        Debug.Log("test finish");
+        Debug.Log(NextScene);
+        Debug.Log(scenesName == Scenes["MainRoom"]);
 
         return true;
     }
 
+
     //find next scene and load it based on current scene
-    private void LoadNextScene()
+    public void LoadNextScene()
     {
         Debug.Log("next scene");
         
         Debug.Log(sceneName);
-        if(NextScene != null)
+        if (NextScene != null)
         {
             Debug.Log("next scene diff null");
             PhotonNetwork.LoadLevel(Scenes[NextScene]);
@@ -237,9 +275,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             TimestampStart = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
         }
+        else if (sceneName == Scenes["FinalScene"])
+        {
+            //todo
+        }
         else if (sceneName == Scenes["MainRoom"])
         {
-            if(NextSceneDoor != null)
+            if (NextSceneDoor != null)
             {
                 switch (NextSceneDoor)
                 {
@@ -301,8 +343,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextPipe()
     {
-        if (PipeIndex == 0) GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartDialogue(); //tutos should start dialogue
-        else GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(5, 20);
+        if (PipeIndex == 0)
+        {
+            Debug.Log("tutos");
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().StartDialogue(); //tutos should start dialogue
+        }
+        else
+        {
+            GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().MapSize = Random.Range(7, 20);
+        }
 
         GameObject.Find("PipeLabyGenerator").GetComponent<PCMap>().ShouldStartGeneration();
 
@@ -331,7 +380,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SubNextCrate()
     {
-        GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
         string filePath = "";
         if (CrateIndex < 5)
         {
@@ -342,23 +391,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             filePath = "Dialogs/room_real";
         }
-        GameObject.FindGameObjectWithTag("BoxLabyGenerator").GetComponent<CrateLabyrinthGenerator>().StartDialogue(filePath);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<CrateLabyrinthGenerator>().StartDialogue(filePath);
         CrateIndex++;
     }
 
     private int ArrowIndex = 0;
     private void LoadNextArrows()
     {
-        if (ArrowIndex == 0) //tutos
+        
+        if(ArrowIndex <= 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
             Invoke("LoadArrows", 0.5f);
-            ArrowIndex++;
-        }
-        else if(ArrowIndex <= 2)
-        {
-            PhotonNetwork.LoadLevel(Scenes["Arrows"]);
-            ArrowIndex++;
         }
         else //everything done go to main room
         {
@@ -373,12 +417,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         //create small laby for tutos on master
         if (ArrowIndex == 0)
         {
-            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().x = 5;
-            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().y = 5;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().x = 7;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().y = 7;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().StartDialogue();
 
         }
         GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().shouldStart = true;
-        GameObject.FindGameObjectWithTag("Manager").GetComponent<ArrowsManager>().StartDialogue();
+        ArrowIndex++;
     }
 
     private int WiresIndex = 0;
@@ -408,6 +453,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<WiresManager>().StartDialogue();
     }
+
 
     int LabyInviIndex = 0;
     private void LoadNextLabyInvi()
@@ -440,7 +486,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         sceneName = SceneManager.GetActiveScene().name;
         GoBackToOneLevel();
-        PhotonNetwork.LoadLevel("Loading");   //load scene load
+        PhotonNetwork.LoadLevel("Loading");   //load ²cene load
         NextScene = "MainRoom";
         Invoke("LoadNextScene", 0.5f);
     }
@@ -451,10 +497,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         int START_SCORE = 15000;
         int COEF_LIFE = 10;
         int COEF_TIME = 1;
+        score = START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<FinalScene>().SetScore(score);
+        }
 
-        return START_SCORE - COEF_LIFE * QuarterHeartLost - COEF_TIME * secDuration;
+        return score;
     }
 
 
 
+    
 }
