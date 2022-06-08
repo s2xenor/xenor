@@ -445,7 +445,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         sceneName = SceneManager.GetActiveScene().name;
         GoBackToOneLevel();
-        PhotonNetwork.LoadLevel("Loading");   //load scene load
+        PhotonNetwork.LoadLevel("Loading");   //load ²cene load
         NextScene = "MainRoom";
         Invoke("LoadNextScene", 0.5f);
     }

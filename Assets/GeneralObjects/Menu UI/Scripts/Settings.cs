@@ -37,11 +37,16 @@ public class Settings : MonoBehaviour
 
     public void GoLobby()
     {
-        PhotonNetwork.LoadLevel("MainRoom"); // Scene to load
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().GoBackToLobby();
     }
 
     public void Delete(GameObject obj)
     {
         Destroy(obj);
+    }
+
+    public void SendButton()
+    {
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<FinalScene>().ClickSend();
     }
 }
