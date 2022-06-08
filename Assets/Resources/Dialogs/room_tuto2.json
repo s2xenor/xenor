@@ -1,0 +1,14 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "Voilà pourquoi on est toujours obligé d'être deux pour se rendre dans l'entrepot...",
+        "Seul, on risque de se retouver coincé...",
+        "Vous allez avoir besoin de vous entraidez pour ce coup là."
+    ],
+    "audioName" : [
+        "2boite1",
+        "2boite2",
+        "2boite3"
+    ],
+    "nextDialogPath" : ""
+}

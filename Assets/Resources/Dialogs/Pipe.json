@@ -1,8 +1,14 @@
 {
     "name" : "Clothilde",
     "sentences" : [
-        "pipe",
-        "yep"
+        "Ohoh...",
+        "La salle vient de se vérouiller à cause d'un fuite de produits chimiques...",
+        "Réparez vite les tuyaux et restaurez le flux pour que le système de sécurité réactive la porte et que vous puissiez vous échapper."
+    ],    
+    "audioName" : [
+        "pipe1",
+        "pipe2",
+        "pipe3"
     ],
     "nextDialogPath" : ""
 }

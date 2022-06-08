@@ -1,0 +1,16 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "Bravo !",
+        "Je ne pense pas que j'y serais arrivé...",
+        "Vous l'avez bien méritée cette clef...",
+        "Prenez la et dépêchez-vous... Vous n'êtes pas encore dehors..."
+    ],
+    "audioName" : [
+        "eboite1",
+        "eboite2",
+        "eboite3",
+        "eboite4"
+    ],
+    "nextDialogPath" : ""
+}

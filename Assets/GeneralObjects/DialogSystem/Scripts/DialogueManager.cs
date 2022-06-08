@@ -12,8 +12,14 @@ public class DialogueManager : MonoBehaviour {
 	//Animateur pour les aimations mdr
 	public Animator animator;
 
+	//AudioManarger
+	public AudioManager audioManager;
+
 	//File qui stocke les phrase
 	private Queue<string> sentences;
+
+	//File qui stocke les noms des fichier audios
+	private Queue<string> audioNames;
 
 	private DialogueTrigger dialogueTrigger; //pour lancer la suite du dialogue
 
@@ -21,6 +27,8 @@ public class DialogueManager : MonoBehaviour {
 	void Start () 
 	{
 		sentences = new Queue<string>();
+		audioNames = new Queue<string>();
+		audioManager = FindObjectOfType<AudioManager>();
 	}
 
 	//Cette fonction est appelée pour démarer le dialogue
@@ -35,11 +43,17 @@ public class DialogueManager : MonoBehaviour {
 		nameText.text = dialogue.name; // Display name
 
 		sentences.Clear(); // Clear previous sentences
+		audioNames.Clear();
 
 		foreach (string sentence in dialogue.sentences) // Enqueue sentences to be said
 		{
 			sentences.Enqueue(sentence);
 		}
+
+		foreach (string audioName in dialogue.audioName) // add à la file tous les noms des audios
+        {
+			audioNames.Enqueue(audioName);
+        }
 
 		DisplayNextSentence();
 	}
@@ -47,7 +61,6 @@ public class DialogueManager : MonoBehaviour {
 	//Afficahge de la phrase suivante pour ce perso
 	public void DisplayNextSentence()
 	{
-
 		if (sentences.Count == 0) // If no more sentences to say
 		{
 			EndDialogue();
@@ -55,6 +68,8 @@ public class DialogueManager : MonoBehaviour {
 		}
 
 		string sentence = sentences.Dequeue();
+		audioManager.Play(audioNames.Dequeue());
+
 		StopAllCoroutines();
 		StartCoroutine(TypeSentence(sentence));
 	}

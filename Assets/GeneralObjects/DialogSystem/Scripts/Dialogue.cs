@@ -10,5 +10,7 @@ public class Dialogue {
 
 	public string[] sentences; // Test said by the person
 
+	public string[] audioName;
+
 	public string nextDialogPath; // Name of teh file contaning the next dialog to play
 }

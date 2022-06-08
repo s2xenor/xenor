@@ -1,0 +1,10 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "Pouah ! J'ai bien cru que vous ne vous en sortireriez pas... Bravo !"
+    ],
+    "audioName" : [
+        "sdonjon1"
+    ],
+    "nextDialogPath" : ""
+}

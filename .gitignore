@@ -4,6 +4,8 @@ config.php
 *.html.meta
 *.cs.meta
 *.php.meta
+*.wav.meta
+*.json.meta
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #

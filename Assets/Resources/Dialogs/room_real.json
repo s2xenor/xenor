@@ -1,0 +1,14 @@
+{
+    "name" : "Clothilde",
+    "sentences" : [
+        "Je suis désolée...",
+        "On abandonne toujours les sessions de rangement après la 5ème salle...",
+        "Bonne Chance !"
+    ],
+    "audioName" : [
+        "6boite1",
+        "6boite2",
+        "6boite3"
+    ],
+    "nextDialogPath" : ""
+}

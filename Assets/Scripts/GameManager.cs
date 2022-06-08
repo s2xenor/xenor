@@ -375,6 +375,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void SubNextCrate()
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<CrateLabyrinthGenerator>().loadScene(ListCrate[CrateIndex]);      //generate enigm
+        string filePath = "";
+        if (CrateIndex < 5)
+        {
+            filePath = "Dialogs/" + ListCrate[CrateIndex];
+        }
+        else if (CrateIndex == 5)
+        {
+
+            filePath = "Dialogs/room_real";
+        }
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<CrateLabyrinthGenerator>().StartDialogue(filePath);
         CrateIndex++;
     }
 

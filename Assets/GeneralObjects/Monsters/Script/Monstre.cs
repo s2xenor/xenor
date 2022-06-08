@@ -20,7 +20,6 @@ public class Monstre : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float attackRange;//distance to attack
-    [SerializeField] float attaclRate;//speed to attack
     private float lastAttackTime;
 
 
@@ -143,7 +142,6 @@ public class Monstre : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D colision)
     {
-
         switch (colision.gameObject.tag)//take the tag of the object
         {
             

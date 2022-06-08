@@ -1,0 +1,20 @@
+{
+    "name" : ".self",
+    "sentences" : [
+        "Sacrebleu !... Ma tête !... J'ai vraiment abusé sur le sirop à la barbe à papa hier... Et tout ce sucre blanc en poudre n'a pas dû vraiment beaucoup m'aider...",
+        "Il faut que tu te calmes...",
+        "Bon ok.. Promis... La prochaine fois je ferai attention.",
+        "Comme tu as dit la dernière fois...",
+        "Oh c'est bon toi !",
+        "Me saoule pas avec ta fausse bonne conscience !... Et puis on en serait pas là si tu avais liké le message de Lionel... Bon... c'est pas tout mais je dois aller bosser moi !"
+    ],
+    "audioName" : [
+        "intro1",
+        "intro2",
+        "intro3",
+        "intro4",
+        "intro5",
+        "intro6"
+    ],
+    "nextDialogPath" : "Dialogs/intro1"
+}

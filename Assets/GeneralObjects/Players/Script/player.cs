@@ -121,8 +121,6 @@ public class player : MonoBehaviour
     
     public void GetDamage()//make damage on the player 
     {
-        vie.Reduce2(1); //Reduce 1/2 of the life barre 
-
-
+        vie.Reduce2(1); //Reduce 1/2 of the life bar
     }
 }
