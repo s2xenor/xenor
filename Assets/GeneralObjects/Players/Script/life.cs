@@ -37,11 +37,11 @@ public class life : MonoBehaviour //life class
 
         if (view.IsMine)
         {
-            view.RPC("Reduce2Bis", RpcTarget.All, gameManager.hearths[0]);
+            view.RPC("Reduce2Start", RpcTarget.All, gameManager.hearths[0]);
         }
         else
         {
-            view.RPC("Reduce2Bis", RpcTarget.All, gameManager.hearths[1]);
+            view.RPC("Reduce2Start", RpcTarget.All, gameManager.hearths[1]);
         }
     }
 
@@ -106,7 +106,7 @@ public class life : MonoBehaviour //life class
     }
 
     [PunRPC]
-    public void Reduce2Bis(int hearts) //Function that reduce by 1/2 hearts
+    public void Reduce2Start(int hearts) //Function that reduce by 1/2 hearts
     {
         Image cd = cooldown;
 
@@ -126,6 +126,7 @@ public class life : MonoBehaviour //life class
      *Function that reduce over the number of 1/4
      */
 
+    [PunRPC]
     public void Reduce4(int hearts) //Function that reduce by 1/4 hearts
     {
         if (gameManager == null)

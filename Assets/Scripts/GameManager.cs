@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-        /*if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
+        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
             {
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 LoadNextPipe();
             }
-        }*/
+        }
     }
 
     public void SaveData()

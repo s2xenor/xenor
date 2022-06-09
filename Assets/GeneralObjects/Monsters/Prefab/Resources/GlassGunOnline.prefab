@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   PlayerDetectRate: 0.2
-  chaseRange: 1.3
+  chaseRange: 1.4
   pv: 50
   dead: 0
   attackRange: 0.2

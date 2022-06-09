@@ -82,6 +82,8 @@ MonoBehaviour:
   - GetDamage
   - Reduce2Bis
   - SetOwner
+  - Reduce2Start
+  - Reduce4
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -9,7 +9,8 @@ public class Hitbox : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);//reduce player life
+            if (PhotonNetwork.IsMasterClient)
+                collision.gameObject.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);//reduce player life
         }
     }
 }

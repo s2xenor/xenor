@@ -82,10 +82,13 @@ public class MonstreOnline : MonoBehaviour
     
     private void Update()
     {
-        if (rb.velocity.x > -.5f && rb.velocity.x < .5f  && rb.velocity.x > 0)
+        if (rb.velocity.x > -.5f && rb.velocity.x < .1f  && rb.velocity.x > 0)
             tr.localScale = new Vector3(-1, 1, 0);
-        else if (rb.velocity.x > -.5f && rb.velocity.x < .5f && rb.velocity.x != 0)
+        else if (rb.velocity.x > -.5f && rb.velocity.x < .1f && rb.velocity.x != 0)
             tr.localScale = new Vector2(1, 1);
+
+        if (dead)
+            tr.localScale = new Vector3(1, 1, 0);
 
         if (isAnim)
             rb.velocity = new Vector2(0, 0);
@@ -200,15 +203,6 @@ public class MonstreOnline : MonoBehaviour
 
                     source.clip = clip; // hurt sfx
                     source.Play();
-
-
-                    if (dead)
-                    {
-                        PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation); // spawn potion
-
-                        source.clip = die; // die sfx
-                        source.Play();
-                    }
                 }
                 
                 break;
@@ -232,13 +226,6 @@ public class MonstreOnline : MonoBehaviour
                 source.clip = clip; // hurt sfx
                 source.Play();
 
-                if (dead)
-                {
-                    PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation); // spawn potion
-
-                    source.clip = die; // die sfx
-                    source.Play();
-                }
                 Destroy(colision.gameObject);
                 break;
         }
@@ -267,10 +254,19 @@ public class MonstreOnline : MonoBehaviour
     [PunRPC]
     public void Die()//kill the monster 
     {
-        if (hitboxTmp != null) Destroy(hitboxTmp); //destroy hitbox
+        if (dead) return;
+
+        if (hitboxTmp != null)
+            Destroy(hitboxTmp); //destroy hitbox
 
         animator.SetFloat("Die", 1);// Run death animation
         dead = true;
+
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation); // spawn potion
+
+        source.clip = die; // die sfx
+        source.Play();
     }
 
     void Attack()//attack the player 

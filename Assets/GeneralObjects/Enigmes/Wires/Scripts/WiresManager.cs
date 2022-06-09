@@ -37,6 +37,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public bool isMasterOnRule = false;
 
     private GameObject[] DoorsToActivate;
+    private GameObject[] DoorsToDeactivate;
 
     bool delLoad = false; // Has loading screen been deleted ?
 
@@ -49,6 +50,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
         //setup door off
         parentObj = new GameObject("WireEnigmParent");
         DoorsToActivate = GameObject.FindGameObjectsWithTag("DoorsToActivate");
+        DoorsToDeactivate = GameObject.FindGameObjectsWithTag("DoorsToDeactivate");
         foreach (var door in DoorsToActivate) door.SetActive(false);
 
 
@@ -191,6 +193,7 @@ public class WiresManager : MonoBehaviourPunCallbacks
     public void ActivateDoors()
     {
         foreach (var door in DoorsToActivate) door.SetActive(true);
+        foreach (var door in DoorsToDeactivate) door.SetActive(false);
     }
 
     [PunRPC]

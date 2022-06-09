@@ -15,6 +15,8 @@ public class MovableCrate : PressurePlate
 
     GameObject canvasPopUp;
 
+    PhotonView view;
+
     /*
      * Fonctions
      */
@@ -23,6 +25,7 @@ public class MovableCrate : PressurePlate
     {
         MessageOnScreenCanvas = GameObject.FindGameObjectWithTag("CanvasText");
         canvasPopUp = GameObject.FindGameObjectWithTag("CanvasText");
+        view = GetComponent<PhotonView>();
     }
 
     //Appel�e a chaque frame
@@ -114,14 +117,10 @@ public class MovableCrate : PressurePlate
         //On r�initialise les varaibles
         linkedToPlayer = false;
         playerLinked = null;
+
+        if (PhotonNetwork.IsMasterClient)
+            view.RPC("MoveCoo", RpcTarget.All, transform.position); // Avoid desync
     }
-
-    /**
-    * <summary>Move crate where it is supposed to be</summary>
-    * 
-    * <returns>Return nothing</returns>
-    */
-
     /**
     * <summary>Update linekedToPlayer</summary>
     * 
@@ -134,5 +133,24 @@ public class MovableCrate : PressurePlate
             UnLink();
         else
             Link(id);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (PhotonNetwork.IsMasterClient && collision.gameObject.tag == "Player")
+        {
+            view.RPC("MoveCoo", RpcTarget.All, transform.position); // Avoid desync
+        }
+    }
+
+    /**
+    * <summary>Move crate where it is supposed to be</summary>
+    * 
+    * <returns>Return nothing</returns>
+    */
+    [PunRPC]
+    void MoveCoo(Vector3 pos)
+    {
+        transform.position = pos;
     }
 }
