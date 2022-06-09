@@ -53,7 +53,7 @@ public class FinalScene : MonoBehaviourPunCallbacks
 
     private void SetFct()
     {
-        GameObject.FindGameObjectWithTag("Box").GetComponentInChildren<TMP_Text>().SetText($"Félicitations vous avez fini Altervita !\nUn classement des scores est disponbile sur le site du repo du projet (https://github.com/s2xenor/xenor)\nVotre score est : {score}\nPour le sauvergarder et l'envoyer dans le tableau des scores, veuillez entrer un username :");
+        GameObject.FindGameObjectWithTag("Box").GetComponentInChildren<TMP_Text>().SetText($"Fï¿½licitations vous avez fini Altervita !\nUn classement des scores est disponbile sur le site du repo du projet (https://github.com/s2xenor/xenor)\nVotre score est : {score}\nPour le sauvergarder et l'envoyer dans le tableau des scores, veuillez entrer un username :");
     }
 
 

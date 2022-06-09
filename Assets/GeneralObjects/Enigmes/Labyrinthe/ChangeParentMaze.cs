@@ -10,7 +10,7 @@ public class ChangeParentMaze : MonoBehaviour
     void Start()
     {
         // Put it in maze GameObject (easier to work with)
-        maze = GameObject.FindGameObjectWithTag("MainMaze").GetComponent<MainMaze>().mazeContainer;
+        maze = GameObject.FindGameObjectWithTag("Manager").GetComponent<MainMaze>().mazeContainer;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.transform.parent = maze.transform;
     }

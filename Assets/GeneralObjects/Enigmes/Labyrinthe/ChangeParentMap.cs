@@ -10,7 +10,7 @@ public class ChangeParentMap : MonoBehaviour
     void Start()
     {
         // Put it un maze GameObject (easier to work with)
-        map = GameObject.FindGameObjectWithTag("MainMaze").GetComponent<MainMaze>().map;
+        map = GameObject.FindGameObjectWithTag("Manager").GetComponent<MainMaze>().map;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.transform.parent = map.transform;
 
