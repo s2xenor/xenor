@@ -528,8 +528,4 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         return score;
     }
-
-
-
-    
 }

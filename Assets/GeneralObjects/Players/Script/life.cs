@@ -156,33 +156,19 @@ public class life : MonoBehaviour //life class
     //Make the fillAmount of all the canvas to 1 
     public void HealMax()
     {
-        if (die) // revive and heal 1 heart
-        {
-            cooldown4.fillAmount = 1;
-            die = false;
+        cooldown.fillAmount = 1;
+        cooldown1.fillAmount = 1;
+        cooldown2.fillAmount = 1;
+        cooldown3.fillAmount = 1;
+        cooldown4.fillAmount = 1;
+        die = false;
 
-            if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
-            if (view.IsMine)
-                gameManager.hearths[0] = 8;
-            else
-                gameManager.hearths[1] = 8;
-        }
-        else // heal 5 hearts
-        {
-            cooldown.fillAmount = 1;
-            cooldown1.fillAmount = 1;
-            cooldown2.fillAmount = 1;
-            cooldown3.fillAmount = 1;
-            cooldown4.fillAmount = 1;
-
-            if (!PhotonNetwork.IsMasterClient) return;
-
-            if (view.IsMine)
-                gameManager.hearths[0] = 0;
-            else
-                gameManager.hearths[1] = 0;
-        }
+        if (view.IsMine)
+            gameManager.hearths[0] = 0;
+        else
+            gameManager.hearths[1] = 0;
     }
 
 
