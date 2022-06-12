@@ -346,10 +346,9 @@ public class WiresManager : MonoBehaviourPunCallbacks
     {
         
         isOn = false;
-        foreach (var item in GameObject.FindGameObjectsWithTag("wireObject"))
-        {
-            Destroy(item);
-        }
+        Destroy(parentObj);//destroy rules
+        parentObj = new GameObject("WireEnigmParent");
+
         foreach (var item in GameObject.FindGameObjectsWithTag("ruleObject"))
         {
             Destroy(item);
