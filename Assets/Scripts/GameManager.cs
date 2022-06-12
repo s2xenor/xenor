@@ -335,7 +335,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                     case "Wires":
                         LoadNextWires();
                         break;
-                    default:    //LabyInvisible Donjon
+                    case "LabyInvisible":
+                        LoadNextLabyInvi();
+                        break;
+                    default:    //Donjon
                         PhotonNetwork.LoadLevel(Scenes[NextSceneDoor]);
                         break;
                 }
@@ -498,8 +501,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (LabyInviIndex < 2)
         {
-            LabyInviIndex++;
             PhotonNetwork.LoadLevel(Scenes["LabyInvisible"]);
+            LabyInviIndex++;
         }
         else
         {
