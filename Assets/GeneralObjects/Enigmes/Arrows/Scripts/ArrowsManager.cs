@@ -161,9 +161,12 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
 
                 if (!CheckPlayerMovement(player1TmpTile, player1Tile) || (players[1] != null && !CheckPlayerMovement(player2TmpTile, player2Tile)))//players break rules, apply consequences
                 {
-                    foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                    if (PhotonNetwork.IsMasterClient)
                     {
-                        //item.GetComponent<player>().vie.Reduce4(1);
+                        foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+                        {
+                            item.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);
+                        }
                     }
 
                     player1Tile[0] = -1;

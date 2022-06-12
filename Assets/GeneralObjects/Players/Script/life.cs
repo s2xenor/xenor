@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+using Photon.Pun;
 
 public class life : MonoBehaviour //life class 
 {
@@ -16,8 +15,8 @@ public class life : MonoBehaviour //life class
     public bool die = false;
     public float waitTime = 15.0f;
     private GameManager gameManager;
-
-
+    PhotonView view;
+        
     public life(Image heart1, Image heart2, Image heart3, Image heart4, Image heart5)
     {
         cooldown = heart1;
@@ -31,7 +30,19 @@ public class life : MonoBehaviour //life class
     {
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        view = GetComponent<PhotonView>();
 
+
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        if (view.IsMine)
+        {
+            view.RPC("Reduce2Start", RpcTarget.All, gameManager.hearths[0]);
+        }
+        else
+        {
+            view.RPC("Reduce2Start", RpcTarget.All, gameManager.hearths[1]);
+        }
     }
 
 
@@ -60,6 +71,7 @@ public class life : MonoBehaviour //life class
     /*
      *Function that reduce over the number of 1/2
      */
+    [PunRPC]
     public void Reduce2(int hearts) //Function that reduce by 1/2 hearts
     {
         if (gameManager == null)
@@ -69,26 +81,52 @@ public class life : MonoBehaviour //life class
 
         Image cd = cooldown;
 
-        float val = 1;//the value which reduces the filAmount 
         int j = 1;//count of round to switch to the next canvas of heart
         for (int i = 0; i < hearts; i++)
         {
-            val -= 0.5f;
             while (cd.fillAmount <= 0 && j<5)
             {
                 cd = SwitchImage(j);//Change the image of heart when the filAmount is at 0
                 j++;
             }
             
-            cd.fillAmount -= val;
-            
+            cd.fillAmount -= .5f;
+
+            if (!PhotonNetwork.IsMasterClient) return;
+
+            if (view.IsMine)
+            {
+                gameManager.hearths[0] += 1;
+            }
+            else
+            {
+                gameManager.hearths[1] += 1;
+            }
         }
     }
 
+    [PunRPC]
+    public void Reduce2Start(int hearts) //Function that reduce by 1/2 hearts
+    {
+        Image cd = cooldown;
+
+        int j = 1;//count of round to switch to the next canvas of heart
+        for (int i = 0; i < hearts; i++)
+        {
+            while (cd.fillAmount <= 0 && j < 5)
+            {
+                cd = SwitchImage(j);//Change the image of heart when the filAmount is at 0
+                j++;
+            }
+
+            cd.fillAmount -= .5f;
+        }
+    }
     /*
      *Function that reduce over the number of 1/4
      */
 
+    [PunRPC]
     public void Reduce4(int hearts) //Function that reduce by 1/4 hearts
     {
         if (gameManager == null)
@@ -118,31 +156,29 @@ public class life : MonoBehaviour //life class
     //Make the fillAmount of all the canvas to 1 
     public void HealMax()
     {
-        if (die)
-        {
-            cooldown3.fillAmount = 1;
-            cooldown4.fillAmount = 1;
-            die = false;
+        cooldown.fillAmount = 1;
+        cooldown1.fillAmount = 1;
+        cooldown2.fillAmount = 1;
+        cooldown3.fillAmount = 1;
+        cooldown4.fillAmount = 1;
+        die = false;
 
-        }
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        if (view.IsMine)
+            gameManager.hearths[0] = 0;
         else
-        {
-            cooldown.fillAmount = 1;
-            cooldown1.fillAmount = 1;
-            cooldown2.fillAmount = 1;
-            cooldown3.fillAmount = 1;
-            cooldown4.fillAmount = 1;
-        }
+            gameManager.hearths[1] = 0;
     }
 
 
 
     void Update()//verify if the player is not dead
     {
+
         if(cooldown4.fillAmount <= 0)
         {
             die = true;
         }
     }
-
 }

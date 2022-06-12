@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using Pathfinding;
-
-
+using Photon.Pun;
 
 public class MonstreOnline : MonoBehaviour
 {
@@ -15,12 +14,11 @@ public class MonstreOnline : MonoBehaviour
     public float chaseRange;//distance to detect the player
     int round=1;//number of round 
     public float pv;//life of the monster
-    bool dead = false;//bool make sure taht the monster is not dead
+    public bool dead = false;//bool make sure taht the monster is not dead
 
 
     [Header("Attack")]
     [SerializeField] float attackRange;//distance to attack
-    [SerializeField] float attaclRate;//speed to attack
     private float lastAttackTime;
 
 
@@ -38,11 +36,29 @@ public class MonstreOnline : MonoBehaviour
     bool reachEndPath = false;//valid path
     Seeker seeker;//the detection part of the map 
 
+    bool isAnim = false;
+
+    public float animLen;
+    public GameObject hitbox;
+    GameObject hitboxTmp;
+    public GameObject potionSpawn;
+    Transform tr;
+    PhotonView view;
+
+    public AudioClip clip;
+    public AudioClip die;
+    AudioSource source;
+
+    bool onePlayer = false;
+
     void Start()//start the path finding
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        //InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating("UpdatePath", 0f, .5f);
+        tr = GetComponent<Transform>();
+        view = GetComponent<PhotonView>();
+        source = GetComponent<AudioSource>();
     }
     
 
@@ -63,9 +79,42 @@ public class MonstreOnline : MonoBehaviour
         }
 
     }
+    
+    private void Update()
+    {
+        if (rb.velocity.x > -.5f && rb.velocity.x < .1f  && rb.velocity.x > 0)
+            tr.localScale = new Vector3(-1, 1, 0);
+        else if (rb.velocity.x > -.5f && rb.velocity.x < .1f && rb.velocity.x != 0)
+            tr.localScale = new Vector2(1, 1);
+
+        if (dead)
+            tr.localScale = new Vector3(1, 1, 0);
+
+        if (isAnim)
+            rb.velocity = new Vector2(0, 0);
+    }
 
     private void FixedUpdate()
     {
+        // if only one player alive, target it
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int i = 0;
+        foreach (var item in players)
+        {
+            if (!item.GetComponent<playerOnline>().vie.die)
+                i++;
+        }
+        if (i == 1)
+        {
+            onePlayer = true;
+            foreach (var item in players)
+            {
+                if (!item.GetComponent<playerOnline>().vie.die)
+                    targetPlayer = item.GetComponent<playerwalkOnline>(); 
+            }
+        }
+        else
+            onePlayer = false;
 
         if (targetPlayer != null && !dead )
         {
@@ -103,12 +152,11 @@ public class MonstreOnline : MonoBehaviour
             }
             else
             {
-
                 rb.velocity = Vector2.zero;//stop the monster 
+                Attack();
             }
         }
         DetectPlayer();
-        StartCoroutine(waiter());//make the attack all the 15 sec 
     }
 
     void DetectPlayer()
@@ -146,8 +194,17 @@ public class MonstreOnline : MonoBehaviour
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "Player":
-                Attack();//attack animation
-                colision.gameObject.GetComponent<playerOnline>().GetDamage();//reduce player life
+                if (!dead && PhotonNetwork.IsMasterClient)
+                {
+                    if (!onePlayer)
+                        targetPlayer = colision.gameObject.GetComponent<playerwalkOnline>();
+                    
+                    colision.gameObject.transform.GetChild(0).GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1);//reduce player life
+
+                    source.clip = clip; // hurt sfx
+                    source.Play();
+                }
+                
                 break;
         }
     }
@@ -157,8 +214,18 @@ public class MonstreOnline : MonoBehaviour
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "Potion"://damage potion 
-                playerwalkOnline current_player = ChangeTarget(GameObject.FindObjectsOfType<playerwalkOnline>()[0]);
-                GetDamage((float)current_player.GetComponent<playerOnline>().Strength);//have damage
+                if (dead) return;
+                playerwalkOnline current_player = PhotonView.Find(colision.gameObject.GetComponent<PotionThrow>().owner).GetComponent<playerwalkOnline>();
+                
+                if (!onePlayer)
+                    targetPlayer = current_player;// change targe to player hiting the monster
+
+                if (PhotonNetwork.IsMasterClient)
+                    view.RPC("GetDamage", RpcTarget.All, (float)current_player.GetComponent<playerOnline>().Strength);//have damage
+                
+                source.clip = clip; // hurt sfx
+                source.Play();
+
                 Destroy(colision.gameObject);
                 break;
         }
@@ -168,34 +235,52 @@ public class MonstreOnline : MonoBehaviour
     {
         foreach(playerwalkOnline other_player in FindObjectsOfType<playerwalkOnline>())//research all the player
         {
-            if (other_player != current_player && current_player.GetComponent<playerOnline>().Strength < other_player.GetComponent<playerOnline>().Strength)
+            if (other_player != current_player && current_player.GetComponent<playerOnline>().Strength < other_player.GetComponent<playerOnline>().Strength / 3)
                 return other_player;//change player 
         }
         return current_player;
-
+            
     }
 
+    [PunRPC]
     public void GetDamage(float damage)
     {
         pv -= damage;//reduce the life 
 
-        if (pv <= 0)
-            Die();//die animation 
-        
+        if (pv <= 0 && PhotonNetwork.IsMasterClient)
+            GetComponent<PhotonView>().RPC("Die", RpcTarget.All);
     }
 
-    void Die()//kill the monster 
+    [PunRPC]
+    public void Die()//kill the monster 
     {
-        
-        
+        if (dead) return;
+
+        if (hitboxTmp != null)
+            Destroy(hitboxTmp); //destroy hitbox
+
         animator.SetFloat("Die", 1);// Run death animation
         dead = true;
+
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate(potionSpawn.name, transform.position, transform.rotation); // spawn potion
+
+        source.clip = die; // die sfx
+        source.Play();
     }
 
     void Attack()//attack the player 
     {
-        if (dead) return;
+        if (dead || isAnim) return;
 
+
+        source.clip = clip;
+        source.Play();
+
+        isAnim = true;
+        hitboxTmp = Instantiate(hitbox, transform.position, Quaternion.identity);
+        hitboxTmp.SetActive(true);
+        hitboxTmp.transform.parent = this.gameObject.transform;
         // Run Attack animation
         if (round % 2 == 0)//make a animation depending on the round 
         {
@@ -207,6 +292,8 @@ public class MonstreOnline : MonoBehaviour
             animator.SetFloat("Attack", 0.1f);//Animation attack number 2
             round += 1;
         }
+
+        StartCoroutine(waiter());//make the attack all the 15 sec 
     }
 
 
@@ -215,8 +302,10 @@ public class MonstreOnline : MonoBehaviour
      */
     IEnumerator waiter()
     {
-            yield return new WaitForSeconds(15);
-            animator.SetFloat("Attack", 0f);//remove the attack animation 
+        yield return new WaitForSeconds(animLen);
+        animator.SetFloat("Attack", 0);//remove the attack animation 
+        Destroy(hitboxTmp);
+        isAnim = false;
     }
 
     public void walk(Vector2 mouvement)

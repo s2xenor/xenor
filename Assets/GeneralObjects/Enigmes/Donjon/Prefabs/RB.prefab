@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 4675656065730260}
   - component: {fileID: 114830474192372244}
   - component: {fileID: -1553785892685551795}
+  - component: {fileID: -7375287809924188307}
   m_Layer: 0
   m_Name: RB
   m_TagString: Untagged
@@ -550,6 +551,29 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-7375287809924188307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633850058292698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898b102ae59d60447bf6c0ba861300b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj:
+  - {fileID: 5823026587590298355, guid: 119991e120a91dd449190d324fbb3fde, type: 3}
+  - {fileID: 5534015133746151701, guid: 819fd308d83a291469b50384c991247b, type: 3}
+  - {fileID: 2563588009435198129, guid: 897696837a5789e4199131ec98a6fb87, type: 3}
+  - {fileID: 2791330840245665559, guid: a3c32f30f2bfb0c439610e91d7fa9948, type: 3}
+  - {fileID: 6035372918513793994, guid: 3f31b26b72b55784b85a9ff567823084, type: 3}
+  - {fileID: 4989865624913013450, guid: ed2b72f8328e80440b6aeea10d60a4d7, type: 3}
+  - {fileID: 3044617681238093357, guid: 5ec1114932f77b44d8699b9fa2581341, type: 3}
+  - {fileID: 53294736835381183, guid: adf8075ae549ac6469814e7df4b841f9, type: 3}
+  nb: 1
+  random: 1
 --- !u!1 &1724804915900602
 GameObject:
   m_ObjectHideFlags: 0

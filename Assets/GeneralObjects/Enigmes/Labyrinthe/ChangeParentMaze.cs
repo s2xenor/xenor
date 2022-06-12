@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ChangeParentMaze : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class ChangeParentMaze : MonoBehaviour
     void Start()
     {
         // Put it in maze GameObject (easier to work with)
-        maze = GameObject.FindGameObjectWithTag("MainMaze").GetComponent<MainMaze>().mazeContainer;
+        maze = GameObject.FindGameObjectWithTag("Manager").GetComponent<MainMaze>().mazeContainer;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.transform.parent = maze.transform;
     }
@@ -19,6 +20,9 @@ public class ChangeParentMaze : MonoBehaviour
         if (collision.tag == "Player")
         {
             gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+            collision.gameObject.GetComponent<playerOnline>();
+            collision.gameObject.GetComponent<playerOnline>().GetDamage();
         }
     }
 }

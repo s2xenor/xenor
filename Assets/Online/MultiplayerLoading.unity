@@ -409,6 +409,10 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2025414543551252402, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6933465392915373574, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -511,6 +515,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8156482761849591692, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357057509302310898, guid: 7ca44c0bcf10df0429cf72c904113a6d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

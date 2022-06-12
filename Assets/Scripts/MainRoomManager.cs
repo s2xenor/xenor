@@ -42,12 +42,18 @@ public class MainRoomManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if(PhotonNetwork.IsMasterClient && shouldLoad && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+        if (shouldLoad && GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
+            GameObject.FindGameObjectWithTag("Loading").GetComponent<FetchCam>().Del();
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                shouldLoad = false;
+                PhotonView photonView = PhotonView.Get(this);
+                Dictionary<string, bool> LevelsCompleted = GameManager.LevelsCompleted;
+                photonView.RPC("SetDoors", RpcTarget.All, LevelsCompleted["Crate"], LevelsCompleted["Pipe"], LevelsCompleted["LabyInvisible"], LevelsCompleted["Arrows"], LevelsCompleted["Wires"], LevelsCompleted["Donjon"]);
+            }
             shouldLoad = false;
-            PhotonView photonView = PhotonView.Get(this);
-            Dictionary<string, bool> LevelsCompleted = GameManager.LevelsCompleted;
-            photonView.RPC("SetDoors", RpcTarget.All, LevelsCompleted["Crate"], LevelsCompleted["Pipe"], LevelsCompleted["LabyInvisible"], LevelsCompleted["Arrows"], LevelsCompleted["Wires"], LevelsCompleted["Donjon"]);
         }
     }
 

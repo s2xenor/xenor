@@ -24,12 +24,13 @@ public class playerOnline : MonoBehaviour
 
 
     //life barre of the player 
-    life vie;
+    public life vie;
 
     PhotonView view;
 
     AudioSource audioSource;
     public AudioClip pickup;
+    public AudioClip hit;
 
 
     public bool boy;
@@ -37,11 +38,17 @@ public class playerOnline : MonoBehaviour
     //damage potion prefab use by the player 
     public GameObject potionPrefab;
 
+    Rigidbody2D rb;
+
+    GameManager gameManager;
+
 
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         inventaire = transform.GetComponentInChildren<inventoryOnline>();//retrieve the prefab of the inventory 
         vie = transform.GetComponentInChildren<life>();// create life bar
+        rb = transform.GetComponentInChildren<Rigidbody2D>();
     }
 
 
@@ -54,34 +61,52 @@ public class playerOnline : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D colision)
     {
+        if (colision.gameObject.tag == "Potion") return;
+
         if (colision.gameObject.tag.Contains("slot") && view.IsMine)
         {
             audioSource.clip = pickup;  
             audioSource.Play();
         }
 
+
         switch (colision.gameObject.tag)//take the tag of the object
         {
             case "slot"://strength potion 
-                inventaire.slot[0] += 1;
-                inventaire.UpdateNumber(0, inventaire.slot[0].ToString());//add to the inventory 
+                if (view.IsMine)
+                {
+                    inventaire.slot[0] += 1;
+                    inventaire.UpdateNumber(0, inventaire.slot[0].ToString());//add to the inventory 
+                }
                 Destroy(colision.gameObject);// destroy the GameObject of the scene
                 break;
 
             case "slot (1)"://damage potion 
-                inventaire.slot[1] += 1;
-                inventaire.UpdateNumber(1, inventaire.slot[1].ToString());
+                if (view.IsMine)
+                {
+                    inventaire.slot[1] += 1;
+                    inventaire.UpdateNumber(1, inventaire.slot[1].ToString());
+                }
                 Destroy(colision.gameObject);
                 break;
 
-            case "slot (2)"://health potion 
-                inventaire.slot[2] += 1;
-                inventaire.UpdateNumber(2, inventaire.slot[2].ToString());
+            case "slot (2)"://health potion
+                if (view.IsMine)
+                {
+                    inventaire.slot[2] += 1;
+                    inventaire.UpdateNumber(2, inventaire.slot[2].ToString());
+                }   
                 Destroy(colision.gameObject);
                 break;
 
             case "Monster":
-                colision.gameObject.GetComponent<MonstreOnline>().GetDamage((float)(Strength / (Strength - 1)));//make damage on monster 
+                colision.gameObject.GetComponent<MonstreOnline>().GetDamage((float)(Strength));//make damage on monster 
+
+                if (!colision.gameObject.GetComponent<MonstreOnline>().dead)
+                {
+                    audioSource.clip = hit;
+                    audioSource.Play();
+                }
                 break;
         }
     }
@@ -89,14 +114,18 @@ public class playerOnline : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Image").GetComponent<imageOnline>().PotionHealth)//Strength potion 
+        if (GameObject.Find("Image(0)").GetComponent<imageOnline>().PotionHealth)//Strength potion 
         {
             view.RPC("HealRPC", RpcTarget.All);
         }
         if (GameObject.Find("Image(1)").GetComponent<imageOnline>().PotionDamage)//damage potion
         {
-            PhotonNetwork.Instantiate(potionPrefab.name, transform.position, Quaternion.identity);
-
+            GameObject popo = null;
+            if (!boy)
+                popo = PhotonNetwork.Instantiate(potionPrefab.name, transform.position, Quaternion.identity); // create potion
+            else
+                popo = PhotonNetwork.Instantiate(potionPrefab.name, new Vector2(transform.position.x, transform.position.y - .2f), Quaternion.identity);
+            popo.GetComponent<PhotonView>().RPC("SetOwner", RpcTarget.All, view.ViewID); // set owner
             GameObject.Find("Image(1)").GetComponent<imageOnline>().PotionDamage = false;//remove the object of the inventory
         }
         if (GameObject.Find("Image(2)").GetComponent<imageOnline>().PotionStrength)// health potion 
@@ -114,6 +143,7 @@ public class playerOnline : MonoBehaviour
             gameObject.GetComponent<playerwalkOnline>().enabled = false;
         }
 
+        rb.velocity = Vector3.zero; // fix pushing issue;
     }
 
 
@@ -124,7 +154,7 @@ public class playerOnline : MonoBehaviour
     {
         if (Strength > 15)
         {
-            yield return new WaitForSeconds(30);
+            yield return new WaitForSeconds(15);
             Strength /= 1.2f;
 
             if (Strength < 15)
@@ -135,7 +165,8 @@ public class playerOnline : MonoBehaviour
 
     public void GetDamage()//make damage on the player 
     {
-        vie.Reduce2(1); //Reduce 1/2 of the life bar
+        if (PhotonNetwork.IsMasterClient)
+            vie.GetComponent<PhotonView>().RPC("Reduce2", RpcTarget.All, 1); //Reduce 1/2 of the life bar
     }
 
     [PunRPC]
@@ -151,6 +182,7 @@ public class playerOnline : MonoBehaviour
     {
         PotionOnline potion1 = new PotionOnline(PotionOnline.Type.Heal, 5);
         potion1.Effect(this, vie); //heal the palyer
-        GameObject.Find("Image").GetComponent<imageOnline>().PotionHealth = false;
+        GameObject.Find("Image(0)").GetComponent<imageOnline>().PotionHealth = false;
+        GetComponent<playerwalkOnline>().enabled = true;
     }
 }

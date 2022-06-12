@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     private string NextScene = null;
     public string NextSceneDoor;        //string for the next scene defined by single door in lobby mainly
     public GameObject menu;
+
+    public int[,] potions; // Nombre de potions de base
+    public int[] hearths; // Nombre degats actuels
+
     /*
      * Variables Publiques des trucs qu'il y a � sauvgarder
      */
@@ -58,9 +62,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
 
-
         instance = this;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
+        
+        potions = new int[,] { { 10, 10, 10 }, { 10, 10, 10 } };
+        hearths = new int[] { 0, 0 };
     }
 
     private void Update()
@@ -88,7 +94,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-
         if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
@@ -113,6 +118,30 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     monster.GetComponent<PhotonView>().RPC("Die", RpcTarget.All);
                 }
+            }
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PhotonNetwork.LoadLevel(Scenes["Donjon"]);
+            }
+            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                LoadNextArrows();
+            }
+            else if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                LoadNextCrate();
+            }
+            else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                LoadNextWires();
+            }
+            else if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                LoadNextLabyInvi();
+            }
+            else if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                LoadNextPipe();
             }
         }
     }
@@ -499,8 +528,4 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         return score;
     }
-
-
-
-    
 }
