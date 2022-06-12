@@ -128,12 +128,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Debug.Log(ArrowIndex);
                 GoBackToOneLevel(Scenes["Arrows"]);
-                Debug.Log(ArrowIndex);
                 PhotonNetwork.LoadLevel("Loading");   //load scene load
                 Invoke("LoadNextArrows", 0.5f);
-                Debug.Log(ArrowIndex);
 
             }
             else if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha3))
@@ -144,15 +141,21 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Alpha4))
             {
-                LoadNextWires();
+                GoBackToOneLevel(Scenes["Wires"]);
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextWires", 0.5f);
             }
             else if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Alpha5))
             {
-                LoadNextLabyInvi();
+                GoBackToOneLevel(Scenes["LabyInvisible"]);
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextLaby", 0.5f);
             }
             else if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Alpha6))
             {
-                LoadNextPipe();
+                GoBackToOneLevel(Scenes["Pipe"]);
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextPipe", 0.5f);
             }
         }
     }
