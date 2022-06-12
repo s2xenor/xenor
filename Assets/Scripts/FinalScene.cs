@@ -74,7 +74,6 @@ public class FinalScene : MonoBehaviourPunCallbacks
 
     private IEnumerator MakeRequests()
     {
-        score = 5;
         string url = "http://xenor.usiobe.com/add.php?u1="+ userPlayer1 + "&u2="+ userPlayer2+ "&score="+score;
         var getRequest = CreateRequest(url);
         yield return getRequest.SendWebRequest();

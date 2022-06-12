@@ -94,7 +94,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
+        
+        if (PhotonNetwork.IsMasterClient && 
+            ((PhotonNetwork.CurrentRoom.Name.Length >= 5 && PhotonNetwork.CurrentRoom.Name.Substring(0, 5) == "debug") || PhotonNetwork.CurrentRoom.Name == "t")
+            && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
             if (Input.GetKeyDown(KeyCode.M)) //go to main room
             {
