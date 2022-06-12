@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         instance = this;
         DontDestroyOnLoad(gameObject); //ne pas supprimer un objet quand on change de scene
-        
+
         potions = new int[,] { { 10, 10, 10 }, { 10, 10, 10 } };
         hearths = new int[] { 0, 0 };
     }
@@ -94,8 +94,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-        
-        if (PhotonNetwork.IsMasterClient && 
+
+        if (PhotonNetwork.IsMasterClient &&
             ((PhotonNetwork.CurrentRoom.Name.Length >= 5 && PhotonNetwork.CurrentRoom.Name.Substring(0, 5) == "debug") || PhotonNetwork.CurrentRoom.Name == "t")
             && SceneManager.GetActiveScene().name != "FinalScene")   //cheat code 
         {
@@ -189,7 +189,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    public void ContinueGame() {
+    public void ContinueGame()
+    {
         if (LoadData()) //if could load prev game
         {
             continuePrevGame = true;
@@ -241,9 +242,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("door update; incremnet: " + increment + "; dooractivated: "+ increment+doorActivated);
+            Debug.Log("door update; incremnet: " + increment + "; dooractivated: " + increment + doorActivated);
             doorActivated += increment; //number of pressure pressed
-            if((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
+            if ((doubleD && doorActivated >= 2) || (!doubleD && doorActivated >= 1)) //test is good number is pressed based on type of door
             {
                 if (IsLevelCompleted())
                 {
@@ -288,7 +289,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LoadNextScene()
     {
         Debug.Log("next scene");
-        
+
         Debug.Log(sceneName);
         if (NextScene != null)
         {
@@ -347,13 +348,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int PipeIndex = 0;
     private void LoadNextPipe()
     {
-        if(PipeIndex == 0)//tutos
+        if (PipeIndex == 0)//tutos
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
             Invoke("SubNextPipe", 0.5f);
 
         }
-        else if(PipeIndex <= 4) //3 levels after
+        else if (PipeIndex <= 4) //3 levels after
         {
             PhotonNetwork.LoadLevel(Scenes["Pipe"]);   //load scene pipe
             Invoke("SubNextPipe", 0.5f);
@@ -391,7 +392,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void LoadNextCrate()
     {
         Debug.Log("load next crate");
-        if(CrateIndex < ListCrate.Length)
+        if (CrateIndex < ListCrate.Length)
         {
             PhotonNetwork.LoadLevel(Scenes["Crate"]);   //load scene crate
             Invoke("SubNextCrate", 0.5f);
@@ -424,8 +425,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int ArrowIndex = 0;
     private void LoadNextArrows()
     {
-        
-        if(ArrowIndex <= 2)
+
+        if (ArrowIndex <= 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Arrows"]);
             Invoke("LoadArrows", 0.5f);
@@ -455,13 +456,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int WiresIndex = 0;
     private void LoadNextWires()
     {
-        if(WiresIndex == 0) //tutos
+        if (WiresIndex == 0) //tutos
         {
             PhotonNetwork.LoadLevel(Scenes["Wires"]);
             Invoke("LoadWires", 0.5f);
             WiresIndex++;
         }
-        else if(WiresIndex < 2)
+        else if (WiresIndex < 2)
         {
             PhotonNetwork.LoadLevel(Scenes["Wires"]);
             WiresIndex++;
@@ -501,7 +502,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void GoBackToOneLevel()
     {
         //remove one level from the scene exited preventing skipping levels
-        if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex-1 : CrateIndex;
+        if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex - 1 : CrateIndex;
         else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
         else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
         else if (sceneName == Scenes["Wires"]) WiresIndex = WiresIndex > 0 ? WiresIndex - 1 : WiresIndex;
