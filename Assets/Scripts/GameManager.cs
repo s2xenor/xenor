@@ -128,11 +128,19 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Alpha2))
             {
-                LoadNextArrows();
+                Debug.Log(ArrowIndex);
+                GoBackToOneLevel(Scenes["Arrows"]);
+                Debug.Log(ArrowIndex);
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextArrows", 0.5f);
+                Debug.Log(ArrowIndex);
+
             }
             else if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha3))
             {
-                LoadNextCrate();
+                GoBackToOneLevel(Scenes["Crate"]);
+                PhotonNetwork.LoadLevel("Loading");   //load scene load
+                Invoke("LoadNextCrate", 0.5f);
             }
             else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Alpha4))
             {
@@ -499,14 +507,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    private void GoBackToOneLevel()
+    private void GoBackToOneLevel(string scene = "")
     {
+        string testScene = scene == "" ? sceneName : scene; 
         //remove one level from the scene exited preventing skipping levels
-        if (sceneName == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex - 1 : CrateIndex;
-        else if (sceneName == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
-        else if (sceneName == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
-        else if (sceneName == Scenes["Wires"]) WiresIndex = WiresIndex > 0 ? WiresIndex - 1 : WiresIndex;
-        else if (sceneName == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1 : LabyInviIndex;
+        if (testScene == Scenes["Crate"]) CrateIndex = CrateIndex > 0 ? CrateIndex - 1 : CrateIndex;
+        else if (testScene == Scenes["Pipe"]) PipeIndex = PipeIndex > 0 ? PipeIndex - 1 : PipeIndex;
+        else if (testScene == Scenes["Arrows"]) ArrowIndex = ArrowIndex > 0 ? ArrowIndex - 1 : ArrowIndex;
+        else if (testScene == Scenes["Wires"]) WiresIndex = WiresIndex > 0 ? WiresIndex - 1 : WiresIndex;
+        else if (testScene == Scenes["LabyInvisible"]) LabyInviIndex = LabyInviIndex > 0 ? LabyInviIndex - 1 : LabyInviIndex;
     }
 
     public void GoBackToLobby()
