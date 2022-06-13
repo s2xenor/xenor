@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 GoBackToOneLevel(Scenes["LabyInvisible"]);
                 PhotonNetwork.LoadLevel("Loading");   //load scene load
-                Invoke("LoadNextLaby", 0.5f);
+                Invoke("LoadNextLabyInvi", 0.5f);
             }
             else if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Alpha6))
             {
