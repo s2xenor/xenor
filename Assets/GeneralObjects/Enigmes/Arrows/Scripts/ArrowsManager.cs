@@ -108,6 +108,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             }
 
             drawLaby();
+            photonView.RPC("DelLoad", RpcTarget.All);
         }
     }
 
@@ -132,7 +133,6 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
             shouldStart = false;
             StartGeneration();
 
-            photonView.RPC("DelLoad", RpcTarget.All);
         }
 
         if (PhotonNetwork.IsMasterClient)
@@ -550,9 +550,9 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
     void DelLoad()
     {
         // Delete loading screen
-        GameObject go = GameObject.FindGameObjectWithTag("Loading");
-        if (go != null && GameObject.FindGameObjectsWithTag("Player").Length == 2)
-            go.GetComponent<FetchCam>().Del();
+        GameObject[] go = GameObject.FindGameObjectsWithTag("Loading");
+        if (go.Length != 0 && GameObject.FindGameObjectsWithTag("Player").Length == 2)
+            foreach (var item in go) item.GetComponent<FetchCam>().Del();
     }
 
 }
