@@ -69,9 +69,14 @@ public class FinalScene : MonoBehaviourPunCallbacks
         if (userPlayer1 != null && userPlayer2 != null)
         {
             if (score < 0) score = 0;
-            //StartCoroutine(MakeRequests());
-            Invoke("Finished", 0.5f);
+            StartCoroutine(MakeRequests());
+            Invoke("Finished2", 0.5f);
         }
+    }
+
+    public void Finished2()
+    {
+        Finished();
     }
 
     [PunRPC]

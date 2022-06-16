@@ -26,22 +26,25 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/GeneralObjects/Enigmes/ConnectTheProduitsChimiques/Scenes/ConnectTheProduitsChimiquesScene.unity
     guid: 14f9c5d4be2978047aebb214b4b261ea
-  - enabled: 0
+  - enabled: 1
     path: Assets/GeneralObjects/Enigmes/CrateLabyrinth/Scenes/CrateLabyrinthScene.unity
     guid: 27d2d8aab7e27cd4ebe795258bc07fc2
+  - enabled: 0
+    path: Assets/GeneralObjects/Enigmes/Donjon/Scenes/Donjon.unity
+    guid: cef596fcd216291478dd8c66832552d5
   - enabled: 1
     path: Assets/Scenes/FinalScene.unity
     guid: 6019098d1a1495945baf872fd98870fb
-  - enabled: 0
+  - enabled: 1
     path: Assets/TestScenes/LabyInv.unity
     guid: cedf4899de698514f96aca872deca142
   - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 8dbee02b5fdbcff4d8c27f39fab7b48f
-  - enabled: 0
+  - enabled: 1
     path: Assets/GeneralObjects/Enigmes/Arrows/Scenes/ArrowScene.unity
     guid: 57aec45c743824849a2890571a01edc0
-  - enabled: 0
+  - enabled: 1
     path: Assets/GeneralObjects/Enigmes/Wires/Scenes/WiresScene.unity
     guid: f773c410ed6d8074d891b1fb509db5da
   - enabled: 0
