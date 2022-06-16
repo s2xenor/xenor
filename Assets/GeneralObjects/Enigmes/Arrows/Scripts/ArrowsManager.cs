@@ -429,7 +429,7 @@ public class ArrowsManager : MonoBehaviourPunCallbacks
                 tmp = PhotonNetwork.Instantiate(prefabsR[22].name, new Vector3(startX + i * 0.32f + 0.1f, startY + 4 * 0.32f - 0.32f), Quaternion.identity);//door top
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
-            else if(i == x-2 || i == x - 6)
+            if(i == x-2 || i == x - 6)
             {
                 tmp = PhotonNetwork.Instantiate(prefabsR[21].name, new Vector3(startX + i * 0.32f + 0.1f, startY - ((x + 6) - 3) * 0.32f - 0.32f), Quaternion.identity);//door bottom
                 tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;

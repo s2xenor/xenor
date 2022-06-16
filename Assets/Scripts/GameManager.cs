@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 GoBackToOneLevel(Scenes["LabyInvisible"]);
                 PhotonNetwork.LoadLevel("Loading");   //load scene load
-                Invoke("LoadNextLaby", 0.5f);
+                Invoke("LoadNextLabyInvi", 0.5f);
             }
             else if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Alpha6))
             {
@@ -567,12 +567,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameObject.FindGameObjectWithTag("Manager").GetComponent<MainRoomManager>().StartInitMonster();
                 break;
             case 1:
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<DialogueTriggerG>().filePath = "Dialogs/endlabybox";
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<DialogueTriggerG>().triggerOnload = true;
+
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<MainRoomManager>().StartDialogue("Dialogs/endlabybox");
                 break;
             case 2:
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<DialogueTriggerG>().filePath = "Dialogs/sortiedonjon";
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<DialogueTriggerG>().triggerOnload = true;
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<MainRoomManager>().StartDialogue("Dialogs/sortiedonjon");
                 break;
             default:
                 break;
