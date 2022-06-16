@@ -315,7 +315,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else if (sceneName == Scenes["FinalScene"])
         {
-            //todo
+            PhotonNetwork.LeaveRoom();
+            SceneManager.LoadScene("AlteraVitaMenu");
         }
         else if (sceneName == Scenes["MainRoom"])
         {

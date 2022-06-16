@@ -8,6 +8,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class FinalScene : MonoBehaviourPunCallbacks
 {
@@ -68,7 +69,23 @@ public class FinalScene : MonoBehaviourPunCallbacks
         if (userPlayer1 != null && userPlayer2 != null)
         {
             if (score < 0) score = 0;
-            StartCoroutine(MakeRequests());
+            //StartCoroutine(MakeRequests());
+            Invoke("Finished", 0.5f);
+        }
+    }
+
+    [PunRPC]
+    public void Finished(bool local = false)
+    {
+        if (local)
+        {
+            PhotonNetwork.LeaveRoom();
+            SceneManager.LoadScene("AlteraVitaMenu");
+        }
+        else
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("Finished", RpcTarget.All, true);
         }
     }
 
