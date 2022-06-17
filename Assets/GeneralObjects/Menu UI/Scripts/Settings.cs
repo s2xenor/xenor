@@ -54,4 +54,10 @@ public class Settings : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().ContinueGame();
     }
+
+    public void GoToMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("AlteraVitaMenu");
+    }
 }

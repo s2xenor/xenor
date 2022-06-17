@@ -46,4 +46,9 @@ public class DialogueTriggerG : MonoBehaviourPunCallbacks
         
     }
 
+    public bool IsDialogueFinished()
+    {
+        return FindObjectOfType<DialogueManagerG>().IsDialogueFinished();
+    }
+
 }

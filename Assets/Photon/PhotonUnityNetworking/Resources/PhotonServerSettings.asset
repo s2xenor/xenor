@@ -84,6 +84,8 @@ MonoBehaviour:
   - SetOwner
   - Reduce2Start
   - Reduce4
+  - Finished
+  - StartInitMonster
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
