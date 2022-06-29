@@ -94,7 +94,7 @@ public class DialogueManagerG : MonoBehaviour
 		dialogueTrigger.TriggerDialogue();
 	}
 
-	public bool IsDialodFinished()
+	public bool IsDialogueFinished()
 	{
 		return sentences.Count == 0;
 	}

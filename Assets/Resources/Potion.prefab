@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 3044617681238093357, guid: 5ec1114932f77b44d8699b9fa2581341, type: 3}
   nb: 2
   random: 0
+  spawnAtStart: 1
 --- !u!114 &-2625081745612459283
 MonoBehaviour:
   m_ObjectHideFlags: 0

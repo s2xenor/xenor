@@ -312,10 +312,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             TimestampStart = (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+            Invoke("StartDialogue", 0.5f);
         }
         else if (sceneName == Scenes["FinalScene"])
         {
-            //todo
+            PhotonNetwork.LeaveRoom();
+            SceneManager.LoadScene("AlteraVitaMenu");
         }
         else if (sceneName == Scenes["MainRoom"])
         {
@@ -355,6 +357,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 LevelsCompleted["Donjon"] = true;
                 PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+                dialogueNumber = 2;
+                Invoke("StartDialogue", 0.5f);
             }
         }
     }
@@ -416,6 +420,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             LevelsCompleted["Crate"] = true;
             CrateIndex = 5; //skip tutos
             PhotonNetwork.LoadLevel(Scenes["MainRoom"]);
+
+            dialogueNumber = 1;
+            Invoke("StartDialogue", 0.5f);
         }
     }
 
@@ -547,4 +554,28 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         return score;
     }
+
+
+    //used to start dialogue in main room based on previous room
+
+    int dialogueNumber = 0;
+    private void StartDialogue()
+    {
+        switch (dialogueNumber)
+        {
+            case 0:
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<MainRoomManager>().StartInitMonster();
+                break;
+            case 1:
+
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<MainRoomManager>().StartDialogue("Dialogs/endlabybox");
+                break;
+            case 2:
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<MainRoomManager>().StartDialogue("Dialogs/sortiedonjon");
+                break;
+            default:
+                break;
+        }
+    }
+
 }
