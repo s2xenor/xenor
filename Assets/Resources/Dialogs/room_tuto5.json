@@ -1,16 +1,16 @@
 {
     "name" : "Clothilde",
     "sentences" : [
-        "Les trucs rouges au sols c'est des tabourets.",
-        "Ne vous moquez pas c'est pratique pour les gens petits comme moi...",
-        "Ils sont fixés au sols et permettent aux personnes de petite taille de monter dessus pour trouvez la boite qu'ils recherchent...",
-        "Vous ne pouvez pas pousser une boîte dessus mais vous vous pouvez monter dessus !"
+        "Oh j'adore ça ! ",
+        "Des bennes à boites !",
+        "C'est tellement satisfaisant de nettoyer ces salles de leur bazard !",
+        "Si vous pousser des boites dedans, elles seront compressées au fond de la benne."
     ],
     "audioName" : [
-        "5boite1",
-        "5boite2",
-        "5boite3",
-        "5boite4"
+        "4boite1",
+        "4boite2",
+        "4boite3",
+        "4boite4"
     ],
     "nextDialogPath" : ""
 }
